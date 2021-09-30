@@ -1,0 +1,99 @@
+$mediaSizeDesktop: 1200px;
+$mediaSizeLaptop: 1000px;
+$mediaSizeTablet: 800px;
+$mediaSizeMobile: 420px;
+
+$containerWidth: 1200px;
+$headerPadding: 18px;
+
+$textColor: #1F2041;
+$textColor75: rgba($textColor, 0.75);
+$textColor50: rgba($textColor, 0.50);
+$textColor25: rgba($textColor, 0.25);
+$textColor10: rgba($textColor, 0.10);
+$textColor05: rgba($textColor, 0.05);
+
+$primaryColor: #BC9CFF;
+$secondaryColor: #6FCF97;
+$complementaryColor: #66D2EA;
+
+$primaryShadow: 0px 10px 20px $textColor05;
+$cardShadow: 0px 0px 25px $textColor25;
+
+$primaryGradient: linear-gradient(to top, #8BA4F9, $primaryColor);
+$primaryGradientTranslucent: linear-gradient(to top, rgba(#8BA4F9, .5), rgba($primaryColor, .5));
+$secondaryGradient: linear-gradient(to top, $complementaryColor, $secondaryColor);
+
+$primaryFont: 'Montserrat', 'Arial', 'sans-serif';
+
+@mixin container() {
+  max-width: $containerWidth;
+  width: 100%;
+  padding: 0 20px;
+  margin: 0 auto;
+}
+
+@mixin h1() {
+  margin-top: 0;
+  margin-bottom: 0;
+  font-family: $primaryFont;
+  font-weight: bold;
+  font-size: 24px;
+  line-height: 29.6px;
+  letter-spacing: 0;
+}
+
+@mixin h2() {
+  margin-top: 0;
+  margin-bottom: 0;
+  font-family: $primaryFont;
+  font-weight: bold;
+  font-size: 20px;
+  letter-spacing: -0.6px;
+}
+
+@mixin h3() {
+  margin-top: 0;
+  margin-bottom: 0;
+  display: inline-block;
+  text-transform: uppercase;
+  font-size: 12px;
+  font-weight: bold;
+  letter-spacing: 0px;
+}
+
+@mixin paragraph() {
+  margin-top: 0;
+  margin-bottom: 0;
+  color: $textColor75;
+  line-height: 23.2px;
+}
+
+@mixin link() {
+  text-decoration: none;
+  color: inherit;
+}
+
+@mixin input {
+  width: 100%;
+  font-size: 13.6px;
+  border: 1px solid $textColor25;
+  border-radius: 5px;
+  padding: 13px;
+  font-family: $primaryFont;
+  letter-spacing: 0.2px;
+  color: $textColor75;
+
+  &::placeholder {
+    color: $textColor25;
+  }
+
+  &:hover, &:focus, &.hover-focus {
+    border-color: $textColor50;
+  }
+
+  &:focus {
+    outline: none;
+    border-color: $textColor50;
+  }
+}

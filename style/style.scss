@@ -1,3 +1,24 @@
+@import './fonts.scss';
+@import './variables.scss';
+
 * {
   box-sizing: border-box;
+}
+
+html {
+  max-width: 1920px;
+  min-width: 320px;
+  margin: 0 auto;
+}
+
+body {
+  min-height: 100vh;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  font-family: $primaryFont;
+  font-weight: normal;
+  font-size: 13.6px;
+  letter-spacing: 0.18px;
+  color: $textColor;
 }
