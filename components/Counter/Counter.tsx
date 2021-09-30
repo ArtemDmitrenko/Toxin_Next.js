@@ -1,7 +1,8 @@
 import { RootStateOrAny, useDispatch, useSelector } from 'react-redux';
 
-import { counterDecrement, counterIncrement } from '../../redux/actions/testActions';
-import Header from '../Header/Header';
+import { counterDecrement, counterIncrement } from 'Root/redux/actions/testActions';
+import Header from 'Components/Header/Header';
+
 import styles from './counter.module.scss';
 
 const Counter = () => {

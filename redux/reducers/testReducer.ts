@@ -1,5 +1,6 @@
 import { AnyAction } from 'redux';
-import { COUNTER_DECREMENT, COUNTER_INCREMENT } from '../actions/testActions';
+
+import { COUNTER_DECREMENT, COUNTER_INCREMENT } from 'Root/redux/actions/testActions';
 
 const testReducer = (state = { value: 0 }, action: AnyAction) => {
   switch (action.type) {

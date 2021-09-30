@@ -1,4 +1,5 @@
-import Counter from '../Counter/Counter';
+import Counter from 'Components/Counter/Counter';
+
 import styles from './homePage.module.scss';
 
 const HomePage = () => (

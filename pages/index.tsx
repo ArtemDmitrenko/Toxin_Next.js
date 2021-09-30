@@ -1,4 +1,4 @@
-import HomePage from '../components/HomePage/HomePage';
+import HomePage from 'Root/components/HomePage/HomePage';
 
 const Index = () => <HomePage />;
 
