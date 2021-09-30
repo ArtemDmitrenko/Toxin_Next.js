@@ -1,0 +1,20 @@
+.root {
+  padding: 5px;
+}
+
+.button {
+  margin-right: 10px;
+  font-size: 20px;
+  background-color: #fff;
+  border: 2px solid #ccc;
+  border-radius: 5px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #ccc;
+  }
+}
+
+.counter {
+  margin: 5px 0;
+}
