@@ -12,10 +12,10 @@ const Counter = () => {
     <div className={styles.root}>
       <Header content="Test counter" />
       <h1 className={styles.counter}>{count}</h1>
-      <button className={styles.button} onClick={() => dispatch(counterDecrement())}> - </button>
-      <button className={styles.button} onClick={() => dispatch(counterIncrement())}> + </button>
+      <button type="button" className={styles.button} onClick={() => dispatch(counterDecrement())}> - </button>
+      <button type="button" className={styles.button} onClick={() => dispatch(counterIncrement())}> + </button>
     </div>
-  )
+  );
 };
 
 export default Counter;
