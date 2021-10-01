@@ -5,7 +5,7 @@ import styles from './homePage.module.scss';
 
 const HomePage = () => (
   <div className={styles.root}>
-    <Logo size={{ width: '106px', height: '40px' }} />
+    <Logo size={{ width: 106, height: 40 }} />
     <Counter />
   </div>
 );
