@@ -6,20 +6,22 @@ import logo from './img/logo.svg';
 type LogoProps = {
   width: number,
   height: number,
+  alt: string,
 };
 
 const Logo = (props: LogoProps) => {
-  const { width, height } = props;
+  const { width, height, alt } = props;
 
   return (
     <div>
       <Link href="/" passHref>
-        <a href="replace">
+        <a href="replace" tabIndex={0}>
           <Image
             src={logo}
             width={width}
             height={height}
-            aria-label="Toxin logo"
+            alt={alt}
+            aria-label={alt}
           />
         </a>
       </Link>

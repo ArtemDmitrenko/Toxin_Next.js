@@ -5,7 +5,7 @@ import styles from './homePage.module.scss';
 
 const HomePage = () => (
   <div className={styles.root}>
-    <Logo width={106} height={40} />
+    <Logo width={106} height={40} alt="Toxin hotel logo" />
     <Counter />
   </div>
 );
