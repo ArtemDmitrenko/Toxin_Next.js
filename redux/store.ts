@@ -1,11 +1,11 @@
-import { applyMiddleware, createStore } from 'redux';
-import { composeWithDevTools } from 'redux-devtools-extension/developmentOnly';
-import thunk from 'redux-thunk';
+import { createStore } from 'redux';
+import { createWrapper } from 'next-redux-wrapper';
+import { devToolsEnhancer } from 'redux-devtools-extension/developmentOnly';
 
 import { reducer } from './testCounter/reducer';
 
-const middlewares = [thunk];
+const makeStore = () => createStore(reducer, devToolsEnhancer({}));
 
-const store = createStore(reducer, composeWithDevTools(applyMiddleware(...middlewares)));
+const store = createWrapper(makeStore, { debug: false });
 
 export default store;
