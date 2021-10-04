@@ -1,13 +1,13 @@
 import { RootStateOrAny, useDispatch, useSelector } from 'react-redux';
 
-import { counterDecrement, counterIncrement } from 'Root/redux/actions/testActions';
+import { counterDecrement, counterIncrement } from 'Root/redux/testCounter/actions';
 import Header from 'Components/Header/Header';
 
 import styles from './counter.module.scss';
 
 const Counter = () => {
   const dispatch = useDispatch();
-  const count = useSelector((state: RootStateOrAny) => state.test.value);
+  const count = useSelector((state: RootStateOrAny) => state.value);
 
   return (
     <div className={styles.root}>
