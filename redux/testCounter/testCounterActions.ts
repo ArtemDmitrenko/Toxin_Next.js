@@ -1,10 +1,9 @@
-export const COUNTER_INCREMENT = 'COUNTER_INCREMENT';
-export const COUNTER_DECREMENT = 'COUNTER_DECREMENT';
+import TestCounterActionTypes from './testCounterActionsTypes';
 
-export const counterIncrement = () => ({
-  type: COUNTER_INCREMENT,
+export const counterIncrement = () => (<const>{
+  type: TestCounterActionTypes.COUNTER_INCREMENT,
 });
 
-export const counterDecrement = () => ({
-  type: COUNTER_DECREMENT,
+export const counterDecrement = () => (<const>{
+  type: TestCounterActionTypes.COUNTER_DECREMENT,
 });

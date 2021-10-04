@@ -1,17 +1,20 @@
-import { AnyAction } from 'redux';
+import TestCounterActionTypes from 'Root/redux/testCounter/testCounterActionsTypes';
+import { InferValueTypes } from 'Root/redux/utils';
 
-import { COUNTER_DECREMENT, COUNTER_INCREMENT } from 'Root/redux/testCounter/testCounterActions';
+import * as actions from './testCounterActions';
 
 interface TestCounterState {
   value: number,
 }
 
-const testCounterReducer = (state: TestCounterState = { value: 0 }, action: AnyAction) => {
+type TestCounterAction = ReturnType<InferValueTypes<typeof actions>>;
+
+const testCounterReducer = (state: TestCounterState = { value: 0 }, action: TestCounterAction) => {
   switch (action.type) {
-    case COUNTER_INCREMENT:
+    case TestCounterActionTypes.COUNTER_INCREMENT:
       return { ...state, value: state.value + 1 };
 
-    case COUNTER_DECREMENT:
+    case TestCounterActionTypes.COUNTER_DECREMENT:
       return { ...state, value: state.value - 1 };
 
     default:
@@ -19,5 +22,5 @@ const testCounterReducer = (state: TestCounterState = { value: 0 }, action: AnyA
   }
 };
 
-export { testCounterReducer };
 export type { TestCounterState };
+export { testCounterReducer };
