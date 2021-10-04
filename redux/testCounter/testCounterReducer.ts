@@ -1,12 +1,12 @@
 import { AnyAction } from 'redux';
 
-import { COUNTER_DECREMENT, COUNTER_INCREMENT } from 'Root/redux/testCounter/actions';
+import { COUNTER_DECREMENT, COUNTER_INCREMENT } from 'Root/redux/testCounter/testCounterActions';
 
-interface State {
+interface TestCounterState {
   value: number,
 }
 
-const reducer = (state: State = { value: 0 }, action: AnyAction) => {
+const testCounterReducer = (state: TestCounterState = { value: 0 }, action: AnyAction) => {
   switch (action.type) {
     case COUNTER_INCREMENT:
       return { ...state, value: state.value + 1 };
@@ -19,5 +19,5 @@ const reducer = (state: State = { value: 0 }, action: AnyAction) => {
   }
 };
 
-export { reducer };
-export type { State };
+export { testCounterReducer };
+export type { TestCounterState };
