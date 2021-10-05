@@ -1,16 +1,12 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import { Provider } from 'react-redux';
+import { FC } from 'react';
 import type { AppProps } from 'next/app';
 
-import store from '../redux/store';
+import { wrapper } from '../redux/store';
 import '../style/style.scss';
 
-function MyApp({ Component, pageProps }: AppProps) {
-  return (
-    <Provider store={store}>
-      <Component {...pageProps} />
-    </Provider>
-  );
-}
+const WrappedApp: FC<AppProps> = ({ Component, pageProps }) => (
+  <Component {...pageProps} />
+);
 
-export default MyApp;
+export default wrapper.withRedux(WrappedApp);
