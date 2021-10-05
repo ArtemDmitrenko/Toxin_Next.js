@@ -1,12 +1,9 @@
 {
   "extends": [
     "airbnb",
-    "airbnb-typescript"
+    "airbnb-typescript",
+    "plugin:react/jsx-runtime"
   ],
-  "rules": {
-    "react/jsx-uses-react": "off",
-    "react/react-in-jsx-scope": "off"
-  },
   "parserOptions": {
     "project": "./tsconfig.eslint.json"
   }

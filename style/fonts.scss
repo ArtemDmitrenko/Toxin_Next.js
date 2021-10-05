@@ -1,28 +1,5 @@
-@font-face {
-  font-family: 'Montserrat';
-  src:local('Montserrat Bold'), local('Montserrat-Bold'),
-    url('/fonts/montserrat-bold/montserrat-bold.woff2') format('woff2'),
-    url('/fonts/montserrat-bold/montserrat-bold.woff') format('woff');
-  font-weight : bold;
-  font-style  : normal;
-}
+@include font-face('Montserrat', '/fonts/montserrat-bold/montserrat-bold', 'Bold', bold, normal);
 
-@font-face {
-  font-family: 'Montserrat';
-  src:local('Montserrat Regular'), local('Montserrat-Regular'),
-    url('/fonts/montserrat-regular/montserrat-regular.woff2') format('woff2'),
-    url('/fonts/montserrat-regular/montserrat-regular.woff') format('woff');
-  font-weight : normal;
-  font-style  : normal;
-}
+@include font-face('Montserrat', '/fonts/montserrat-regular/montserrat-regular', 'Regural', normal, normal);
 
-@font-face {
-  font-family: 'Material Icons';
-  src: local('Material Icons'),
-    url('/fonts/material-icons/material-icons-regular.woff2') format('woff2'),
-    url('/fonts/material-icons/material-icons-regular.woff') format('woff');
-  font-weight : normal;
-  font-style  : normal;
-  unicode-range: e5cf, e5ce, e5c8, e5c4, e7f2, e7f3, e7f1, e80e, e87d, e87e,
-    e5c8, e838, e83a;
-}
+@include font-face('Material Icons', '/fonts/material-icons/material-icons-regular', 'Regular', normal, normal);
