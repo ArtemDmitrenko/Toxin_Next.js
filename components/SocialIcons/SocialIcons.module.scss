@@ -1,0 +1,14 @@
+@import '../../style/variables.scss';
+.buttons {
+  display: flex;
+  justify-content: space-between;
+  width: 112px;
+  
+  list-style: none;
+
+  padding: 0;
+  margin: 0;
+}
+.link {
+  cursor: pointer;
+}
