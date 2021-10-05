@@ -1,0 +1,54 @@
+@import "Root/style/variables.scss";
+
+.reference {
+  @include h3;
+  position: relative;
+  padding-right: 20px;
+  padding-left: 20px;
+  text-decoration: none;
+  background-color: #fff;
+  cursor: pointer;
+  transition: opacity 0.4s ease;
+}
+
+.solid {
+  color: #fff;
+  background: linear-gradient(to bottom, $primaryColor, #8ba4f9);
+  border-radius: 22px;
+
+  &:hover {
+    opacity: 0.5;
+    transition: opacity 0.4s ease;
+  }
+}
+
+.bordered {
+  color: $primaryColor;
+  border-radius: 26px;
+
+  &::before {
+    position: absolute;
+    top: -2px;
+    right: -2px;
+    bottom: -2px;
+    left: -2px;
+    z-index: -1;
+    background: linear-gradient(to bottom, $primaryColor, #8ba4f9);
+    border-radius: 26px;
+    content: '';
+  }
+
+  &:hover::before {
+    opacity: 0.5;
+  }
+}
+
+.big {
+  padding-top: 12px;
+  padding-bottom: 12px;
+}
+
+.small {
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
