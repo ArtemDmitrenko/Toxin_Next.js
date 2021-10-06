@@ -16,7 +16,6 @@ type FormApi = {
 
 const Subscribe = () => {
   const dispatch = useAppDispatch();
-  const { container, field, buttonArrow } = styles;
 
   const onSubmit = (values: FormValues, form: FormApi) => {
     const { email } = values;
@@ -31,15 +30,15 @@ const Subscribe = () => {
     <Form onSubmit={onSubmit}>
       {({ handleSubmit }) => (
         <form onSubmit={handleSubmit}>
-          <div className={container}>
+          <div className={styles.container}>
             <Field
-              className={field}
+              className={styles.field}
               name="email"
               component="input"
               placeholder="Email"
             />
             <button
-              className={buttonArrow}
+              className={styles.buttonArrow}
               type="submit"
               name="subscribe"
               aria-label="button for submitting a subscription form"
