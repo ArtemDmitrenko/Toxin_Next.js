@@ -3,9 +3,9 @@ import InferValueTypes from 'redux/utils';
 
 import * as actions from './testCounterActions';
 
-interface TestCounterState {
+type TestCounterState = {
   value: number,
-}
+};
 
 type TestCounterAction = ReturnType<InferValueTypes<typeof actions>>;
 

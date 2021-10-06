@@ -1,11 +1,10 @@
 @import '/style/variables';
 
 .guestsDropdown {
+  position: relative;
+  z-index: 0;
   max-width: 326px;
-  border: 1px solid $textColor25;
-  border-radius: 5px;
   font-size: 12px;
-  overflow: hidden;
   user-select: none;
 }
 
@@ -42,25 +41,38 @@
 .input {
   @include input();
 
-  border: none;
   padding-right: 40px;
   text-overflow: ellipsis;
   cursor: pointer;
+  transition:
+    border-radius 0s linear 0.3s,
+    border-color 0s linear 0.3s;
 
   &Active {
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
-    border-bottom: 1px solid $textColor25;
+    transition: border-radius 0s linear 0s;
+  }
+}
+
+.menuWrapper {
+  position: absolute;
+  top: 100%;
+  width: 100%;
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height 0.3s ease-in-out;
+
+  &Active {
+    max-height: 300px;
   }
 }
 
 .menu {
-  max-height: 0;
-  transition: max-height 0.3s ease-in-out;
-  
-  &Active {
-    max-height: 300px;
-  }
+  border: 1px solid $textColor50;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  border-top: none;
 }
 
 .list {

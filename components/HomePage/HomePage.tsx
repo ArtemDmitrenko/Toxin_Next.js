@@ -6,14 +6,17 @@ const HomePage = () => {
   const guestsDropdownConfig: GuestsDropdownConfig = [
     {
       title: 'Взрослые',
+      group: 'guests',
       wordforms: ['гость', 'гостя', 'гостей'],
     },
     {
       title: 'Дети',
+      group: 'guests',
       wordforms: ['гость', 'гостя', 'гостей'],
     },
     {
       title: 'Младенцы',
+      group: 'babies',
       wordforms: ['младенец', 'младенца', 'младенцев'],
     },
   ];
