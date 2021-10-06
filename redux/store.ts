@@ -18,7 +18,7 @@ if (isDev) {
 
 const wrapper = createWrapper(makeStore, { debug: false });
 
-export const store = configureStore({
+const store = configureStore({
   reducer: rootReducer,
 });
 
@@ -26,4 +26,4 @@ type RootState = ReturnType<typeof store.getState>;
 type AppDispatch = typeof store.dispatch;
 
 export type { RootState, AppDispatch };
-export { wrapper };
+export { wrapper, store };

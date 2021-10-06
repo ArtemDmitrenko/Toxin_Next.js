@@ -1,4 +1,4 @@
-import { InferValueTypes } from 'redux/utils';
+import InferValueTypes from 'redux/utils';
 
 import GuestsDropdownActionsTypes from './guestsDropdownActionsTypes';
 import * as actions from './guestsDropdownActions';
