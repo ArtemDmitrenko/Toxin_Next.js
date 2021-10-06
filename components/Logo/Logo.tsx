@@ -9,24 +9,20 @@ type LogoProps = {
   alt: string,
 };
 
-const Logo = (props: LogoProps) => {
-  const { width, height, alt } = props;
-
-  return (
-    <div>
-      <Link href="/" passHref>
-        <a href="replace" tabIndex={0}>
-          <Image
-            src={logo}
-            width={width}
-            height={height}
-            alt={alt}
-            aria-label={alt}
-          />
-        </a>
-      </Link>
-    </div>
-  );
-};
+const Logo = ({ width, height, alt }: LogoProps) => (
+  <div>
+    <Link href="/" passHref>
+      <a href="replace" tabIndex={0}>
+        <Image
+          src={logo}
+          width={width}
+          height={height}
+          alt={alt}
+          aria-label={alt}
+        />
+      </a>
+    </Link>
+  </div>
+);
 
 export default Logo;
