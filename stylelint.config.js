@@ -5,6 +5,7 @@ module.exports = {
   ],
   plugins: ['stylelint-order', 'stylelint-scss'],
   rules: {
+    'string-quotes': 'single',
     'at-rule-no-unknown': [
       true,
       {

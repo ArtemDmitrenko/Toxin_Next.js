@@ -7,14 +7,8 @@ const HomePage = () => (
   <div className={styles.root}>
     <Counter />
     <Reference text="Зарегистрироваться" type="solid" size="small" />
-    <br />
-    <br />
     <Reference text="Зарегистрироваться" type="solid" size="big" />
-    <br />
-    <br />
     <Reference text="click me" type="bordered" size="small" />
-    <br />
-    <br />
     <Reference text="click me" type="bordered" size="big" />
   </div>
 );
