@@ -1,4 +1,4 @@
-@import '../../style/variables.scss';
+@import 'style/variables.scss';
 
 .copyright {
   background-color: white;
@@ -15,30 +15,27 @@
 
 .content {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   flex-direction: column;
   align-items: center;
   min-width: 280px;
   min-height: 90px;
 
-  padding-bottom: 10px;
   margin-left: auto;
   margin-right: auto;
 
   @media (min-width: 720px) {
+    justify-content: space-between;
     flex-direction: row;
-    min-height: 80px;
+    min-height: 70px;
   }
 
   @media (min-width: 1200px) {
     width: 1160px;
   }
 }
+
 .text {
-  font-family: 'Montserrat', Arial, sans-serif;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 14px;
   line-height: 17px;
   color: $textColor75;
   text-align: center;

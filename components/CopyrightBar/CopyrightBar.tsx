@@ -1,18 +1,20 @@
-import styles from 'components/CopyrightBar/CopyrightBar.module.scss';
-import SocialIcons from '../SocialIcons/SocialIcons';
+import SocialIcons from 'components/SocialIcons/SocialIcons';
+
 import facebook from './img/facebook.svg';
 import instagram from './img/instagram.svg';
 import twitter from './img/twitter.svg';
 
+import styles from './CopyrightBar.module.scss';
+
 const buttons = [
   {
-    name: 'twitter', href: '/', src: twitter, width: 24, height: 24,
+    id: 1, name: 'twitter', href: '/', src: twitter, width: 24, height: 24,
   },
   {
-    name: 'facebook', href: '/', src: facebook, width: 22, height: 22,
+    id: 2, name: 'facebook', href: '/', src: facebook, width: 22, height: 22,
   },
   {
-    name: 'instagram', href: '/', src: instagram, width: 22, height: 22,
+    id: 3, name: 'instagram', href: '/', src: instagram, width: 22, height: 22,
   },
 ];
 
@@ -20,7 +22,7 @@ type CopyrightBarProps = {
   text: string
 };
 
-export default function CopyrightBar(props: CopyrightBarProps) {
+const CopyrightBar = (props: CopyrightBarProps) => {
   const { text } = props;
   return (
     <div className={styles.copyright}>
@@ -30,4 +32,6 @@ export default function CopyrightBar(props: CopyrightBarProps) {
       </div>
     </div>
   );
-}
+};
+
+export default CopyrightBar;
