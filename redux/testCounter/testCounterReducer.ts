@@ -1,5 +1,5 @@
-import TestCounterActionTypes from 'redux/testCounter/testCounterActionsTypes';
-import InferValueTypes from 'redux/utils';
+import TestCounterActionTypes from 'Root/redux/testCounter/testCounterActionsTypes';
+import InferValueTypes from 'Root/redux/utils';
 
 import * as actions from './testCounterActions';
 

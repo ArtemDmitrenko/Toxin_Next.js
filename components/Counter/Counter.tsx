@@ -1,6 +1,6 @@
-import { counterDecrement, counterIncrement } from 'redux/testCounter/testCounterActions';
-import { useAppDispatch, useAppSelector } from 'redux/hooks';
-import Header from 'components/Header/Header';
+import { counterDecrement, counterIncrement } from 'Root/redux/testCounter/testCounterActions';
+import { useAppDispatch, useAppSelector } from 'Root/redux/hooks';
+import Header from 'Components/Header/Header';
 
 import styles from './counter.module.scss';
 

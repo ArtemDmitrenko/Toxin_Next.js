@@ -1,4 +1,4 @@
-import GuestsDroprown, { GuestsDropdownConfig } from 'components/GuestsDropdown/GuestsDropdown';
+import GuestsDroprown, { GuestsDropdownConfig } from 'Components/GuestsDropdown/GuestsDropdown';
 
 import styles from './homePage.module.scss';
 
