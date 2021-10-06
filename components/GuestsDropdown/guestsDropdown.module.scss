@@ -1,0 +1,138 @@
+@import '/style/variables';
+
+.guestsDropdown {
+  max-width: 326px;
+  border: 1px solid $textColor25;
+  border-radius: 5px;
+  font-size: 12px;
+  overflow: hidden;
+  user-select: none;
+}
+
+.output {
+  position: relative;
+  cursor: pointer;
+
+  &::before {
+    $side: 7px;
+    position: absolute;
+    content: '';
+    top: 50%;
+    right: 18px;
+    height: $side;
+    width: $side;
+    transform: translateY(-70%) rotate(45deg);
+    border: 2px solid $textColor50;
+    border-top: 0;
+    border-left: 0;
+    transition: transform 0.3s ease-in-out;
+  }
+
+  &::placeholder {
+    color: $textColor75;
+  }
+
+  &Active {
+    &::before {
+      transform: translateY(-30%) rotate(-135deg);
+    }
+  }
+}
+
+.input {
+  @include input();
+
+  border: none;
+  padding-right: 40px;
+  text-overflow: ellipsis;
+  cursor: pointer;
+
+  &Active {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    border-bottom: 1px solid $textColor25;
+  }
+}
+
+.menu {
+  max-height: 0;
+  transition: max-height 0.3s ease-in-out;
+  
+  &Active {
+    max-height: 300px;
+  }
+}
+
+.list {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 7px 6px 0 14px;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+.control {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.minus, .plus {
+  height: 30px;
+  width: 30px;
+  border: 1px solid $textColor50;
+  color: $textColor50;
+  border-radius: 50%;
+  font-size: 24px;
+  font-weight: normal;
+  cursor: pointer;
+  text-align: center;
+
+  &Disabled {
+    border: 1px solid $textColor25;
+    color: $textColor25;
+  }
+}
+
+.counter {
+  width: 32px;
+  text-align: center;
+}
+
+.buttons {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  font-weight: bold;
+  padding: 21px 7px 12px 15px;
+  text-transform: uppercase;
+
+  &NonEmpty {
+    justify-content: space-between;
+  }
+}
+
+.button {
+  padding: 0;
+  border: none;
+  font: inherit;
+  text-transform: uppercase;
+  color: inherit;
+  background-color: transparent;
+  cursor: pointer;
+
+  &Apply {
+    color: $primaryColor;
+  }
+
+  &Clear {
+    color: $textColor50;
+  }
+}

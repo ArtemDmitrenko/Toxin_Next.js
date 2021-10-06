@@ -1,5 +1,5 @@
-import TestCounterActionTypes from 'Root/redux/testCounter/testCounterActionsTypes';
-import { InferValueTypes } from 'Root/redux/utils';
+import TestCounterActionTypes from 'redux/testCounter/testCounterActionsTypes';
+import { InferValueTypes } from 'redux/utils';
 
 import * as actions from './testCounterActions';
 
@@ -18,7 +18,7 @@ const testCounterReducer = (state: TestCounterState = { value: 0 }, action: Test
       return { ...state, value: state.value - 1 };
 
     default:
-      return { ...state };
+      return state;
   }
 };
 
