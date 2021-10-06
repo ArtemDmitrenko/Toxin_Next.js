@@ -1,4 +1,4 @@
-@import '../../style/variables.scss';
+@import 'Root/style/variables.scss';
 
 .main {
   background: url(../../public/images/landing-page.png);
@@ -9,19 +9,16 @@
 
 .wrapper {
   display: flex;
-  flex-direction: column;
-  max-width: 1160px;
+  flex-direction: row-reverse;
+  max-width: 1200px;
   margin: 0 auto;
-  padding: 70px 0 21px;
+  padding: 70px 20px 21px;
 }
 
 .slogan {
   @include paragraph;
-  align-self: flex-end;
   width: 300px;
-  margin-top: 628px;
-  padding-right: 20px;
-  padding-left: 20px;
+  margin-top: 690px;
   line-height: 24px;
   text-align: end;
 }
