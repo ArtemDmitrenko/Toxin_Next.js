@@ -10,11 +10,18 @@ type ReferenceProps = {
 
 const Reference = (props: ReferenceProps) => {
   const { text, type, size } = props;
-  const classes = [styles.reference, styles[type], styles[size]];
+  const classes = [styles.reference];
+
+  if (type === 'bordered') classes.push(styles.bordered);
+  else if (type === 'solid') classes.push(styles.solid);
+  if (size === 'big') classes.push(styles.big);
+  else if (size === 'small') classes.push(styles.small);
+
+  const joinedClasses = classes.join(' ');
 
   return (
     <Link href="/" passHref>
-      <a href="replace" className={classes.join(' ')}>
+      <a href="replace" className={joinedClasses}>
         {text}
       </a>
     </Link>
