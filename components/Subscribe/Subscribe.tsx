@@ -1,20 +1,54 @@
-import styles from './subscribe.module.scss';
+import { Form, Field } from 'react-final-form';
 
-type SubscribeProps = {
-  action: string,
+import subscribe from 'Root/redux/subscribe/subscribeActions';
+import { useAppDispatch } from 'Root/redux/hooks';
+
+import styles from './subscribe.module.scss';
+import hasValidateEmail from './utils';
+
+type FormValues = {
+  email: string,
 };
 
-const Subscribe = (props: SubscribeProps) => {
-  const { action } = props;
-  const { container, input, buttonArrow } = styles;
+type FormApi = {
+  reset: () => void,
+};
+
+const Subscribe = () => {
+  const dispatch = useAppDispatch();
+  const { container, field, buttonArrow } = styles;
+
+  const onSubmit = (values: FormValues, form: FormApi) => {
+    const { email } = values;
+
+    if (hasValidateEmail(email)) {
+      dispatch(subscribe(email));
+      form.reset();
+    }
+  };
 
   return (
-    <form method="post" action={action}>
-      <div className={container}>
-        <input className={input} type="email" name="email" placeholder="Email" />
-        <button className={buttonArrow} type="submit" name="subscribe" aria-label="button for submitting a subscription form" />
-      </div>
-    </form>
+    <Form onSubmit={onSubmit}>
+      {({ handleSubmit }) => (
+        <form onSubmit={handleSubmit}>
+          <div className={container}>
+            <Field
+              className={field}
+              name="email"
+              component="input"
+              placeholder="Email"
+            />
+            <button
+              className={buttonArrow}
+              type="submit"
+              name="subscribe"
+              aria-label="button for submitting a subscription form"
+            />
+          </div>
+        </form>
+      )}
+    </Form>
+
   );
 };
 
