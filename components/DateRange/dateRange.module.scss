@@ -1,0 +1,63 @@
+@import 'Root/style/variables.scss';
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  max-width: 320px; //TODO
+  column-gap: 20px;
+
+  @media (max-width: 360px) {
+    column-gap: 10px;
+  }
+}
+
+.wrapper {
+  position: relative;
+  min-width: 137px;
+}
+
+.header {
+  @include h3;
+
+  display: block;
+  padding-bottom: 5px;
+}
+
+.field {
+  @include input;
+
+  padding: 12px;
+  font-size: 14px;
+  border-radius: 4px;
+  cursor: pointer;
+  user-select: none;
+  caret-color: transparent;
+
+  &:hover,
+  &:focus-within {
+    &::placeholder {
+      color: $textColor75;
+    }
+  }
+}
+
+.arrow {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  color: $textColor50;
+  font: 24px/24px 'Material Icons';
+  cursor: pointer;
+}
+
+.arrowDown {
+  &::before {
+    content: '\e5cf';
+  }
+}
+
+.arrowUp {
+  &::before {
+    content: '\e5ce';
+  }
+}
