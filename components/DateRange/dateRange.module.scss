@@ -12,8 +12,14 @@
 }
 
 .wrapper {
-  position: relative;
-  min-width: 137px;
+  display: flex;
+  border: 1px solid $textColor25;
+  border-radius: 4px;
+
+  &:hover,
+  &:focus-within {
+    border-color: $textColor50;
+  }
 }
 
 .header {
@@ -26,9 +32,9 @@
 .field {
   @include input;
 
-  padding: 12px;
+  padding: 12px 0 12px 12px;
   font-size: 14px;
-  border-radius: 4px;
+  border: none;
   cursor: pointer;
   user-select: none;
   caret-color: transparent;
@@ -42,9 +48,7 @@
 }
 
 .arrow {
-  position: absolute;
-  top: 10px;
-  right: 10px;
+  padding: 9px 9px 9px 0;
   color: $textColor50;
   font: 24px/24px 'Material Icons';
   cursor: pointer;
