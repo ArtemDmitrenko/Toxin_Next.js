@@ -14,6 +14,11 @@
   margin: 0 auto;
   padding: 70px 140px 21px;
   height: 100%;
+  
+  @media (max-width: $mediaSizeTablet) {
+    padding-right: 40px;
+    padding-left: 40px;
+  }
 }
 
 .slogan {
