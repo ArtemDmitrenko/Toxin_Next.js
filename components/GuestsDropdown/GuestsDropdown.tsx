@@ -194,17 +194,18 @@ const GuestsDropdown = (props: GuestsDropdownProps) => {
 
   return (
     <div className={styles.guestsDropdown} onFocus={handleOutputFocus} onBlur={handleOutputBlur}>
-      <div className={stylesOutput()}>
+      <div className={stylesOutput()} tabIndex={0} role="menu">
         <input
           type="text"
           className={stylesInput()}
           placeholder="Сколько гостей"
           readOnly
           value={outputGenerate()}
+          tabIndex={-1}
         />
       </div>
       <div className={stylesMenuWrapper()}>
-        <div tabIndex={0} role="menu" className={styles.menu}>
+        <div tabIndex={0} role="menuitem" className={styles.menu}>
           <ul className={styles.list}>
             {Object.entries(dropdown.groups).map(([groupName, group]) => (
               Object.entries(group.items).map(([itemName, item]) => (
