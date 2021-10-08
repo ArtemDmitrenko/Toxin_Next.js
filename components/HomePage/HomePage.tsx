@@ -1,5 +1,5 @@
 import Counter from 'Components/Counter/Counter';
-import CopyrightBar from 'Root/components/CopyrightBar/CopyrightBar';
+import CopyrightBar from 'Components/CopyrightBar/CopyrightBar';
 
 import styles from './homePage.module.scss';
 

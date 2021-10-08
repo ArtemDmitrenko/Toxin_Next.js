@@ -1,4 +1,4 @@
-import SocialIcons from 'Root/components/SocialIcons/SocialIcons';
+import SocialIcons from 'Components/SocialIcons/SocialIcons';
 
 import facebook from './img/facebook.svg';
 import instagram from './img/instagram.svg';
