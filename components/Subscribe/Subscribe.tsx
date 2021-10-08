@@ -22,7 +22,7 @@ type FormApi = {
 const Subscribe = ({ method, url, headers }: FormProps) => {
   const [userEmail, setEmail] = useState({ userEmail: '' });
 
-  const onSubmit = (values: FormValues, form: FormApi) => {
+  const handleFormSubmit = (values: FormValues, form: FormApi) => {
     const { email } = values;
 
     if (hasValidateEmail(email)) {
@@ -40,7 +40,7 @@ const Subscribe = ({ method, url, headers }: FormProps) => {
   });
 
   return (
-    <Form onSubmit={onSubmit}>
+    <Form onSubmit={handleFormSubmit}>
       {({ handleSubmit }) => (
         <form onSubmit={handleSubmit}>
           <div className={styles.container}>
