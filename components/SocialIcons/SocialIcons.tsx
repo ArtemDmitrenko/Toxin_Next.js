@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 
-import styles from './SocialIcons.module.scss';
+import styles from './socialIcons.module.scss';
 
 type SocialIconsProps = {
   buttons: Array<{

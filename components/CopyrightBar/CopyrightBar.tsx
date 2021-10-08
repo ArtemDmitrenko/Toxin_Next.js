@@ -4,7 +4,7 @@ import facebook from './img/facebook.svg';
 import instagram from './img/instagram.svg';
 import twitter from './img/twitter.svg';
 
-import styles from './CopyrightBar.module.scss';
+import styles from './copyrightBar.module.scss';
 
 const buttons = [
   {
