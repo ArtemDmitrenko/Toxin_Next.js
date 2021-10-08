@@ -1,4 +1,4 @@
-function num2str(i: number, textForms: [string, string, string]) {
+const convertNumToWordform = (i: number, textForms: [string, string, string]) => {
   const [one, two, many] = textForms;
   const n = Math.abs(i) % 100;
   const n1 = n % 10;
@@ -8,6 +8,6 @@ function num2str(i: number, textForms: [string, string, string]) {
   if (n1 === 1) return one;
 
   return many;
-}
+};
 
-export default num2str;
+export default convertNumToWordform;

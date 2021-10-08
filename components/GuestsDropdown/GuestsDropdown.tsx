@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import num2str from 'Root/utils';
+import convertNumToWordform from 'Root/utils/convertNumToWordform';
 
 import styles from './guestsDropdown.module.scss';
 
@@ -93,7 +93,10 @@ const GuestsDropdown = (props: GuestsDropdownProps) => {
       const groupValue = groupSum(groupName);
 
       if (groupValue > 0) {
-        outputStr.push(`${groupValue} ${num2str(groupValue, dropdown.groups[groupName].wordforms)}`);
+        outputStr.push(`${groupValue} ${convertNumToWordform(
+          groupValue,
+          dropdown.groups[groupName].wordforms,
+        )}`);
       }
     });
 
