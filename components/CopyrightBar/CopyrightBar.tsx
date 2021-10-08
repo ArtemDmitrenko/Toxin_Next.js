@@ -8,13 +8,28 @@ import styles from './CopyrightBar.module.scss';
 
 const buttons = [
   {
-    id: 1, name: 'twitter', href: '/', src: twitter, width: 24, height: 24,
+    id: 1,
+    name: 'twitter',
+    href: '/',
+    src: twitter,
+    width: 24,
+    height: 24,
   },
   {
-    id: 2, name: 'facebook', href: '/', src: facebook, width: 22, height: 22,
+    id: 2,
+    name: 'facebook',
+    href: '/',
+    src: facebook,
+    width: 22,
+    height: 22,
   },
   {
-    id: 3, name: 'instagram', href: '/', src: instagram, width: 22, height: 22,
+    id: 3,
+    name: 'instagram',
+    href: '/',
+    src: instagram,
+    width: 22,
+    height: 22,
   },
 ];
 
