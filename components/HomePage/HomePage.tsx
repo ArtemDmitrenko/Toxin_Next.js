@@ -1,3 +1,4 @@
+import Logo from 'Components/Logo/Logo';
 import GuestsDroprown, { GuestsDropdownConfig } from 'Components/GuestsDropdown/GuestsDropdown';
 
 import styles from './homePage.module.scss';
@@ -23,6 +24,7 @@ const HomePage = () => {
 
   return (
     <div className={styles.root}>
+      <Logo width={106} height={40} alt="Toxin hotel logo" />
       <GuestsDroprown list={guestsDropdownConfig} />
     </div>
   );
