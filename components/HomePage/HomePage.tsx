@@ -8,7 +8,11 @@ const HomePage = () => (
   <div className={styles.root}>
     <Logo width={106} height={40} alt="Toxin hotel logo" />
     <Counter />
-    <Subscribe />
+    <Subscribe
+      method="POST"
+      url="https://jsonplaceholder.typicode.com/users"
+      headers={{ 'Content-Type': 'application/json' }}
+    />
   </div>
 );
 

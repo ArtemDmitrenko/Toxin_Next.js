@@ -1,10 +1,15 @@
+import { useEffect, useState } from 'react';
 import { Form, Field } from 'react-final-form';
 
-import subscribe from 'Root/redux/subscribe/subscribeActions';
-import { useAppDispatch } from 'Root/redux/hooks';
+import hasValidateEmail from 'Root/utils/hasValidateEmail';
 
 import styles from './subscribe.module.scss';
-import hasValidateEmail from './utils';
+
+type FormProps = {
+  method: string,
+  url: string,
+  headers: Record<string, string>
+};
 
 type FormValues = {
   email: string,
@@ -14,17 +19,25 @@ type FormApi = {
   reset: () => void,
 };
 
-const Subscribe = () => {
-  const dispatch = useAppDispatch();
+const Subscribe = ({ method, url, headers }: FormProps) => {
+  const [userEmail, setEmail] = useState({ userEmail: '' });
 
   const onSubmit = (values: FormValues, form: FormApi) => {
     const { email } = values;
 
     if (hasValidateEmail(email)) {
-      dispatch(subscribe(email));
+      setEmail({ userEmail: email });
       form.reset();
     }
   };
+
+  useEffect(() => {
+    fetch(url, {
+      method,
+      headers,
+      body: JSON.stringify(userEmail),
+    });
+  });
 
   return (
     <Form onSubmit={onSubmit}>
