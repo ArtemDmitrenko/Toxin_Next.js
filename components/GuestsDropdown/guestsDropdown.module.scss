@@ -108,6 +108,10 @@
   cursor: pointer;
   text-align: center;
 
+  &:hover {
+    background-color: $textColor05;
+  }
+
   &Disabled {
     border: 1px solid $textColor25;
     color: $textColor25;
