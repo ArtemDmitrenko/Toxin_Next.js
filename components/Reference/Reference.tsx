@@ -13,9 +13,9 @@ const Reference = (props: ReferenceProps) => {
   const classesArr = [styles.reference];
 
   if (type === 'bordered') classesArr.push(styles.bordered);
-  else if (type === 'solid') classesArr.push(styles.solid);
+  if (type === 'solid') classesArr.push(styles.solid);
   if (size === 'big') classesArr.push(styles.big);
-  else if (size === 'small') classesArr.push(styles.small);
+  if (size === 'small') classesArr.push(styles.small);
 
   const classes = classesArr.join(' ');
 
