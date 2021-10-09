@@ -22,6 +22,7 @@ $cardShadow: 0px 0px 25px $textColor25;
 
 $primaryGradient: linear-gradient(to top, #8BA4F9, $primaryColor);
 $primaryGradientTranslucent: linear-gradient(to top, rgba(#8BA4F9, .5), rgba($primaryColor, .5));
+$primaryGradientTranslucent25: linear-gradient(to top, rgba(#8BA4F9, .25), rgba($primaryColor, .25));
 $secondaryGradient: linear-gradient(to top, $complementaryColor, $secondaryColor);
 
 $primaryFont: 'Montserrat', 'Arial', 'sans-serif';
