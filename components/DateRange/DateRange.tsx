@@ -15,53 +15,83 @@ type DateRangeProps = {
   placeholder: string,
 };
 
+type UserData = Array<Date>;
+
 function DateRange({ headers, placeholder }: DateRangeProps) {
   const [arrivalHeader, departureHeader] = headers;
-  const [isOpen, setState] = useState(false);
-  const [calendarView, setView] = useState('month');
-  // const [date, setDate] = useState([new Date(), new Date()]);
+
+  const [calendarState, setCalendarState] = useState({
+    isOpen: false,
+    calView: 'month',
+  });
+
+  const [calendarValues, setCalendarValues] = useState<UserData | null>(null);
   const [date, setDates] = useState({
     arrival: '',
     departure: '',
   });
 
+  const { isOpen, calView } = calendarState;
+
   const calendarClasses = isOpen ? `${styles.calendar} ${styles.active}` : `${styles.calendar}`;
   const arrowClasses = isOpen ? `${styles.arrow} ${styles.arrowUp}` : `${styles.arrow} ${styles.arrowDown}`;
-  const buttonsClasses = calendarView === 'month' ? `${styles.buttonsShow}` : `${styles.buttonsHide}`;
+  const clearButtonClasses = date.arrival ? `${styles.button}` : `${styles.button} ${styles.clearButtonHidden}`;
+  const buttonsClasses = calView === 'month' ? `${styles.buttonsShow}` : `${styles.buttonsHide}`;
 
-  const handleInputSelect = () => (!isOpen ? setState(true) : setState(false));
-  const handleCalendarViewChange = ({ view }: any) => setView(view);
-  const handleCalendarDatesChange = (values: Date[]) => {
+  const handleCalendarDatesChange = (values: UserData) => {
     const [arrivalDate, departureDate] = values;
+    setCalendarValues(values);
     setDates({
       arrival: formattedDate(arrivalDate),
       departure: formattedDate(departureDate),
     });
   };
-  const handleClearButtonClick = () => setDates({ arrival: '', departure: '' });
+
+  const handleClearButtonClick = () => {
+    setDates({ arrival: '', departure: '' });
+    setCalendarValues(null);
+  };
+
+  const handleApplyButtonClick = () => {
+    setCalendarState((prevState) => ({ ...prevState, isOpen: !calendarState.isOpen }));
+  };
+
+  const handleOutputFocus = () => {
+    setCalendarState((prevState) => ({ ...prevState, isOpen: true }));
+  };
+
+  const handleCalendarViewChange = ({ view }: any) => {
+    setCalendarState((prevState) => ({ ...prevState, calView: view }));
+  };
 
   return (
     <div className={styles.mainWrapper}>
       <section className={styles.container}>
         <div>
           <h3 className={styles.header}>{arrivalHeader}</h3>
-          {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events */}
-          <div onClick={handleInputSelect} tabIndex={0} role="textbox" className={styles.wrapper}>
+          <div onFocus={handleOutputFocus} tabIndex={0} role="textbox" className={styles.wrapper}>
             <input
               className={styles.field}
               type="text"
               placeholder={placeholder}
               readOnly
               value={date.arrival}
+              tabIndex={-1}
             />
             <div className={arrowClasses} />
           </div>
         </div>
         <div>
           <h3 className={styles.header}>{departureHeader}</h3>
-          {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events */}
-          <div onClick={handleInputSelect} tabIndex={0} role="textbox" className={styles.wrapper}>
-            <input className={styles.field} type="text" placeholder={placeholder} readOnly value={date.departure} />
+          <div onFocus={handleOutputFocus} tabIndex={0} role="textbox" className={styles.wrapper}>
+            <input
+              className={styles.field}
+              type="text"
+              placeholder={placeholder}
+              readOnly
+              value={date.departure}
+              tabIndex={-1}
+            />
             <div className={arrowClasses} />
           </div>
         </div>
@@ -72,19 +102,20 @@ function DateRange({ headers, placeholder }: DateRangeProps) {
           nextLabel=""
           prevLabel=""
           selectRange
-          onChange={handleCalendarDatesChange}
           onViewChange={handleCalendarViewChange}
+          onChange={handleCalendarDatesChange}
+          value={calendarValues}
         />
         <div className={buttonsClasses}>
           <button
             onClick={handleClearButtonClick}
-            className={styles.button}
+            className={clearButtonClasses}
             type="button"
           >
             очистить
           </button>
           <button
-            onClick={handleInputSelect}
+            onClick={handleApplyButtonClick}
             className={styles.button}
             type="button"
           >

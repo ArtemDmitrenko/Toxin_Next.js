@@ -147,7 +147,8 @@
   z-index: 1;
 }
 
-.react-calendar__tile--range {
+.react-calendar__tile--range,
+.react-calendar__tile--hover {
   background: $primaryGradientTranslucent25;
   border-radius: 0;
 }
@@ -197,6 +198,40 @@
 
   &:hover::after {
     background: $primaryGradientTranslucent25;
+  }
+}
+
+.react-calendar__tile--hover.react-calendar__tile--hoverEnd {
+  background: $primaryGradientTranslucent25;
+  border-radius: 0 50% 50% 0;
+
+  &::after {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: -1;
+    background: $primaryGradient;
+    border-radius: 50%;
+    content: '';
+  }
+}
+
+.react-calendar__tile--hover.react-calendar__tile--hoverStart {
+  background: $primaryGradientTranslucent25;
+  border-radius: 50% 0 0 50%;
+
+  &::after {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: -1;
+    background: $primaryGradient;
+    border-radius: 50%;
+    content: '';
   }
 }
 
