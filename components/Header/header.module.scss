@@ -1,4 +1,131 @@
-.root {
+@import 'Root/style/variables.scss';
+
+.content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1160px;
+  min-height: 70px;
+  margin: 0 auto;
+  margin-top: 10px;
+
+  @media(min-width: 960px) {
+    margin-top: 0;
+    flex-direction: row;
+  }
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  flex-grow: 1;
+  min-height: 120px;
+  list-style: none;
+  padding: 0;
+  padding-bottom: 10px;
+
+  @media(min-width: 500px) {
+    flex-direction: row;
+    justify-content: flex-end;
+    min-height: 100%;
+  }
+
+  @media(min-width: 960px) {
+    padding: 0;
+  }
+}
+
+.titleSubMenu {
+  position: relative;
+  padding-right: 21px;
+  margin-left: 10px;
+  margin-right: 10px;
+  list-style: none;
+  cursor: pointer;
+}
+
+.link {
+  position: relative;
+  display: block;
+  line-height: 17px;
+  text-align: left;
+  text-decoration: none;
+  color: $textColor50;
+  
+  &:hover {
+    color: $textColor75;
+    font-weight: bold;
+    letter-spacing: -0.35px;
+  }
+}
+
+.arrow {
+  display: inline-block;
+  font: normal normal 24px/17px 'Material Icons';
+
+  &::before {
+    content: '\e5cf';
+  }
+}
+
+.titleSubMenu .arrow {
+  position: absolute;
+  top: 1px;
+  transition: all 0.2s;
+}
+
+.titleSubMenu:hover .arrow {
+  top: 3px;
+  transform: rotateZ(-180deg) translateX(2px) translateY(3px);
+}
+
+.titleSubMenu:hover > .subMenu {
+  display: flex;
+}
+
+.subMenu {
+  position: absolute;
+  top: 15px;
+  left: -20px;
+  display: none;
+  justify-content: center;
+  flex-direction: column;
+  max-width: 150px;
   margin: 0;
-  margin-bottom: 30px;
+  padding: 0;
+  background-color: #FFFFFF;
+  border-radius: 3px;
+  list-style: none;
+  z-index: 10;
+}
+
+.subMenuItem {
+  padding: 10px 18px;
+}
+
+.subMenuItem:first-child {
+  padding-top: 18px;
+}
+
+.listItem {
+  margin: 0 10px;
+}
+
+.buttons {
+  max-width: 280px;
+  min-height: 70px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+
+  @media (min-width: 330px) {
+    flex-direction: row;
+    min-width: 300px;
+    min-height: 100%;
+    margin-left: 20px;
+  }
 }
