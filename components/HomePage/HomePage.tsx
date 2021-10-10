@@ -14,6 +14,7 @@ const HomePage = () => (
     <Reference text="Зарегистрироваться" type="solid" size="big" />
     <Reference text="click me" type="bordered" size="small" />
     <Reference text="click me" type="bordered" size="big" />
+    <Reference text="Перейти к оплате" type="directed" size="big" />
   </div>
 );
 
