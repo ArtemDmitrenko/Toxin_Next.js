@@ -61,6 +61,7 @@ const Header = (props: HeaderProps) => {
               key={item.id}
               onMouseEnter={() => setActiveMenu(item.id)}
               onMouseLeave={() => setActiveMenu(null)}
+              onKeyDown={() => setActiveMenu(item.id)}
             >
               <Link href={item.href}>
                 <a className={styles.link} href={item.href}>
