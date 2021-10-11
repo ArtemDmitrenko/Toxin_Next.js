@@ -154,5 +154,10 @@
 
   &Clear {
     color: $textColor50;
+
+    &Hidden {
+      max-height: 0;
+      overflow: hidden;
+    }
   }
 }

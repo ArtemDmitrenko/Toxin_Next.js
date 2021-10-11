@@ -100,11 +100,11 @@ const GuestsDropdown = (props: GuestsDropdownProps) => {
       }
     });
 
-    return outputStr.join(', ');
+    dropdown.output = outputStr.join(', ');
   };
 
   const stylesClearButton = () => (
-    `${styles.button} ${styles.buttonClear}`
+    `${styles.button} ${styles.buttonClear} ${dropdown.output ? '' : styles.buttonClearHidden}`
   );
 
   const stylesApplyButton = () => (
@@ -195,6 +195,8 @@ const GuestsDropdown = (props: GuestsDropdownProps) => {
     });
   };
 
+  outputGenerate();
+
   return (
     <div className={styles.guestsDropdown} onFocus={handleOutputFocus} onBlur={handleOutputBlur}>
       <div className={stylesOutput()} tabIndex={0} role="menu">
@@ -203,7 +205,7 @@ const GuestsDropdown = (props: GuestsDropdownProps) => {
           className={stylesInput()}
           placeholder="Сколько гостей"
           readOnly
-          value={outputGenerate()}
+          value={dropdown.output}
           tabIndex={-1}
         />
       </div>
