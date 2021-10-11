@@ -15,16 +15,16 @@
   &::before {
     $side: 7px;
     position: absolute;
-    content: '';
     top: 50%;
     right: 18px;
-    height: $side;
     width: $side;
-    transform: translateY(-70%) rotate(45deg);
+    height: $side;
     border: 2px solid $textColor50;
     border-top: 0;
     border-left: 0;
+    transform: translateY(-70%) rotate(45deg);
     transition: transform 0.3s ease-in-out;
+    content: '';
   }
 
   &::placeholder {
@@ -40,7 +40,6 @@
 
 .input {
   @include input();
-
   padding-right: 40px;
   text-overflow: ellipsis;
   cursor: pointer;
@@ -49,8 +48,8 @@
     border-color 0s linear 0.3s;
 
   &Active {
-    border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
     transition: border-radius 0s linear 0s;
   }
 }
@@ -59,8 +58,8 @@
   position: absolute;
   top: 100%;
   width: 100%;
-  overflow: hidden;
   max-height: 0;
+  overflow: hidden;
   transition: max-height 0.3s ease-in-out;
 
   &Active {
@@ -70,24 +69,24 @@
 
 .menu {
   border: 1px solid $textColor50;
-  border-bottom-left-radius: 5px;
-  border-bottom-right-radius: 5px;
   border-top: none;
+  border-bottom-right-radius: 5px;
+  border-bottom-left-radius: 5px;
 }
 
 .list {
-  padding: 0;
   margin: 0;
+  padding: 0;
   list-style: none;
 }
 
 .item {
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-between;
   padding: 7px 6px 0 14px;
-  text-transform: uppercase;
   font-weight: bold;
+  text-transform: uppercase;
 }
 
 .control {
@@ -96,28 +95,29 @@
   justify-content: space-between;
 }
 
-.minus, .plus {
+.minus,
+.plus {
   display: flex;
-  justify-content: center;
   align-items: center;
-  height: 30px;
+  justify-content: center;
   width: 30px;
-  border: 1px solid $textColor50;
+  height: 30px;
   color: $textColor50;
-  background-color: #fff;
-  border-radius: 50%;
-  font-size: 20px;
   font-weight: normal;
-  cursor: pointer;
+  font-size: 20px;
   text-align: center;
+  background-color: #fff;
+  border: 1px solid $textColor50;
+  border-radius: 50%;
+  cursor: pointer;
 
   &:hover {
     background-color: $textColor05;
   }
 
   &Disabled {
-    border: 1px solid $textColor25;
     color: $textColor25;
+    border: 1px solid $textColor25;
   }
 }
 
@@ -128,10 +128,10 @@
 
 .buttons {
   display: flex;
-  justify-content: flex-end;
   align-items: center;
-  font-weight: bold;
+  justify-content: flex-end;
   padding: 21px 7px 12px 15px;
+  font-weight: bold;
   text-transform: uppercase;
 
   &NonEmpty {
@@ -141,11 +141,11 @@
 
 .button {
   padding: 0;
-  border: none;
+  color: $primaryColor;
   font: inherit;
   text-transform: uppercase;
-  color: $primaryColor;
   background-color: transparent;
+  border: none;
   cursor: pointer;
 
   &:hover {
