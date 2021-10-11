@@ -1,50 +1,119 @@
 @import 'Root/style/variables.scss';
 
 .content {
+  position: relative;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: space-between;
+  flex-wrap: wrap;
   align-items: center;
   max-width: 1160px;
   min-height: 70px;
   margin: 0 auto;
-  margin-top: 10px;
+  margin-top: 0;
 
-  @media(min-width: 1024px) {
-    margin-top: 0;
-    flex-direction: row;
+  @media(max-width: 1024px) {
+    margin-top: 10px;
+  }
+}
+
+.wrapper {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.checkbox {
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  z-index: -1;
+
+  &:checked ~ .header {
+    display: flex;
+  }
+
+  &:checked ~ .buttons {
+    display: flex;
+  }
+
+  &:checked + .burger {
+    &:before {
+      content: '\e5ce'
+    }
+  }
+}
+
+.burger {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border: 1px solid $textColor50;
+  border-radius: 5px;
+  color: $textColor50;
+  margin-top: 16px;
+  margin-bottom: 16px;
+  margin-left: auto;
+  cursor: pointer;
+  @media(max-width: 1024px) {
+    display: flex;
+  }
+
+  &::before {
+    font-family: "Material Icons", sans-serif;
+    font-size: 24px;
+    line-height: 24px;
+    content: '\e5cf';
+    font-size: 30px;
+  }
+
+  &:hover {
+    border-color: $textColor75;
+    color: $textColor75;
   }
 }
 
 .header {
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  flex-direction: row;
+  justify-content: flex-end;
   align-items: center;
   flex-grow: 1;
-  min-height: 120px;
+  min-height: 100%;
   list-style: none;
+  margin: 0;
   padding: 0;
-  padding-bottom: 10px;
 
-  @media(min-width: 500px) {
-    flex-direction: row;
-    justify-content: flex-end;
-    min-height: 100%;
-  }
-
-  @media(min-width: 1024px) {
+  @media(max-width: 1024px) {
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    min-width: 100%;
+    min-height: 120px;
     padding: 0;
+    padding-bottom: 10px;
   }
 }
 
 .titleSubMenu {
   position: relative;
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+  align-items: center;
   padding-right: 21px;
   margin-left: 10px;
   margin-right: 10px;
   list-style: none;
   cursor: pointer;
+
+  @media(max-width: 1024px) {
+    min-width: 100%;
+    border-bottom: 1px solid $textColor50;
+  }
 }
 
 .link {
@@ -54,6 +123,12 @@
   text-align: left;
   text-decoration: none;
   color: $textColor50;
+
+  @media(max-width: 1024px) {
+    text-align: center;
+    margin-bottom: 20px;
+    margin-top: 20px;
+  }
   
   &:hover {
     color: $textColor75;
@@ -90,42 +165,86 @@
   position: absolute;
   top: 15px;
   left: -20px;
+  max-width: 150px;
   display: none;
   justify-content: center;
   flex-direction: column;
-  max-width: 150px;
   margin: 0;
   padding: 0;
   background-color: #FFFFFF;
   border-radius: 3px;
   list-style: none;
   z-index: 10;
+
+  @media(max-width: 1024px) {
+    min-width: 100%;
+    position: static;
+  }
 }
 
 .subMenuItem {
+  border: none;
   padding: 10px 18px;
+
+  @media(max-width: 1024px) {
+    border-bottom: 1px dashed $textColor50;
+    padding: 0;
+    width: 100%;
+  }
+}
+
+.subMenuItem:first-child {
+  border: none;
+
+  @media(max-width: 1024px) {
+    border-top: 1px solid $textColor50;
+    border-bottom: 1px dashed $textColor50;
+  }
+}
+
+.subMenuItem:last-child {
+  border: none;
 }
 
 .subMenuItem:first-child {
   padding-top: 18px;
+
+  @media(max-width: 1024px) {
+    padding: 0;
+  }
 }
 
 .listItem {
+  border: none;
   margin: 0 10px;
+
+  @media(max-width: 1024px) {
+    min-width: 100%;
+    border-bottom: 1px solid $textColor50;
+  }
+}
+
+.listItem:first-child {
+  border-top: 1px solid $textColor50;
+
+  @media(min-width: 1024px) {
+    border: none;
+  }
 }
 
 .buttons {
-  max-width: 280px;
-  min-height: 70px;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  min-width: 300px;
+  min-height: 100%;
+  margin-left: 20px;
 
-  @media (min-width: 330px) {
-    flex-direction: row;
-    min-width: 300px;
-    min-height: 100%;
-    margin-left: 20px;
+  @media (max-width: 1024px) {
+    width: 100%;
+    min-height: 80px;
+    display: none;
+    flex-direction: column;
   }
 }

@@ -24,9 +24,12 @@ type HeaderProps = {
 
 const Header = (props: HeaderProps) => {
   const { menu } = props;
+
   return (
     <div className={styles.content}>
       <Logo width={110} height={40} alt="Logo" />
+      <input className={styles.checkbox} type="checkbox" id="2" />
+      <label className={styles.burger} htmlFor="2" />
       <ul className={styles.header}>
         {menu.map((item) => {
           const { subMenu = [] } = item;
