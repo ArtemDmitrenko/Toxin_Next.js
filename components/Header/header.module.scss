@@ -10,7 +10,7 @@
   margin: 0 auto;
   margin-top: 10px;
 
-  @media(min-width: 960px) {
+  @media(min-width: 1024px) {
     margin-top: 0;
     flex-direction: row;
   }
@@ -33,7 +33,7 @@
     min-height: 100%;
   }
 
-  @media(min-width: 960px) {
+  @media(min-width: 1024px) {
     padding: 0;
   }
 }
