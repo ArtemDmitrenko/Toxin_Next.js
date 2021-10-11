@@ -1,6 +1,7 @@
 @import 'Root/style/variables.scss';
 
 .main {
+  margin-bottom: 1px;
   padding-top: 100px;
   padding-bottom: 83px;
   box-shadow: 0 1px 0 rgb(31 32 65 / 10%);
@@ -51,25 +52,4 @@
 .column {
   margin-top: 4px;
   padding-right: 1%;
-  // padding-left: 1%;
-}
-
-.bar {
-  height: 70px;
-  box-shadow: 0 10px 20px rgba(31, 32, 65, 0.05);
-}
-
-.copyright {
-  margin: 0;
-  padding: 26px 0;
-  opacity: 0.75;
-}
-
-.wrapperBar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  max-width: 1440px;
-  margin: 0 auto;
-  padding: 0 140px;
 }

@@ -2,6 +2,7 @@ import Link from 'next/link';
 
 import Logo from 'Components/Logo/Logo';
 import Subscribe from 'Components/Subscribe/Subscribe';
+import CopyrightBar from '../CopyrightBar/CopyrightBar';
 
 import styles from './footerDesktop.module.scss';
 
@@ -22,12 +23,12 @@ type FooterData = {
   logoSign: string,
   subscribeTitle: string,
   subscribeSign: string,
-  copyright: string
+  addNewEmail: (email: string) => void,
 };
 
 const FooterDesktop = (props: FooterData) => {
   const {
-    navContent, logoSign, subscribeSign, subscribeTitle, copyright,
+    navContent, logoSign, subscribeSign, subscribeTitle, addNewEmail,
   } = props;
 
   return (
@@ -53,16 +54,11 @@ const FooterDesktop = (props: FooterData) => {
           <div className={styles.subscribe}>
             <h3 className={styles.title}>{subscribeTitle}</h3>
             <p className={styles.sign}>{subscribeSign}</p>
-            <Subscribe action="/" />
+            <Subscribe onSubmit={addNewEmail} />
           </div>
         </div>
       </div>
-      <div className={styles.bar}>
-        <div className={styles.wrapperBar}>
-          <p className={styles.copyright}>{copyright}</p>
-          <p className={styles.socialLinks}>Social links</p>
-        </div>
-      </div>
+      <CopyrightBar text="Copyright © 2018 Toxin отель. Все права защищены." />
     </footer>
   );
 };

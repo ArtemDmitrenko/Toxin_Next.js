@@ -28,7 +28,7 @@ const HomePage = () => (
       logoSign={footerItems.logoSign}
       subscribeSign={footerItems.subscribeSign}
       subscribeTitle={footerItems.subscribeTitle}
-      copyright={footerItems.copyright}
+      addNewEmail={addNewEmail}
     />
   </div>
 );
