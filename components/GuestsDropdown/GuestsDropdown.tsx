@@ -194,7 +194,17 @@ const GuestsDropdown = (props: GuestsDropdownProps) => {
   outputGenerate();
 
   return (
-    <div className={styles.guestsDropdown} onFocus={handleOutputFocus} onBlur={handleOutputBlur}>
+    <div
+      className={styles.guestsDropdown}
+      onFocus={(e) => {
+        e.preventDefault();
+        handleOutputFocus();
+      }}
+      onBlur={(e) => {
+        e.preventDefault();
+        handleOutputBlur();
+      }}
+    >
       <div className={stylesOutput()} tabIndex={0} role="menu">
         <input
           type="text"
@@ -216,7 +226,10 @@ const GuestsDropdown = (props: GuestsDropdownProps) => {
                     <button
                       type="button"
                       className={stylesMinus(item)}
-                      onClick={handleMinusClick.bind(null, groupName, itemName)}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        handleMinusClick(groupName, itemName);
+                      }}
                     >
                       -
                     </button>
@@ -226,7 +239,10 @@ const GuestsDropdown = (props: GuestsDropdownProps) => {
                     <button
                       type="button"
                       className={stylesPlus(groupName)}
-                      onClick={handlePlusClick.bind(null, groupName, itemName)}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        handlePlusClick(groupName, itemName);
+                      }}
                     >
                       +
                     </button>
@@ -236,8 +252,26 @@ const GuestsDropdown = (props: GuestsDropdownProps) => {
             ))}
           </ul>
           <div className={`${styles.buttons} ${styles.buttonsNonEmpty}`}>
-            <button type="button" className={stylesClearButton()} onClick={handleClearClick}>Очистить</button>
-            <button type="button" className={stylesApplyButton()} onClick={handleOutputBlur}>Применить</button>
+            <button
+              type="button"
+              className={stylesClearButton()}
+              onClick={(e) => {
+                e.preventDefault();
+                handleClearClick();
+              }}
+            >
+              Очистить
+            </button>
+            <button
+              type="button"
+              className={stylesApplyButton()}
+              onClick={(e) => {
+                e.preventDefault();
+                handleOutputBlur();
+              }}
+            >
+              Применить
+            </button>
           </div>
         </div>
       </div>
