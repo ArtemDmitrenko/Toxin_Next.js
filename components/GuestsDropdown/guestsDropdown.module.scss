@@ -144,17 +144,15 @@
   border: none;
   font: inherit;
   text-transform: uppercase;
-  color: inherit;
+  color: $primaryColor;
   background-color: transparent;
   cursor: pointer;
 
-  &Apply {
-    color: $primaryColor;
+  &:hover {
+    color: $textColor50;
   }
 
   &Clear {
-    color: $textColor50;
-
     &Hidden {
       max-height: 0;
       overflow: hidden;
