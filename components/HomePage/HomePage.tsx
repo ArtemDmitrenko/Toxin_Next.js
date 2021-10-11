@@ -1,4 +1,3 @@
-import Logo from 'Components/Logo/Logo';
 import Counter from 'Components/Counter/Counter';
 import CopyrightBar from 'Components/CopyrightBar/CopyrightBar';
 import Subscribe from 'Components/Subscribe/Subscribe';
@@ -6,11 +5,18 @@ import Reference from 'Components/Reference/Reference';
 
 import styles from './homePage.module.scss';
 
+const addNewEmail = (email: string) => {
+  const subscriptionData = {
+    userEmail: email,
+  };
+};
+
 const HomePage = () => (
   <div className={styles.root}>
-    <Logo width={106} height={40} alt="Toxin hotel logo" />
     <Counter />
-    <Subscribe action="/" />
+    <Subscribe
+      onSubmit={addNewEmail}
+    />
     <Reference text="Зарегистрироваться" type="solid" size="small" />
     <Reference text="Зарегистрироваться" type="solid" size="big" />
     <Reference text="click me" type="bordered" size="small" />
