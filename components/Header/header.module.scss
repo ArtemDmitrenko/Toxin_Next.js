@@ -153,13 +153,9 @@
   transition: all 0.2s;
 }
 
-.titleSubMenu:hover .arrow {
+.arrowActive {
   top: 3px;
   transform: rotateZ(-180deg) translateX(2px) translateY(3px);
-}
-
-.titleSubMenu:hover > .subMenu {
-  display: flex;
 }
 
 .subMenu {
@@ -181,6 +177,9 @@
     min-width: 100%;
     position: static;
   }
+}
+.activeSubMenu {
+  display: flex;
 }
 
 .subMenuItem {

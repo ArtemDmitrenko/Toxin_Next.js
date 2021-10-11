@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import Link from 'next/link';
 
 import Logo from 'Components/Logo/Logo';
@@ -24,24 +25,33 @@ type HeaderProps = {
 
 const Header = (props: HeaderProps) => {
   const { menu } = props;
+  const [activeMenu, setActiveMenu] = useState<number | null>(null);
+
+  const stylesSubMenu = (id: number) => (
+    `${styles.subMenu} ${activeMenu === id ? styles.activeSubMenu : ''}`
+  );
+
+  const stylesArrow = (id: number) => (
+    `${styles.arrow} ${activeMenu === id ? styles.arrowActive : ''}`
+  );
 
   return (
     <div className={styles.content}>
       <Logo width={110} height={40} alt="Logo" />
-      <input className={styles.checkbox} type="checkbox" id="2" />
-      <label className={styles.burger} htmlFor="2" />
+      <input className={styles.checkbox} type="checkbox" id="burger-menu" />
+      <label className={styles.burger} htmlFor="burger-menu" />
       <ul className={styles.header}>
         {menu.map((item) => {
           const { subMenu = [] } = item;
           return (subMenu.length > 0 ? (
-            <li className={styles.titleSubMenu} key={item.id}>
+            <li className={styles.titleSubMenu} key={item.id} onMouseEnter={() => setActiveMenu(item.id)} onMouseLeave={() => setActiveMenu(null)}>
               <Link href={item.href}>
                 <a className={styles.link} href={item.href}>
                   {item.name}
-                  <i className={styles.arrow} />
+                  <i className={stylesArrow(item.id)} />
                 </a>
               </Link>
-              <ul className={styles.subMenu}>
+              <ul className={stylesSubMenu(item.id)}>
                 {subMenu.map((element: SubMenu) => (
                   <li className={styles.subMenuItem} key={element.id}>
                     <Link href={element.href}>
