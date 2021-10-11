@@ -1,45 +1,60 @@
 import { useState } from 'react';
 import Calendar from 'react-calendar';
+
+import formattedLabel from './helpers/formattedLabel';
+import formattedDate from './helpers/formattedDate';
 import styles from './dateRange.module.scss';
-
-const formattedDate = (date: Date): string => {
-  const today = date;
-  const day = (`0${today.getDate()}`).slice(-2);
-  const month = (`0${today.getMonth() + 1}`).slice(-2);
-
-  return `${day}.${month}.${today.getFullYear()}`;
-};
 
 type DateRangeProps = {
   headers: Array<string>,
   placeholder: string,
 };
 
+type CalendarState = {
+  isOpen: boolean,
+  calView: string,
+};
+
+type CalendarDates = {
+  arrival: string,
+  departure: string,
+};
+
 type UserData = Array<Date>;
 
-function DateRange({ headers, placeholder }: DateRangeProps) {
+const DateRange = ({ headers, placeholder }: DateRangeProps) => {
   const [arrivalHeader, departureHeader] = headers;
-
-  const [calendarState, setCalendarState] = useState({
+  const defaultCalendarState: CalendarState = {
     isOpen: false,
     calView: 'month',
-  });
-
-  const [calendarValues, setCalendarValues] = useState<UserData | null>(null);
-  const [date, setDates] = useState({
+  };
+  const defaultCalendarDates: CalendarDates = {
     arrival: '',
     departure: '',
-  });
+  };
+
+  const [calendarState, setCalendarState] = useState(defaultCalendarState);
+  const [formattedDates, setDates] = useState(defaultCalendarDates);
+  const [calendarValues, setCalendarValues] = useState<UserData | null>(null);
 
   const { isOpen, calView } = calendarState;
 
-  const calendarClasses = isOpen ? `${styles.calendar} ${styles.active}` : `${styles.calendar}`;
-  const arrowClasses = isOpen ? `${styles.arrow} ${styles.arrowUp}` : `${styles.arrow} ${styles.arrowDown}`;
-  const clearButtonClasses = date.arrival ? `${styles.button}` : `${styles.button} ${styles.clearButtonHidden}`;
-  const buttonsClasses = calView === 'month' ? `${styles.buttonsShow}` : `${styles.buttonsHide}`;
+  const stylesCalendar = isOpen
+    ? `${styles.calendar} ${styles.active}`
+    : `${styles.calendar}`;
+  const stylesArrow = isOpen
+    ? `${styles.arrow} ${styles.arrowUp}`
+    : `${styles.arrow} ${styles.arrowDown}`;
+  const stylesClearButton = formattedDates.arrival
+    ? `${styles.button}`
+    : `${styles.button} ${styles.clearButtonHidden}`;
+  const stylesButtons = calView === 'month'
+    ? `${styles.buttonsShow}`
+    : `${styles.buttonsHide}`;
 
   const handleCalendarDatesChange = (values: UserData) => {
     const [arrivalDate, departureDate] = values;
+
     setCalendarValues(values);
     setDates({
       arrival: formattedDate(arrivalDate),
@@ -48,55 +63,63 @@ function DateRange({ headers, placeholder }: DateRangeProps) {
   };
 
   const handleClearButtonClick = () => {
-    setDates({ arrival: '', departure: '' });
     setCalendarValues(null);
+    setDates({ arrival: '', departure: '' });
   };
 
-  const handleApplyButtonClick = () => {
+  const handleCalendarButtonToggle = () => {
     setCalendarState((prevState) => ({ ...prevState, isOpen: !calendarState.isOpen }));
   };
 
-  const handleOutputFocus = () => {
+  const handleCalendarFocus = () => {
     setCalendarState((prevState) => ({ ...prevState, isOpen: true }));
   };
 
-  const handleCalendarViewChange = ({ view }: any) => {
+  const handleCalendarBlur = () => {
+    setCalendarState((prevState) => ({ ...prevState, isOpen: false }));
+  };
+
+  const handleCalendarViewChange = ({ view }: { view: string }) => {
     setCalendarState((prevState) => ({ ...prevState, calView: view }));
   };
 
   return (
-    <div className={styles.mainWrapper}>
+    <div
+      className={styles.mainWrapper}
+      onBlur={handleCalendarBlur}
+      onFocus={handleCalendarFocus}
+    >
       <section className={styles.container}>
         <div>
           <h3 className={styles.header}>{arrivalHeader}</h3>
-          <div onFocus={handleOutputFocus} tabIndex={0} role="textbox" className={styles.wrapper}>
+          <div tabIndex={0} role="textbox" className={styles.wrapper}>
             <input
               className={styles.field}
               type="text"
               placeholder={placeholder}
               readOnly
-              value={date.arrival}
+              value={formattedDates.arrival}
               tabIndex={-1}
             />
-            <div className={arrowClasses} />
+            <div className={stylesArrow} />
           </div>
         </div>
         <div>
           <h3 className={styles.header}>{departureHeader}</h3>
-          <div onFocus={handleOutputFocus} tabIndex={0} role="textbox" className={styles.wrapper}>
+          <div tabIndex={0} role="textbox" className={styles.wrapper}>
             <input
               className={styles.field}
               type="text"
               placeholder={placeholder}
               readOnly
-              value={date.departure}
+              value={formattedDates.departure}
               tabIndex={-1}
             />
-            <div className={arrowClasses} />
+            <div className={stylesArrow} />
           </div>
         </div>
       </section>
-      <div className={calendarClasses}>
+      <div className={stylesCalendar} role="menu" tabIndex={0}>
         <Calendar
           locale="ru-RU"
           nextLabel=""
@@ -104,18 +127,19 @@ function DateRange({ headers, placeholder }: DateRangeProps) {
           selectRange
           onViewChange={handleCalendarViewChange}
           onChange={handleCalendarDatesChange}
+          navigationLabel={formattedLabel}
           value={calendarValues}
         />
-        <div className={buttonsClasses}>
+        <div className={stylesButtons}>
           <button
             onClick={handleClearButtonClick}
-            className={clearButtonClasses}
+            className={stylesClearButton}
             type="button"
           >
             очистить
           </button>
           <button
-            onClick={handleApplyButtonClick}
+            onClick={handleCalendarButtonToggle}
             className={styles.button}
             type="button"
           >
@@ -125,6 +149,6 @@ function DateRange({ headers, placeholder }: DateRangeProps) {
       </div>
     </div>
   );
-}
+};
 
 export default DateRange;

@@ -20,11 +20,11 @@
   padding: 20px 20px 25px;
 }
 
-.react-calendar__navigation__label{
+.react-calendar__navigation__label {
   display: block;
 
   &:hover,
-  &:focus-visible  {
+  &:focus-visible {
     color: $textColor50;
   }
 }
@@ -147,8 +147,7 @@
   z-index: 1;
 }
 
-.react-calendar__tile--range,
-.react-calendar__tile--hover {
+.react-calendar__tile--range {
   background: $primaryGradientTranslucent25;
   border-radius: 0;
 }
@@ -201,26 +200,29 @@
   }
 }
 
-.react-calendar__tile--hover.react-calendar__tile--hoverEnd {
-  background: $primaryGradientTranslucent25;
-  border-radius: 0 50% 50% 0;
-
-  &::after {
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    z-index: -1;
-    background: $primaryGradient;
-    border-radius: 50%;
-    content: '';
-  }
+.react-calendar__tile:enabled:hover,
+.react-calendar__tile:enabled:focus {
+  background-color: $textColor05;
 }
 
-.react-calendar__tile--hover.react-calendar__tile--hoverStart {
+.react-calendar__tile--now:enabled:hover,
+.react-calendar__tile--now:enabled:focus {
+  background: $primaryGradientTranslucent;
+}
+
+.react-calendar__tile--active:enabled:hover,
+.react-calendar__tile--active:enabled:focus {
   background: $primaryGradientTranslucent25;
-  border-radius: 50% 0 0 50%;
+}
+
+.react-calendar--selectRange .react-calendar__tile--hover {
+  background: $primaryGradientTranslucent25;
+  border-radius: 0;
+}
+
+.react-calendar__tile--active.react-calendar__tile--rangeStart.react-calendar__tile--hover {
+  background: $primaryGradientTranslucent25;
+  border-radius: 0;
 
   &::after {
     position: absolute;
@@ -229,7 +231,7 @@
     bottom: 0;
     left: 0;
     z-index: -1;
-    background: $primaryGradient;
+    background: none;
     border-radius: 50%;
     content: '';
   }

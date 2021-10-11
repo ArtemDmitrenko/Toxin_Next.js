@@ -74,18 +74,15 @@
 //====== Calendar ======//
 
 .calendar {
+  position: relative;
+  z-index: 3;
   font: 12px/15px $primaryFont;
   background-color: #fff;
   border: 1px solid $textColor25;
   border-radius: 4px;
   box-shadow: 0 10px 20px $textColor25;
-
-
-  position: relative;
-  z-index: 3;
   transform: translateX(-100000px);
   opacity: 0;
-
 }
 
 .active {
@@ -94,19 +91,19 @@
 }
 
 .buttonsShow {
-  padding: 0 20px 20px;
   display: flex;
   justify-content: space-between;
+  padding: 0 20px 20px;
 }
 
 .button {
+  color: $primaryColor;
   font: bold 12px/15px $primaryFont;
   text-transform: uppercase;
-  color: $primaryColor;
-  border: none;
   background: none;
-  cursor: pointer;
+  border: none;
   outline: none;
+  cursor: pointer;
 
   &:hover,
   &:focus,
@@ -120,5 +117,7 @@
 }
 
 .clearButtonHidden {
-  visibility: hidden;
+  max-height: 0;
+  padding: 0;
+  overflow: hidden;
 }
