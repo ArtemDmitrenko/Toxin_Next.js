@@ -78,13 +78,8 @@ const GuestsDropdown = (props: GuestsDropdownProps) => {
 
   const groupSum = (groupName: string) => {
     const { items } = dropdown.groups[groupName];
-    let sum = 0;
 
-    Object.values(items).forEach((item) => {
-      sum += item.value;
-    });
-
-    return sum;
+    return Object.values(items).reduce((prev, current) => (prev + current.value), 0);
   };
 
   const outputGenerate = () => {
