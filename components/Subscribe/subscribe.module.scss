@@ -1,0 +1,51 @@
+@import 'Root/style/variables.scss';
+
+.container {
+  display: flex;
+  border: 1px solid $textColor25;
+  border-radius: 4px;
+
+  &:hover,
+  &:focus-within {
+    border-color: $textColor50;
+  }
+}
+
+.input {
+  width: 100%;
+  padding: 14px;
+  color: $textColor75;
+  font-family: $primaryFont;
+  text-overflow: ellipsis;
+  border: none;
+  border-radius: 4px;
+  outline: none;
+  cursor: pointer;
+
+  &::placeholder {
+    color: $textColor25;
+  }
+
+  &:hover,
+  &:focus-within {
+    &::placeholder {
+      color: $textColor75;
+    }
+  }
+}
+
+.buttonArrow {
+  padding: 10px;
+  font: 24px/24px 'Material Icons';
+  background: $primaryGradient;
+  -webkit-background-clip: text;
+  background-clip: text;
+  border: none;
+  border-radius: 0 4px 4px 0;
+  cursor: pointer;
+  -webkit-text-fill-color: transparent;
+
+  &::before {
+    content: '\e5c8';
+  }
+}
