@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 import convertNumToWordform from 'Root/utils/convertNumToWordform';
 
@@ -96,8 +96,10 @@ const GuestsDropdown = (props: GuestsDropdownProps) => {
       }
     });
 
-    dropdown.output = outputStr.join(', ');
+    setDropdown((prevState) => ({ ...prevState, output: outputStr.join(', ') }));
   };
+
+  useEffect(outputGenerate, [dropdown.groups]);
 
   const stylesClearButton = () => (
     `${styles.button} ${styles.buttonClear} ${dropdown.output ? '' : styles.buttonClearHidden}`
@@ -187,11 +189,11 @@ const GuestsDropdown = (props: GuestsDropdownProps) => {
         });
       });
 
+      newState.output = '';
+
       return newState;
     });
   };
-
-  outputGenerate();
 
   return (
     <div
