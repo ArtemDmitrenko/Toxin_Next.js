@@ -11,6 +11,7 @@
   min-height: 70px;
   margin: 0 auto;
   margin-top: 0;
+  box-shadow: 0px 10px 20px $textColor05;
 
   @media(max-width: 1024px) {
     margin-top: 10px;
