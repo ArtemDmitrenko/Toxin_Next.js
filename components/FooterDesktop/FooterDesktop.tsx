@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 import Logo from 'Components/Logo/Logo';
 import Subscribe from 'Components/Subscribe/Subscribe';
 
@@ -15,10 +17,8 @@ type FooterColumn = {
   items: Array<FooterLink>;
 };
 
-type NavContent = Array<FooterColumn>;
-
 type FooterData = {
-  navContent: NavContent,
+  navContent: Array<FooterColumn>,
   logoSign: string,
   subscribeTitle: string,
   subscribeSign: string,
@@ -43,7 +43,9 @@ const FooterDesktop = (props: FooterData) => {
               <div key={column.id} className={styles.column}>
                 <h3 className={styles.title}>{column.title}</h3>
                 {column.items.map((items) => (
-                  <a key={items.id} href={items.href} className={styles.item}>{items.item}</a>
+                  <Link key={items.id} href={items.href} passHref>
+                    <a href="replace" className={styles.item}>{items.item}</a>
+                  </Link>
                 ))}
               </div>
             ))}
