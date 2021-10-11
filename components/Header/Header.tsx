@@ -62,10 +62,14 @@ const Header = (props: HeaderProps) => {
                 key={item.id}
                 onMouseEnter={() => setActiveMenu(item.id)}
                 onMouseLeave={() => setActiveMenu(null)}
-                onKeyDown={() => setActiveMenu(item.id)}
               >
                 <Link href={item.href}>
-                  <a className={styles.link} href={item.href} title={item.name}>
+                  <a
+                    className={styles.link}
+                    href={item.href}
+                    title={item.name}
+                    onKeyDown={() => setActiveMenu(item.id)}
+                  >
                     {item.name}
                     <i className={stylesArrow(item.id)} />
                   </a>
@@ -74,7 +78,13 @@ const Header = (props: HeaderProps) => {
                   {subMenu.map((element: SubMenu) => (
                     <li className={styles.subMenuItem} key={element.id}>
                       <Link href={element.href}>
-                        <a className={styles.link} href={element.href} title={element.name}>{element.name}</a>
+                        <a
+                          className={styles.link}
+                          href={element.href}
+                          title={element.name}
+                        >
+                          {element.name}
+                        </a>
                       </Link>
                     </li>
                   ))}
