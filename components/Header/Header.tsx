@@ -26,6 +26,7 @@ type HeaderProps = {
 const Header = (props: HeaderProps) => {
   const { menu } = props;
   const [activeMenu, setActiveMenu] = useState<number | null>(null);
+  const [isOpenBurgerMenu, setIsOpenBurgerMenu] = useState<boolean>(false);
 
   const stylesSubMenu = (id: number) => (
     `${styles.subMenu} ${activeMenu === id ? styles.activeSubMenu : ''}`
@@ -35,16 +36,32 @@ const Header = (props: HeaderProps) => {
     `${styles.arrow} ${activeMenu === id ? styles.arrowActive : ''}`
   );
 
+  const stylesHeader = () => (
+    `${styles.header} ${isOpenBurgerMenu ? styles.headerVisible : ''}`
+  );
+
+  const stylesButtons = () => (
+    `${styles.buttons} ${isOpenBurgerMenu ? styles.buttonsVisible : ''}`
+  );
+
+  const stylesBurgerMenu = () => (
+    `${styles.burger} ${isOpenBurgerMenu ? styles.burgerOpened : ''}`
+  );
+
   return (
     <div className={styles.content}>
       <Logo width={110} height={40} alt="Logo" />
-      <input className={styles.checkbox} type="checkbox" id="burger-menu" />
-      <label className={styles.burger} htmlFor="burger-menu" />
-      <ul className={styles.header}>
+      <button className={stylesBurgerMenu()} type="button" aria-label="open or close" onClick={() => setIsOpenBurgerMenu(!isOpenBurgerMenu)} onKeyDown={() => setIsOpenBurgerMenu(!isOpenBurgerMenu)} />
+      <ul className={stylesHeader()}>
         {menu.map((item) => {
           const { subMenu = [] } = item;
           return (subMenu.length > 0 ? (
-            <li className={styles.titleSubMenu} key={item.id} onMouseEnter={() => setActiveMenu(item.id)} onMouseLeave={() => setActiveMenu(null)}>
+            <li
+              className={styles.titleSubMenu}
+              key={item.id}
+              onMouseEnter={() => setActiveMenu(item.id)}
+              onMouseLeave={() => setActiveMenu(null)}
+            >
               <Link href={item.href}>
                 <a className={styles.link} href={item.href}>
                   {item.name}
@@ -71,7 +88,7 @@ const Header = (props: HeaderProps) => {
             ));
         })}
       </ul>
-      <div className={styles.buttons}>
+      <div className={stylesButtons()}>
         <Reference text="Войти" type="bordered" size="small" />
         <Reference text="Зарегистрироваться" type="solid" size="small" />
       </div>

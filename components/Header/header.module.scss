@@ -18,34 +18,6 @@
   }
 }
 
-.wrapper {
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-}
-
-.checkbox {
-  position: absolute;
-  top: 0;
-  left: 0;
-  opacity: 0;
-  z-index: -1;
-
-  &:checked ~ .header {
-    display: flex;
-  }
-
-  &:checked ~ .buttons {
-    display: flex;
-  }
-
-  &:checked + .burger {
-    &:before {
-      content: '\e5ce'
-    }
-  }
-}
-
 .burger {
   display: none;
   align-items: center;
@@ -77,6 +49,12 @@
   }
 }
 
+.burgerOpened {
+  &:before {
+    content: '\e5ce'
+  }
+}
+
 .header {
   display: flex;
   flex-direction: row;
@@ -97,6 +75,10 @@
     padding: 0;
     padding-bottom: 10px;
   }
+}
+
+.headerVisible {
+  display: flex;
 }
 
 .titleSubMenu {
@@ -247,4 +229,8 @@
     display: none;
     flex-direction: column;
   }
+}
+
+.buttonsVisible {
+  display: flex;
 }
