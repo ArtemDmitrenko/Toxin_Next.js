@@ -36,26 +36,27 @@ const MAX_GROUP_VALUE = 10;
 
 const GuestsDropdown = (props: GuestsDropdownProps) => {
   const { list } = props;
-  const defaultState: GuestsDropdownState = {
-    isActive: false,
-    output: '',
-    groups: {},
-  };
 
-  const groupsGenerate = () => {
+  const generateState = (): GuestsDropdownState => {
+    const generatedState: GuestsDropdownState = {
+      isActive: false,
+      output: '',
+      groups: {},
+    };
+
     let prevGroup: string;
     let count = 0;
 
     list.forEach((item) => {
       if (prevGroup === item.group) {
-        defaultState.groups[item.group].items[`item${count}`] = {
+        generatedState.groups[item.group].items[`item${count}`] = {
           title: item.title,
           value: 0,
         };
       } else {
         count = 0;
 
-        defaultState.groups[item.group] = {
+        generatedState.groups[item.group] = {
           wordforms: item.wordforms,
           items: {
             [`item${count}`]: {
@@ -69,11 +70,11 @@ const GuestsDropdown = (props: GuestsDropdownProps) => {
       prevGroup = item.group;
       count += 1;
     });
+
+    return generatedState;
   };
 
-  groupsGenerate();
-
-  const [dropdown, setDropdown] = useState(defaultState);
+  const [dropdown, setDropdown] = useState(generateState);
 
   const groupSum = (groupName: string) => {
     const { items } = dropdown.groups[groupName];
