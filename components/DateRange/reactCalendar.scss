@@ -22,6 +22,7 @@
 
 .react-calendar__navigation__label {
   display: block;
+  font: 19px/24px $primaryFont;
 
   &:hover,
   &:focus-visible {
@@ -42,10 +43,6 @@
   &:focus-within {
     color: $textColor50;
   }
-}
-
-.react-calendar__navigation__label {
-  font: 19px/24px $primaryFont;
 }
 
 .react-calendar__navigation__next2-button,
@@ -76,6 +73,20 @@
   }
 }
 
+// ======= Months, Years and Decades ========//
+
+.react-calendar__year-view__months__month,
+.react-calendar__decade-view__years__year,
+.react-calendar__century-view__decades__decade {
+  min-height: 60px;
+  padding: 0;
+  color: $textColor50;
+  font-size: 12px;
+  font-family: $primaryFont;
+  background: none;
+  border-radius: 100px;
+}
+
 // ======= Body ========//
 
 .react-calendar__viewContainer {
@@ -102,10 +113,7 @@
   padding-top: 12px;
 }
 
-.react-calendar__month-view__days__day,
-.react-calendar__year-view__months__month,
-.react-calendar__decade-view__years__year,
-.react-calendar__century-view__decades__decade {
+.react-calendar__month-view__days__day {
   min-height: 40px;
   padding: 0;
   color: $textColor50;
@@ -158,7 +166,7 @@
   font-weight: bold;
 }
 
-.react-calendar__tile--active.react-calendar__tile--rangeEnd {
+.react-calendar__tile--active.react-calendar__tile--range.react-calendar__tile--rangeEnd {
   background: $primaryGradientTranslucent25;
   border-radius: 0 50% 50% 0;
 
@@ -179,7 +187,7 @@
   }
 }
 
-.react-calendar__tile--active.react-calendar__tile--rangeStart {
+.react-calendar__tile--active.react-calendar__tile--range.react-calendar__tile--rangeStart {
   background: $primaryGradientTranslucent25;
   border-radius: 50% 0 0 50%;
 
@@ -218,30 +226,4 @@
 .react-calendar--selectRange .react-calendar__tile--hover {
   background: $primaryGradientTranslucent25;
   border-radius: 0;
-}
-
-.react-calendar__tile--active.react-calendar__tile--rangeStart.react-calendar__tile--hover {
-  background: $primaryGradientTranslucent25;
-  border-radius: 0;
-
-  &::after {
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    z-index: -1;
-    background: none;
-    border-radius: 50%;
-    content: '';
-  }
-}
-
-// ======= Months, Years and Decades ========//
-
-.react-calendar__year-view__months__month,
-.react-calendar__decade-view__years__year,
-.react-calendar__century-view__decades__decade {
-  min-height: 60px;
-  border-radius: 100px;
 }

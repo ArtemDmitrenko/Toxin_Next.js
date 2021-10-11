@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import Calendar from 'react-calendar';
 
-import formattedLabel from './helpers/formattedLabel';
-import formattedDate from './helpers/formattedDate';
+import formattingLabel from './helpers/formattingLabel';
+import formattingDate from './helpers/formattingDate';
 import styles from './dateRange.module.scss';
 
 type DateRangeProps = {
@@ -57,18 +57,14 @@ const DateRange = ({ headers, placeholder }: DateRangeProps) => {
 
     setCalendarValues(values);
     setDates({
-      arrival: formattedDate(arrivalDate),
-      departure: formattedDate(departureDate),
+      arrival: formattingDate(arrivalDate),
+      departure: formattingDate(departureDate),
     });
   };
 
   const handleClearButtonClick = () => {
     setCalendarValues(null);
     setDates({ arrival: '', departure: '' });
-  };
-
-  const handleCalendarButtonToggle = () => {
-    setCalendarState((prevState) => ({ ...prevState, isOpen: !calendarState.isOpen }));
   };
 
   const handleCalendarFocus = () => {
@@ -127,7 +123,7 @@ const DateRange = ({ headers, placeholder }: DateRangeProps) => {
           selectRange
           onViewChange={handleCalendarViewChange}
           onChange={handleCalendarDatesChange}
-          navigationLabel={formattedLabel}
+          navigationLabel={formattingLabel}
           value={calendarValues}
         />
         <div className={stylesButtons}>
@@ -139,7 +135,7 @@ const DateRange = ({ headers, placeholder }: DateRangeProps) => {
             очистить
           </button>
           <button
-            onClick={handleCalendarButtonToggle}
+            onClick={handleCalendarBlur}
             className={styles.button}
             type="button"
           >

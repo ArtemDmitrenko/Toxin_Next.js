@@ -29,14 +29,12 @@
 
 .header {
   @include h3;
-
   display: block;
   padding-bottom: 5px;
 }
 
 .field {
   @include input;
-
   padding: 12px 0 12px 12px;
   font-size: 14px;
   border: none;
