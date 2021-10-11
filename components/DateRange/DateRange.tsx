@@ -5,9 +5,15 @@ import formattingLabel from './helpers/formattingLabel';
 import formattingDate from './helpers/formattingDate';
 import styles from './dateRange.module.scss';
 
+type CalendarDates = {
+  arrival: string,
+  departure: string,
+};
+
 type DateRangeProps = {
   headers: Array<string>,
   placeholder: string,
+  onChange: (dates: CalendarDates) => void,
 };
 
 type CalendarState = {
@@ -15,14 +21,9 @@ type CalendarState = {
   calView: string,
 };
 
-type CalendarDates = {
-  arrival: string,
-  departure: string,
-};
-
 type UserData = Array<Date>;
 
-const DateRange = ({ headers, placeholder }: DateRangeProps) => {
+const DateRange = ({ headers, placeholder, onChange }: DateRangeProps) => {
   const [arrivalHeader, departureHeader] = headers;
   const defaultCalendarState: CalendarState = {
     isOpen: false,
@@ -57,6 +58,10 @@ const DateRange = ({ headers, placeholder }: DateRangeProps) => {
 
     setCalendarValues(values);
     setDates({
+      arrival: formattingDate(arrivalDate),
+      departure: formattingDate(departureDate),
+    });
+    onChange({
       arrival: formattingDate(arrivalDate),
       departure: formattingDate(departureDate),
     });
