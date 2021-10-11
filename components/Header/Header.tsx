@@ -36,8 +36,8 @@ const Header = (props: HeaderProps) => {
     `${styles.arrow} ${activeMenu === id ? styles.arrowActive : ''}`
   );
 
-  const stylesHeader = () => (
-    `${styles.header} ${isOpenBurgerMenu ? styles.headerVisible : ''}`
+  const stylesNavigation = () => (
+    `${styles.navigation} ${isOpenBurgerMenu ? styles.navigationVisible : ''}`
   );
 
   const stylesButtons = () => (
@@ -52,43 +52,45 @@ const Header = (props: HeaderProps) => {
     <div className={styles.content}>
       <Logo width={110} height={40} alt="Logo" />
       <button className={stylesBurgerMenu()} type="button" aria-label="open or close" onClick={() => setIsOpenBurgerMenu(!isOpenBurgerMenu)} onKeyDown={() => setIsOpenBurgerMenu(!isOpenBurgerMenu)} />
-      <ul className={stylesHeader()}>
-        {menu.map((item) => {
-          const { subMenu = [] } = item;
-          return (subMenu.length > 0 ? (
-            <li
-              className={styles.titleSubMenu}
-              key={item.id}
-              onMouseEnter={() => setActiveMenu(item.id)}
-              onMouseLeave={() => setActiveMenu(null)}
-              onKeyDown={() => setActiveMenu(item.id)}
-            >
-              <Link href={item.href}>
-                <a className={styles.link} href={item.href} title={item.name}>
-                  {item.name}
-                  <i className={stylesArrow(item.id)} />
-                </a>
-              </Link>
-              <ul className={stylesSubMenu(item.id)}>
-                {subMenu.map((element: SubMenu) => (
-                  <li className={styles.subMenuItem} key={element.id}>
-                    <Link href={element.href}>
-                      <a className={styles.link} href={element.href} title={element.name}>{element.name}</a>
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </li>
-          )
-            : (
-              <li className={styles.listItem} key={item.id}>
+      <nav className={stylesNavigation()}>
+        <ul className={styles.headerMenu}>
+          {menu.map((item) => {
+            const { subMenu = [] } = item;
+            return (subMenu.length > 0 ? (
+              <li
+                className={styles.titleSubMenu}
+                key={item.id}
+                onMouseEnter={() => setActiveMenu(item.id)}
+                onMouseLeave={() => setActiveMenu(null)}
+                onKeyDown={() => setActiveMenu(item.id)}
+              >
                 <Link href={item.href}>
-                  <a className={styles.link} href={item.href} title={item.name}>{item.name}</a>
+                  <a className={styles.link} href={item.href} title={item.name}>
+                    {item.name}
+                    <i className={stylesArrow(item.id)} />
+                  </a>
                 </Link>
+                <ul className={stylesSubMenu(item.id)}>
+                  {subMenu.map((element: SubMenu) => (
+                    <li className={styles.subMenuItem} key={element.id}>
+                      <Link href={element.href}>
+                        <a className={styles.link} href={element.href} title={element.name}>{element.name}</a>
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
               </li>
-            ));
-        })}
-      </ul>
+            )
+              : (
+                <li className={styles.listItem} key={item.id}>
+                  <Link href={item.href}>
+                    <a className={styles.link} href={item.href} title={item.name}>{item.name}</a>
+                  </Link>
+                </li>
+              ));
+          })}
+        </ul>
+      </nav>
       <div className={stylesButtons()}>
         <Reference text="Войти" type="bordered" size="small" />
         <Reference text="Зарегистрироваться" type="solid" size="small" />
