@@ -1,5 +1,6 @@
 import Logo from 'Components/Logo/Logo';
 import Counter from 'Components/Counter/Counter';
+import CopyrightBar from 'Components/CopyrightBar/CopyrightBar';
 import Subscribe from 'Components/Subscribe/Subscribe';
 import Reference from 'Components/Reference/Reference';
 
@@ -15,6 +16,7 @@ const HomePage = () => (
     <Reference text="click me" type="bordered" size="small" />
     <Reference text="click me" type="bordered" size="big" />
     <Reference text="Перейти к оплате" type="directed" size="big" />
+    <CopyrightBar text="Copyright © 2018 Toxin отель. Все права защищены." />
   </div>
 );
 
