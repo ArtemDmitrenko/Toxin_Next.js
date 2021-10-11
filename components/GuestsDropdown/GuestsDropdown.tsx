@@ -7,6 +7,7 @@ import styles from './guestsDropdown.module.scss';
 type GuestsDropdownConfig = Array<{
   title: string,
   group: string,
+  defaultValue?: number,
   wordforms: [string, string, string],
 }>;
 
@@ -48,10 +49,12 @@ const GuestsDropdown = (props: GuestsDropdownProps) => {
     let count = 0;
 
     list.forEach((item) => {
+      const { defaultValue = 0 } = item;
+
       if (prevGroup === item.group) {
         generatedState.groups[item.group].items[`item${count}`] = {
           title: item.title,
-          value: 0,
+          value: defaultValue,
         };
       } else {
         count = 0;
@@ -61,7 +64,7 @@ const GuestsDropdown = (props: GuestsDropdownProps) => {
           items: {
             [`item${count}`]: {
               title: item.title,
-              value: 0,
+              value: defaultValue,
             },
           },
         };

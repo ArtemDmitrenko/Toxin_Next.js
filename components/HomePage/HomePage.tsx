@@ -8,6 +8,7 @@ const HomePage = () => {
     {
       title: 'Взрослые',
       group: 'guests',
+      defaultValue: 1,
       wordforms: ['гость', 'гостя', 'гостей'],
     },
     {
