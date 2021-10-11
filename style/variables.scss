@@ -108,3 +108,9 @@ $primaryFont: 'Montserrat', 'Arial', 'sans-serif';
     border-color: $textColor50;
   }
 }
+
+@mixin text-gradient-fill($color) {
+  background: $color;
+  background-clip: text;
+  color: transparent;
+}

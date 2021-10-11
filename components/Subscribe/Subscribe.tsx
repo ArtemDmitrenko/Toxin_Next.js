@@ -1,20 +1,53 @@
+import { Form, Field } from 'react-final-form';
+
+import hasValidateEmail from 'Root/utils/hasValidateEmail';
+
 import styles from './subscribe.module.scss';
 
-type SubscribeProps = {
-  action: string,
+type FormProps = {
+  onSubmit: (email: string) => void,
 };
 
-const Subscribe = (props: SubscribeProps) => {
-  const { action } = props;
-  const { container, input, buttonArrow } = styles;
+type FormValues = {
+  email: string,
+};
+
+type FormApi = {
+  reset: () => void,
+};
+
+const Subscribe = ({ onSubmit }: FormProps) => {
+  const handleFormSubmit = (values: FormValues, form: FormApi) => {
+    const { email } = values;
+
+    if (hasValidateEmail(email)) {
+      onSubmit(email);
+      form.reset();
+    }
+  };
 
   return (
-    <form method="post" action={action}>
-      <div className={container}>
-        <input className={input} type="email" name="email" placeholder="Email" />
-        <button className={buttonArrow} type="submit" name="subscribe" aria-label="button for submitting a subscription form" />
-      </div>
-    </form>
+    <Form onSubmit={handleFormSubmit}>
+      {({ handleSubmit }) => (
+        <form onSubmit={handleSubmit}>
+          <div className={styles.container}>
+            <Field
+              className={styles.field}
+              name="email"
+              component="input"
+              placeholder="Email"
+            />
+            <button
+              className={styles.buttonArrow}
+              type="submit"
+              name="subscribe"
+              aria-label="button for submitting a subscription form"
+            />
+          </div>
+        </form>
+      )}
+    </Form>
+
   );
 };
 
