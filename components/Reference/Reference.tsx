@@ -4,7 +4,7 @@ import styles from './reference.module.scss';
 
 type ReferenceProps = {
   text: string,
-  type: 'bordered' | 'solid',
+  type: 'bordered' | 'solid' | 'directed',
   size: 'big' | 'small'
 };
 
@@ -14,6 +14,7 @@ const Reference = (props: ReferenceProps) => {
 
   if (type === 'bordered') classesArr.push(styles.bordered);
   if (type === 'solid') classesArr.push(styles.solid);
+  if (type === 'directed') classesArr.push(styles.directed);
   if (size === 'big') classesArr.push(styles.big);
   if (size === 'small') classesArr.push(styles.small);
 
