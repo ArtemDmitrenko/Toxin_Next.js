@@ -12,7 +12,6 @@ const HomePage = () => {
       id: 1,
       name: 'О нас',
       href: '/',
-      subMenu: [],
     },
     {
       id: 2,
@@ -29,13 +28,11 @@ const HomePage = () => {
       id: 3,
       name: 'Вакансии',
       href: '/',
-      subMenu: [],
     },
     {
       id: 4,
       name: 'Новости',
       href: '/',
-      subMenu: [],
     },
     {
       id: 5,
