@@ -1,4 +1,3 @@
-import Link from 'next/link';
 import Image from 'next/image';
 
 import styles from './socialIcons.module.scss';
@@ -15,11 +14,9 @@ const SocialIcons = (props: SocialIconsProps) => {
       {buttons.map(({
         id, name, href, src, width, height,
       }) => (
-        <Link href={href} key={id}>
-          <a className={styles.link} href={href} target="_blank" rel="noopener noreferrer">
-            <Image alt={name} src={src} width={`${width}px`} height={`${height}px`} />
-          </a>
-        </Link>
+        <a className={styles.link} href={href} target="_blank" rel="noopener noreferrer" key={id}>
+          <Image alt={name} src={src} width={`${width}px`} height={`${height}px`} />
+        </a>
       ))}
     </div>
   );
