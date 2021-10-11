@@ -2,9 +2,17 @@ import Image from 'next/image';
 
 import styles from './socialIcons.module.scss';
 
+type SocialButton = {
+  id: number,
+  name: string,
+  href: string,
+  src: string,
+  width: number,
+  height: number,
+};
+
 type SocialIconsProps = {
-  buttons: Array<{
-    id: number, name: string, href: string, src: string, width: number, height: number }> };
+  buttons: Array<SocialButton> };
 
 const SocialIcons = (props: SocialIconsProps) => {
   const { buttons } = props;
