@@ -1,0 +1,161 @@
+@import 'Root/style/variables';
+
+.guestsDropdown {
+  position: relative;
+  z-index: 0;
+  max-width: 326px;
+  font-size: 12px;
+  user-select: none;
+}
+
+.output {
+  position: relative;
+  cursor: pointer;
+
+  &::before {
+    $side: 7px;
+    position: absolute;
+    top: 50%;
+    right: 18px;
+    width: $side;
+    height: $side;
+    border: 2px solid $textColor50;
+    border-top: 0;
+    border-left: 0;
+    transform: translateY(-70%) rotate(45deg);
+    transition: transform 0.3s ease-in-out;
+    content: '';
+  }
+
+  &::placeholder {
+    color: $textColor75;
+  }
+
+  &Active {
+    &::before {
+      transform: translateY(-30%) rotate(-135deg);
+    }
+  }
+}
+
+.input {
+  @include input();
+  padding-right: 40px;
+  text-overflow: ellipsis;
+  cursor: pointer;
+  transition:
+    border-radius 0s linear 0.3s,
+    border-color 0s linear 0.3s;
+
+  &Active {
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+    transition: border-radius 0s linear 0s;
+  }
+}
+
+.menuWrapper {
+  position: absolute;
+  top: 100%;
+  width: 100%;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-in-out;
+
+  &Active {
+    max-height: 300px;
+  }
+}
+
+.menu {
+  border: 1px solid $textColor50;
+  border-top: none;
+  border-bottom-right-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+
+.list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 7px 6px 0 14px;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.control {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.minus,
+.plus {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  color: $textColor50;
+  font-weight: normal;
+  font-size: 20px;
+  text-align: center;
+  background-color: #fff;
+  border: 1px solid $textColor50;
+  border-radius: 50%;
+  cursor: pointer;
+
+  &:hover {
+    background-color: $textColor05;
+  }
+
+  &Disabled {
+    color: $textColor25;
+    border: 1px solid $textColor25;
+  }
+}
+
+.counter {
+  width: 32px;
+  text-align: center;
+}
+
+.buttons {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 21px 7px 12px 15px;
+  font-weight: bold;
+  text-transform: uppercase;
+
+  &NonEmpty {
+    justify-content: space-between;
+  }
+}
+
+.button {
+  padding: 0;
+  color: $primaryColor;
+  font: inherit;
+  text-transform: uppercase;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+
+  &:hover {
+    color: $textColor50;
+  }
+
+  &Clear {
+    &Hidden {
+      max-height: 0;
+      overflow: hidden;
+    }
+  }
+}
