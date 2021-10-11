@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 import { Form, Field } from 'react-final-form';
 
 import hasValidateEmail from 'Root/utils/hasValidateEmail';
@@ -6,9 +5,7 @@ import hasValidateEmail from 'Root/utils/hasValidateEmail';
 import styles from './subscribe.module.scss';
 
 type FormProps = {
-  method: string,
-  url: string,
-  headers: Record<string, string>
+  onSubmit: (email: string) => void,
 };
 
 type FormValues = {
@@ -19,25 +16,15 @@ type FormApi = {
   reset: () => void,
 };
 
-const Subscribe = ({ method, url, headers }: FormProps) => {
-  const [userEmail, setEmail] = useState({ userEmail: '' });
-
+const Subscribe = ({ onSubmit }: FormProps) => {
   const handleFormSubmit = (values: FormValues, form: FormApi) => {
     const { email } = values;
 
     if (hasValidateEmail(email)) {
-      setEmail({ userEmail: email });
+      onSubmit(email);
       form.reset();
     }
   };
-
-  useEffect(() => {
-    fetch(url, {
-      method,
-      headers,
-      body: JSON.stringify(userEmail),
-    });
-  });
 
   return (
     <Form onSubmit={handleFormSubmit}>

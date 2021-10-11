@@ -4,13 +4,17 @@ import Reference from 'Components/Reference/Reference';
 
 import styles from './homePage.module.scss';
 
+const addNewEmail = (email: string) => {
+  const subscriptionData = {
+    userEmail: email,
+  };
+};
+
 const HomePage = () => (
   <div className={styles.root}>
     <Counter />
     <Subscribe
-      method="POST"
-      url="https://jsonplaceholder.typicode.com/users"
-      headers={{ 'Content-Type': 'application/json' }}
+      onSubmit={addNewEmail}
     />
     <Reference text="Зарегистрироваться" type="solid" size="small" />
     <Reference text="Зарегистрироваться" type="solid" size="big" />
