@@ -24,8 +24,9 @@
   justify-content: center;
   width: 38px;
   height: 38px;
-  border: 1px solid $textColor50;
-  border-radius: 5px;
+  background-color: #fff;
+  border-radius: 50%;
+  border: 2px solid $textColor50;
   color: $textColor50;
   margin-top: 16px;
   margin-bottom: 16px;
