@@ -1,0 +1,14 @@
+@import 'Root/style/variables.scss';
+
+.container {
+  min-width: 200px;
+  max-width: 380px;
+  padding: 39px 30px 30px 29px;
+  background: $textColor05;
+  border-radius: 4px;
+  box-shadow: $cardShadow;
+}
+
+.title {
+  @include h1;
+}

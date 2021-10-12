@@ -2,6 +2,7 @@ import Counter from 'Components/Counter/Counter';
 import CopyrightBar from 'Components/CopyrightBar/CopyrightBar';
 import Subscribe from 'Components/Subscribe/Subscribe';
 import Reference from 'Components/Reference/Reference';
+import RoomSearchCard from 'Components/RoomSearchCard/RoomSearchCard';
 
 import styles from './homePage.module.scss';
 
@@ -13,6 +14,7 @@ const addNewEmail = (email: string) => {
 
 const HomePage = () => (
   <div className={styles.root}>
+    <RoomSearchCard />
     <Counter />
     <Subscribe
       onSubmit={addNewEmail}
