@@ -49,62 +49,65 @@ const Header = (props: HeaderProps) => {
   );
 
   return (
-    <div className={styles.content}>
-      <Logo width={110} height={40} alt="Logo" />
-      <button className={stylesBurgerMenu()} type="button" aria-label="open or close" onClick={() => setIsOpenBurgerMenu(!isOpenBurgerMenu)} onKeyDown={() => setIsOpenBurgerMenu(!isOpenBurgerMenu)} />
-      <nav className={stylesNavigation()}>
-        <ul className={styles.headerMenu}>
-          {menu.map((item) => {
-            const { subMenu = [] } = item;
-            return (subMenu.length > 0 ? (
-              <li
-                className={styles.titleSubMenu}
-                key={item.id}
-                onMouseEnter={() => setActiveMenu(item.id)}
-                onMouseLeave={() => setActiveMenu(null)}
-              >
-                <Link href={item.href}>
-                  <a
-                    className={styles.link}
-                    href={item.href}
-                    title={item.name}
-                    onKeyDown={() => setActiveMenu(item.id)}
-                  >
-                    {item.name}
-                    <i className={stylesArrow(item.id)} />
-                  </a>
-                </Link>
-                <ul className={stylesSubMenu(item.id)}>
-                  {subMenu.map((element: SubMenu) => (
-                    <li className={styles.subMenuItem} key={element.id}>
-                      <Link href={element.href}>
-                        <a
-                          className={styles.link}
-                          href={element.href}
-                          title={element.name}
-                        >
-                          {element.name}
-                        </a>
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </li>
-            )
-              : (
-                <li className={styles.listItem} key={item.id}>
+    <div className={styles.header}>
+      <div className={styles.content}>
+        <Logo width={110} height={40} alt="Logo" />
+        <button className={stylesBurgerMenu()} type="button" aria-label="open or close" onClick={() => setIsOpenBurgerMenu(!isOpenBurgerMenu)} onKeyDown={() => setIsOpenBurgerMenu(!isOpenBurgerMenu)} />
+        <nav className={stylesNavigation()}>
+          <ul className={styles.headerMenu}>
+            {menu.map((item) => {
+              const { subMenu = [] } = item;
+              return (subMenu.length > 0 ? (
+                <li
+                  className={styles.titleSubMenu}
+                  key={item.id}
+                  onMouseEnter={() => setActiveMenu(item.id)}
+                  onMouseLeave={() => setActiveMenu(null)}
+                >
                   <Link href={item.href}>
-                    <a className={styles.link} href={item.href} title={item.name}>{item.name}</a>
+                    <a
+                      className={styles.link}
+                      href={item.href}
+                      title={item.name}
+                      onKeyDown={() => setActiveMenu(item.id)}
+                    >
+                      {item.name}
+                      <i className={stylesArrow(item.id)} />
+                    </a>
                   </Link>
+                  <ul className={stylesSubMenu(item.id)}>
+                    {subMenu.map((element: SubMenu) => (
+                      <li className={styles.subMenuItem} key={element.id}>
+                        <Link href={element.href}>
+                          <a
+                            className={styles.link}
+                            href={element.href}
+                            title={element.name}
+                          >
+                            {element.name}
+                          </a>
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
                 </li>
-              ));
-          })}
-        </ul>
-      </nav>
-      <div className={stylesButtons()}>
-        <Reference text="Войти" type="bordered" size="small" />
-        <Reference text="Зарегистрироваться" type="solid" size="small" />
+              )
+                : (
+                  <li className={styles.listItem} key={item.id}>
+                    <Link href={item.href}>
+                      <a className={styles.link} href={item.href} title={item.name}>{item.name}</a>
+                    </Link>
+                  </li>
+                ));
+            })}
+          </ul>
+        </nav>
+        <div className={stylesButtons()}>
+          <Reference text="Войти" type="bordered" size="small" />
+          <Reference text="Зарегистрироваться" type="solid" size="small" />
+        </div>
       </div>
+
     </div>
   );
 };
