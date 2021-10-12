@@ -1,0 +1,34 @@
+@import 'Root/style/variables.scss';
+
+.main {
+  background: url('./images/landing-page.png');
+  background-size: cover;
+  background-position: center;
+  height: 830px;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: row-reverse;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 70px 140px 21px;
+  height: 100%;
+  
+  @media (max-width: $mediaSizeTablet) {
+    padding-right: 40px;
+    padding-left: 40px;
+  }
+}
+
+.slogan {
+  display: flex;
+  flex-direction: column-reverse;
+  width: 300px;
+}
+
+.text {
+  @include paragraph;
+  line-height: 24px;
+  text-align: end;
+}

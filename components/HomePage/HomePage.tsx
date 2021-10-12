@@ -6,6 +6,7 @@ import FooterDesktop from 'Components/FooterDesktop/FooterDesktop';
 import footerItems from 'Components/FooterDesktop/footer-items.json';
 import Header from '../Header/Header';
 import FooterMobile from '../FooterMobile/FooterMobile';
+import BackgroundWithSlogan from 'Components/BackgroundWithSlogan/BackgroundWithSlogan';
 
 import styles from './homePage.module.scss';
 
@@ -57,6 +58,7 @@ const HomePage = () => {
   return (
     <div className={styles.root}>
       <Header menu={navigation} />
+      <BackgroundWithSlogan />
       <FooterDesktop
         navContent={footerItems.navContent}
         logoSign={footerItems.logoSign}
