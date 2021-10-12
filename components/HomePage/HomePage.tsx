@@ -64,6 +64,7 @@ const HomePage = () => {
         subscribeTitle={footerItems.subscribeTitle}
         addNewEmail={addNewEmail}
       />
+      <FooterMobile />
 
     </div>
   );
