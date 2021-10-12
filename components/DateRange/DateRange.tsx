@@ -103,8 +103,14 @@ const DateRange = (props: DateRangeProps) => {
   return (
     <div
       className={styles.mainWrapper}
-      onBlur={handleCalendarBlur}
-      onFocus={handleCalendarFocus}
+      onBlur={(e) => {
+        e.preventDefault();
+        handleCalendarBlur();
+      }}
+      onFocus={(e) => {
+        e.preventDefault();
+        handleCalendarFocus();
+      }}
     >
       <section className={styles.container}>
         <div>
@@ -149,14 +155,20 @@ const DateRange = (props: DateRangeProps) => {
         />
         <div className={stylesButtons}>
           <button
-            onClick={handleClearButtonClick}
+            onClick={(e) => {
+              e.preventDefault();
+              handleClearButtonClick();
+            }}
             className={stylesClearButton}
             type="button"
           >
             очистить
           </button>
           <button
-            onClick={handleCalendarBlur}
+            onClick={(e) => {
+              e.preventDefault();
+              handleCalendarBlur();
+            }}
             className={styles.button}
             type="button"
           >
