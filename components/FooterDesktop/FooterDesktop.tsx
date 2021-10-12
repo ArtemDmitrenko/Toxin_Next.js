@@ -2,20 +2,20 @@ import Link from 'next/link';
 
 import Logo from 'Components/Logo/Logo';
 import Subscribe from 'Components/Subscribe/Subscribe';
-import CopyrightBar from '../CopyrightBar/CopyrightBar';
+import CopyrightBar from 'Components/CopyrightBar/CopyrightBar';
 
 import styles from './footerDesktop.module.scss';
 
 type FooterLink = {
   id: number,
-  item: string;
-  href: string;
+  item: string,
+  href: string,
 };
 
 type FooterColumn = {
   id: number,
-  title: string;
-  items: Array<FooterLink>;
+  title: string,
+  items: Array<FooterLink>,
 };
 
 type FooterData = {
@@ -28,7 +28,11 @@ type FooterData = {
 
 const FooterDesktop = (props: FooterData) => {
   const {
-    navContent, logoSign, subscribeSign, subscribeTitle, addNewEmail,
+    navContent,
+    logoSign,
+    subscribeSign,
+    subscribeTitle,
+    addNewEmail,
   } = props;
 
   return (
