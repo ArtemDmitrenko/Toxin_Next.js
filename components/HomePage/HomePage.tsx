@@ -44,9 +44,15 @@ const HomePage = () => {
       ],
     },
   ];
+
+  const addNewEmail = (email: string) => {
+    const subscriptionData = {
+      userEmail: email,
+    };
+  };
+
   return (
     <div className={styles.root}>
-      <Logo width={106} height={40} alt="Toxin hotel logo" />
       <Counter />
       <Subscribe
         onSubmit={addNewEmail}
@@ -60,12 +66,6 @@ const HomePage = () => {
       <Header menu={navigation} />
     </div>
   );
-};
-
-const addNewEmail = (email: string) => {
-  const subscriptionData = {
-    userEmail: email,
-  };
 };
 
 export default HomePage;
