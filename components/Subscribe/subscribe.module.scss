@@ -11,7 +11,7 @@
   }
 }
 
-.input {
+.field {
   width: 100%;
   padding: 14px;
   color: $textColor75;
@@ -35,15 +35,17 @@
 }
 
 .buttonArrow {
+  @include text-gradient-fill($primaryGradient);
+
   padding: 10px;
   font: 24px/24px 'Material Icons';
-  background: $primaryGradient;
-  -webkit-background-clip: text;
-  background-clip: text;
   border: none;
   border-radius: 0 4px 4px 0;
   cursor: pointer;
-  -webkit-text-fill-color: transparent;
+
+  &:disabled {
+    @include text-gradient-fill($primaryGradientTranslucent);
+  }
 
   &::before {
     content: '\e5c8';
