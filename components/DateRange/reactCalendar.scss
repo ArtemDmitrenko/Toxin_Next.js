@@ -227,3 +227,49 @@
   background: $primaryGradientTranslucent25;
   border-radius: 0;
 }
+
+.react-calendar__tile.react-calendar__tile--hasActive.react-calendar__tile--rangeStart {
+  color: #fff;
+  font-weight: bold;
+  background: $primaryGradientTranslucent25;
+  border-radius: 50% 0 0 50%;
+
+  &::after {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: -1;
+    background: $primaryGradient;
+    border-radius: 50%;
+    content: '';
+  }
+
+  &:hover::after {
+    background: $primaryGradientTranslucent25;
+  }
+}
+
+.react-calendar__tile.react-calendar__tile--hasActive.react-calendar__tile--rangeEnd {
+  color: #fff;
+  font-weight: bold;
+  background: $primaryGradientTranslucent25;
+  border-radius: 0 50% 50% 0;
+
+  &::after {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: -1;
+    background: $primaryGradient;
+    border-radius: 50%;
+    content: '';
+  }
+
+  &:hover::after {
+    background: $primaryGradientTranslucent25;
+  }
+}

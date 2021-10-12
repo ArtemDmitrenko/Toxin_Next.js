@@ -14,6 +14,7 @@ type DateRangeProps = {
   headers: Array<string>,
   placeholder: string,
   onChange: (dates: CalendarDates) => void,
+  defaultValues: UserData | null,
 };
 
 type CalendarState = {
@@ -23,20 +24,35 @@ type CalendarState = {
 
 type UserData = Array<Date>;
 
-const DateRange = ({ headers, placeholder, onChange }: DateRangeProps) => {
+const DateRange = (props: DateRangeProps) => {
+  const {
+    headers,
+    placeholder,
+    defaultValues,
+    onChange,
+  } = props;
   const [arrivalHeader, departureHeader] = headers;
   const defaultCalendarState: CalendarState = {
     isOpen: false,
     calView: 'month',
   };
-  const defaultCalendarDates: CalendarDates = {
-    arrival: '',
-    departure: '',
+
+  const formattedDefaultValues = () => {
+    if (defaultValues) {
+      return {
+        arrival: formattingDate(defaultValues[0]),
+        departure: formattingDate(defaultValues[1]),
+      };
+    }
+    return {
+      arrival: '',
+      departure: '',
+    };
   };
 
   const [calendarState, setCalendarState] = useState(defaultCalendarState);
-  const [formattedDates, setDates] = useState(defaultCalendarDates);
-  const [calendarValues, setCalendarValues] = useState<UserData | null>(null);
+  const [formattedDates, setDates] = useState(formattedDefaultValues);
+  const [calendarValues, setCalendarValues] = useState(defaultValues);
 
   const { isOpen, calView } = calendarState;
 

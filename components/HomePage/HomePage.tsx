@@ -4,7 +4,7 @@ import Reference from 'Components/Reference/Reference';
 
 import styles from './homePage.module.scss';
 
-const addDatesOfState = (dates) => {
+const addDatesOfState = (dates: { arrival: string, departure: string }) => {
   const datesOfState = {
     arrival: dates.arrival,
     departure: dates.departure,
@@ -17,6 +17,7 @@ const HomePage = () => (
     <DateRange
       headers={['прибытие', 'выезд']}
       placeholder="ДД.ММ.ГГГГ"
+      defaultValues={[new Date('2021-10-19'), new Date('2021-10-23')]}
       onChange={addDatesOfState}
     />
     <Reference text="Зарегистрироваться" type="solid" size="small" />
