@@ -1,11 +1,11 @@
 import TestCounterActionTypes from 'Root/redux/testCounter/testCounterActionsTypes';
-import { InferValueTypes } from 'Root/redux/utils';
+import InferValueTypes from 'Root/redux/utils';
 
 import * as actions from './testCounterActions';
 
-interface TestCounterState {
+type TestCounterState = {
   value: number,
-}
+};
 
 type TestCounterAction = ReturnType<InferValueTypes<typeof actions>>;
 
@@ -18,7 +18,7 @@ const testCounterReducer = (state: TestCounterState = { value: 0 }, action: Test
       return { ...state, value: state.value - 1 };
 
     default:
-      return { ...state };
+      return state;
   }
 };
 
