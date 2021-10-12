@@ -36,7 +36,7 @@ const FooterDesktop = (props: FooterData) => {
       <div className={styles.main}>
         <div className={styles.wrapper}>
           <div className={styles.logo}>
-            <Logo width={106} height={40} alt="Toxin hotel logo" />
+            <Logo width={110} height={40} alt="Toxin hotel logo" />
             <p className={styles.sign}>{logoSign}</p>
           </div>
           <div className={styles.content}>
