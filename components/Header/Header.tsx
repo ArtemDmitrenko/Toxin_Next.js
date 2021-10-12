@@ -48,9 +48,9 @@ const Header = (props: HeaderProps) => {
     `${styles.burger} ${isOpenBurgerMenu ? styles.burgerOpened : ''}`
   );
 
-  const handleClick = (id: number) => {
-    id === activeMenu ? setActiveMenu(null) : setActiveMenu(id);
-  };
+  const handleClick = (id: number) => (
+    id === activeMenu ? setActiveMenu(null) : setActiveMenu(id)
+  );
 
   return (
     <div className={styles.header}>
