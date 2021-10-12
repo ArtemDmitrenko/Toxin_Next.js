@@ -123,6 +123,37 @@
   margin-right: 0px;
 }
 
+.text {
+  position: relative;
+  display: block;
+  font: 14px/17px $primaryFont;
+  color: $textColor50;
+  text-align: left;
+  border: none;
+  background-color: #fff;
+  cursor: pointer;
+
+  @media(max-width: 1024px) {
+    text-align: center;
+    margin-bottom: 20px;
+    margin-top: 20px;
+  }
+
+  &:hover {
+    color: $textColor75;
+    font-weight: bold;
+  }
+}
+
+.text::after {
+  display: block;
+  content: attr(title);
+  font-weight: bold;
+  height: 0;
+  overflow: hidden;
+  visibility: hidden;
+}
+
 .link {
   position: relative;
   display: block;
