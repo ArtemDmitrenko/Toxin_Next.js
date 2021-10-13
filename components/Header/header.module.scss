@@ -1,11 +1,15 @@
 @import 'Root/style/variables.scss';
 
 .header {
-  box-shadow: 0px 10px 20px $textColor05;
-  padding: 0px 10px 20px 10px;
+  padding: 0;
 
-  @media(min-width: 1200px) {
-    padding: 0;
+  @media(max-width: 1200px) {
+    box-shadow: 0px 10px 20px $textColor05;
+    padding: 0px 10px 20px 10px;
+  }
+
+  @media(min-width: 1024px) {
+    padding-bottom: 0;
   }
 }
 
@@ -204,7 +208,7 @@
 
 .subMenu {
   position: absolute;
-  top: 15px;
+  top: 20px;
   left: -20px;
   max-width: 150px;
   display: none;
@@ -251,7 +255,7 @@
 }
 
 .subMenuItem:first-child {
-  padding-top: 18px;
+  padding-top: 13px;
 
   @media(max-width: 1024px) {
     padding: 0;
