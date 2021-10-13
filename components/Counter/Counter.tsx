@@ -1,6 +1,5 @@
 import { counterDecrement, counterIncrement } from 'Root/redux/testCounter/testCounterActions';
 import { useAppDispatch, useAppSelector } from 'Root/redux/hooks';
-import Header from 'Components/Header/Header';
 
 import styles from './counter.module.scss';
 
@@ -10,7 +9,7 @@ const Counter = () => {
 
   return (
     <div className={styles.root}>
-      <Header content="Test counter" />
+      <h1>Test counter</h1>
       <h1 className={styles.counter}>{count}</h1>
       <button type="button" className={styles.button} onClick={() => dispatch(counterDecrement())}> - </button>
       <button type="button" className={styles.button} onClick={() => dispatch(counterIncrement())}> + </button>
