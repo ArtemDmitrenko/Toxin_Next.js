@@ -2,17 +2,18 @@ import { useState, useEffect } from 'react';
 
 import convertNumToWordform from 'Root/utils/convertNumToWordform';
 
-import styles from './guestsDropdown.module.scss';
+import styles from './dropdown.module.scss';
 
-type GuestsDropdownConfig = Array<{
+type DropdownConfig = Array<{
   title: string,
   group: string,
   defaultValue?: number,
   wordforms: [string, string, string],
 }>;
 
-type GuestsDropdownProps = {
-  list: GuestsDropdownConfig,
+type DropdownProps = {
+  list: DropdownConfig,
+  isButtons?: boolean,
 };
 
 type Groups = {
@@ -27,7 +28,7 @@ type Groups = {
   },
 };
 
-type GuestsDropdownState = {
+type DropdownState = {
   isActive: boolean,
   output: string,
   groups: Groups,
@@ -35,11 +36,11 @@ type GuestsDropdownState = {
 
 const MAX_GROUP_VALUE = 10;
 
-const GuestsDropdown = (props: GuestsDropdownProps) => {
-  const { list } = props;
+const Dropdown = (props: DropdownProps) => {
+  const { list, isButtons } = props;
 
-  const generateState = (): GuestsDropdownState => {
-    const generatedState: GuestsDropdownState = {
+  const generateState = (): DropdownState => {
+    const generatedState: DropdownState = {
       isActive: false,
       output: '',
       groups: {},
@@ -200,7 +201,7 @@ const GuestsDropdown = (props: GuestsDropdownProps) => {
 
   return (
     <div
-      className={styles.guestsDropdown}
+      className={styles.dropdown}
       onFocus={(e) => {
         e.preventDefault();
         handleOutputFocus();
@@ -256,33 +257,40 @@ const GuestsDropdown = (props: GuestsDropdownProps) => {
               ))
             ))}
           </ul>
-          <div className={`${styles.buttons} ${styles.buttonsNonEmpty}`}>
-            <button
-              type="button"
-              className={stylesClearButton()}
-              onClick={(e) => {
-                e.preventDefault();
-                handleClearClick();
-              }}
-            >
-              Очистить
-            </button>
-            <button
-              type="button"
-              className={stylesApplyButton()}
-              onClick={(e) => {
-                e.preventDefault();
-                handleOutputBlur();
-              }}
-            >
-              Применить
-            </button>
-          </div>
+          {isButtons
+            && (
+            <div className={`${styles.buttons} ${styles.buttonsNonEmpty}`}>
+              <button
+                type="button"
+                className={stylesClearButton()}
+                onClick={(e) => {
+                  e.preventDefault();
+                  handleClearClick();
+                }}
+              >
+                Очистить
+              </button>
+              <button
+                type="button"
+                className={stylesApplyButton()}
+                onClick={(e) => {
+                  e.preventDefault();
+                  handleOutputBlur();
+                }}
+              >
+                Применить
+              </button>
+            </div>
+            )}
         </div>
       </div>
     </div>
   );
 };
 
-export type { GuestsDropdownConfig };
-export default GuestsDropdown;
+Dropdown.defaultProps = {
+  isButtons: true,
+};
+
+export type { DropdownConfig };
+export default Dropdown;
