@@ -7,13 +7,13 @@ import Reference from 'Components/Reference/Reference';
 import styles from './header.module.scss';
 
 type SubMenu = {
-  id: number;
+  id: number,
   name: string,
   href: string,
 };
 
 type HeaderMenu = {
-  id: number;
+  id: number,
   name: string,
   href: string,
   subMenu?: Array<SubMenu>,
