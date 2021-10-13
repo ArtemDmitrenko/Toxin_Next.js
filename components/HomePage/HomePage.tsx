@@ -3,6 +3,12 @@ import BackgroundWithSlogan from 'Components/BackgroundWithSlogan/BackgroundWith
 
 import styles from './homePage.module.scss';
 
+const addNewEmail = (email: string) => {
+  const subscriptionData = {
+    userEmail: email,
+  };
+};
+
 const HomePage = () => (
   <div className={styles.root}>
     <Counter />

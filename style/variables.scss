@@ -26,6 +26,17 @@ $secondaryGradient: linear-gradient(to top, $complementaryColor, $secondaryColor
 
 $primaryFont: 'Montserrat', 'Arial', 'sans-serif';
 
+@mixin font-face($font-family, $font-path, $font-postfix, $font-weight, $font-style) {
+  @font-face {
+    font-family: $font-family;
+    src:local('#{$font-family} #{$font-postfix}'), local('#{$font-family}-#{$font-postfix}'),
+      url('#{$font-path}.woff2') format('woff2'),
+      url('#{$font-path}.woff') format('woff');
+    font-weight: $font-weight;
+    font-style: $font-style;
+  }
+}
+
 @mixin container() {
   max-width: $containerWidth;
   width: 100%;
@@ -96,4 +107,10 @@ $primaryFont: 'Montserrat', 'Arial', 'sans-serif';
     outline: none;
     border-color: $textColor50;
   }
+}
+
+@mixin text-gradient-fill($color) {
+  background: $color;
+  background-clip: text;
+  color: transparent;
 }
