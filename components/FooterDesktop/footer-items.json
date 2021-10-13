@@ -1,0 +1,82 @@
+{  
+  "navContent": 
+  [
+    {
+      "id": 10,
+      "title": "Навигация",
+      "items": [
+        {
+        "id": 0,
+        "item": "О нас",
+        "href": "https://www.mock-link.com/"
+        },
+        {
+          "id": 1,
+          "item": "Новости",
+          "href": "https://www.mock-link.com/"
+        },
+        {
+          "id": 2,
+          "item": "Служба поддержки",
+          "href": "https://www.mock-link.com/"
+        },
+        {
+          "id": 3,
+          "item": "Услуги",
+          "href": "https://www.mock-link.com/"
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "title": "О нас",
+      "items": [
+        {
+          "id": 0,
+          "item": "О сервисе",
+          "href": "https://www.mock-link.com/"
+        },
+        {
+          "id": 1,
+          "item": "Наша команда",
+          "href": "https://www.mock-link.com/"
+        },
+        {
+          "id": 2,
+          "item": "Вакансии",
+          "href": "https://www.mock-link.com/"
+        },
+        {
+          "id": 3,
+          "item": "Инвесторы",
+          "href": "https://www.mock-link.com/"
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "title": "Служба поддержки",
+      "items": [
+        {
+        "id": 0,
+        "item": "Соглашения",
+        "href": "https://www.mock-link.com/"
+        },
+        {
+          "id": 1,
+          "item": "Сообщества",
+          "href": "https://www.mock-link.com/"
+        },
+        {
+          "id": 2,
+          "item": "Связь с нами",
+          "href": "https://www.mock-link.com/"
+        }
+      ]
+    }
+  ],
+  "logoSign": "Бронирование номеров в лучшем отеле 2019 года по версии ассоциации «Отельные взгляды»",
+  "subscribeTitle": "Подписка",
+  "subscribeSign": "Получайте специальные предложения и новости сервиса",
+  "copyright": "Copyright © 2018 Toxin отель. Все права защищены."
+}

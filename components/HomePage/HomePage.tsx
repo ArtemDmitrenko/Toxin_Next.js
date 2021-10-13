@@ -3,6 +3,8 @@ import DateRange from 'Components/DateRange/DateRange';
 import CopyrightBar from 'Components/CopyrightBar/CopyrightBar';
 import Subscribe from 'Components/Subscribe/Subscribe';
 import Reference from 'Components/Reference/Reference';
+import FooterDesktop from 'Components/FooterDesktop/FooterDesktop';
+import footerItems from 'Components/FooterDesktop/footer-items.json';
 
 import styles from './homePage.module.scss';
 
@@ -33,8 +35,13 @@ const HomePage = () => (
     <Reference text="Зарегистрироваться" type="solid" size="big" />
     <Reference text="click me" type="bordered" size="small" />
     <Reference text="click me" type="bordered" size="big" />
-    <Reference text="Перейти к оплате" type="directed" size="big" />
-    <CopyrightBar text="Copyright © 2018 Toxin отель. Все права защищены." />
+    <FooterDesktop
+      navContent={footerItems.navContent}
+      logoSign={footerItems.logoSign}
+      subscribeSign={footerItems.subscribeSign}
+      subscribeTitle={footerItems.subscribeTitle}
+      addNewEmail={addNewEmail}
+    />
   </div>
 );
 
