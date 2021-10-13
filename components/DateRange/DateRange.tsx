@@ -5,24 +5,12 @@ import formattingLabel from './helpers/formattingLabel';
 import formattingDate from './helpers/formattingDate';
 import styles from './dateRange.module.scss';
 
-type CalendarDates = {
-  arrival: string,
-  departure: string,
-};
-
 type DateRangeProps = {
   headers: Array<string>,
   placeholder: string,
-  onChange: (dates: CalendarDates) => void,
-  defaultValues: UserData | null,
+  onChange: (dates: { arrival: string, departure: string }) => void,
+  defaultValues: Array<Date> | null,
 };
-
-type CalendarState = {
-  isOpen: boolean,
-  calView: string,
-};
-
-type UserData = Array<Date>;
 
 const DateRange = (props: DateRangeProps) => {
   const {
@@ -32,10 +20,6 @@ const DateRange = (props: DateRangeProps) => {
     onChange,
   } = props;
   const [arrivalHeader, departureHeader] = headers;
-  const defaultCalendarState: CalendarState = {
-    isOpen: false,
-    calView: 'month',
-  };
 
   const formattedDefaultValues = () => {
     if (defaultValues) {
@@ -50,37 +34,30 @@ const DateRange = (props: DateRangeProps) => {
     };
   };
 
-  const [calendarState, setCalendarState] = useState(defaultCalendarState);
+  const [calendarState, setCalendarState] = useState({
+    isOpen: false,
+    calView: 'month',
+  });
   const [formattedDates, setDates] = useState(formattedDefaultValues);
   const [calendarValues, setCalendarValues] = useState(defaultValues);
 
   const { isOpen, calView } = calendarState;
 
-  const stylesCalendar = isOpen
-    ? `${styles.calendar} ${styles.active}`
-    : `${styles.calendar}`;
-  const stylesArrow = isOpen
-    ? `${styles.arrow} ${styles.arrowUp}`
-    : `${styles.arrow} ${styles.arrowDown}`;
-  const stylesClearButton = formattedDates.arrival
-    ? `${styles.button}`
-    : `${styles.button} ${styles.clearButtonHidden}`;
-  const stylesButtons = calView === 'month'
-    ? `${styles.buttonsShow}`
-    : `${styles.buttonsHide}`;
+  const calendarClasses = `${styles.calendar} ${isOpen ? styles.active : ''}`;
+  const arrowClasses = `${styles.arrow} ${isOpen ? styles.arrowUp : styles.arrowDown}`;
+  const clearButtonClasses = `${styles.button} ${formattedDates.arrival ? '' : styles.clearButtonHidden}`;
+  const buttonsClasses = `${calView === 'month' ? styles.buttonsShow : styles.buttonsHide}`;
 
-  const handleCalendarDatesChange = (values: UserData) => {
+  const handleCalendarDatesChange = (values: Array<Date>) => {
     const [arrivalDate, departureDate] = values;
+    const userSelectedDates = {
+      arrival: formattingDate(arrivalDate),
+      departure: formattingDate(departureDate),
+    };
 
     setCalendarValues(values);
-    setDates({
-      arrival: formattingDate(arrivalDate),
-      departure: formattingDate(departureDate),
-    });
-    onChange({
-      arrival: formattingDate(arrivalDate),
-      departure: formattingDate(departureDate),
-    });
+    setDates(userSelectedDates);
+    onChange(userSelectedDates);
   };
 
   const handleClearButtonClick = () => {
@@ -124,7 +101,7 @@ const DateRange = (props: DateRangeProps) => {
               value={formattedDates.arrival}
               tabIndex={-1}
             />
-            <div className={stylesArrow} />
+            <div className={arrowClasses} />
           </div>
         </div>
         <div>
@@ -138,11 +115,11 @@ const DateRange = (props: DateRangeProps) => {
               value={formattedDates.departure}
               tabIndex={-1}
             />
-            <div className={stylesArrow} />
+            <div className={arrowClasses} />
           </div>
         </div>
       </section>
-      <div className={stylesCalendar} role="menu" tabIndex={0}>
+      <div className={calendarClasses} role="menu" tabIndex={0}>
         <Calendar
           locale="ru-RU"
           nextLabel=""
@@ -153,13 +130,13 @@ const DateRange = (props: DateRangeProps) => {
           navigationLabel={formattingLabel}
           value={calendarValues}
         />
-        <div className={stylesButtons}>
+        <div className={buttonsClasses}>
           <button
             onClick={(e) => {
               e.preventDefault();
               handleClearButtonClick();
             }}
-            className={stylesClearButton}
+            className={clearButtonClasses}
             type="button"
           >
             очистить
