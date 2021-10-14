@@ -72,8 +72,9 @@
 //====== Calendar ======//
 
 .calendar {
-  position: relative;
+  position: absolute;
   z-index: 3;
+  max-width: 320px;
   font: 12px/15px $primaryFont;
   background-color: #fff;
   border: 1px solid $textColor25;
