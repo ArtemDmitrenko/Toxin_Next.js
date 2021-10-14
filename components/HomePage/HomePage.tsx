@@ -2,6 +2,7 @@ import Counter from 'Components/Counter/Counter';
 import CopyrightBar from 'Components/CopyrightBar/CopyrightBar';
 import Subscribe from 'Components/Subscribe/Subscribe';
 import Reference from 'Components/Reference/Reference';
+import Checkbox from '../Checkbox/Checkbox';
 
 import styles from './homePage.module.scss';
 
@@ -23,6 +24,8 @@ const HomePage = () => (
     <Reference text="click me" type="bordered" size="big" />
     <Reference text="Перейти к оплате" type="directed" size="big" />
     <CopyrightBar text="Copyright © 2018 Toxin отель. Все права защищены." />
+    <Checkbox title="Можно с питомцами" name="box1" isChecked />
+    <Checkbox title="Широкий коридор" isBoldTitle description="Ширина коридоров в номере не менее 91 см." name="box2" />
   </div>
 );
 
