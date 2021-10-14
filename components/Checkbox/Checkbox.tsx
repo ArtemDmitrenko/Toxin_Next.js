@@ -22,7 +22,7 @@ const Checkbox = (props: CheckboxProps) => {
 
   const handleChange = (event: any) => {
     const element = event.target;
-    const value = element.type === 'checkbox' ? element.checked : element.value;
+    const value = element.checked;
     const { id } = element;
 
     setChecked({
