@@ -1,5 +1,5 @@
-import SearchPage from 'Components/SearchPage/SearchPage';
+import SearchRoomsPage from 'Components/SearchRoomsPage/SearchRoomsPage';
 
-const SearchRooms = () => <SearchPage />;
+const SearchRooms = () => <SearchRoomsPage />;
 
 export default SearchRooms;

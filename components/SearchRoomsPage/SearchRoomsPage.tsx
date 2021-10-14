@@ -1,6 +1,6 @@
 import Dropdown, { DropdownConfig } from 'Components/Dropdown/Dropdown';
 
-import styles from './searchPage.module.scss';
+import styles from './searchRoomsPage.module.scss';
 
 const guestsDropdownConfig: DropdownConfig = [
   {
@@ -45,11 +45,11 @@ const SearchPage = () => (
   <div>
     <div>
       <Dropdown list={guestsDropdownConfig} placeholder="Сколько гостей" />
-      <Dropdown list={facilitiesDropdownConfig} placeholder="Выберите удобства" />
+      <Dropdown list={facilitiesDropdownConfig} placeholder="Выберите удобства" isButtons={false} />
     </div>
     <div className={styles.row}>
       <Dropdown list={guestsDropdownConfig} placeholder="Сколько гостей" />
-      <Dropdown list={facilitiesDropdownConfig} placeholder="Выберите удобства" />
+      <Dropdown list={facilitiesDropdownConfig} placeholder="Выберите удобства" isButtons={false} />
     </div>
   </div>
 );
