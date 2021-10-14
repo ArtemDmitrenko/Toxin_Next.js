@@ -3,9 +3,10 @@ import DateRange from 'Components/DateRange/DateRange';
 import CopyrightBar from 'Components/CopyrightBar/CopyrightBar';
 import Subscribe from 'Components/Subscribe/Subscribe';
 import Reference from 'Components/Reference/Reference';
-import Header from 'Components/Header/Header';
+import FooterMobile from 'Components/FooterMobile/FooterMobile';
 import FooterDesktop from 'Components/FooterDesktop/FooterDesktop';
 import footerItems from 'Components/FooterDesktop/footer-items.json';
+import Header from 'Components/Header/Header';
 
 import styles from './homePage.module.scss';
 
@@ -78,6 +79,7 @@ const HomePage = () => {
       <Reference text="Перейти к оплате" type="directed" size="big" />
       <CopyrightBar text="Copyright © 2018 Toxin отель. Все права защищены." />
       <Header menu={navigation} />
+      <FooterMobile />
       <FooterDesktop
         navContent={footerItems.navContent}
         logoSign={footerItems.logoSign}
