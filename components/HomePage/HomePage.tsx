@@ -11,6 +11,19 @@ import Checkbox from '../Checkbox/Checkbox';
 
 import styles from './homePage.module.scss';
 
+const addDatesOfState = (dates: { arrival: string, departure: string }) => {
+  const datesOfState = {
+    arrival: dates.arrival,
+    departure: dates.departure,
+  };
+};
+
+const addNewEmail = (email: string) => {
+  const subscriptionData = {
+    userEmail: email,
+  };
+};
+
 const HomePage = () => {
   const navigation = [
     {
