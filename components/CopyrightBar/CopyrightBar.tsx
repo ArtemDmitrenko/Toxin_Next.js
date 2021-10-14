@@ -34,14 +34,20 @@ const buttons = [
 ];
 
 type CopyrightBarProps = {
-  text: string
+  text: string,
+  forMobile: boolean,
 };
 
 const CopyrightBar = (props: CopyrightBarProps) => {
-  const { text } = props;
+  const { text, forMobile } = props;
+
+  const stylesCopyrightBar = () => (
+    `${forMobile ? styles.contentMobile : styles.content}`
+  );
+
   return (
     <div className={styles.copyright}>
-      <div className={styles.content}>
+      <div className={stylesCopyrightBar()}>
         <span className={styles.text}>{text}</span>
         <SocialIcons buttons={buttons} />
       </div>
