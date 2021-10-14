@@ -15,6 +15,7 @@ type DropdownProps = {
   list: DropdownConfig,
   isButtons?: boolean,
   placeholder?: string,
+  onChange?: (data: Groups) => void,
 };
 
 type Groups = {
@@ -38,7 +39,12 @@ type DropdownState = {
 const MAX_GROUP_VALUE = 10;
 
 const Dropdown = (props: DropdownProps) => {
-  const { list, isButtons, placeholder } = props;
+  const {
+    list,
+    isButtons,
+    placeholder,
+    onChange,
+  } = props;
 
   const generateState = (): DropdownState => {
     const generatedState: DropdownState = {
@@ -145,43 +151,59 @@ const Dropdown = (props: DropdownProps) => {
   const handleMinusClick = (groupName: string, itemName: string) => {
     if (dropdown.groups[groupName].items[itemName].value <= 0) return;
 
-    setDropdown((prevState) => ({
-      ...prevState,
-      groups: {
-        ...prevState.groups,
-        [groupName]: {
-          ...prevState.groups[groupName],
-          items: {
-            ...prevState.groups[groupName].items,
-            [itemName]: {
-              ...prevState.groups[groupName].items[itemName],
-              value: prevState.groups[groupName].items[itemName].value - 1,
+    setDropdown((prevState) => {
+      const newState = {
+        ...prevState,
+        groups: {
+          ...prevState.groups,
+          [groupName]: {
+            ...prevState.groups[groupName],
+            items: {
+              ...prevState.groups[groupName].items,
+              [itemName]: {
+                ...prevState.groups[groupName].items[itemName],
+                value: prevState.groups[groupName].items[itemName].value - 1,
+              },
             },
           },
         },
-      },
-    }));
+      };
+
+      if (onChange) {
+        onChange({ ...newState.groups });
+      }
+
+      return newState;
+    });
   };
 
   const handlePlusClick = (groupName: string, itemName: string) => {
     if (groupSum(groupName) >= MAX_GROUP_VALUE) return;
 
-    setDropdown((prevState) => ({
-      ...prevState,
-      groups: {
-        ...prevState.groups,
-        [groupName]: {
-          ...prevState.groups[groupName],
-          items: {
-            ...prevState.groups[groupName].items,
-            [itemName]: {
-              ...prevState.groups[groupName].items[itemName],
-              value: prevState.groups[groupName].items[itemName].value + 1,
+    setDropdown((prevState) => {
+      const newState = {
+        ...prevState,
+        groups: {
+          ...prevState.groups,
+          [groupName]: {
+            ...prevState.groups[groupName],
+            items: {
+              ...prevState.groups[groupName].items,
+              [itemName]: {
+                ...prevState.groups[groupName].items[itemName],
+                value: prevState.groups[groupName].items[itemName].value + 1,
+              },
             },
           },
         },
-      },
-    }));
+      };
+
+      if (onChange) {
+        onChange({ ...newState.groups });
+      }
+
+      return newState;
+    });
   };
 
   const handleClearClick = () => {
@@ -195,6 +217,10 @@ const Dropdown = (props: DropdownProps) => {
       });
 
       newState.output = '';
+
+      if (onChange) {
+        onChange({ ...newState.groups });
+      }
 
       return newState;
     });
@@ -292,7 +318,8 @@ const Dropdown = (props: DropdownProps) => {
 Dropdown.defaultProps = {
   isButtons: true,
   placeholder: '',
+  onChange: undefined,
 };
 
-export type { DropdownConfig };
+export type { DropdownConfig, Groups };
 export default Dropdown;
