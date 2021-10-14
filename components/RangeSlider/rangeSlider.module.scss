@@ -1,0 +1,53 @@
+@import 'Root/style/variables.scss';
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 10px;
+  user-select: none;
+}
+
+.title {
+  @include h3();
+}
+
+.outputField {
+  color: $textColor50;
+  font-family: inherit;
+  text-align: end;
+  border: none;
+  outline: none;
+
+  &:focus {
+    color: $textColor;
+  }
+}
+
+.rangeSlider {
+  width: 100%;
+  height: 7px;
+  border: 2px solid $textColor25;
+  border-radius: 7px;
+}
+
+.exampleTrack:nth-child(2) {
+  height: 3px;
+  background: $secondaryGradient;
+}
+
+.exampleThumb {
+  $side: 16px;
+  top: 50%;
+  width: $side;
+  height: $side;
+  background-color: $secondaryColor;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  outline: none;
+  transform: translateY(-50%);
+  cursor: pointer;
+
+  &:focus {
+    background-color: $complementaryColor;
+  }
+}
