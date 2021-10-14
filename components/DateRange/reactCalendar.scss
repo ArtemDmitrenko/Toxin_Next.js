@@ -1,5 +1,9 @@
 @import 'Root/style/variables.scss';
 
+.react-calendar {
+  max-width: 320px;
+}
+
 .react-calendar button {
   margin: 0;
   border: 0;
@@ -271,5 +275,13 @@
 
   &:hover::after {
     background: $primaryGradientTranslucent25;
+  }
+}
+
+// ====== Small calendar ===== //
+
+.small {
+  & .react-calendar__month-view__days__day {
+    min-height: 32px;
   }
 }

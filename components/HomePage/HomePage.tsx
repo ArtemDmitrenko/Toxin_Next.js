@@ -66,8 +66,7 @@ const HomePage = () => {
     <div className={styles.root}>
       <Counter />
       <DateRange
-        headers={['прибытие', 'выезд']}
-        placeholder="ДД.ММ.ГГГГ"
+        headers={['даты пребывания в отеле']}
         defaultValues={[new Date('2021-10-19'), new Date('2021-10-23')]}
         onChange={addDatesOfState}
       />
