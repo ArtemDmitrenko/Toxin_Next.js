@@ -35,7 +35,7 @@ const buttons = [
 
 type CopyrightBarProps = {
   text: string,
-  forMobile: boolean,
+  forMobile?: boolean,
 };
 
 const CopyrightBar = (props: CopyrightBarProps) => {
@@ -53,6 +53,10 @@ const CopyrightBar = (props: CopyrightBarProps) => {
       </div>
     </div>
   );
+};
+
+CopyrightBar.defaultProps = {
+  forMobile: false,
 };
 
 export default CopyrightBar;
