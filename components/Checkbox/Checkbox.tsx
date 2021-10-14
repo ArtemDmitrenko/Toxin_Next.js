@@ -6,7 +6,7 @@ type CheckboxProps = {
   description?: string | null,
   isBoldTitle?: boolean,
   name: string,
-  isChecked: boolean,
+  isChecked?: boolean,
 };
 
 const Checkbox = (props: CheckboxProps) => {
@@ -50,6 +50,7 @@ const Checkbox = (props: CheckboxProps) => {
 Checkbox.defaultProps = {
   description: null,
   isBoldTitle: false,
+  isChecked: false,
 };
 
 export default Checkbox;
