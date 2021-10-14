@@ -44,12 +44,12 @@ const facilitiesDropdownConfig: DropdownConfig = [
 const SearchPage = () => (
   <div>
     <div>
-      <Dropdown list={guestsDropdownConfig} />
-      <Dropdown list={facilitiesDropdownConfig} />
+      <Dropdown list={guestsDropdownConfig} placeholder="Сколько гостей" />
+      <Dropdown list={facilitiesDropdownConfig} placeholder="Выберите удобства" />
     </div>
     <div className={styles.row}>
-      <Dropdown list={guestsDropdownConfig} />
-      <Dropdown list={facilitiesDropdownConfig} />
+      <Dropdown list={guestsDropdownConfig} placeholder="Сколько гостей" />
+      <Dropdown list={facilitiesDropdownConfig} placeholder="Выберите удобства" />
     </div>
   </div>
 );

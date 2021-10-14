@@ -14,6 +14,7 @@ type DropdownConfig = Array<{
 type DropdownProps = {
   list: DropdownConfig,
   isButtons?: boolean,
+  placeholder?: string,
 };
 
 type Groups = {
@@ -37,7 +38,7 @@ type DropdownState = {
 const MAX_GROUP_VALUE = 10;
 
 const Dropdown = (props: DropdownProps) => {
-  const { list, isButtons } = props;
+  const { list, isButtons, placeholder } = props;
 
   const generateState = (): DropdownState => {
     const generatedState: DropdownState = {
@@ -215,7 +216,7 @@ const Dropdown = (props: DropdownProps) => {
         <input
           type="text"
           className={stylesInput()}
-          placeholder="Сколько гостей"
+          placeholder={placeholder}
           readOnly
           value={dropdown.output}
           tabIndex={-1}
@@ -290,6 +291,7 @@ const Dropdown = (props: DropdownProps) => {
 
 Dropdown.defaultProps = {
   isButtons: true,
+  placeholder: '',
 };
 
 export type { DropdownConfig };
