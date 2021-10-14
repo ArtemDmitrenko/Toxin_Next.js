@@ -18,16 +18,15 @@ const Checkbox = (props: CheckboxProps) => {
     isChecked,
   } = props;
 
-  const [checked, setChecked] = useState({ checkbox: name, value: isChecked });
+  const [element, setChecked] = useState({ checkbox: name, value: isChecked });
 
   const handleChange = (event: any) => {
-    const element = event.target;
-    const value = element.checked;
-    const { id } = element;
+    const { target } = event;
+    const { checked, id } = target;
 
     setChecked({
       checkbox: id,
-      value,
+      value: checked,
     });
   };
 
@@ -38,7 +37,7 @@ const Checkbox = (props: CheckboxProps) => {
   return (
     <div className={styles.checkbox}>
       <label className={styles.filter} htmlFor={name}>
-        <input className={styles.content} type="checkbox" id={name} checked={checked.value} onChange={handleChange} />
+        <input className={styles.content} type="checkbox" id={name} checked={element.value} onChange={handleChange} />
         <span className={styles.indicator} />
         <span className={stylesTitle()}>{title}</span>
       </label>
