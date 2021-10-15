@@ -89,11 +89,11 @@ const HomePage = () => {
         addNewEmail={addNewEmail}
       />
       <RangeSlider
-        min={0}
-        max={15000}
-        valueFrom={0}
-        valueTo={15000}
-        step={100}
+        min={-10}
+        max={10}
+        valueFrom={-3.5}
+        valueTo={5.9}
+        step={0.01}
         postfix="₽"
       />
     </div>
