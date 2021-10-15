@@ -3,6 +3,7 @@
 .checkbox {
   color: $textColor50;
   line-height: 18px;
+  user-select: none;
 }
 
 .filter {
@@ -53,7 +54,6 @@ input[type='checkbox']:focus + .indicator {
   padding-top: 1px;
   padding-left: 30px;
   cursor: pointer;
-  user-select: none;
 }
 
 .titleBold {
