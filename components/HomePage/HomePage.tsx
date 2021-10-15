@@ -7,7 +7,7 @@ import FooterMobile from 'Components/FooterMobile/FooterMobile';
 import FooterDesktop from 'Components/FooterDesktop/FooterDesktop';
 import footerItems from 'Components/FooterDesktop/footer-items.json';
 import Header from 'Components/Header/Header';
-import Checkbox from '../Checkbox/Checkbox';
+import Checkbox from 'Components/Checkbox/Checkbox';
 
 import styles from './homePage.module.scss';
 
