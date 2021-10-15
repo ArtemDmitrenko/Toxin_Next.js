@@ -54,6 +54,10 @@ input[type='checkbox']:focus + .indicator {
   padding-top: 1px;
   padding-left: 30px;
   cursor: pointer;
+
+  &:hover {
+    color: $textColor75;
+  }
 }
 
 .titleBold {
@@ -61,6 +65,20 @@ input[type='checkbox']:focus + .indicator {
   padding-left: 30px;
   font-weight: bold;
   cursor: pointer;
+
+  &:hover {
+    color: $textColor75;
+  }
+}
+
+input[type='checkbox']:focus {
+  & ~ .title {
+    color: $textColor75;
+  }
+
+  & ~ .titleBold {
+    color: $textColor75;
+  }
 }
 
 .description {
