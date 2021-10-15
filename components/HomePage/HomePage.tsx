@@ -80,7 +80,7 @@ const HomePage = () => {
       <Reference text="Перейти к оплате" type="directed" size="big" />
       <Checkbox title="Можно с питомцами" name="box1" isChecked />
       <Checkbox title="Широкий коридор" isBoldTitle description="Ширина коридоров в номере не менее 91 см." name="box2" />
-      <CopyrightBar text="Copyright © 2018 Toxin отель. Все права защищены." />
+      <CopyrightBar text="Copyright © 2018 Toxin отель. Все права защищены." forMobile={false} />
       <Header menu={navigation} />
       <FooterMobile />
       <FooterDesktop

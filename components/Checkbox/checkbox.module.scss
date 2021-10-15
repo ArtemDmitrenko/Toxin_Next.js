@@ -1,34 +1,13 @@
 @import 'Root/style/variables.scss';
 
 .checkbox {
-  line-height: 18px;
   color: $textColor50;
+  line-height: 18px;
 }
 
 .filter {
   position: relative;
   display: flex;
-
-  & input[type='checkbox']:checked {
-
-    & + .indicator {
-      border: 1px solid $primaryColor;
-    }
-
-    & + .indicator::before {
-      content: '';
-      position: absolute;
-      top: 4.5px;
-      left: 5px;
-      width: 6px;
-      height: 4px;
-      border-top: 2px solid;
-      border-right: 2px solid;
-      border-image: $primaryGradient;
-      border-image-slice: 1;
-      transform: rotate(135deg); 
-    }
-  }
 }
 
 .content {
@@ -44,20 +23,40 @@
   cursor: pointer;
 }
 
+input[type='checkbox']:checked {
+  & + .indicator {
+    border: 1px solid $primaryColor;
+  }
+
+  & + .indicator::before {
+    position: absolute;
+    top: 4.5px;
+    left: 5px;
+    width: 6px;
+    height: 4px;
+    border-top: 2px solid;
+    border-right: 2px solid;
+    border-image: $primaryGradient;
+    border-image-slice: 1;
+    transform: rotate(135deg);
+    content: '';
+  }
+}
+
 .title {
   padding: 1px 0 0 30px;
   cursor: pointer;
 }
 
 .titleBold {
-  font-weight: bold;
   padding: 1px 0 0 30px;
+  font-weight: bold;
   cursor: pointer;
 }
 
 .description {
+  padding: 5px 0 0 30px;
   font-size: 12px;
   line-height: 14px;
   text-align: left;
-  padding: 5px 0 0 30px;
 }
