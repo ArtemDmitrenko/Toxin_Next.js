@@ -1,4 +1,3 @@
-import { SyntheticEvent } from 'hoist-non-react-statics/node_modules/@types/react';
 import { useState } from 'react';
 import styles from './checkbox.module.scss';
 
@@ -21,7 +20,7 @@ const Checkbox = (props: CheckboxProps) => {
 
   const [element, setChecked] = useState({ checkbox: name, value: isChecked });
 
-  const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
+  const handleCheckboxChange = (e: React.FormEvent<HTMLInputElement>) => {
     const target = e.currentTarget;
     const { checked, id } = target;
 
@@ -38,7 +37,7 @@ const Checkbox = (props: CheckboxProps) => {
   return (
     <div className={styles.checkbox}>
       <label className={styles.filter} htmlFor={name}>
-        <input className={styles.content} type="checkbox" id={name} checked={element.value} onChange={handleChange} />
+        <input className={styles.content} type="checkbox" id={name} checked={element.value} onChange={handleCheckboxChange} />
         <span className={styles.indicator} />
         <span className={stylesTitle()}>{title}</span>
       </label>
