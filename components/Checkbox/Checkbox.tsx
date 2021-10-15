@@ -20,8 +20,7 @@ const Checkbox = (props: CheckboxProps) => {
 
   const [element, setChecked] = useState({ checkbox: name, value: isChecked });
 
-  const handleChange = (event: any) => {
-    const { target } = event;
+  const handleChange = (target: any) => {
     const { checked, id } = target;
 
     setChecked({
