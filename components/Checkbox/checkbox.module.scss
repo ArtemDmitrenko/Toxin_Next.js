@@ -1,46 +1,62 @@
 @import 'Root/style/variables.scss';
 
-.checkbox {
+.container {
   color: $textColor50;
   line-height: 18px;
 }
 
-.filter {
-  position: relative;
-  display: flex;
+.container input[type='checkbox'] {
+  position: absolute;
+  left: -9999px;
+  opacity: 0;
 }
 
 .content {
-  display: none;
+  position: relative;
+  padding-left: 30px;
 }
 
-.indicator {
+.content::before {
   position: absolute;
+  left: 0;
+  display: inline-block;
   width: 20px;
   height: 20px;
   border: 1px solid $textColor25;
   border-radius: 4px;
   cursor: pointer;
+  content: '';
 }
 
-input[type='checkbox']:checked {
-  & + .indicator {
-    border: 1px solid $primaryColor;
-  }
+.content::after {
+  position: absolute;
+  top: 7px;
+  left: 7px;
+  display: inline-block;
+  width: 6px;
+  height: 4px;
+  border-top: 2px solid;
+  border-right: 2px solid;
+  border-image: $primaryGradient;
+  border-image-slice: 1;
+  transform: rotate(135deg);
+  content: '';
+}
 
-  & + .indicator::before {
-    position: absolute;
-    top: 4.5px;
-    left: 5px;
-    width: 6px;
-    height: 4px;
-    border-top: 2px solid;
-    border-right: 2px solid;
-    border-image: $primaryGradient;
-    border-image-slice: 1;
-    transform: rotate(135deg);
-    content: '';
-  }
+input[type='checkbox'] + .content::after {
+  content: none;
+}
+
+input[type='checkbox']:checked + .content::after {
+  content: '';
+}
+
+input[type='checkbox']:checked + .content::before {
+  border: 1px solid $primaryColor;
+}
+
+input[type='checkbox']:focus + .content::before {
+  box-shadow: 3px 3px 3px $primaryColor;
 }
 
 .title {

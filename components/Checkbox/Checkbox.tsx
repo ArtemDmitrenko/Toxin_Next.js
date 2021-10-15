@@ -30,17 +30,16 @@ const Checkbox = (props: CheckboxProps) => {
     });
   };
 
-  const stylesTitle = () => (
-    `${isBoldTitle ? styles.titleBold : styles.title}`
+  const stylesContent = () => (
+    `${styles.content} ${isBoldTitle ? styles.titleBold : styles.title}`
   );
 
   return (
-    <div className={styles.checkbox}>
-      <label className={styles.filter} htmlFor={name}>
-        <input className={styles.content} type="checkbox" id={name} checked={element.value} onChange={handleCheckboxChange} />
-        <span className={styles.indicator} />
-        <span className={stylesTitle()}>{title}</span>
-      </label>
+    <div className={styles.container}>
+      <div>
+        <input type="checkbox" id={name} checked={element.value} onChange={handleCheckboxChange} />
+        <label className={stylesContent()} htmlFor={name}>{title}</label>
+      </div>
       <div className={styles.description}>{description}</div>
     </div>
   );
