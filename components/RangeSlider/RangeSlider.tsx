@@ -12,6 +12,8 @@ type RangeSliderProps = {
   pearling?: boolean,
   minDistance?: number,
   title?: string,
+  postfix?: string,
+  onChange?: (values:Array<number>) => void,
 };
 
 const RangeSlider = (props: RangeSliderProps) => {
@@ -24,19 +26,28 @@ const RangeSlider = (props: RangeSliderProps) => {
     pearling,
     minDistance,
     title,
+    postfix,
+    onChange,
   } = props;
 
   const [values, setValues] = useState([valueFrom, valueTo]);
 
   const handleRangeSliderChange = (newValues: Array<number>) => {
     setValues(newValues);
+
+    if (onChange) {
+      onChange(newValues);
+    }
   };
 
   return (
     <div className={styles.wrapper}>
       <div className={styles.header}>
         <h3 className={styles.title}>{title}</h3>
-        <input className={styles.outputField} value={`${values[0]} – ${values[1]}`} readOnly />
+        <input
+          className={styles.outputField}
+          value={`${values[0]}${postfix} – ${values[1]}${postfix}`}
+        />
       </div>
       <ReactSlider
         min={min}
@@ -59,6 +70,8 @@ RangeSlider.defaultProps = {
   pearling: false,
   minDistance: 0,
   title: 'range slider',
+  postfix: '',
+  onChange: undefined,
 };
 
 export default RangeSlider;

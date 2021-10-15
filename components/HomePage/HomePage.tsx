@@ -94,6 +94,7 @@ const HomePage = () => {
         valueFrom={0}
         valueTo={15000}
         step={100}
+        postfix="₽"
       />
     </div>
   );
