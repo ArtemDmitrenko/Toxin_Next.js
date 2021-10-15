@@ -1,3 +1,4 @@
+import { SyntheticEvent } from 'hoist-non-react-statics/node_modules/@types/react';
 import { useState } from 'react';
 import styles from './checkbox.module.scss';
 
@@ -20,7 +21,8 @@ const Checkbox = (props: CheckboxProps) => {
 
   const [element, setChecked] = useState({ checkbox: name, value: isChecked });
 
-  const handleChange = (target: any) => {
+  const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
+    const target = e.currentTarget;
     const { checked, id } = target;
 
     setChecked({
