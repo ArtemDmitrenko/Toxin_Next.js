@@ -19,14 +19,13 @@ const Checkbox = (props: CheckboxProps) => {
     isChecked,
   } = props;
 
-  const [element, setChecked] = useState({ checkbox: name, value: isChecked });
+  const [element, setChecked] = useState({ value: isChecked });
 
   const handleCheckboxChange = (e: React.FormEvent<HTMLInputElement>) => {
     const target = e.currentTarget;
-    const { checked, id } = target;
+    const { checked } = target;
 
     setChecked({
-      checkbox: id,
       value: checked,
     });
   };
