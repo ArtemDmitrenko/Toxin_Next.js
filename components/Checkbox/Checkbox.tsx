@@ -1,4 +1,5 @@
 import { useState } from 'react';
+
 import styles from './checkbox.module.scss';
 
 type CheckboxProps = {
