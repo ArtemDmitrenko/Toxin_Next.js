@@ -6,7 +6,6 @@ type CheckboxProps = {
   title: string,
   description?: string | null,
   isBoldTitle?: boolean,
-  name: string,
   isChecked?: boolean,
 };
 
@@ -15,33 +14,29 @@ const Checkbox = (props: CheckboxProps) => {
     title,
     description,
     isBoldTitle,
-    name,
     isChecked,
   } = props;
 
-  const [element, setChecked] = useState({ value: isChecked });
+  const [element, setChecked] = useState(isChecked);
 
-  const handleCheckboxChange = (e: React.FormEvent<HTMLInputElement>) => {
-    const target = e.currentTarget;
-    const { checked } = target;
-
-    setChecked({
-      value: checked,
-    });
+  const handleCheckboxChange = () => {
+    setChecked(!element);
   };
 
-  const stylesContent = () => (
-    `${styles.content} ${isBoldTitle ? styles.titleBold : styles.title}`
+  const stylesTitle = () => (
+    `${isBoldTitle ? styles.titleBold : styles.title}`
   );
 
   return (
-    <div className={styles.container}>
-      <div>
-        <input type="checkbox" id={name} checked={element.value} onChange={handleCheckboxChange} />
-        <label className={stylesContent()} htmlFor={name}>{title}</label>
-      </div>
+    <div className={styles.checkbox}>
+      <label className={styles.filter}>
+        <input className={styles.content} type="checkbox" checked={element} onChange={handleCheckboxChange} />
+        <span className={styles.indicator} />
+        <span className={stylesTitle()}>{title}</span>
+      </label>
       <div className={styles.description}>{description}</div>
     </div>
+
   );
 };
 

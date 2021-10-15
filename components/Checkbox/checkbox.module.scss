@@ -1,77 +1,71 @@
 @import 'Root/style/variables.scss';
 
-.container {
+.checkbox {
   color: $textColor50;
   line-height: 18px;
 }
 
-.container input[type='checkbox'] {
-  position: absolute;
-  left: -9999px;
-  opacity: 0;
+.filter {
+  position: relative;
+  display: flex;
 }
 
 .content {
-  position: relative;
-  padding-left: 30px;
+  position: absolute;
+  opacity: 0;
 }
 
-.content::before {
+.indicator {
   position: absolute;
-  left: 0;
-  display: inline-block;
+  left: 1px;
   width: 20px;
   height: 20px;
   border: 1px solid $textColor25;
   border-radius: 4px;
   cursor: pointer;
-  content: '';
 }
 
-.content::after {
-  position: absolute;
-  top: 7px;
-  left: 7px;
-  display: inline-block;
-  width: 6px;
-  height: 4px;
-  border-top: 2px solid;
-  border-right: 2px solid;
-  border-image: $primaryGradient;
-  border-image-slice: 1;
-  transform: rotate(135deg);
-  content: '';
+input[type='checkbox']:checked {
+  & + .indicator {
+    border: 1px solid $primaryColor;
+  }
+
+  & + .indicator::before {
+    position: absolute;
+    top: 4.5px;
+    left: 5px;
+    width: 6px;
+    height: 4px;
+    border-top: 2px solid;
+    border-right: 2px solid;
+    border-image: $primaryGradient;
+    border-image-slice: 1;
+    transform: rotate(135deg);
+    content: '';
+  }
 }
 
-input[type='checkbox'] + .content::after {
-  content: none;
-}
-
-input[type='checkbox']:checked + .content::after {
-  content: '';
-}
-
-input[type='checkbox']:checked + .content::before {
-  border: 1px solid $primaryColor;
-}
-
-input[type='checkbox']:focus + .content::before {
+input[type='checkbox']:focus + .indicator {
   box-shadow: 3px 3px 3px $primaryColor;
 }
 
 .title {
-  padding: 1px 0 0 30px;
+  padding-top: 1px;
+  padding-left: 30px;
   cursor: pointer;
+  user-select: none;
 }
 
 .titleBold {
-  padding: 1px 0 0 30px;
+  padding-top: 1px;
+  padding-left: 30px;
   font-weight: bold;
   cursor: pointer;
 }
 
 .description {
-  padding: 5px 0 0 30px;
+  padding-top: 5px;
+  padding-left: 30px;
   font-size: 12px;
   line-height: 14px;
   text-align: left;
