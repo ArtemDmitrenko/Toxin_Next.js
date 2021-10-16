@@ -1,0 +1,131 @@
+@import 'Root/style/variables.scss';
+
+@mixin cardAfter() {
+  position: absolute;
+  top: 60px;
+  color: #fff;
+  font: 24px/24px 'Material Icons', Arial, sans-serif;
+  cursor: pointer;
+}
+
+@mixin cardBefore() {
+  position: absolute;
+  top: 0;
+  width: 42px;
+  height: 152px;
+  background-image: linear-gradient(90deg, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0) 99.99%, rgba(255, 255, 255, 0) 100%);
+  content: '';
+}
+
+@mixin cardPrev() {
+  &::after {
+    @include cardAfter;
+    left: 5px;
+    content: 'keyboard_arrow_left';
+  }
+
+  &::before {
+    @include cardBefore;
+    border-top-left-radius: 4px;
+  }
+}
+
+@mixin cardNext() {
+  &::after {
+    @include cardAfter;
+    right: 5px;
+    content: 'keyboard_arrow_right';
+  }
+
+  &::before {
+    @include cardBefore;
+    right: 0;
+    border-top-left-radius: 4px;
+    transform: matrix(-1, 0, 0, 1, 0, 0);
+  }
+}
+
+.slider {
+  position: relative;
+  width: 100%;
+}
+
+.switch {
+  position: absolute;
+  top: 120px;
+  right: 15px;
+  text-align: center;
+}
+
+.dot {
+  position: relative;
+  display: inline-block;
+  width: 7.5px;
+  height: 7.5px;
+  margin: 0;
+  margin-left: 3.75px;
+  padding: 0;
+  background: none;
+  border: 1px solid #fff;
+  border-radius: 50%;
+  box-shadow: 0 5px 5px $textColor25;
+  cursor: pointer;
+}
+
+.activeDot {
+  background-color: #fff;
+}
+
+.content {
+  display: none;
+  width: 100%;
+  min-height: 152px;
+  background-size: 245px;
+  animation-name: fade;
+  animation-duration: 1.5s;
+}
+
+.active {
+  display: block;
+}
+
+.image {
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+}
+
+.cardPrev {
+  width: 44px;
+}
+
+.cardNext {
+  width: 44px;
+}
+
+.cardPrev:focus {
+  @include cardPrev;
+}
+
+.cardNext:focus {
+  @include cardNext;
+}
+
+.slider:hover {
+  & .cardPrev {
+    @include cardPrev;
+  }
+
+  & .cardNext {
+    @include cardNext;
+  }
+}
+
+@keyframes fade {
+  from {
+    opacity: 0.4;
+  }
+
+  to {
+    opacity: 1;
+  }
+}

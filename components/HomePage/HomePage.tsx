@@ -7,6 +7,12 @@ import FooterMobile from 'Components/FooterMobile/FooterMobile';
 import FooterDesktop from 'Components/FooterDesktop/FooterDesktop';
 import footerItems from 'Components/FooterDesktop/footer-items.json';
 import Header from 'Components/Header/Header';
+import RoomCard from 'Components/RoomCard/RoomCard';
+
+import image1 from './roomCardImages/image350.png';
+import image2 from './roomCardImages/image445.png';
+import image3 from './roomCardImages/image352.png';
+import image4 from './roomCardImages/image444.png';
 
 import styles from './homePage.module.scss';
 
@@ -24,6 +30,21 @@ const addNewEmail = (email: string) => {
 };
 
 const HomePage = () => {
+  const card = {
+    number: '808',
+    level: 'люкс',
+    cost: '9990',
+    amountReviews: '145',
+    images: [
+      { id: 1, src: image1 },
+      { id: 2, src: image2 },
+      { id: 3, src: image3 },
+      { id: 4, src: image4 },
+    ],
+    href: '/',
+    amountStar: 4,
+  };
+
   const navigation = [
     {
       id: 1,
@@ -77,7 +98,7 @@ const HomePage = () => {
       <Reference text="click me" type="bordered" size="small" />
       <Reference text="click me" type="bordered" size="big" />
       <Reference text="Перейти к оплате" type="directed" size="big" />
-      <CopyrightBar text="Copyright © 2018 Toxin отель. Все права защищены." />
+      <CopyrightBar text="Copyright © 2018 Toxin отель. Все права защищены." forMobile={false} />
       <Header menu={navigation} />
       <FooterMobile />
       <FooterDesktop
@@ -87,6 +108,7 @@ const HomePage = () => {
         subscribeTitle={footerItems.subscribeTitle}
         addNewEmail={addNewEmail}
       />
+      <RoomCard card={card} />
     </div>
   );
 };
