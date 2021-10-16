@@ -1,0 +1,27 @@
+@import 'Root/style/variables.scss';
+
+.wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-image: url('./img/page-404.svg');
+  background-repeat: no-repeat;
+  background-position: center bottom;
+  background-size: contain;
+}
+
+.card {
+  max-width: 1200px;
+  margin: 0 20px;
+  padding: 20px;
+  color: #fff;
+  text-align: center;
+  background-color: #0000007f;
+  border-radius: 20px;
+}
+
+.link {
+  color: $primaryColor;
+  text-transform: uppercase;
+}

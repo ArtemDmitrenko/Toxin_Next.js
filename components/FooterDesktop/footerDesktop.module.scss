@@ -1,0 +1,69 @@
+@import 'Root/style/variables.scss';
+
+.footer {
+  @media (max-width: 767.98px) {
+    display: none;
+  }
+}
+
+.main {
+  margin-bottom: 1px;
+  padding-top: 100px;
+  padding-bottom: 83px;
+  box-shadow: 0 1px 0 rgb(31 32 65 / 10%);
+}
+
+.wrapper {
+  display: flex;
+  justify-content: space-between;
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 0 10px;
+}
+
+.content {
+  display: flex;
+  flex: 1;
+  justify-content: space-around;
+
+  @media (max-width: 1000px) {
+    display: none;
+  }
+}
+
+.sign {
+  margin-bottom: 24px;
+  line-height: 24px;
+  opacity: 0.75;
+}
+
+.logo {
+  max-width: 265px;
+  padding-right: 1%;
+}
+
+.subscribe {
+  max-width: 260px;
+  margin-top: 4px;
+}
+
+.title {
+  @include h3;
+}
+
+.item {
+  @include paragraph;
+  display: block;
+  margin: 15px 0;
+  text-decoration: none;
+  opacity: 0.5;
+
+  &:hover {
+    text-shadow: 0.6px 0 0 rgba($textColor, 0.75), -0.6px 0 0 rgba($textColor, 0.75);
+  }
+}
+
+.column {
+  margin-top: 4px;
+  padding-right: 1%;
+}
