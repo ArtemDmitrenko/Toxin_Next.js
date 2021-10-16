@@ -1,0 +1,121 @@
+@import 'Root/style/variables.scss';
+
+.mainWrapper {
+  max-width: 320px;
+}
+
+//====== Inputs ======//
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  column-gap: 20px;
+
+  @media (max-width: 360px) {
+    column-gap: 10px;
+  }
+}
+
+.wrapper {
+  display: flex;
+  border: 1px solid $textColor25;
+  border-radius: 4px;
+
+  &:hover,
+  &:focus-within {
+    border-color: $textColor50;
+  }
+}
+
+.header {
+  @include h3;
+  display: block;
+  padding-bottom: 5px;
+}
+
+.field {
+  @include input;
+  padding: 12px 0 12px 12px;
+  font-size: 14px;
+  border: none;
+  cursor: pointer;
+  user-select: none;
+  caret-color: transparent;
+
+  &:hover,
+  &:focus-within {
+    &::placeholder {
+      color: $textColor75;
+    }
+  }
+}
+
+.arrow {
+  padding: 9px 9px 9px 0;
+  color: $textColor50;
+  font: 24px/24px 'Material Icons';
+  cursor: pointer;
+}
+
+.arrowDown {
+  &::before {
+    content: '\e5cf';
+  }
+}
+
+.arrowUp {
+  &::before {
+    content: '\e5ce';
+  }
+}
+
+//====== Calendar ======//
+
+.calendar {
+  position: relative;
+  z-index: 3;
+  font: 12px/15px $primaryFont;
+  background-color: #fff;
+  border: 1px solid $textColor25;
+  border-radius: 4px;
+  box-shadow: 0 10px 20px $textColor25;
+  transform: translateX(-100000px);
+  opacity: 0;
+}
+
+.active {
+  transform: translate(0, 5px);
+  opacity: 1;
+}
+
+.buttonsShow {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 20px 20px;
+}
+
+.button {
+  color: $primaryColor;
+  font: bold 12px/15px $primaryFont;
+  text-transform: uppercase;
+  background: none;
+  border: none;
+  outline: none;
+  cursor: pointer;
+
+  &:hover,
+  &:focus,
+  &:disabled {
+    color: $textColor50;
+  }
+}
+
+.buttonsHide {
+  display: none;
+}
+
+.clearButtonHidden {
+  max-height: 0;
+  padding: 0;
+  overflow: hidden;
+}

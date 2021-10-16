@@ -1,5 +1,11 @@
 @import 'Root/style/variables.scss';
 
+.footer {
+  @media (max-width: 767.98px) {
+    display: none;
+  }
+}
+
 .main {
   margin-bottom: 1px;
   padding-top: 100px;

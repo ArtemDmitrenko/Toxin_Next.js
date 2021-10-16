@@ -7,13 +7,13 @@ import Reference from 'Components/Reference/Reference';
 import styles from './header.module.scss';
 
 type SubMenu = {
-  id: number;
+  id: number,
   name: string,
   href: string,
 };
 
 type HeaderMenu = {
-  id: number;
+  id: number,
   name: string,
   href: string,
   subMenu?: Array<SubMenu>,
@@ -48,6 +48,10 @@ const Header = (props: HeaderProps) => {
     `${styles.burger} ${isOpenBurgerMenu ? styles.burgerOpened : ''}`
   );
 
+  const handleClick = (id: number) => (
+    id === activeMenu ? setActiveMenu(null) : setActiveMenu(id)
+  );
+
   return (
     <div className={styles.header}>
       <div className={styles.content}>
@@ -61,20 +65,17 @@ const Header = (props: HeaderProps) => {
                 <li
                   className={styles.titleSubMenu}
                   key={item.id}
-                  onMouseEnter={() => setActiveMenu(item.id)}
-                  onMouseLeave={() => setActiveMenu(null)}
                 >
-                  <Link href={item.href}>
-                    <a
-                      className={styles.link}
-                      href={item.href}
-                      title={item.name}
-                      onKeyDown={() => setActiveMenu(item.id)}
-                    >
-                      {item.name}
-                      <i className={stylesArrow(item.id)} />
-                    </a>
-                  </Link>
+                  <button
+                    type="button"
+                    className={styles.text}
+                    title={item.name}
+                    onClick={() => handleClick(item.id)}
+                    onKeyDown={() => handleClick(item.id)}
+                  >
+                    {item.name}
+                    <i className={stylesArrow(item.id)} />
+                  </button>
                   <ul className={stylesSubMenu(item.id)}>
                     {subMenu.map((element: SubMenu) => (
                       <li className={styles.subMenuItem} key={element.id}>

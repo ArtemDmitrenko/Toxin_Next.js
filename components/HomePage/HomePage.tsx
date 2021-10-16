@@ -1,6 +1,7 @@
 
 import Layout from 'Components/Layout/Layout';
 import Counter from 'Components/Counter/Counter';
+import DateRange from 'Components/DateRange/DateRange';
 import CopyrightBar from 'Components/CopyrightBar/CopyrightBar';
 import Subscribe from 'Components/Subscribe/Subscribe';
 import Reference from 'Components/Reference/Reference';
@@ -13,6 +14,13 @@ import BackgroundWithSlogan from 'Components/BackgroundWithSlogan/BackgroundWith
 const addNewEmail = (email: string) => {
   const subscriptionData = {
     userEmail: email,
+  };
+};
+
+const addDatesOfState = (dates: { arrival: string, departure: string }) => {
+  const datesOfState = {
+    arrival: dates.arrival,
+    departure: dates.departure,
   };
 };
 
