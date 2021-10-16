@@ -1,3 +1,5 @@
+
+import Layout from 'Components/Layout/Layout';
 import Counter from 'Components/Counter/Counter';
 import CopyrightBar from 'Components/CopyrightBar/CopyrightBar';
 import Subscribe from 'Components/Subscribe/Subscribe';
@@ -7,8 +9,6 @@ import footerItems from 'Components/FooterDesktop/footer-items.json';
 import Header from '../Header/Header';
 import FooterMobile from '../FooterMobile/FooterMobile';
 import BackgroundWithSlogan from 'Components/BackgroundWithSlogan/BackgroundWithSlogan';
-
-import styles from './homePage.module.scss';
 
 const addNewEmail = (email: string) => {
   const subscriptionData = {
@@ -56,7 +56,7 @@ const HomePage = () => {
   ];
 
   return (
-    <div className={styles.root}>
+    <Layout>
       <Header menu={navigation} />
       <BackgroundWithSlogan />
       <FooterDesktop
@@ -68,7 +68,7 @@ const HomePage = () => {
       />
       <FooterMobile />
 
-    </div>
+    </Layout>
   );
 };
 
