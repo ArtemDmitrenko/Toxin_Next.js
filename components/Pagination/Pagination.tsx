@@ -58,8 +58,6 @@ const Pagination = (props: PaginationProps) => {
         nextLabel=""
         previousLinkClassName={previousClasses()}
         nextLinkClassName={nextClasses()}
-        // previousClassName={previousClasses()}
-        // nextClassName={`${styles.buttonArrow} ${styles.next}`}
         pageClassName={styles.page}
         onPageChange={handlePageClick}
         containerClassName={styles.container}
