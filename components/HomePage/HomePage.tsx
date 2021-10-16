@@ -1,6 +1,5 @@
-import Pagination from '../Pagination/Pagination';
 import roomsJSON from 'Components/Pagination/rooms.json';
-
+import Pagination from 'Components/Pagination/Pagination';
 
 import styles from './homePage.module.scss';
 
