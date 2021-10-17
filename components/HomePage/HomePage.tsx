@@ -1,15 +1,9 @@
 
-import Layout from 'Components/Layout/Layout';
-import Counter from 'Components/Counter/Counter';
-import DateRange from 'Components/DateRange/DateRange';
-import CopyrightBar from 'Components/CopyrightBar/CopyrightBar';
-import Subscribe from 'Components/Subscribe/Subscribe';
-import Reference from 'Components/Reference/Reference';
 import FooterDesktop from 'Components/FooterDesktop/FooterDesktop';
 import footerItems from 'Components/FooterDesktop/footer-items.json';
+import BackgroundWithSlogan from 'Components/BackgroundWithSlogan/BackgroundWithSlogan';
 import Header from '../Header/Header';
 import FooterMobile from '../FooterMobile/FooterMobile';
-import BackgroundWithSlogan from 'Components/BackgroundWithSlogan/BackgroundWithSlogan';
 
 const addNewEmail = (email: string) => {
   const subscriptionData = {
@@ -64,7 +58,7 @@ const HomePage = () => {
   ];
 
   return (
-    <Layout>
+    <div>
       <Header menu={navigation} />
       <BackgroundWithSlogan />
       <FooterDesktop
@@ -75,8 +69,7 @@ const HomePage = () => {
         addNewEmail={addNewEmail}
       />
       <FooterMobile />
-
-    </Layout>
+    </div>
   );
 };
 
