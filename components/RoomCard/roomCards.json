@@ -1,0 +1,14 @@
+{
+  "number": 808,
+  "level": "люкс",
+  "cost": 9990,
+  "amountReviews": 145,
+  "images": [
+    { "id": 1, "src": "public/images/roomCardImages/image350.png" },
+    { "id": 2, "src": "public/images/roomCardImages/image352.png" },
+    { "id": 3, "src": "public/images/roomCardImages/image444.png" },
+    { "id": 4, "src": "public/images/roomCardImages/image445.png" }
+  ],
+  "href": "/room-808",
+  "amountStar": 4
+}

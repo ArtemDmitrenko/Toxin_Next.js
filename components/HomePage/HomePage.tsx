@@ -6,13 +6,9 @@ import Reference from 'Components/Reference/Reference';
 import FooterMobile from 'Components/FooterMobile/FooterMobile';
 import FooterDesktop from 'Components/FooterDesktop/FooterDesktop';
 import footerItems from 'Components/FooterDesktop/footer-items.json';
+import roomCards from 'Components/RoomCard/roomCards.json';
 import Header from 'Components/Header/Header';
 import RoomCard from 'Components/RoomCard/RoomCard';
-
-import image1 from 'public/images/roomCardImages/image350.png';
-import image2 from 'public/images/roomCardImages/image445.png';
-import image3 from 'public/images/roomCardImages/image352.png';
-import image4 from 'public/images/roomCardImages/image444.png';
 
 import styles from './homePage.module.scss';
 
@@ -30,21 +26,6 @@ const addNewEmail = (email: string) => {
 };
 
 const HomePage = () => {
-  const card = {
-    number: 808,
-    level: 'люкс',
-    cost: 9990,
-    amountReviews: 145,
-    images: [
-      { id: 1, src: image1 },
-      { id: 2, src: image2 },
-      { id: 3, src: image3 },
-      { id: 4, src: image4 },
-    ],
-    href: '/room-808',
-    amountStar: 4,
-  };
-
   const navigation = [
     {
       id: 1,
@@ -108,7 +89,15 @@ const HomePage = () => {
         subscribeTitle={footerItems.subscribeTitle}
         addNewEmail={addNewEmail}
       />
-      <RoomCard card={card} />
+      <RoomCard
+        number={roomCards.number}
+        cost={roomCards.cost}
+        amountReviews={roomCards.amountReviews}
+        images={roomCards.images}
+        level={roomCards.level}
+        href={roomCards.href}
+        amountStar={roomCards.amountStar}
+      />
     </div>
   );
 };

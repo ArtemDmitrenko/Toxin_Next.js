@@ -4,19 +4,16 @@ import CarouselImages from 'Components/CarouselImages/CarouselImages';
 import styles from './roomCard.module.scss';
 
 type RoomCardProps = {
-  card: {
-    number: number,
-    level?: string,
-    cost: number,
-    amountReviews: number,
-    images: Array<{ id: number, src: StaticImageData }>,
-    href: string,
-    amountStar: number,
-  }
+  number: number,
+  level?: string,
+  cost: number,
+  amountReviews: number,
+  images: Array<{ id: number, src: string }>,
+  href: string,
+  amountStar: number,
 };
 
 const RoomCard = (props: RoomCardProps) => {
-  const { card } = props;
   const {
     number = 100,
     level,
@@ -25,7 +22,7 @@ const RoomCard = (props: RoomCardProps) => {
     images,
     href,
     amountStar,
-  } = card;
+  } = props;
   const rating = [1, 2, 3, 4, 5];
 
   return (
