@@ -165,6 +165,7 @@ const DateRange = (props: DateRangeProps) => {
           onChange={handleCalendarDatesChange}
           navigationLabel={formattingLabel}
           value={calendarValues}
+          minDate={new Date()}
         />
         <div className={buttonsClasses}>
           <button
