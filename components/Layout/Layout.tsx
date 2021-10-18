@@ -14,19 +14,26 @@ const addNewEmail = (email: string) => {
 
 type LayoutProps = {
   children: React.ReactNode,
-  title: string
+  title: string,
+  description?: string,
+  keywords?: string
 };
 
 const Layout = (props: LayoutProps) => {
-  const { children, title } = props;
+  const {
+    children,
+    title,
+    description = 'Лучший отель в мире с самыми дешевыми ценами',
+    keywords = 'отель, люкс, гостиница, проживание',
+  } = props;
 
   return (
     <div>
       <Head>
         <meta charSet="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta name="description" content="Лучший отель в мире с самыми дешевыми ценами" />
-        <meta name="keywords" content="отель, люкс, гостиница, проживание" />
+        <meta name="description" content={description} />
+        <meta name="keywords" content={keywords} />
         <title>{title}</title>
       </Head>
       <Header menu={navigation} />
