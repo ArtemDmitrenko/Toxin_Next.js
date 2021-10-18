@@ -1,6 +1,6 @@
 import Dropdown, { DropdownConfig } from 'Components/Dropdown/Dropdown';
 
-import styles from './search-rooms.module.scss';
+import styles from './index.module.scss';
 
 const guestsDropdownConfig: DropdownConfig = [
   {
@@ -41,7 +41,7 @@ const facilitiesDropdownConfig: DropdownConfig = [
   },
 ];
 
-const SearchRooms = () => (
+const Rooms = () => (
   <div>
     <div>
       <Dropdown list={guestsDropdownConfig} placeholder="Сколько гостей" />
@@ -54,4 +54,4 @@ const SearchRooms = () => (
   </div>
 );
 
-export default SearchRooms;
+export default Rooms;
