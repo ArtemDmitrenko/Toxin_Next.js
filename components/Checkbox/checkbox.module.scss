@@ -33,15 +33,13 @@ input[type='checkbox']:checked {
 
   & + .indicator::before {
     position: absolute;
-    top: 4.5px;
-    left: 5px;
     width: 6px;
     height: 4px;
     border-top: 2px solid;
     border-right: 2px solid;
     border-image: $primaryGradient;
     border-image-slice: 1;
-    transform: rotate(135deg);
+    transform: translate(65%, 65%) rotate(135deg);
     content: '';
   }
 }
