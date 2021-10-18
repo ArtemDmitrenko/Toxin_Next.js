@@ -12,9 +12,9 @@ type CheckboxProps = {
 const Checkbox = (props: CheckboxProps) => {
   const {
     title,
-    description,
-    isBoldTitle,
-    isChecked,
+    description = null,
+    isBoldTitle = false,
+    isChecked = false,
   } = props;
 
   const [element, setChecked] = useState(isChecked);
@@ -38,12 +38,6 @@ const Checkbox = (props: CheckboxProps) => {
     </div>
 
   );
-};
-
-Checkbox.defaultProps = {
-  description: null,
-  isBoldTitle: false,
-  isChecked: false,
 };
 
 export default Checkbox;
