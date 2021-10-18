@@ -49,9 +49,9 @@ const RoomCard = (props: RoomCardProps) => {
           <div className={styles.rating}>
             {rating.map((item, index) => (
               index < amountStar ? (
-                <span className={styles.signStar} key={item}>star</span>
+                <span className={`${styles.signStar} ${styles.filledStar}`} key={item} />
               ) : (
-                <span className={styles.signStar} key={item}>star_border</span>
+                <span className={`${styles.signStar} ${styles.borderedStar}`} key={item} />
               )
             ))}
           </div>

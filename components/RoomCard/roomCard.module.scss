@@ -92,6 +92,14 @@
   cursor: default;
 }
 
+.filledStar::before {
+  content: '\e838';
+}
+
+.borderedStar::before {
+  content: '\e83a';
+}
+
 .amountReviews {
   display: flex;
   align-items: center;

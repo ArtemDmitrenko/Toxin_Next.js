@@ -21,7 +21,8 @@
   &::after {
     @include cardAfter;
     left: 5px;
-    content: 'keyboard_arrow_left';
+    transform: rotate(90deg);
+    content: '\e5cf';
   }
 
   &::before {
@@ -34,7 +35,8 @@
   &::after {
     @include cardAfter;
     right: 5px;
-    content: 'keyboard_arrow_right';
+    transform: rotate(270deg);
+    content: '\e5cf';
   }
 
   &::before {
