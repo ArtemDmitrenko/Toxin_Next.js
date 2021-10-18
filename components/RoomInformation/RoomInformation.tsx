@@ -16,14 +16,24 @@ const RoomInformation = (props: RoomInformationProps) => {
   return (
     <div className={styles.information}>
       <h2 className={styles.heading}>{heading}</h2>
-      {info.map((item) => (
-        <div className={styles.item} key={item.id}>
-          <span className={`${styles.icon} ${styles[item.iconName]} `} />
-          <div className={styles.content}>
-            <span className={styles.title}>{item.title}</span>
-            <span className={styles.text}>{item.description}</span>
+      {info.map((item, index) => (
+        index < info.length - 1 ? (
+          <div className={`${styles.item} ${styles.bordered}`} key={item.id}>
+            <span className={`${styles.icon} ${styles[item.iconName]} `} />
+            <div className={styles.content}>
+              <span className={styles.title}>{item.title}</span>
+              <span className={styles.text}>{item.description}</span>
+            </div>
           </div>
-        </div>
+        ) : (
+          <div className={styles.item} key={item.id}>
+            <span className={`${styles.icon} ${styles[item.iconName]} `} />
+            <div className={styles.content}>
+              <span className={styles.title}>{item.title}</span>
+              <span className={styles.text}>{item.description}</span>
+            </div>
+          </div>
+        )
       ))}
     </div>
   );
