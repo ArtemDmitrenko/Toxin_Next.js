@@ -14,12 +14,17 @@ type DateRangeConfig = {
   isDouble?: boolean,
 };
 
+type DatesOfStay = {
+  arrival: string,
+  departure: string,
+};
+
 type DateRangeProps = {
   headers: Array<string>,
   placeholder?: string,
   defaultValues?: Array<Date>,
   isDouble?: boolean,
-  onChange: (dates: { arrival: string, departure: string }) => void,
+  onChange: (dates: DatesOfStay) => void,
 };
 
 const DateRange = (props: DateRangeProps) => {
@@ -194,5 +199,5 @@ const DateRange = (props: DateRangeProps) => {
   );
 };
 
-export type { DateRangeConfig };
+export type { DateRangeConfig, DatesOfStay };
 export default DateRange;
