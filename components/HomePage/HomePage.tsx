@@ -6,6 +6,8 @@ import Reference from 'Components/Reference/Reference';
 import FooterMobile from 'Components/FooterMobile/FooterMobile';
 import FooterDesktop from 'Components/FooterDesktop/FooterDesktop';
 import footerItems from 'Components/FooterDesktop/footer-items.json';
+import RoomInformation from 'Components/RoomInformation/RoomInformation';
+import roomInfo from 'Components/RoomInformation/roomInformation.json';
 import Header from 'Components/Header/Header';
 
 import styles from './homePage.module.scss';
@@ -87,6 +89,7 @@ const HomePage = () => {
         subscribeTitle={footerItems.subscribeTitle}
         addNewEmail={addNewEmail}
       />
+      <RoomInformation heading="Сведения о номере" info={roomInfo} />
     </div>
   );
 };

@@ -1,0 +1,55 @@
+@import 'Root/style/variables.scss';
+
+.information {
+  margin: 0;
+  color: $textColor75;
+  font-size: 14px;
+  font-family: 'Montserrat', Arial, sans-serif;
+  font-style: normal;
+  line-height: 24px;
+}
+
+.heading {
+  @include h2;
+  margin-bottom: 20px;
+  color: $textColor;
+}
+
+.item {
+  display: flex;
+  justify-content: flex-start;
+  max-width: 280px;
+  min-height: 70px;
+  margin-bottom: 19px;
+  border-bottom: 1px solid $textColor10;
+}
+
+.icon {
+  position: relative;
+  color: $primaryColor;
+  font: 48px 'Material Icons', Arial, sans-serif;
+}
+
+.mood::before {
+  content: '\e7f2';
+}
+
+.locationCity::before {
+  content: '\e7f1';
+}
+
+.whatshot::before {
+  content: '\e80e';
+}
+
+.content {
+  padding-left: 10px;
+}
+
+.title {
+  font-weight: bold;
+}
+
+.text {
+  display: block;
+}
