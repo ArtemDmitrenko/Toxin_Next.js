@@ -1,6 +1,3 @@
-import { useState } from 'react';
-
-import { GuestsDropdownConfig } from 'Components/GuestsDropdown/GuestsDropdown';
 import Counter from 'Components/Counter/Counter';
 import CopyrightBar from 'Components/CopyrightBar/CopyrightBar';
 import Subscribe from 'Components/Subscribe/Subscribe';
@@ -9,11 +6,12 @@ import FooterMobile from 'Components/FooterMobile/FooterMobile';
 import FooterDesktop from 'Components/FooterDesktop/FooterDesktop';
 import footerItems from 'Components/FooterDesktop/footer-items.json';
 import Header from 'Components/Header/Header';
+import { DropdownConfig } from 'Components/Dropdown/Dropdown';
+import RoomSearchCard, { RoomSearchCardData } from '../RoomSearchCard/RoomSearchCard';
 
 import styles from './homePage.module.scss';
-import RoomSearchCard from '../RoomSearchCard/RoomSearchCard';
 
-const guestDropdownConfig: GuestsDropdownConfig = [
+const guestDropdownConfig: DropdownConfig = [
   { title: 'взрослые', group: 'adults', wordforms: ['гость', 'гостя', 'гостей'] },
   { title: 'дети', group: 'adults', wordforms: ['гость', 'гостя', 'гостей'] },
   { title: 'младенцы', group: 'babies', wordforms: ['младенец', 'младенца', 'младенцев'] },
@@ -31,42 +29,16 @@ const addNewEmail = (email: string) => {
   };
 };
 
+const handleSearchCardSubmit = (data: RoomSearchCardData) => {
+  console.log(data);
+
+  /* здесь нужно определиться что мы делаем
+  /* с данными из формы
+  /* (отправляем на сервер/добавляем в стор редакса???)
+  */
+};
+
 const HomePage = () => {
-  const [datesOfStay, setDatesOfStay] = useState({ arrival: '', departure: '' });
-  const [numberOfGuests, setNumberOfGuests] = useState([
-    { title: '', group: '', number: 0 },
-  ]);
-
-  const addDatesOfState = (dates: { arrival: string, departure: string }) => {
-    setDatesOfStay({
-      ...datesOfStay,
-      arrival: dates.arrival,
-      departure: dates.departure,
-    });
-  };
-
-  const addNumberOfGuest = (
-    guestGroups: Array<{ title: string, group: string, number: number }>,
-  ) => {
-    setNumberOfGuests([...numberOfGuests, ...guestGroups]);
-  };
-
-  const handleSearchCardSubmit = () => {
-    /* здесь нужно определиться что мы делаем
-    /* с данными из формы
-    /* (отпрвляем на сервер/добавляем в стор редакса???)
-    /*
-    /* === КОД НИЖЕ ТОЛЬКО ДЛЯ ПРОВЕРКИ ТОГО
-    /* ЧТО ФУНКЦИЯ setNumberOfGuests() НОРМАЛЬНО РАБОТАЕТ
-    */
-    setNumberOfGuests([
-      { title: 'взрослые', group: 'adults', number: 2 },
-      { title: 'дети', group: 'adults', number: 4 },
-      { title: 'младенцы', group: 'babies', number: 7 },
-    ]);
-    /* === JUST TO TEST THE FUNCTION setNumberOfGuests() === */
-  };
-
   const navigation = [
     {
       id: 1,
@@ -111,8 +83,6 @@ const HomePage = () => {
       <RoomSearchCard
         guestsDropdownConfig={guestDropdownConfig}
         dateRangeConfig={dateRangeConfig}
-        addNumberOfGuest={addNumberOfGuest}
-        addDatesOfState={addDatesOfState}
         onSubmit={handleSearchCardSubmit}
       />
 

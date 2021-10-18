@@ -1,37 +1,62 @@
-import { GuestsDropdownConfig } from 'Components/GuestsDropdown/GuestsDropdown';
-import GuestsDropdown from 'Components//GuestsDropdown/GuestsDropdown';
+import { useState } from 'react';
+
 import Reference from 'Components/Reference/Reference';
+import Dropdown, { DropdownConfig, Groups } from 'Components/Dropdown/Dropdown';
+import DateRange from '../DateRange/DateRange';
 
 import styles from './roomSearchCard.module.scss';
-import DateRange from '../DateRange/DateRange';
 
 type DateRangeConfig = {
   headers: Array<string>,
   placeholder: string,
-  defaultValues: Array<Date> | null,
+  defaultValues: Array<Date>,
 };
 
+type DatesOfStay = {
+  arrival: string, departure: string
+};
+
+type RoomSearchCardData = { datesOfStay: DatesOfStay, numberOfGuests: Groups };
+
 type RoomSearchCardProps = {
-  guestsDropdownConfig: GuestsDropdownConfig,
+  guestsDropdownConfig: DropdownConfig,
   dateRangeConfig: DateRangeConfig,
-  onSubmit: () => void,
-  addDatesOfState: (dates: { arrival: string, departure: string }) => void,
-  addNumberOfGuest: (guestGroups: Array<{ title: string, group: string, number: number }>) => void,
+  onSubmit: (data: RoomSearchCardData) => void,
 };
 
 const RoomSearchCard = (props: RoomSearchCardProps) => {
-  const {
-    guestsDropdownConfig, dateRangeConfig, onSubmit, addDatesOfState, addNumberOfGuest,
-  } = props;
+  const { guestsDropdownConfig, dateRangeConfig, onSubmit } = props;
   const { headers, placeholder, defaultValues } = dateRangeConfig;
 
-  const handleButtonClick = () => {
-    onSubmit();
+  const [datesOfStay, setDatesOfStay] = useState({ arrival: '', departure: '' });
+  const [numberOfGuests, setNumberOfGuests] = useState({});
+
+  const addDatesOfState = (dates: DatesOfStay) => {
+    setDatesOfStay({
+      ...datesOfStay,
+      arrival: dates.arrival,
+      departure: dates.departure,
+    });
   };
 
-  const handleButtonKeyDown = (code: string) => {
+  const addNumberOfGuest = (
+    guestGroups: Groups,
+  ) => {
+    /* здесь нужно каким-то образом вытащить
+    /* данные из объекта, который приходит от Dropdown
+    /* и поместить их в numberOfGuests
+    */
+
+    // setNumberOfGuests();
+  };
+
+  const handleButtonClick = () => {
+    onSubmit({ datesOfStay, numberOfGuests });
+  };
+
+  const handleButtonKeyDown = ({ code }: React.KeyboardEvent) => {
     if (code === 'Enter') {
-      onSubmit();
+      onSubmit({ datesOfStay, numberOfGuests });
     }
   };
 
@@ -48,7 +73,11 @@ const RoomSearchCard = (props: RoomSearchCardProps) => {
           />
         </div>
         <div className={styles.dropdown}>
-          <GuestsDropdown list={guestsDropdownConfig} onChange={addNumberOfGuest} />
+          <Dropdown
+            list={guestsDropdownConfig}
+            placeholder="Сколько гостей"
+            onChange={addNumberOfGuest}
+          />
         </div>
         <div
           className={styles.button}
@@ -60,15 +89,15 @@ const RoomSearchCard = (props: RoomSearchCardProps) => {
           }}
           onKeyDown={(e) => {
             e.preventDefault();
-            const { code } = e;
-            handleButtonKeyDown(code);
+            handleButtonKeyDown(e);
           }}
         >
-          <Reference text="Перейти к оплате" type="directed" size="big" />
+          <Reference href="/rooms" text="Перейти к оплате" type="directed" size="big" />
         </div>
       </form>
     </div>
   );
 };
 
+export type { RoomSearchCardData };
 export default RoomSearchCard;
