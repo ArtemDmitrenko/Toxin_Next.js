@@ -7,6 +7,7 @@ import FooterMobile from 'Components/FooterMobile/FooterMobile';
 import FooterDesktop from 'Components/FooterDesktop/FooterDesktop';
 import footerItems from 'Components/FooterDesktop/footer-items.json';
 import Header from 'Components/Header/Header';
+import Like from 'Components/Like/Like';
 
 import styles from './homePage.module.scss';
 
@@ -77,6 +78,7 @@ const HomePage = () => {
       <Reference text="click me" type="bordered" size="small" />
       <Reference text="click me" type="bordered" size="big" />
       <Reference text="Перейти к оплате" type="directed" size="big" />
+      <Like amountLike={12} />
       <CopyrightBar text="Copyright © 2018 Toxin отель. Все права защищены." />
       <Header menu={navigation} />
       <FooterMobile />
