@@ -29,7 +29,8 @@
 
 .icon {
   position: relative;
-  color: $primaryColor;
+
+  @include text-gradient-fill($primaryGradient);
   font: 48px 'Material Icons', Arial, sans-serif;
 }
 
