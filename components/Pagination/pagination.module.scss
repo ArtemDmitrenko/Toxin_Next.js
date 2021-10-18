@@ -61,7 +61,13 @@
   height: 40px;
   color: rgba(31, 32, 65, 0.5);
   font-weight: normal;
+  outline: none;
   cursor: pointer;
+
+  &:focus {
+    color: rgba(31, 32, 65);
+    font-weight: bold;
+  }
 
   &:hover {
     color: rgba(31, 32, 65);
@@ -80,12 +86,17 @@
   display: none;
 }
 
-.link,
-.break {
+.link {
   outline: none;
 
   &:focus {
     color: rgba(31, 32, 65);
     font-weight: bold;
   }
+}
+
+.sign {
+  @include paragraph();
+  margin-top: 11px;
+  text-align: center;
 }

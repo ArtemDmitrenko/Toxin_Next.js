@@ -36,6 +36,19 @@ const Pagination = (props: PaginationProps) => {
       </li>
     ));
 
+  const displaySign = () => {
+    const totalItems: number = allItems.length;
+    const shownTotalItems: string = totalItems < 100 ? totalItems.toString() : '100+';
+    const from: number = startPosition + 1;
+    let to: number;
+    if (currentPage + 1 === pagesTotal) {
+      to = totalItems;
+    } else {
+      to = totalItems < itemsPerPage ? totalItems : itemsPerPage * (currentPage + 1);
+    }
+    return `${from} – ${to} из ${shownTotalItems} вариантов аренды`;
+  };
+
   const previousClasses = () => (
     `${styles.buttonArrow} ${styles.previous} ${currentPage === 0 ? styles.hide : ''}`
   );
@@ -66,6 +79,7 @@ const Pagination = (props: PaginationProps) => {
         pageLinkClassName={styles.link}
         breakLinkClassName={styles.break}
       />
+      <p className={styles.sign}>{displaySign()}</p>
     </div>
   );
 };
