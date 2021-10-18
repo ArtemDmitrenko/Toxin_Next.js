@@ -78,8 +78,8 @@ const HomePage = () => {
       <Reference text="click me" type="bordered" size="small" />
       <Reference text="click me" type="bordered" size="big" />
       <Reference text="Перейти к оплате" type="directed" size="big" />
-      <Checkbox title="Можно с питомцами" isChecked />
-      <Checkbox title="Широкий коридор" isBoldTitle description="Ширина коридоров в номере не менее 91 см." />
+      <Checkbox title="Можно с питомцами" isChecked onChange={(element: boolean) => { console.log('checked', element); }} />
+      <Checkbox title="Широкий коридор" isBoldTitle description="Ширина коридоров в номере не менее 91 см." onChange={(element: boolean) => { console.log('checked2', element); }} />
       <CopyrightBar text="Copyright © 2018 Toxin отель. Все права защищены." forMobile={false} />
       <Header menu={navigation} />
       <FooterMobile />
