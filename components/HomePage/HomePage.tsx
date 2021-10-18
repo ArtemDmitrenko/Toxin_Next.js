@@ -9,10 +9,10 @@ import footerItems from 'Components/FooterDesktop/footer-items.json';
 import Header from 'Components/Header/Header';
 import RoomCard from 'Components/RoomCard/RoomCard';
 
-import image1 from './roomCardImages/image350.png';
-import image2 from './roomCardImages/image445.png';
-import image3 from './roomCardImages/image352.png';
-import image4 from './roomCardImages/image444.png';
+import image1 from 'public/images/roomCardImages/image350.png';
+import image2 from 'public/images/roomCardImages/image445.png';
+import image3 from 'public/images/roomCardImages/image352.png';
+import image4 from 'public/images/roomCardImages/image444.png';
 
 import styles from './homePage.module.scss';
 
