@@ -33,8 +33,8 @@ const RoomCard = (props: RoomCardProps) => {
       <CarouselImages data={{ images, number }} />
       <div className={styles.description}>
         <div className={styles.dataRoom}>
-          <Link href={href} key={number}>
-            <a className={styles.linkRoom} href={href}>
+          <Link href={href} passHref key={number}>
+            <a className={styles.linkRoom} href="replace">
               <span className={styles.signNumber}>№</span>
               <span className={styles.number}>{number}</span>
               <span className={styles.level}>{level}</span>

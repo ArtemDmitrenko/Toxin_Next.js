@@ -41,7 +41,7 @@ const HomePage = () => {
       { id: 3, src: image3 },
       { id: 4, src: image4 },
     ],
-    href: '/',
+    href: '/room-808',
     amountStar: 4,
   };
 
