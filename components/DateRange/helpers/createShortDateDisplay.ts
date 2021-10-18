@@ -7,8 +7,11 @@ const createShortDateDisplay = (date: Array<Date>): string => {
   });
 
   const sliceLongNames = (name: string): string => {
-    if (name.length > 5) {
-      return name.slice(0, name.length - 1);
+    const lastSymbolIndex = name.length - 1;
+    const lastSymbol = name.charAt(lastSymbolIndex);
+
+    if (lastSymbol === '.') {
+      return name.slice(0, lastSymbolIndex);
     }
     return name;
   };
