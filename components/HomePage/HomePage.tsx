@@ -57,7 +57,7 @@ const HomePage = () => {
 
   return (
     <div className={styles.root}>
-      <Pagination itemsPerPage={12} mockJSON={roomsJSON} />
+      <Pagination itemsPerPage={12} allItems={roomsJSON} />
     </div>
   );
 };

@@ -12,15 +12,14 @@ type RoomCard = {
 };
 
 type PaginationProps = {
-  mockJSON: Array<RoomCard>,
+  allItems: Array<RoomCard>,
   itemsPerPage: number
 };
 
 const Pagination = (props: PaginationProps) => {
-  const { mockJSON, itemsPerPage } = props;
+  const { allItems, itemsPerPage } = props;
   const [currentPage, setCurrentPage] = useState(0);
 
-  const allItems = mockJSON.slice(0, 150);
   const pagesTotal = Math.ceil(allItems.length / itemsPerPage);
   const startPosition = itemsPerPage * currentPage;
 
