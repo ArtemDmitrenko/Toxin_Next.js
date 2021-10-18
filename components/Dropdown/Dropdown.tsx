@@ -41,8 +41,8 @@ const MAX_GROUP_VALUE = 10;
 const Dropdown = (props: DropdownProps) => {
   const {
     list,
-    isButtons,
-    placeholder,
+    isButtons = true,
+    placeholder = '',
     onChange,
   } = props;
 
@@ -313,12 +313,6 @@ const Dropdown = (props: DropdownProps) => {
       </div>
     </div>
   );
-};
-
-Dropdown.defaultProps = {
-  isButtons: true,
-  placeholder: '',
-  onChange: undefined,
 };
 
 export type { DropdownConfig, Groups };

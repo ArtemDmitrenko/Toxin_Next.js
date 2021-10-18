@@ -39,7 +39,7 @@ type CopyrightBarProps = {
 };
 
 const CopyrightBar = (props: CopyrightBarProps) => {
-  const { text, forMobile } = props;
+  const { text, forMobile = false } = props;
 
   const stylesCopyrightBar = () => (
     `${forMobile ? styles.contentMobile : styles.content}`
@@ -53,10 +53,6 @@ const CopyrightBar = (props: CopyrightBarProps) => {
       </div>
     </div>
   );
-};
-
-CopyrightBar.defaultProps = {
-  forMobile: false,
 };
 
 export default CopyrightBar;
