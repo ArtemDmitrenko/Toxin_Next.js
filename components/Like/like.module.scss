@@ -6,18 +6,19 @@
   min-height: 20px;
   padding: 0;
   padding-left: 10px;
-  color: $textColor;
+  color: $textColor25;
   font: 10px/12px 'Montserrat', Arial, sans-serif;
   background-color: #fff;
   border: 1px solid $textColor25;
   border-radius: 10px;
+  cursor: pointer;
 }
 
 .like::before {
   position: absolute;
   left: 10%;
   font: 10px/12px 'Material Icons', Arial, sans-serif;
-  content: '\e87d';
+  content: '\e87e';
 }
 
 .likeActive {
@@ -26,5 +27,7 @@
 }
 
 .likeActive::before {
-  color: $primaryColor;
+  content: '\e87d';
+
+  @include text-gradient-fill($primaryGradient);
 }
