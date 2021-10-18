@@ -5,10 +5,10 @@ import styles from './roomCard.module.scss';
 
 type RoomCardProps = {
   card: {
-    number: string,
+    number: number,
     level?: string,
-    cost: string,
-    amountReviews: string,
+    cost: number,
+    amountReviews: number,
     images: Array<{ id: number, src: StaticImageData }>,
     href: string,
     amountStar: number,
@@ -18,10 +18,10 @@ type RoomCardProps = {
 const RoomCard = (props: RoomCardProps) => {
   const { card } = props;
   const {
-    number = '100',
+    number = 100,
     level,
-    cost = '1000',
-    amountReviews = '0',
+    cost = 1000,
+    amountReviews = 0,
     images,
     href,
     amountStar,

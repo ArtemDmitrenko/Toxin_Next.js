@@ -6,7 +6,7 @@ import styles from './carouselImages.module.scss';
 type CarouselImagesProps = {
   data: {
     images: Array<{ id: number, src: StaticImageData }>,
-    number: string,
+    number: number,
   }
 };
 

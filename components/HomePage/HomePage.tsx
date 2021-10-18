@@ -31,10 +31,10 @@ const addNewEmail = (email: string) => {
 
 const HomePage = () => {
   const card = {
-    number: '808',
+    number: 808,
     level: 'люкс',
-    cost: '9990',
-    amountReviews: '145',
+    cost: 9990,
+    amountReviews: 145,
     images: [
       { id: 1, src: image1 },
       { id: 2, src: image2 },
