@@ -4,7 +4,7 @@ import styles from './checkbox.module.scss';
 
 type CheckboxProps = {
   title: string,
-  description?: string | null,
+  description?: string,
   isBoldTitle?: boolean,
   isChecked?: boolean,
 };
@@ -12,7 +12,7 @@ type CheckboxProps = {
 const Checkbox = (props: CheckboxProps) => {
   const {
     title,
-    description = null,
+    description,
     isBoldTitle = false,
     isChecked = false,
   } = props;
