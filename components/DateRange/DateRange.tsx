@@ -3,20 +3,21 @@ import Calendar from 'react-calendar';
 
 import formattingLabel from './helpers/formattingLabel';
 import formattingDate from './helpers/formattingDate';
-import styles from './dateRange.module.scss';
 import createShortDateDisplay from './helpers/createShortDateDisplay';
+
+import styles from './dateRange.module.scss';
 
 type DateRangeConfig = {
   headers: Array<string>,
   placeholder?: string,
-  defaultValues?: Array<Date> | null,
+  defaultValues?: Array<Date>,
   isDouble?: boolean,
 };
 
 type DateRangeProps = {
   headers: Array<string>,
   placeholder?: string,
-  defaultValues?: Array<Date> | null,
+  defaultValues?: Array<Date>,
   isDouble?: boolean,
   onChange: (dates: { arrival: string, departure: string }) => void,
 };
@@ -24,9 +25,9 @@ type DateRangeProps = {
 const DateRange = (props: DateRangeProps) => {
   const {
     headers,
-    placeholder,
-    isDouble,
-    defaultValues,
+    placeholder = 'ДД.ММ.ГГГГ',
+    isDouble = false,
+    defaultValues = null,
     onChange,
   } = props;
   const [firstHeader, secondHeader] = headers;
@@ -190,12 +191,6 @@ const DateRange = (props: DateRangeProps) => {
       </div>
     </div>
   );
-};
-
-DateRange.defaultProps = {
-  placeholder: 'ДД.ММ.ГГГГ',
-  isDouble: false,
-  defaultValues: null,
 };
 
 export type { DateRangeConfig };
