@@ -1,5 +1,17 @@
-import HomePage from 'Components/HomePage/HomePage';
+import Layout from 'Components/Layout/Layout';
+import BackgroundWithSlogan from 'Components/BackgroundWithSlogan/BackgroundWithSlogan';
 
-const Index = () => <HomePage />;
+const addDatesOfState = (dates: { arrival: string, departure: string }) => {
+  const datesOfState = {
+    arrival: dates.arrival,
+    departure: dates.departure,
+  };
+};
 
-export default Index;
+const Home = () => (
+  <Layout title="Landing page">
+    <BackgroundWithSlogan />
+  </Layout>
+);
+
+export default Home;
