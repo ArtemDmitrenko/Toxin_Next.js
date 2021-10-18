@@ -22,14 +22,14 @@ const Pagination = (props: PaginationProps) => {
 
   const allItems = mockJSON.slice(0, 150);
   const pagesTotal = Math.ceil(allItems.length / itemsPerPage);
-  const pagesVisited = itemsPerPage * currentPage;
+  const startPosition = itemsPerPage * currentPage;
 
   const handlePageClick = (page: { selected: number }) => {
     setCurrentPage(page.selected);
   };
 
   const displayItems = allItems
-    .slice(pagesVisited, pagesVisited + itemsPerPage)
+    .slice(startPosition, startPosition + itemsPerPage)
     .map((item) => (
       <li key={item.id}>
         <img src={item.thumbnailUrl} alt="room" />
