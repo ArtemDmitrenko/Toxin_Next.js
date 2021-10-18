@@ -18,14 +18,14 @@ type PaginationProps = {
 
 const Pagination = (props: PaginationProps) => {
   const { mockJSON, itemsPerPage } = props;
-  const [curNumber, setCurNumber] = useState(0);
+  const [currentPage, setCurrentPage] = useState(0);
 
   const allItems = mockJSON.slice(0, 150);
   const pagesTotal = Math.ceil(allItems.length / itemsPerPage);
-  const pagesVisited = itemsPerPage * curNumber;
+  const pagesVisited = itemsPerPage * currentPage;
 
   const handlePageClick = (page: { selected: number }) => {
-    setCurNumber(page.selected);
+    setCurrentPage(page.selected);
   };
 
   const displayItems = allItems
@@ -37,11 +37,11 @@ const Pagination = (props: PaginationProps) => {
     ));
 
   const previousClasses = () => (
-    `${styles.buttonArrow} ${styles.previous} ${curNumber === 0 ? styles.hide : ''}`
+    `${styles.buttonArrow} ${styles.previous} ${currentPage === 0 ? styles.hide : ''}`
   );
 
   const nextClasses = () => (
-    `${styles.buttonArrow} ${styles.next} ${curNumber === itemsPerPage ? styles.hide : ''}`
+    `${styles.buttonArrow} ${styles.next} ${currentPage === itemsPerPage ? styles.hide : ''}`
   );
 
   return (
@@ -51,7 +51,7 @@ const Pagination = (props: PaginationProps) => {
       </ul>
       <ReactPaginate
         pageCount={pagesTotal}
-        initialPage={curNumber}
+        initialPage={currentPage}
         pageRangeDisplayed={2}
         marginPagesDisplayed={1}
         previousLabel=""
