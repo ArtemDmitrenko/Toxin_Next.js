@@ -62,3 +62,13 @@
 .hide {
   display: none;
 }
+
+.link,
+.break {
+  outline: none;
+
+  &:focus {
+    color: rgba(31, 32, 65);
+    font-weight: bold;
+  }
+}

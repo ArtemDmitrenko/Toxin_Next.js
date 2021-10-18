@@ -63,6 +63,8 @@ const Pagination = (props: PaginationProps) => {
         containerClassName={styles.container}
         breakClassName={styles.break}
         activeClassName={styles.active}
+        pageLinkClassName={styles.link}
+        breakLinkClassName={styles.break}
       />
     </div>
   );
