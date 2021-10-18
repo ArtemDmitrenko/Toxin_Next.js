@@ -3,8 +3,8 @@
 .main {
   height: 830px;
   background-image: url('./images/landing-page.png');
-  background-size: cover;
   background-position: center;
+  background-size: cover;
 }
 
 .wrapper {
@@ -14,7 +14,7 @@
   height: 100%;
   margin: 0 auto;
   padding: 70px 140px 21px;
-  
+
   @media (max-width: $mediaSizeTablet) {
     padding-right: 40px;
     padding-left: 40px;
