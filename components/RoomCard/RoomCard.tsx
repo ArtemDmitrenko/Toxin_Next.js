@@ -1,5 +1,5 @@
+import Link from 'next/link';
 import CarouselImages from 'Components/CarouselImages/CarouselImages';
-import Link from 'next/dist/client/link';
 
 import styles from './roomCard.module.scss';
 
