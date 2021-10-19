@@ -51,7 +51,7 @@ const CarouselImages = (props: CarouselImagesProps) => {
       <div className={styles.slider}>
         {images.map((image, index) => (
           <div className={stylesContent(index)} id={String(index)} key={image.id}>
-            <Image className={styles.image} src={image.src} alt={`Room №${number}`} />
+            <Image className={styles.image} src={image.src} alt={`Room №${number}`} width="270px" height="156px" />
           </div>
         ))}
         <div className={styles.cardPrev} role="button" tabIndex={0} onClick={() => handleButtonPrevClick(active)} onKeyPress={() => handleButtonPrevClick(active)} />
