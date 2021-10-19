@@ -1,4 +1,5 @@
 import mockData from 'Root/public/room-mock/room-card.json';
+import Collage from 'Components/Collage/Collage';
 
 type RoomProps = {
   data: {
@@ -19,10 +20,7 @@ const Room = (props: RoomProps) => {
 
   return (
     <div>
-      <h1>{data.room}</h1>
-      {data.images.map((image) => (
-        <img src={image.src} alt={image.alt} key={image.src} />
-      ))}
+      <Collage images={data.images} />
     </div>
   );
 };
