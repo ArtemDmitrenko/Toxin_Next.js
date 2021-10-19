@@ -35,11 +35,11 @@ const buttons = [
 
 type CopyrightBarProps = {
   text: string,
-  forMobile: boolean,
+  forMobile?: boolean,
 };
 
 const CopyrightBar = (props: CopyrightBarProps) => {
-  const { text, forMobile } = props;
+  const { text, forMobile = false } = props;
 
   const stylesCopyrightBar = () => (
     `${forMobile ? styles.contentMobile : styles.content}`
