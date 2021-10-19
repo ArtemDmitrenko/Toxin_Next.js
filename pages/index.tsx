@@ -98,8 +98,7 @@ const Home = () => {
       />
       <Pagination itemsPerPage={12} allItems={roomsJSON} />
     </div>
-
   );
 };
 
-export default HomePage;
+export default Home;
