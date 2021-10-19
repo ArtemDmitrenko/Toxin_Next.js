@@ -1,4 +1,4 @@
-import mockData from 'Root/public/room-mock/room-card.json';
+import mockData from 'Root/public/room-mock/room.json';
 import Collage from 'Components/Collage/Collage';
 
 type RoomProps = {
