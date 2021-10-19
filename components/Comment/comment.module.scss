@@ -1,0 +1,52 @@
+@import 'Root/style/variables.scss';
+
+.comment {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  color: $textColor75;
+  font-size: 14px;
+  line-height: 24px;
+}
+
+.info {
+  position: relative;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.icon {
+  width: 45px;
+  height: 45px;
+  margin-right: 10px;
+  border-radius: 50%;
+  filter: drop-shadow(0 10px 20px rgba(31, 32, 65, 0.1));
+}
+
+.user {
+  display: flex;
+  flex-direction: column;
+}
+
+.userName {
+  display: inline-block;
+  margin: 0;
+  font-weight: bold;
+}
+
+.date {
+  display: inline-block;
+}
+
+.content {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  margin-top: 10px;
+  margin-left: 2px;
+}
+
+.text {
+  margin: 0;
+  margin-left: 13px;
+}

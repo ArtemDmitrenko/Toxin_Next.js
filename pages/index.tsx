@@ -8,6 +8,8 @@ import FooterMobile from 'Components/FooterMobile/FooterMobile';
 import FooterDesktop from 'Components/FooterDesktop/FooterDesktop';
 import footerItems from 'Components/FooterDesktop/footer-items.json';
 import Header from 'Components/Header/Header';
+import Comment from 'Components/Comment/Comment';
+import userComment from 'Components/Comment/comment.json';
 
 const addDatesOfState = (dates: { arrival: string, departure: string }) => {
   const datesOfState = {
@@ -77,6 +79,13 @@ const Home = () => {
       <Reference text="click me" type="bordered" size="big" />
       <Reference text="Перейти к оплате" type="directed" size="big" />
       <CopyrightBar text="Copyright © 2018 Toxin отель. Все права защищены." forMobile={false} />
+      <Comment
+        srcIcon={userComment.srcIcon}
+        userName={userComment.userName}
+        date={userComment.date}
+        text={userComment.text}
+        like={userComment.like}
+      />
       <Header menu={navigation} />
       <FooterMobile />
       <FooterDesktop
