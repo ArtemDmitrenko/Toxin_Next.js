@@ -37,7 +37,7 @@
   }
 
   &:hover {
-    color: rgba(31, 32, 65);
+    background: $primaryGradientTranslucent;
   }
 }
 
@@ -47,7 +47,7 @@
   }
 
   &:hover {
-    color: rgba(31, 32, 65);
+    background: $primaryGradientTranslucent;
   }
 }
 
@@ -59,19 +59,20 @@
   justify-content: center;
   width: 40px;
   height: 40px;
-  color: rgba(31, 32, 65, 0.5);
+  color: $textColor50;
   font-weight: normal;
+  border-radius: 50%;
   outline: none;
   cursor: pointer;
 
   &:focus {
-    color: rgba(31, 32, 65);
+    color: $textColor;
     font-weight: bold;
   }
 
   &:hover {
-    color: rgba(31, 32, 65);
     font-weight: bold;
+    background: $primaryGradientTranslucent;
   }
 }
 
@@ -90,7 +91,7 @@
   outline: none;
 
   &:focus {
-    color: rgba(31, 32, 65);
+    color: $textColor;
     font-weight: bold;
   }
 }
