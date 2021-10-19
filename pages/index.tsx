@@ -77,7 +77,7 @@ const Home = () => {
       <Reference text="click me" type="bordered" size="small" />
       <Reference text="click me" type="bordered" size="big" />
       <Reference text="Перейти к оплате" type="directed" size="big" />
-      <Like amountLike={12} isLiked onChange={(active) => console.log('active', active)} />
+      <Like amountLike={12} isLiked />
       <CopyrightBar text="Copyright © 2018 Toxin отель. Все права защищены." forMobile={false} />
       <Header menu={navigation} />
       <FooterMobile />
