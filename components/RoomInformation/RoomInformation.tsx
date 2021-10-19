@@ -17,6 +17,12 @@ const RoomInformation = (props: RoomInformationProps) => {
     `${styles.item} ${isLastItem ? '' : styles.bordered}`
   );
 
+  const stylesIcon = (iconName: string) => (
+    `${styles.icon} ${(iconName === 'mood') ? styles.mood : ''}
+      ${(iconName === 'locationCity') ? styles.locationCity : ''}
+      ${(iconName === 'whatshot') ? styles.whatshot : ''}`
+  );
+
   return (
     <div className={styles.information}>
       <h2 className={styles.heading}>{heading}</h2>
@@ -25,7 +31,7 @@ const RoomInformation = (props: RoomInformationProps) => {
 
         return (
           <div className={stylesItem(isLastItem)} key={item.id}>
-            <span className={`${styles.icon} ${styles[item.iconName]} `} />
+            <span className={stylesIcon(item.iconName)} />
             <div className={styles.content}>
               <span className={styles.title}>{item.title}</span>
               <span className={styles.text}>{item.description}</span>
