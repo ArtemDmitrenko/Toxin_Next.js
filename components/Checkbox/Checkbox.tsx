@@ -8,7 +8,7 @@ type CheckboxProps = {
   isBoldTitle?: boolean,
   isChecked?: boolean,
   name: string,
-  onChange: (name: string, checked: boolean) => void,
+  onChange?: (name: string, checked: boolean) => void,
 };
 
 const Checkbox = (props: CheckboxProps) => {
@@ -25,7 +25,9 @@ const Checkbox = (props: CheckboxProps) => {
 
   const handleCheckboxChange = () => {
     setChecked(!checked);
-    onChange(name, !checked);
+    if (onChange) {
+      onChange(name, !checked);
+    }
   };
 
   const stylesTitle = () => (
