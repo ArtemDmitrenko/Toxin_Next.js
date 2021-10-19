@@ -25,10 +25,11 @@ const Room = (props: RoomProps) => {
   );
 };
 
-export async function getServerSideProps() {
+const getServerSideProps = async () => {
   const data = mockData;
 
   return { props: { data } };
-}
+};
 
+export { getServerSideProps };
 export default Room;
