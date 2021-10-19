@@ -2,17 +2,20 @@ import { useState, useEffect } from 'react';
 
 import convertNumToWordform from 'Root/utils/convertNumToWordform';
 
-import styles from './guestsDropdown.module.scss';
+import styles from './dropdown.module.scss';
 
-type GuestsDropdownConfig = Array<{
+type DropdownConfig = Array<{
   title: string,
   group: string,
   defaultValue?: number,
   wordforms: [string, string, string],
 }>;
 
-type GuestsDropdownProps = {
-  list: GuestsDropdownConfig,
+type DropdownProps = {
+  list: DropdownConfig,
+  isButtons?: boolean,
+  placeholder?: string,
+  onChange?: (data: Groups) => void,
 };
 
 type Groups = {
@@ -27,7 +30,7 @@ type Groups = {
   },
 };
 
-type GuestsDropdownState = {
+type DropdownState = {
   isActive: boolean,
   output: string,
   groups: Groups,
@@ -35,11 +38,16 @@ type GuestsDropdownState = {
 
 const MAX_GROUP_VALUE = 10;
 
-const GuestsDropdown = (props: GuestsDropdownProps) => {
-  const { list } = props;
+const Dropdown = (props: DropdownProps) => {
+  const {
+    list,
+    isButtons = true,
+    placeholder = '',
+    onChange,
+  } = props;
 
-  const generateState = (): GuestsDropdownState => {
-    const generatedState: GuestsDropdownState = {
+  const generateState = (): DropdownState => {
+    const generatedState: DropdownState = {
       isActive: false,
       output: '',
       groups: {},
@@ -143,43 +151,59 @@ const GuestsDropdown = (props: GuestsDropdownProps) => {
   const handleMinusClick = (groupName: string, itemName: string) => {
     if (dropdown.groups[groupName].items[itemName].value <= 0) return;
 
-    setDropdown((prevState) => ({
-      ...prevState,
-      groups: {
-        ...prevState.groups,
-        [groupName]: {
-          ...prevState.groups[groupName],
-          items: {
-            ...prevState.groups[groupName].items,
-            [itemName]: {
-              ...prevState.groups[groupName].items[itemName],
-              value: prevState.groups[groupName].items[itemName].value - 1,
+    setDropdown((prevState) => {
+      const newState = {
+        ...prevState,
+        groups: {
+          ...prevState.groups,
+          [groupName]: {
+            ...prevState.groups[groupName],
+            items: {
+              ...prevState.groups[groupName].items,
+              [itemName]: {
+                ...prevState.groups[groupName].items[itemName],
+                value: prevState.groups[groupName].items[itemName].value - 1,
+              },
             },
           },
         },
-      },
-    }));
+      };
+
+      if (onChange) {
+        onChange({ ...newState.groups });
+      }
+
+      return newState;
+    });
   };
 
   const handlePlusClick = (groupName: string, itemName: string) => {
     if (groupSum(groupName) >= MAX_GROUP_VALUE) return;
 
-    setDropdown((prevState) => ({
-      ...prevState,
-      groups: {
-        ...prevState.groups,
-        [groupName]: {
-          ...prevState.groups[groupName],
-          items: {
-            ...prevState.groups[groupName].items,
-            [itemName]: {
-              ...prevState.groups[groupName].items[itemName],
-              value: prevState.groups[groupName].items[itemName].value + 1,
+    setDropdown((prevState) => {
+      const newState = {
+        ...prevState,
+        groups: {
+          ...prevState.groups,
+          [groupName]: {
+            ...prevState.groups[groupName],
+            items: {
+              ...prevState.groups[groupName].items,
+              [itemName]: {
+                ...prevState.groups[groupName].items[itemName],
+                value: prevState.groups[groupName].items[itemName].value + 1,
+              },
             },
           },
         },
-      },
-    }));
+      };
+
+      if (onChange) {
+        onChange({ ...newState.groups });
+      }
+
+      return newState;
+    });
   };
 
   const handleClearClick = () => {
@@ -194,13 +218,17 @@ const GuestsDropdown = (props: GuestsDropdownProps) => {
 
       newState.output = '';
 
+      if (onChange) {
+        onChange({ ...newState.groups });
+      }
+
       return newState;
     });
   };
 
   return (
     <div
-      className={styles.guestsDropdown}
+      className={styles.dropdown}
       onFocus={(e) => {
         e.preventDefault();
         handleOutputFocus();
@@ -214,7 +242,7 @@ const GuestsDropdown = (props: GuestsDropdownProps) => {
         <input
           type="text"
           className={stylesInput()}
-          placeholder="Сколько гостей"
+          placeholder={placeholder}
           readOnly
           value={dropdown.output}
           tabIndex={-1}
@@ -256,33 +284,36 @@ const GuestsDropdown = (props: GuestsDropdownProps) => {
               ))
             ))}
           </ul>
-          <div className={`${styles.buttons} ${styles.buttonsNonEmpty}`}>
-            <button
-              type="button"
-              className={stylesClearButton()}
-              onClick={(e) => {
-                e.preventDefault();
-                handleClearClick();
-              }}
-            >
-              Очистить
-            </button>
-            <button
-              type="button"
-              className={stylesApplyButton()}
-              onClick={(e) => {
-                e.preventDefault();
-                handleOutputBlur();
-              }}
-            >
-              Применить
-            </button>
-          </div>
+          {isButtons
+            && (
+            <div className={`${styles.buttons} ${styles.buttonsNonEmpty}`}>
+              <button
+                type="button"
+                className={stylesClearButton()}
+                onClick={(e) => {
+                  e.preventDefault();
+                  handleClearClick();
+                }}
+              >
+                Очистить
+              </button>
+              <button
+                type="button"
+                className={stylesApplyButton()}
+                onClick={(e) => {
+                  e.preventDefault();
+                  handleOutputBlur();
+                }}
+              >
+                Применить
+              </button>
+            </div>
+            )}
         </div>
       </div>
     </div>
   );
 };
 
-export type { GuestsDropdownConfig };
-export default GuestsDropdown;
+export type { DropdownConfig, Groups };
+export default Dropdown;
