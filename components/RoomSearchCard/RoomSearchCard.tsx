@@ -92,7 +92,7 @@ const RoomSearchCard = (props: RoomSearchCardProps) => {
             handleButtonKeyDown(e);
           }}
         >
-          <Reference href="/rooms" text="Перейти к оплате" type="directed" size="big" />
+          <Reference href="/rooms" text="подобрать номер" type="directed" size="big" />
         </div>
       </form>
     </div>
