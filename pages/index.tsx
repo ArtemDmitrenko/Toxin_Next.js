@@ -24,7 +24,7 @@ const addNewEmail = (email: string) => {
   };
 };
 
-const HomePage = () => {
+const Home = () => {
   const navigation = [
     {
       id: 1,
