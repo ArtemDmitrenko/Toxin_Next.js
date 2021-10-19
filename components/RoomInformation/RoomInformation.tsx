@@ -13,28 +13,26 @@ type RoomInformationProps = {
 const RoomInformation = (props: RoomInformationProps) => {
   const { heading, info } = props;
 
+  const stylesItem = (isLastItem: boolean) => (
+    `${styles.item} ${isLastItem ? '' : styles.bordered}`
+  );
+
   return (
     <div className={styles.information}>
       <h2 className={styles.heading}>{heading}</h2>
-      {info.map((item, index) => (
-        index < info.length - 1 ? (
-          <div className={`${styles.item} ${styles.bordered}`} key={item.id}>
+      {info.map((item, index) => {
+        const isLastItem = index === info.length - 1;
+
+        return (
+          <div className={stylesItem(isLastItem)} key={item.id}>
             <span className={`${styles.icon} ${styles[item.iconName]} `} />
             <div className={styles.content}>
               <span className={styles.title}>{item.title}</span>
               <span className={styles.text}>{item.description}</span>
             </div>
           </div>
-        ) : (
-          <div className={styles.item} key={item.id}>
-            <span className={`${styles.icon} ${styles[item.iconName]} `} />
-            <div className={styles.content}>
-              <span className={styles.title}>{item.title}</span>
-              <span className={styles.text}>{item.description}</span>
-            </div>
-          </div>
-        )
-      ))}
+        );
+      })}
     </div>
   );
 };

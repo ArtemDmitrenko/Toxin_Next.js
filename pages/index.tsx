@@ -8,6 +8,8 @@ import FooterMobile from 'Components/FooterMobile/FooterMobile';
 import FooterDesktop from 'Components/FooterDesktop/FooterDesktop';
 import footerItems from 'Components/FooterDesktop/footer-items.json';
 import Header from 'Components/Header/Header';
+import RoomInformation from 'Components/RoomInformation/RoomInformation';
+import roomInfo from 'Components/RoomInformation/roomInformation.json';
 
 const addDatesOfState = (dates: { arrival: string, departure: string }) => {
   const datesOfState = {
@@ -94,6 +96,7 @@ const Home = () => {
         step={0.01}
         postfix="₽"
       />
+      <RoomInformation heading="Сведения о номере" info={roomInfo} />
     </div>
   );
 };
