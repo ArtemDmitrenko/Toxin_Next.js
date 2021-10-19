@@ -1,0 +1,77 @@
+@import 'Root/style/variables.scss';
+
+.wrapper {
+  position: relative;
+  z-index: 0;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 10px;
+  user-select: none;
+}
+
+.title {
+  @include h3();
+}
+
+.outputField {
+  color: $textColor50;
+  font-family: inherit;
+  text-align: end;
+  background: transparent;
+  border: none;
+  outline: none;
+
+  &:focus {
+    color: $textColor;
+  }
+}
+
+.rangeSlider {
+  width: 100%;
+  height: 7px;
+}
+
+.exampleTrack {
+  height: inherit;
+
+  &:nth-child(1),
+  &:nth-child(3) {
+    border: 2px solid $textColor25;
+  }
+
+  &:nth-child(1) {
+    border-top-left-radius: 7px;
+    border-bottom-left-radius: 7px;
+  }
+
+  &:nth-child(3) {
+    border-top-right-radius: 7px;
+    border-bottom-right-radius: 7px;
+  }
+
+  &:nth-child(2) {
+    background: $secondaryGradient;
+    border-radius: 7px;
+  }
+}
+
+.exampleThumb {
+  $side: 16px;
+  top: 50%;
+  width: $side;
+  height: $side;
+  background-color: $secondaryColor;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  outline: none;
+  transform: translateY(-50%);
+  cursor: pointer;
+
+  &:focus {
+    background-color: #fff;
+    border-color: $secondaryColor;
+  }
+}
