@@ -4,6 +4,9 @@
     "airbnb-typescript",
     "plugin:react/jsx-runtime"
   ],
+  "rules": {
+    "react/require-default-props": "off"
+  },
   "parserOptions": {
     "project": "./tsconfig.eslint.json"
   },
