@@ -4,11 +4,12 @@ import styles from './like.module.scss';
 
 type LikeProps = {
   amountLike: number;
+  isLiked: boolean;
 };
 
-const Like = ({ amountLike }: LikeProps) => {
+const Like = ({ amountLike, isLiked = false }: LikeProps) => {
   const [amount, setAmount] = useState(amountLike);
-  const [active, setActive] = useState(false);
+  const [active, setActive] = useState(isLiked);
 
   const handleClickButton = () => {
     if (active) {
