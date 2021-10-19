@@ -4,7 +4,7 @@ import Header from 'Components/Header/Header';
 import FooterDesktop from 'Components/FooterDesktop/FooterDesktop';
 import footerItems from 'Components/FooterDesktop/footer-items.json';
 import FooterMobile from 'Components/FooterMobile/FooterMobile';
-import navigation from 'Root/public/navigation.json';
+import navigation from './navigation.json';
 
 const addNewEmail = (email: string) => {
   const subscriptionData = {
