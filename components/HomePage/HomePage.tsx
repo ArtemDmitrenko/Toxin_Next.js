@@ -89,15 +89,35 @@ const HomePage = () => {
         subscribeTitle={footerItems.subscribeTitle}
         addNewEmail={addNewEmail}
       />
-      <RoomCard
-        number={roomCards.number}
-        cost={roomCards.cost}
-        amountReviews={roomCards.amountReviews}
-        images={roomCards.images}
-        level={roomCards.level}
-        href={roomCards.href}
-        amountStar={roomCards.amountStar}
-      />
+      <div className={styles.roomCards}>
+        <RoomCard
+          number={roomCards.number}
+          cost={roomCards.cost}
+          amountReviews={roomCards.amountReviews}
+          images={roomCards.images}
+          level={roomCards.level}
+          href={roomCards.href}
+          amountStar={roomCards.amountStar}
+        />
+        <RoomCard
+          number={roomCards.number}
+          cost={roomCards.cost}
+          amountReviews={roomCards.amountReviews}
+          images={roomCards.images}
+          level={roomCards.level}
+          href={roomCards.href}
+          amountStar={roomCards.amountStar}
+        />
+        <RoomCard
+          number={roomCards.number}
+          cost={roomCards.cost}
+          amountReviews={roomCards.amountReviews}
+          images={roomCards.images}
+          level={roomCards.level}
+          href={roomCards.href}
+          amountStar={roomCards.amountStar}
+        />
+      </div>
     </div>
   );
 };

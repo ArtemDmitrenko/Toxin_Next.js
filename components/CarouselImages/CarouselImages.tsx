@@ -47,15 +47,17 @@ const CarouselImages = (props: CarouselImagesProps) => {
   };
 
   return (
-    <div>
-      <div className={styles.slider}>
+    <div className={styles.slider}>
+      <div className={styles.carousel}>
         {images.map((image, index) => (
           <div className={stylesContent(index)} id={String(index)} key={image.id}>
-            <Image className={styles.image} src={image.src} alt={`Room №${number}`} width="270px" height="156px" />
+            <img className={styles.image} src={image.src} alt={`Room №${number}`} width="100%" />
           </div>
         ))}
-        <div className={styles.cardPrev} role="button" tabIndex={0} onClick={() => handleButtonPrevClick(active)} onKeyPress={() => handleButtonPrevClick(active)} />
-        <div className={styles.cardNext} role="button" tabIndex={0} onClick={() => handleButtonNextClick(active)} onKeyPress={() => handleButtonNextClick(active)} />
+        <div>
+          <div className={styles.cardPrev} role="button" tabIndex={0} onClick={() => handleButtonPrevClick(active)} onKeyPress={() => handleButtonPrevClick(active)} />
+          <div className={styles.cardNext} role="button" tabIndex={0} onClick={() => handleButtonNextClick(active)} onKeyPress={() => handleButtonNextClick(active)} />
+        </div>
       </div>
       <div className={styles.switch}>
         {images.map((image, index) => (

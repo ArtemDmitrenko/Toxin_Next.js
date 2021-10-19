@@ -3,3 +3,14 @@
   margin: 0 auto;
   // padding: 0 15px;
 }
+
+.roomCards {
+  display: grid;
+  grid-gap: 20px 10px;
+  grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+  margin-bottom: 41px;
+
+  @media (max-width: 400px) {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  }
+}
