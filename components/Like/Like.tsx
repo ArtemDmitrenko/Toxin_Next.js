@@ -10,19 +10,15 @@ const Like = ({ amountLike }: LikeProps) => {
   const [amount, setAmount] = useState(amountLike);
   const [active, setActive] = useState(false);
 
-  const subtract = () => {
-    setActive(!active);
-    setAmount(amount - 1);
-  };
+  const handleClickButton = () => {
+    if (active) {
+      setAmount(amount - 1);
+    } else {
+      setAmount(amount + 1);
+    }
 
-  const sum = () => {
     setActive(!active);
-    setAmount(amount + 1);
   };
-
-  const handleClickButton = () => (
-    active ? subtract() : sum()
-  );
 
   const styleButton = () => (
     `${styles.like} ${active ? styles.likeActive : ''}`
