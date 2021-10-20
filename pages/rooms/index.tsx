@@ -1,5 +1,9 @@
 import Dropdown, { DropdownConfig } from 'Components/Dropdown/Dropdown';
+<<<<<<< HEAD
 import Impressions from 'Components/Impressions/Impressions';
+=======
+import RulesList from 'Root/components/RulesList/RulesList';
+>>>>>>> main
 
 import styles from './index.module.scss';
 
@@ -40,6 +44,12 @@ const facilitiesDropdownConfig: DropdownConfig = [
     defaultValue: 1,
     wordforms: ['ванная комната', 'ванные комнаты', 'ванных комнат'],
   },
+];
+
+const rulesList = [
+  { id: '0', title: 'Нельзя с питомцами' },
+  { id: '1', title: 'Без вечеринок и мероприятий' },
+  { id: '2', title: 'Время прибытия — после 13:00, а\u00A0выезд до 12:00' },
 ];
 
 const Rooms = () => (

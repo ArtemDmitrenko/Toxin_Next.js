@@ -5,9 +5,14 @@
     "plugin:react/jsx-runtime"
   ],
   "rules": {
-    "react/require-default-props": "off"
+    "react/require-default-props": "off",
+    "jsx-a11y/label-has-associated-control": "off",
+    "jsx-a11y/control-has-associated-label": "off"
   },
   "parserOptions": {
     "project": "./tsconfig.eslint.json"
+  },
+  "rules": {
+    "jsx-a11y/label-has-associated-control": "off"
   }
 }
