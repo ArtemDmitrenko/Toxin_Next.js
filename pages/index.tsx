@@ -4,6 +4,7 @@ import DateRange from 'Components/DateRange/DateRange';
 import CopyrightBar from 'Components/CopyrightBar/CopyrightBar';
 import Subscribe from 'Components/Subscribe/Subscribe';
 import Reference from 'Components/Reference/Reference';
+import Like from 'Components/Like/Like';
 import FooterMobile from 'Components/FooterMobile/FooterMobile';
 import FooterDesktop from 'Components/FooterDesktop/FooterDesktop';
 import footerItems from 'Components/FooterDesktop/footer-items.json';
@@ -82,6 +83,7 @@ const Home = () => {
       <Reference text="click me" type="bordered" size="small" />
       <Reference text="click me" type="bordered" size="big" />
       <Reference text="Перейти к оплате" type="directed" size="big" />
+      <Like amountLike={12} isLiked />
       <CopyrightBar text="Copyright © 2018 Toxin отель. Все права защищены." forMobile={false} />
       <Header menu={navigation} />
       <Checkbox title="Можно с питомцами" name="box1" />
