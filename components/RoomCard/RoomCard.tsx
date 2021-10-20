@@ -39,7 +39,7 @@ const RoomCard = (props: RoomCardProps) => {
             <div className={styles.dataRoom}>
               <div>
                 <span className={styles.signNumber}>№</span>
-                <span className={styles.number}>{roomNumber}</span>
+                <span className={styles.roomNumber}>{roomNumber}</span>
                 <span className={styles.level}>{level}</span>
               </div>
               <div className={styles.costRoom}>
