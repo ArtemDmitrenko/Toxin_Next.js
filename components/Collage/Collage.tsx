@@ -1,3 +1,5 @@
+import Image from 'next/image';
+
 import styles from './collage.module.scss';
 
 type CollageProps = {
@@ -15,10 +17,11 @@ const Collage = ({ images }: CollageProps) => (
           className={styles.aspectRatio}
           key={image.src}
         >
-          <img
+          <Image
             className={styles.image}
             src={image.src}
             alt={image.alt}
+            layout="fill"
           />
         </div>
       ))
