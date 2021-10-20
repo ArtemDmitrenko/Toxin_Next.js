@@ -1,21 +1,21 @@
 @import 'Root/style/variables.scss';
 
 .copyright {
-  background-color: white;
-  padding-left: 10px;
   padding-right: 10px;
+  padding-left: 10px;
+  background-color: white;
 
   @media (min-width: 1200px) {
-    padding-left: 0px;
-    padding-right: 0px;
+    padding-right: 0;
+    padding-left: 0;
   }
 }
 
 .content {
   display: flex;
-  justify-content: space-between;
   flex-direction: row;
   align-items: center;
+  justify-content: space-between;
   min-height: 70px;
 
   @media (min-width: 1200px) {
@@ -25,23 +25,23 @@
 
 .contentMobile {
   display: flex;
-  justify-content: space-around;
   flex-direction: column;
   align-items: center;
+  justify-content: space-around;
   min-width: 280px;
   max-width: 560px;
   min-height: 130px;
-  margin-left: auto;
   margin-right: auto;
+  margin-left: auto;
 }
 
 .text {
-  line-height: 17px;
   color: $textColor75;
+  line-height: 17px;
   text-align: center;
 
   @media (min-width: 720px) {
-    text-align: start;
     margin-top: 0;
+    text-align: start;
   }
 }
