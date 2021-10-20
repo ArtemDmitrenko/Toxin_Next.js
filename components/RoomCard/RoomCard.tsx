@@ -6,11 +6,10 @@ import styles from './roomCard.module.scss';
 
 type RoomCardProps = {
   roomNumber: number,
-  alt?: string,
   level?: string,
   cost: number,
   amountReviews: number,
-  images: Array<{ id: number, src: string }>,
+  images: Array<{ id: number, src: string, alt: string }>,
   href: string,
   amountStar: number,
 };
@@ -18,7 +17,6 @@ type RoomCardProps = {
 const RoomCard = (props: RoomCardProps) => {
   const {
     roomNumber = 100,
-    alt = String(roomNumber),
     level,
     cost = 1000,
     amountReviews = 0,
@@ -30,7 +28,7 @@ const RoomCard = (props: RoomCardProps) => {
 
   return (
     <div className={styles.roomCard}>
-      <CarouselImages data={{ images, alt }} />
+      <CarouselImages data={{ images }} />
       <div className={styles.description}>
         <div className={styles.dataRoom}>
           <Link href={href} passHref key={roomNumber}>

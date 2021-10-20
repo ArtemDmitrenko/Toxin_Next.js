@@ -4,14 +4,13 @@ import styles from './carouselImages.module.scss';
 
 type CarouselImagesProps = {
   data: {
-    images: Array<{ id: number, src: string }>,
-    alt: string,
+    images: Array<{ id: number, src: string, alt: string }>,
   }
 };
 
 const CarouselImages = (props: CarouselImagesProps) => {
   const { data } = props;
-  const { images, alt } = data;
+  const { images } = data;
 
   const [active, setActive] = useState<number>(0);
 
@@ -53,7 +52,7 @@ const CarouselImages = (props: CarouselImagesProps) => {
             <img
               className={styles.image}
               src={image.src}
-              alt={`Room №${alt}`}
+              alt={`Room №${image.alt}`}
               width="100%"
             />
           </div>
