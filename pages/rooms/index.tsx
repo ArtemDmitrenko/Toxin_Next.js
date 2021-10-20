@@ -58,7 +58,7 @@ const Rooms = () => (
       <Dropdown list={guestsDropdownConfig} placeholder="Сколько гостей" />
       <Dropdown list={facilitiesDropdownConfig} placeholder="Выберите удобства" isButtons={false} />
     </div>
-    <Impressions amazing={25} good={25} satisfactorily={25} bad={25} />
+    <Impressions amazing={130} good={65} satisfactorily={65} />
   </div>
 );
 
