@@ -62,15 +62,27 @@ const CarouselImages = (props: CarouselImagesProps) => {
             className={styles.cardPrev}
             role="button"
             tabIndex={0}
-            onClick={(e) => { e.preventDefault(); handleButtonPrevClick(active); }}
-            onKeyPress={(e) => { e.preventDefault(); handleButtonPrevClick(active); }}
+            onClick={(e) => {
+              e.preventDefault();
+              handleButtonPrevClick(active);
+            }}
+            onKeyPress={(e) => {
+              e.preventDefault();
+              handleButtonPrevClick(active);
+            }}
           />
           <div
             className={styles.cardNext}
             role="button"
             tabIndex={0}
-            onClick={(e) => { e.preventDefault(); handleButtonNextClick(active); }}
-            onKeyPress={(e) => { e.preventDefault(); handleButtonNextClick(active); }}
+            onClick={(e) => {
+              e.preventDefault();
+              handleButtonNextClick(active);
+            }}
+            onKeyPress={(e) => {
+              e.preventDefault();
+              handleButtonNextClick(active);
+            }}
           />
         </div>
       </div>
@@ -81,8 +93,14 @@ const CarouselImages = (props: CarouselImagesProps) => {
             type="button"
             aria-label="button-switch"
             className={stylesDot(Number(index))}
-            onClick={(e) => { e.preventDefault(); handleDotClick(index); }}
-            onKeyPress={(e) => { e.preventDefault(); handleDotClick(index); }}
+            onClick={(e) => {
+              e.preventDefault();
+              handleDotClick(index);
+            }}
+            onKeyPress={(e) => {
+              e.preventDefault();
+              handleDotClick(index);
+            }}
           />
         ))}
       </div>
