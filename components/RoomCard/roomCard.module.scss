@@ -62,17 +62,17 @@
   position: relative;
   padding-right: 15px;
   font-weight: bold;
+
+  &::before {
+    position: absolute;
+    right: 0;
+    content: '\20BD';
+  }
 }
 
 .costText {
   padding-left: 3px;
   font-size: 12px;
-}
-
-.cost::before {
-  position: absolute;
-  right: 0;
-  content: '\20BD';
 }
 
 .reviews {
