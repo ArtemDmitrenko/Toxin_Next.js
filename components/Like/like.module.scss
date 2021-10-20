@@ -12,22 +12,21 @@
   border: 1px solid $textColor25;
   border-radius: 10px;
   cursor: pointer;
-}
 
-.like::before {
-  position: absolute;
-  left: 10%;
-  font: 10px/12px 'Material Icons', Arial, sans-serif;
-  content: '\e87e';
+  &::before {
+    position: absolute;
+    left: 10%;
+    font: 10px/12px 'Material Icons', Arial, sans-serif;
+    content: '\e87e';
+  }
 }
 
 .likeActive {
   color: $primaryColor;
   border-color: $primaryColor;
-}
 
-.likeActive::before {
-  content: '\e87d';
-
-  @include text-gradient-fill($primaryGradient);
+  &::before {
+    @include text-gradient-fill($primaryGradient);
+    content: '\e87d';
+  }
 }
