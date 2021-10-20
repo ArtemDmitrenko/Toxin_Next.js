@@ -8,7 +8,7 @@ import FooterMobile from 'Components/FooterMobile/FooterMobile';
 import FooterDesktop from 'Components/FooterDesktop/FooterDesktop';
 import footerItems from 'Components/FooterDesktop/footer-items.json';
 import Header from 'Components/Header/Header';
-import roomsJSON from 'Root/public/roomsMock/rooms.json';
+import roomsJSON from 'Root/public/rooms-mock/rooms.json';
 import Pagination from 'Components/Pagination/Pagination';
 
 const addDatesOfState = (dates: { arrival: string, departure: string }) => {
