@@ -1,4 +1,5 @@
 import Dropdown, { DropdownConfig } from 'Components/Dropdown/Dropdown';
+import Impressions from 'Components/Impressions/Impressions';
 
 import styles from './index.module.scss';
 
@@ -51,6 +52,7 @@ const Rooms = () => (
       <Dropdown list={guestsDropdownConfig} placeholder="Сколько гостей" />
       <Dropdown list={facilitiesDropdownConfig} placeholder="Выберите удобства" isButtons={false} />
     </div>
+    <Impressions />
   </div>
 );
 
