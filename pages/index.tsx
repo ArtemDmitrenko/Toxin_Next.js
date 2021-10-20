@@ -9,6 +9,7 @@ import FooterDesktop from 'Components/FooterDesktop/FooterDesktop';
 import footerItems from 'Components/FooterDesktop/footer-items.json';
 import Checkbox from 'Components/Checkbox/Checkbox';
 import Header from 'Components/Header/Header';
+import BackgroundWithSlogan from 'Components/BackgroundWithSlogan/BackgroundWithSlogan';
 
 const addDatesOfState = (dates: { arrival: string, departure: string }) => {
   const datesOfState = {
@@ -96,6 +97,7 @@ const Home = () => {
         step={0.01}
         postfix="₽"
       />
+      <BackgroundWithSlogan />
     </div>
   );
 };
