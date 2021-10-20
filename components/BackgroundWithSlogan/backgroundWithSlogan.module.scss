@@ -1,20 +1,20 @@
 @import 'Root/style/variables.scss';
 
 .main {
-  background-image: url('./images/landing-page.png');
-  background-size: cover;
-  background-position: center;
   height: 830px;
+  background-image: url('./images/landing-page.png');
+  background-position: center;
+  background-size: cover;
 }
 
 .wrapper {
   display: flex;
   flex-direction: row-reverse;
   max-width: 1440px;
+  height: 100%;
   margin: 0 auto;
   padding: 70px 140px 21px;
-  height: 100%;
-  
+
   @media (max-width: $mediaSizeTablet) {
     padding-right: 40px;
     padding-left: 40px;
