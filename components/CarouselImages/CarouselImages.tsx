@@ -62,6 +62,7 @@ const CarouselImages = (props: CarouselImagesProps) => {
       <div className={styles.switch}>
         {images.map((image, index) => (
           <button
+            key={image.id}
             type="button"
             aria-label="button-switch"
             className={stylesDot(Number(index))}
