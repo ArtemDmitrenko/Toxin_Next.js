@@ -1,5 +1,9 @@
 @import 'Root/style/variables.scss';
 
+.react-calendar {
+  max-width: 320px;
+}
+
 .react-calendar button {
   margin: 0;
   border: 0;
@@ -53,7 +57,7 @@
 .react-calendar__navigation__arrow {
   padding: 0;
   color: #bc9cff;
-  font: 24px/20px 'Material Icons';
+  font: 24px/20px 'Material Icons', serif;
 
   &:hover,
   &:focus {
@@ -271,5 +275,21 @@
 
   &:hover::after {
     background: $primaryGradientTranslucent25;
+  }
+}
+
+.react-calendar__tile--active.react-calendar__tile--hover.react-calendar__tile--hoverEnd {
+  border-radius: 0%;
+}
+
+.react-calendar__tile--active.react-calendar__tile--hover.react-calendar__tile--hoverStart {
+  border-radius: 0%;
+}
+
+// ====== Small calendar ===== //
+
+.small {
+  & .react-calendar__month-view__days__day {
+    min-height: 32px;
   }
 }

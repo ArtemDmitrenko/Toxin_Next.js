@@ -4,12 +4,19 @@ import DateRange from 'Components/DateRange/DateRange';
 import CopyrightBar from 'Components/CopyrightBar/CopyrightBar';
 import Subscribe from 'Components/Subscribe/Subscribe';
 import Reference from 'Components/Reference/Reference';
+import Like from 'Components/Like/Like';
 import FooterMobile from 'Components/FooterMobile/FooterMobile';
 import FooterDesktop from 'Components/FooterDesktop/FooterDesktop';
 import footerItems from 'Components/FooterDesktop/footer-items.json';
+import Checkbox from 'Components/Checkbox/Checkbox';
 import Header from 'Components/Header/Header';
 import Comment from 'Components/Comment/Comment';
 import userComment from 'Components/Comment/comment.json';
+import RoomCard from 'Components/RoomCard/RoomCard';
+import roomCards from 'Components/RoomCard/roomCards.json';
+import BackgroundWithSlogan from 'Components/BackgroundWithSlogan/BackgroundWithSlogan';
+
+import styles from './index.module.scss';
 
 const addDatesOfState = (dates: { arrival: string, departure: string }) => {
   const datesOfState = {
@@ -78,6 +85,7 @@ const Home = () => {
       <Reference text="click me" type="bordered" size="small" />
       <Reference text="click me" type="bordered" size="big" />
       <Reference text="Перейти к оплате" type="directed" size="big" />
+      <Like amountLike={12} isLiked />
       <CopyrightBar text="Copyright © 2018 Toxin отель. Все права защищены." forMobile={false} />
       <Comment
         srcIcon={userComment.srcIcon}
@@ -87,6 +95,7 @@ const Home = () => {
         like={userComment.like}
       />
       <Header menu={navigation} />
+      <Checkbox title="Можно с питомцами" name="box1" />
       <FooterMobile />
       <FooterDesktop
         navContent={footerItems.navContent}
@@ -103,6 +112,36 @@ const Home = () => {
         step={0.01}
         postfix="₽"
       />
+      <div className={styles.roomCards}>
+        <RoomCard
+          roomNumber={roomCards.roomNumber}
+          cost={roomCards.cost}
+          amountReviews={roomCards.amountReviews}
+          images={roomCards.images}
+          level={roomCards.level}
+          href={roomCards.href}
+          amountStar={roomCards.amountStar}
+        />
+        <RoomCard
+          roomNumber={roomCards.roomNumber}
+          cost={roomCards.cost}
+          amountReviews={roomCards.amountReviews}
+          images={roomCards.images}
+          level={roomCards.level}
+          href={roomCards.href}
+          amountStar={roomCards.amountStar}
+        />
+        <RoomCard
+          roomNumber={roomCards.roomNumber}
+          cost={roomCards.cost}
+          amountReviews={roomCards.amountReviews}
+          images={roomCards.images}
+          level={roomCards.level}
+          href={roomCards.href}
+          amountStar={roomCards.amountStar}
+        />
+      </div>
+      <BackgroundWithSlogan />
     </div>
   );
 };
