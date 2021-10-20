@@ -3,23 +3,39 @@ import Calendar from 'react-calendar';
 
 import formattingLabel from './helpers/formattingLabel';
 import formattingDate from './helpers/formattingDate';
+import createShortDateDisplay from './helpers/createShortDateDisplay';
+
 import styles from './dateRange.module.scss';
+
+type DateRangeConfig = {
+  headers: Array<string>,
+  placeholder?: string,
+  defaultValues?: Array<Date>,
+  isDouble?: boolean,
+};
+
+type DatesOfStay = {
+  arrival: string,
+  departure: string,
+};
 
 type DateRangeProps = {
   headers: Array<string>,
-  placeholder: string,
-  onChange: (dates: { arrival: string, departure: string }) => void,
-  defaultValues: Array<Date> | null,
+  placeholder?: string,
+  defaultValues?: Array<Date>,
+  isDouble?: boolean,
+  onChange: (dates: DatesOfStay) => void,
 };
 
 const DateRange = (props: DateRangeProps) => {
   const {
     headers,
-    placeholder,
-    defaultValues,
+    placeholder = 'ДД.ММ.ГГГГ',
+    isDouble = false,
+    defaultValues = null,
     onChange,
   } = props;
-  const [arrivalHeader, departureHeader] = headers;
+  const [firstHeader, secondHeader] = headers;
 
   const formattedDefaultValues = () => {
     if (defaultValues) {
@@ -43,6 +59,7 @@ const DateRange = (props: DateRangeProps) => {
 
   const { isOpen, calView } = calendarState;
 
+  const wrapperClass = `${isDouble ? styles.doubleInputWrapper : styles.oneInputWrapper}`;
   const calendarClasses = `${styles.calendar} ${isOpen ? styles.active : ''}`;
   const arrowClasses = `${styles.arrow} ${isOpen ? styles.arrowUp : styles.arrowDown}`;
   const clearButtonClasses = `${styles.button} ${formattedDates.arrival ? '' : styles.clearButtonHidden}`;
@@ -61,8 +78,11 @@ const DateRange = (props: DateRangeProps) => {
   };
 
   const handleClearButtonClick = () => {
+    const resetDatesOfStay = { arrival: '', departure: '' };
+
     setCalendarValues(null);
-    setDates({ arrival: '', departure: '' });
+    setDates(resetDatesOfStay);
+    onChange(resetDatesOfStay);
   };
 
   const handleCalendarFocus = () => {
@@ -79,7 +99,7 @@ const DateRange = (props: DateRangeProps) => {
 
   return (
     <div
-      className={styles.mainWrapper}
+      className={wrapperClass}
       onBlur={(e) => {
         e.preventDefault();
         handleCalendarBlur();
@@ -89,38 +109,59 @@ const DateRange = (props: DateRangeProps) => {
         handleCalendarFocus();
       }}
     >
-      <section className={styles.container}>
-        <div>
-          <h3 className={styles.header}>{arrivalHeader}</h3>
-          <div tabIndex={0} role="textbox" className={styles.wrapper}>
-            <input
-              className={styles.field}
-              type="text"
-              placeholder={placeholder}
-              readOnly
-              value={formattedDates.arrival}
-              tabIndex={-1}
-            />
-            <div className={arrowClasses} />
-          </div>
-        </div>
-        <div>
-          <h3 className={styles.header}>{departureHeader}</h3>
-          <div tabIndex={0} role="textbox" className={styles.wrapper}>
-            <input
-              className={styles.field}
-              type="text"
-              placeholder={placeholder}
-              readOnly
-              value={formattedDates.departure}
-              tabIndex={-1}
-            />
-            <div className={arrowClasses} />
-          </div>
-        </div>
-      </section>
+      {isDouble
+        ? (
+          <section className={styles.container}>
+            <div className={styles.firstInput}>
+              <h3 className={styles.header}>{firstHeader}</h3>
+              <div tabIndex={0} role="textbox" className={styles.wrapper}>
+                <input
+                  className={styles.field}
+                  type="text"
+                  placeholder={placeholder}
+                  readOnly
+                  value={formattedDates.arrival}
+                  tabIndex={-1}
+                />
+                <div className={arrowClasses} />
+              </div>
+            </div>
+            <div>
+              <h3 className={styles.header}>{secondHeader}</h3>
+              <div tabIndex={0} role="textbox" className={styles.wrapper}>
+                <input
+                  className={styles.field}
+                  type="text"
+                  placeholder={placeholder}
+                  readOnly
+                  value={formattedDates.departure}
+                  tabIndex={-1}
+                />
+                <div className={arrowClasses} />
+              </div>
+            </div>
+          </section>
+        ) : (
+          <section>
+            <h3 className={styles.header}>{firstHeader}</h3>
+            <div tabIndex={0} role="textbox" className={styles.wrapper}>
+              <input
+                className={styles.field}
+                type="text"
+                placeholder={placeholder}
+                readOnly
+                value={
+                  calendarValues ? createShortDateDisplay(calendarValues) : ''
+                }
+                tabIndex={-1}
+              />
+              <div className={arrowClasses} />
+            </div>
+          </section>
+        )}
       <div className={calendarClasses} role="menu" tabIndex={0}>
         <Calendar
+          className={!isDouble ? 'small' : ''}
           locale="ru-RU"
           nextLabel=""
           prevLabel=""
@@ -129,6 +170,7 @@ const DateRange = (props: DateRangeProps) => {
           onChange={handleCalendarDatesChange}
           navigationLabel={formattingLabel}
           value={calendarValues}
+          minDate={new Date()}
         />
         <div className={buttonsClasses}>
           <button
@@ -157,4 +199,5 @@ const DateRange = (props: DateRangeProps) => {
   );
 };
 
+export type { DateRangeConfig, DatesOfStay };
 export default DateRange;

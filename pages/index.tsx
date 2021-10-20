@@ -3,12 +3,21 @@ import Counter from 'Components/Counter/Counter';
 import CopyrightBar from 'Components/CopyrightBar/CopyrightBar';
 import Subscribe from 'Components/Subscribe/Subscribe';
 import Reference from 'Components/Reference/Reference';
+import Like from 'Components/Like/Like';
 import FooterMobile from 'Components/FooterMobile/FooterMobile';
 import FooterDesktop from 'Components/FooterDesktop/FooterDesktop';
 import footerItems from 'Components/FooterDesktop/footer-items.json';
+import Checkbox from 'Components/Checkbox/Checkbox';
 import Header from 'Components/Header/Header';
-import RoomSearchCard, { RoomSearchCardData } from 'Root/components/RoomSearchCard/RoomSearchCard';
-import { DropdownConfig } from 'Root/components/Dropdown/Dropdown';
+import RoomSearchCard, { RoomSearchCardData } from 'Components/RoomSearchCard/RoomSearchCard';
+import { DropdownConfig } from 'Components/Dropdown/Dropdown';
+import RoomInformation from 'Components/RoomInformation/RoomInformation';
+import roomInfo from 'Components/RoomInformation/roomInformation.json';
+import RoomCard from 'Components/RoomCard/RoomCard';
+import roomCards from 'Components/RoomCard/roomCards.json';
+import BackgroundWithSlogan from 'Components/BackgroundWithSlogan/BackgroundWithSlogan';
+
+import styles from './index.module.scss';
 
 const guestDropdownConfig: DropdownConfig = [
   { title: 'взрослые', group: 'adults', wordforms: ['гость', 'гостя', 'гостей'] },
@@ -90,8 +99,10 @@ const Home = () => {
       <Reference text="click me" type="bordered" size="small" />
       <Reference text="click me" type="bordered" size="big" />
       <Reference text="Перейти к оплате" type="directed" size="big" />
+      <Like amountLike={12} isLiked />
       <CopyrightBar text="Copyright © 2018 Toxin отель. Все права защищены." forMobile={false} />
       <Header menu={navigation} />
+      <Checkbox title="Можно с питомцами" name="box1" />
       <FooterMobile />
       <FooterDesktop
         navContent={footerItems.navContent}
@@ -108,6 +119,37 @@ const Home = () => {
         step={0.01}
         postfix="₽"
       />
+      <RoomInformation heading="Сведения о номере" info={roomInfo} />
+      <div className={styles.roomCards}>
+        <RoomCard
+          roomNumber={roomCards.roomNumber}
+          cost={roomCards.cost}
+          amountReviews={roomCards.amountReviews}
+          images={roomCards.images}
+          level={roomCards.level}
+          href={roomCards.href}
+          amountStar={roomCards.amountStar}
+        />
+        <RoomCard
+          roomNumber={roomCards.roomNumber}
+          cost={roomCards.cost}
+          amountReviews={roomCards.amountReviews}
+          images={roomCards.images}
+          level={roomCards.level}
+          href={roomCards.href}
+          amountStar={roomCards.amountStar}
+        />
+        <RoomCard
+          roomNumber={roomCards.roomNumber}
+          cost={roomCards.cost}
+          amountReviews={roomCards.amountReviews}
+          images={roomCards.images}
+          level={roomCards.level}
+          href={roomCards.href}
+          amountStar={roomCards.amountStar}
+        />
+      </div>
+      <BackgroundWithSlogan />
     </div>
   );
 };

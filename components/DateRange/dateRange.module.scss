@@ -1,7 +1,13 @@
 @import 'Root/style/variables.scss';
 
-.mainWrapper {
+.doubleInputWrapper {
+  position: relative;
   max-width: 320px;
+}
+
+.oneInputWrapper {
+  position: relative;
+  max-width: 266px;
 }
 
 //====== Inputs ======//
@@ -9,11 +15,6 @@
 .container {
   display: flex;
   justify-content: space-between;
-  column-gap: 20px;
-
-  @media (max-width: 360px) {
-    column-gap: 10px;
-  }
 }
 
 .wrapper {
@@ -24,6 +25,14 @@
   &:hover,
   &:focus-within {
     border-color: $textColor50;
+  }
+}
+
+.firstInput {
+  margin-right: 20px;
+
+  @media (max-width: 360px) {
+    margin-right: 10px;
   }
 }
 
