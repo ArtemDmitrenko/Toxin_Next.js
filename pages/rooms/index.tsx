@@ -1,4 +1,5 @@
 import Dropdown, { DropdownConfig } from 'Components/Dropdown/Dropdown';
+import Tooltip from 'Components/Tooltip/Tooltip';
 
 import styles from './index.module.scss';
 
@@ -51,6 +52,10 @@ const Rooms = () => (
       <Dropdown list={guestsDropdownConfig} placeholder="Сколько гостей" />
       <Dropdown list={facilitiesDropdownConfig} placeholder="Выберите удобства" isButtons={false} />
     </div>
+    <p>
+      Сбор за услуги: скидка 2 179₽
+      <Tooltip text="Давно выяснено, что при оценке дизайна и композиции читаемый текст мешает сосредоточиться" />
+    </p>
   </div>
 );
 

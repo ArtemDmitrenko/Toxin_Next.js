@@ -1,0 +1,48 @@
+@import 'Root/style/variables.scss';
+
+.container {
+  position: relative;
+  display: inline-block;
+}
+
+.icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  color: $textColor25;
+  font-weight: bold;
+  font-size: 12px;
+  line-height: 14px;
+  background: #fff;
+  border: 1px solid $textColor25;
+  border-radius: 50%;
+  cursor: pointer;
+
+  &::before {
+    content: 'i';
+  }
+
+  &:hover,
+  &:focus {
+    color: $textColor50;
+    border-color: $textColor50;
+    outline: none;
+  }
+}
+
+.tooltip {
+  position: absolute;
+  bottom: 25px;
+  z-index: 100;
+  min-width: 200px;
+  padding: 6px;
+  color: $textColor75;
+  font-size: 14px;
+  line-height: 14px;
+  background: #fff;
+  border-radius: 4px;
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.2);
+  transform: translate(-50%);
+}
