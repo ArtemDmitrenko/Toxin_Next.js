@@ -51,12 +51,29 @@ const CarouselImages = (props: CarouselImagesProps) => {
       <div className={styles.carousel}>
         {images.map((image, index) => (
           <div className={stylesContent(index)} key={image.id}>
-            <img className={styles.image} src={image.src} alt={`Room №${number}`} width="100%" />
+            <img
+              className={styles.image}
+              src={image.src}
+              alt={`Room №${number}`}
+              width="100%"
+            />
           </div>
         ))}
         <div>
-          <div className={styles.cardPrev} role="button" tabIndex={0} onClick={() => handleButtonPrevClick(active)} onKeyPress={() => handleButtonPrevClick(active)} />
-          <div className={styles.cardNext} role="button" tabIndex={0} onClick={() => handleButtonNextClick(active)} onKeyPress={() => handleButtonNextClick(active)} />
+          <div
+            className={styles.cardPrev}
+            role="button"
+            tabIndex={0}
+            onClick={(e) => { e.preventDefault(); handleButtonPrevClick(active); }}
+            onKeyPress={(e) => { e.preventDefault(); handleButtonPrevClick(active); }}
+          />
+          <div
+            className={styles.cardNext}
+            role="button"
+            tabIndex={0}
+            onClick={(e) => { e.preventDefault(); handleButtonNextClick(active); }}
+            onKeyPress={(e) => { e.preventDefault(); handleButtonNextClick(active); }}
+          />
         </div>
       </div>
       <div className={styles.switch}>
@@ -66,8 +83,8 @@ const CarouselImages = (props: CarouselImagesProps) => {
             type="button"
             aria-label="button-switch"
             className={stylesDot(Number(index))}
-            onClick={() => handleDotClick(index)}
-            onKeyPress={() => handleDotClick(index)}
+            onClick={(e) => { e.preventDefault(); handleDotClick(index); }}
+            onKeyPress={(e) => { e.preventDefault(); handleDotClick(index); }}
           />
         ))}
       </div>
