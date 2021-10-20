@@ -5,7 +5,8 @@ import CarouselImages from 'Components/CarouselImages/CarouselImages';
 import styles from './roomCard.module.scss';
 
 type RoomCardProps = {
-  number: number,
+  roomNumber: number,
+  alt?: string,
   level?: string,
   cost: number,
   amountReviews: number,
@@ -16,7 +17,8 @@ type RoomCardProps = {
 
 const RoomCard = (props: RoomCardProps) => {
   const {
-    number = 100,
+    roomNumber = 100,
+    alt = String(roomNumber),
     level,
     cost = 1000,
     amountReviews = 0,
@@ -28,13 +30,13 @@ const RoomCard = (props: RoomCardProps) => {
 
   return (
     <div className={styles.roomCard}>
-      <CarouselImages data={{ images, number }} />
+      <CarouselImages data={{ images, alt }} />
       <div className={styles.description}>
         <div className={styles.dataRoom}>
-          <Link href={href} passHref key={number}>
+          <Link href={href} passHref key={roomNumber}>
             <a className={styles.linkRoom} href="replace">
               <span className={styles.signNumber}>№</span>
-              <span className={styles.number}>{number}</span>
+              <span className={styles.number}>{roomNumber}</span>
               <span className={styles.level}>{level}</span>
             </a>
           </Link>
