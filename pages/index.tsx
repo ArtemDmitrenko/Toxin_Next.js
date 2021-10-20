@@ -8,6 +8,10 @@ import FooterMobile from 'Components/FooterMobile/FooterMobile';
 import FooterDesktop from 'Components/FooterDesktop/FooterDesktop';
 import footerItems from 'Components/FooterDesktop/footer-items.json';
 import Header from 'Components/Header/Header';
+import RoomCard from 'Components/RoomCard/RoomCard';
+import roomCards from 'Components/RoomCard/roomCards.json';
+
+import styles from './index.module.scss';
 
 const addDatesOfState = (dates: { arrival: string, departure: string }) => {
   const datesOfState = {
@@ -94,6 +98,35 @@ const Home = () => {
         step={0.01}
         postfix="₽"
       />
+      <div className={styles.roomCards}>
+        <RoomCard
+          number={roomCards.number}
+          cost={roomCards.cost}
+          amountReviews={roomCards.amountReviews}
+          images={roomCards.images}
+          level={roomCards.level}
+          href={roomCards.href}
+          amountStar={roomCards.amountStar}
+        />
+        <RoomCard
+          number={roomCards.number}
+          cost={roomCards.cost}
+          amountReviews={roomCards.amountReviews}
+          images={roomCards.images}
+          level={roomCards.level}
+          href={roomCards.href}
+          amountStar={roomCards.amountStar}
+        />
+        <RoomCard
+          number={roomCards.number}
+          cost={roomCards.cost}
+          amountReviews={roomCards.amountReviews}
+          images={roomCards.images}
+          level={roomCards.level}
+          href={roomCards.href}
+          amountStar={roomCards.amountStar}
+        />
+      </div>
     </div>
   );
 };
