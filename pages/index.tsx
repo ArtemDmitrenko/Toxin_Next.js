@@ -6,16 +6,19 @@ import Reference from 'Components/Reference/Reference';
 import Like from 'Components/Like/Like';
 import FooterMobile from 'Components/FooterMobile/FooterMobile';
 import FooterDesktop from 'Components/FooterDesktop/FooterDesktop';
-import footerItems from 'Components/FooterDesktop/footer-items.json';
 import Checkbox from 'Components/Checkbox/Checkbox';
 import Header from 'Components/Header/Header';
-import RoomSearchCard, { RoomSearchCardData } from 'Components/RoomSearchCard/RoomSearchCard';
-import { DropdownConfig } from 'Components/Dropdown/Dropdown';
 import RoomInformation from 'Components/RoomInformation/RoomInformation';
-import roomInfo from 'Components/RoomInformation/roomInformation.json';
 import RoomCard from 'Components/RoomCard/RoomCard';
-import roomCards from 'Components/RoomCard/roomCards.json';
 import BackgroundWithSlogan from 'Components/BackgroundWithSlogan/BackgroundWithSlogan';
+import RoomSearchCard, { RoomSearchCardData } from 'Components/RoomSearchCard/RoomSearchCard';
+
+import roomCards from 'Components/RoomCard/roomCards.json';
+import roomInfo from 'Components/RoomInformation/roomInformation.json';
+import footerItems from 'Components/FooterDesktop/footer-items.json';
+
+import { DropdownConfig } from 'Components/Dropdown/Dropdown';
+import { DateRangeConfig } from 'Components/DateRange/DateRange';
 
 import styles from './index.module.scss';
 
@@ -25,10 +28,10 @@ const guestDropdownConfig: DropdownConfig = [
   { title: 'младенцы', group: 'babies', wordforms: ['младенец', 'младенца', 'младенцев'] },
 ];
 
-const dateRangeConfig = {
+const dateRangeConfig: DateRangeConfig = {
   headers: ['прибытие', 'выезд'],
-  placeholder: 'ДД.ММ.ГГГГ',
   defaultValues: [new Date('2021-10-19'), new Date('2021-10-23')],
+  isDouble: true,
 };
 
 const addNewEmail = (email: string) => {

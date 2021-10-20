@@ -2,19 +2,9 @@ import { useState } from 'react';
 
 import Reference from 'Components/Reference/Reference';
 import Dropdown, { DropdownConfig, Groups } from 'Components/Dropdown/Dropdown';
-import DateRange from '../DateRange/DateRange';
+import DateRange, { DateRangeConfig, DatesOfStay } from 'Components/DateRange/DateRange';
 
 import styles from './roomSearchCard.module.scss';
-
-type DateRangeConfig = {
-  headers: Array<string>,
-  placeholder: string,
-  defaultValues: Array<Date>,
-};
-
-type DatesOfStay = {
-  arrival: string, departure: string
-};
 
 type RoomSearchCardData = { datesOfStay: DatesOfStay, numberOfGuests: Groups };
 
@@ -26,12 +16,17 @@ type RoomSearchCardProps = {
 
 const RoomSearchCard = (props: RoomSearchCardProps) => {
   const { guestsDropdownConfig, dateRangeConfig, onSubmit } = props;
-  const { headers, placeholder, defaultValues } = dateRangeConfig;
+  const {
+    headers,
+    placeholder,
+    defaultValues,
+    isDouble,
+  } = dateRangeConfig;
 
   const [datesOfStay, setDatesOfStay] = useState({ arrival: '', departure: '' });
   const [numberOfGuests, setNumberOfGuests] = useState({});
 
-  const addDatesOfState = (dates: DatesOfStay) => {
+  const handleDatesOfStayChange = (dates: DatesOfStay) => {
     setDatesOfStay({
       ...datesOfStay,
       arrival: dates.arrival,
@@ -39,7 +34,7 @@ const RoomSearchCard = (props: RoomSearchCardProps) => {
     });
   };
 
-  const addNumberOfGuest = (
+  const handleNumberOfGuestChange = (
     guestGroups: Groups,
   ) => {
     /* здесь нужно каким-то образом вытащить
@@ -69,14 +64,15 @@ const RoomSearchCard = (props: RoomSearchCardProps) => {
             headers={headers}
             placeholder={placeholder}
             defaultValues={defaultValues}
-            onChange={addDatesOfState}
+            isDouble={isDouble}
+            onChange={handleDatesOfStayChange}
           />
         </div>
         <div className={styles.dropdown}>
           <Dropdown
             list={guestsDropdownConfig}
             placeholder="Сколько гостей"
-            onChange={addNumberOfGuest}
+            onChange={handleNumberOfGuestChange}
           />
         </div>
         <div
