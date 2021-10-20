@@ -3,9 +3,9 @@ import { useState } from 'react';
 import styles from './like.module.scss';
 
 type LikeProps = {
-  amountLike: number;
-  isLiked?: boolean;
-  onChange?: (active: boolean) => void;
+  amountLike: number,
+  isLiked?: boolean,
+  onChange?: (active: boolean) => void,
 };
 
 const Like = ({ amountLike, isLiked = false, onChange }: LikeProps) => {
