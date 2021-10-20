@@ -7,9 +7,11 @@ import Reference from 'Components/Reference/Reference';
 import FooterMobile from 'Components/FooterMobile/FooterMobile';
 import FooterDesktop from 'Components/FooterDesktop/FooterDesktop';
 import footerItems from 'Components/FooterDesktop/footer-items.json';
+import Checkbox from 'Components/Checkbox/Checkbox';
 import Header from 'Components/Header/Header';
 import RoomCard from 'Components/RoomCard/RoomCard';
 import roomCards from 'Components/RoomCard/roomCards.json';
+import BackgroundWithSlogan from 'Components/BackgroundWithSlogan/BackgroundWithSlogan';
 
 import styles from './index.module.scss';
 
@@ -82,6 +84,7 @@ const Home = () => {
       <Reference text="Перейти к оплате" type="directed" size="big" />
       <CopyrightBar text="Copyright © 2018 Toxin отель. Все права защищены." forMobile={false} />
       <Header menu={navigation} />
+      <Checkbox title="Можно с питомцами" name="box1" />
       <FooterMobile />
       <FooterDesktop
         navContent={footerItems.navContent}
@@ -127,6 +130,7 @@ const Home = () => {
           amountStar={roomCards.amountStar}
         />
       </div>
+      <BackgroundWithSlogan />
     </div>
   );
 };

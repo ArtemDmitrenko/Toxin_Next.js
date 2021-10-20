@@ -11,5 +11,8 @@
   },
   "parserOptions": {
     "project": "./tsconfig.eslint.json"
+  },
+  "rules": {
+    "jsx-a11y/label-has-associated-control": "off"
   }
 }
