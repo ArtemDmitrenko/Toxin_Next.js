@@ -100,7 +100,7 @@ const Home = () => {
       />
       <div className={styles.roomCards}>
         <RoomCard
-          number={roomCards.number}
+          roomNumber={roomCards.roomNumber}
           cost={roomCards.cost}
           amountReviews={roomCards.amountReviews}
           images={roomCards.images}
@@ -109,7 +109,7 @@ const Home = () => {
           amountStar={roomCards.amountStar}
         />
         <RoomCard
-          number={roomCards.number}
+          roomNumber={roomCards.roomNumber}
           cost={roomCards.cost}
           amountReviews={roomCards.amountReviews}
           images={roomCards.images}
@@ -118,7 +118,7 @@ const Home = () => {
           amountStar={roomCards.amountStar}
         />
         <RoomCard
-          number={roomCards.number}
+          roomNumber={roomCards.roomNumber}
           cost={roomCards.cost}
           amountReviews={roomCards.amountReviews}
           images={roomCards.images}
