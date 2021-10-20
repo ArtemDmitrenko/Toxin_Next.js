@@ -52,7 +52,7 @@ const CarouselImages = (props: CarouselImagesProps) => {
             <img
               className={styles.image}
               src={image.src}
-              alt={`Room №${image.alt}`}
+              alt={image.alt}
               width="100%"
             />
           </div>

@@ -4,10 +4,10 @@
   "cost": 9990,
   "amountReviews": 145,
   "images": [
-    { "id": 1, "src": "/images/room-card-images/image-350.jpg" },
-    { "id": 2, "src": "/images/room-card-images/image-352.jpg" },
-    { "id": 3, "src": "/images/room-card-images/image-444.jpg" },
-    { "id": 4, "src": "/images/room-card-images/image-445.jpg" }
+    { "id": 1, "src": "/images/room-card-images/image-350.jpg", "alt": "Room №808" },
+    { "id": 2, "src": "/images/room-card-images/image-352.jpg", "alt": "Room №808" },
+    { "id": 3, "src": "/images/room-card-images/image-444.jpg", "alt": "Room №808" },
+    { "id": 4, "src": "/images/room-card-images/image-445.jpg", "alt": "Room №808" }
   ],
   "href": "/404",
   "amountStar": 4
