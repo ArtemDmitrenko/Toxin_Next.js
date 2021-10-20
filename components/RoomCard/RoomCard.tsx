@@ -9,7 +9,11 @@ type RoomCardProps = {
   level?: string,
   cost: number,
   amountReviews: number,
-  images: Array<{ id: number, src: string, alt: string }>,
+  images: Array<{
+    id: number,
+    src: string,
+    alt: string
+  }>,
   href: string,
   amountStar: number,
 };
@@ -29,36 +33,38 @@ const RoomCard = (props: RoomCardProps) => {
   return (
     <div className={styles.roomCard}>
       <CarouselImages data={{ images }} />
-      <div className={styles.description}>
-        <div className={styles.dataRoom}>
-          <Link href={href} passHref key={roomNumber}>
-            <a className={styles.linkRoom} href="replace">
-              <span className={styles.signNumber}>№</span>
-              <span className={styles.number}>{roomNumber}</span>
-              <span className={styles.level}>{level}</span>
-            </a>
-          </Link>
-          <div className={styles.costRoom}>
-            <span className={styles.cost}>{`${cost}`}</span>
-            <span className={styles.costText}>в сутки</span>
+      <Link href={href} passHref>
+        <a className={styles.linkRoom} href="replace">
+          <div className={styles.description}>
+            <div className={styles.dataRoom}>
+              <div>
+                <span className={styles.signNumber}>№</span>
+                <span className={styles.number}>{roomNumber}</span>
+                <span className={styles.level}>{level}</span>
+              </div>
+              <div className={styles.costRoom}>
+                <span className={styles.cost}>{`${cost}`}</span>
+                <span className={styles.costText}>в сутки</span>
+              </div>
+            </div>
+            <div className={styles.reviews}>
+              <div className={styles.rating}>
+                {rating.map((item, index) => (
+                  index < amountStar ? (
+                    <span className={`${styles.signStar} ${styles.filledStar}`} key={item} />
+                  ) : (
+                    <span className={`${styles.signStar} ${styles.borderedStar}`} key={item} />
+                  )
+                ))}
+              </div>
+              <div className={styles.amountReviews}>
+                <span className={styles.amount}>{amountReviews}</span>
+                <span className={styles.amountText}>Отзывов</span>
+              </div>
+            </div>
           </div>
-        </div>
-        <div className={styles.reviews}>
-          <div className={styles.rating}>
-            {rating.map((item, index) => (
-              index < amountStar ? (
-                <span className={`${styles.signStar} ${styles.filledStar}`} key={item} />
-              ) : (
-                <span className={`${styles.signStar} ${styles.borderedStar}`} key={item} />
-              )
-            ))}
-          </div>
-          <div className={styles.amountReviews}>
-            <span className={styles.amount}>{amountReviews}</span>
-            <span className={styles.amountText}>Отзывов</span>
-          </div>
-        </div>
-      </div>
+        </a>
+      </Link>
     </div>
   );
 };
