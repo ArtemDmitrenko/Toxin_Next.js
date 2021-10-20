@@ -1,9 +1,5 @@
 import Dropdown, { DropdownConfig } from 'Components/Dropdown/Dropdown';
-<<<<<<< HEAD
 import Impressions from 'Components/Impressions/Impressions';
-=======
-import RulesList from 'Root/components/RulesList/RulesList';
->>>>>>> main
 
 import styles from './index.module.scss';
 
