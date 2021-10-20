@@ -10,7 +10,14 @@
 
 .output {
   position: relative;
+  border: 1px solid $textColor25;
+  border-radius: 5px;
   cursor: pointer;
+  transition: border-radius 0s linear 0.3s;
+
+  &:hover {
+    border-color: $textColor50;
+  }
 
   &::before {
     $side: 7px;
@@ -32,6 +39,11 @@
   }
 
   &Active {
+    border-color: $textColor50;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+    transition: border-radius 0s linear 0s;
+
     &::before {
       transform: translateY(-30%) rotate(-135deg);
     }
@@ -42,16 +54,8 @@
   @include input();
   padding-right: 40px;
   text-overflow: ellipsis;
+  border: none;
   cursor: pointer;
-  transition:
-    border-radius 0s linear 0.3s,
-    border-color 0s linear 0.3s;
-
-  &Active {
-    border-bottom-right-radius: 0;
-    border-bottom-left-radius: 0;
-    transition: border-radius 0s linear 0s;
-  }
 }
 
 .menuWrapper {
