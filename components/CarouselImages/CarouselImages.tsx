@@ -50,7 +50,7 @@ const CarouselImages = (props: CarouselImagesProps) => {
     <div className={styles.slider}>
       <div className={styles.carousel}>
         {images.map((image, index) => (
-          <div className={stylesContent(index)} id={String(index)} key={image.id}>
+          <div className={stylesContent(index)} key={image.id}>
             <img className={styles.image} src={image.src} alt={`Room №${number}`} width="100%" />
           </div>
         ))}
