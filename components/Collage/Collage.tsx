@@ -11,12 +11,16 @@ const Collage = ({ images }: CollageProps) => (
   <div className={styles.collage}>
     {
       images.map((image) => (
-        <img
-          className={styles.image}
-          src={image.src}
-          alt={image.alt}
+        <div
+          className={styles.aspectRatio}
           key={image.src}
-        />
+        >
+          <img
+            className={styles.image}
+            src={image.src}
+            alt={image.alt}
+          />
+        </div>
       ))
     }
   </div>
