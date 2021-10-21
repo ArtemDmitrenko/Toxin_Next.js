@@ -6,7 +6,10 @@ import DateRange, { DateRangeConfig, DatesOfStay } from 'Components/DateRange/Da
 
 import styles from './roomSearchCard.module.scss';
 
-type RoomSearchCardData = { datesOfStay: DatesOfStay, numberOfGuests: Groups };
+type RoomSearchCardData = {
+  datesOfStay: DatesOfStay,
+  numberOfGuests: { [key:string]: number },
+};
 
 type RoomSearchCardProps = {
   guestsDropdownConfig: DropdownConfig,
@@ -37,12 +40,21 @@ const RoomSearchCard = (props: RoomSearchCardProps) => {
   const handleNumberOfGuestChange = (
     guestGroups: Groups,
   ) => {
-    /* здесь нужно каким-то образом вытащить
-    /* данные из объекта, который приходит от Dropdown
-    /* и поместить их в numberOfGuests
-    */
+    const newNumberOfGuests: {
+      [key:string]: number,
+    } = {};
 
-    // setNumberOfGuests();
+    Object.entries(guestGroups).forEach(([groupName, group]) => {
+      let groupSum = 0;
+
+      Object.values(group.items).forEach((item) => {
+        groupSum += item.value;
+      });
+
+      newNumberOfGuests[groupName] = groupSum;
+    });
+
+    setNumberOfGuests(newNumberOfGuests);
   };
 
   const handleButtonClick = () => {
