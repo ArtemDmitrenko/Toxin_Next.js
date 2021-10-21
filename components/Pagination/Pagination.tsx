@@ -13,11 +13,12 @@ type RoomCard = {
 
 type PaginationProps = {
   allItems: Array<RoomCard>,
-  itemsPerPage: number
+  itemsPerPage: number,
+  onChange: (pageNumber: number) => void
 };
 
 const Pagination = (props: PaginationProps) => {
-  const { allItems, itemsPerPage } = props;
+  const { allItems, itemsPerPage, onChange } = props;
   const [currentPage, setCurrentPage] = useState(0);
 
   const pagesTotal = Math.ceil(allItems.length / itemsPerPage);
@@ -25,6 +26,7 @@ const Pagination = (props: PaginationProps) => {
 
   const handlePageClick = (page: { selected: number }) => {
     setCurrentPage(page.selected);
+    onChange(page.selected);
   };
 
   const displayItems = allItems

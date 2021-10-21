@@ -96,7 +96,7 @@ const Home = () => {
         step={0.01}
         postfix="₽"
       />
-      <Pagination itemsPerPage={12} allItems={roomsJSON} />
+      <Pagination itemsPerPage={12} allItems={roomsJSON} onChange={(pageNumber) => console.log(`Page ${pageNumber + 1} is clicked`)} />
     </div>
   );
 };
