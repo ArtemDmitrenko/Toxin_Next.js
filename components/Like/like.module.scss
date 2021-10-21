@@ -1,0 +1,32 @@
+@import 'Root/style/variables.scss';
+
+.like {
+  position: relative;
+  width: 40px;
+  min-height: 20px;
+  padding: 0;
+  padding-left: 10px;
+  color: $textColor25;
+  font: 10px/12px 'Montserrat', Arial, sans-serif;
+  background-color: #fff;
+  border: 1px solid $textColor25;
+  border-radius: 10px;
+  cursor: pointer;
+
+  &::before {
+    position: absolute;
+    left: 10%;
+    font: 10px/12px 'Material Icons', Arial, sans-serif;
+    content: '\e87e';
+  }
+}
+
+.likeActive {
+  color: $primaryColor;
+  border-color: $primaryColor;
+
+  &::before {
+    @include text-gradient-fill($primaryGradient);
+    content: '\e87d';
+  }
+}

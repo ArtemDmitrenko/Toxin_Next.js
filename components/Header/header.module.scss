@@ -2,25 +2,21 @@
 
 .header {
   padding: 0 10px;
-  box-shadow: 0px 10px 20px $textColor05;
   background-color: #fff;
+  box-shadow: 0 10px 20px $textColor05;
 }
 
 .content {
   position: relative;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
   flex-wrap: wrap;
   align-items: center;
+  justify-content: space-between;
   max-width: 1160px;
   min-height: 70px;
   margin: 0 auto;
   margin-top: 0;
-
-  @media(max-width: 1024px) {
-    margin-top: 10px;
-  }
 }
 
 .burger {
@@ -29,35 +25,35 @@
   justify-content: center;
   width: 38px;
   height: 38px;
-  background-color: #fff;
-  border-radius: 50%;
-  border: 2px solid $textColor50;
-  color: $textColor50;
   margin-top: 16px;
   margin-bottom: 16px;
   margin-left: auto;
+  color: $textColor50;
+  background-color: #fff;
+  border: 2px solid $textColor50;
+  border-radius: 50%;
   cursor: pointer;
-  @media(max-width: 1024px) {
+
+  @media (max-width: 1024px) {
     display: flex;
   }
 
   &::before {
-    font-family: "Material Icons", sans-serif;
-    font-size: 24px;
+    font-size: 30px;
+    font-family: 'Material Icons', sans-serif;
     line-height: 24px;
     content: '\e5cf';
-    font-size: 30px;
   }
 
   &:hover {
-    border-color: $textColor75;
     color: $textColor75;
+    border-color: $textColor75;
   }
 }
 
 .burgerOpened {
-  &:before {
-    content: '\e5ce'
+  &::before {
+    content: '\e5ce';
   }
 }
 
@@ -65,7 +61,7 @@
   display: flex;
   flex-grow: 1;
 
-  @media(max-width: 1024px) {
+  @media (max-width: 1024px) {
     display: none;
     min-width: 100%;
     padding-bottom: 10px;
@@ -79,15 +75,15 @@
 .headerMenu {
   display: flex;
   flex-direction: row;
-  justify-content: flex-end;
-  align-items: center;
   flex-grow: 1;
+  align-items: center;
+  justify-content: flex-end;
   min-height: 100%;
-  list-style: none;
   margin: 0;
   padding: 0;
+  list-style: none;
 
-  @media(max-width: 1024px) {
+  @media (max-width: 1024px) {
     flex-direction: column;
     justify-content: space-between;
     min-width: 100%;
@@ -100,39 +96,39 @@
 .titleSubMenu {
   position: relative;
   display: flex;
-  justify-content: space-around;
   flex-direction: column;
   align-items: center;
-  padding-right: 21px;
-  margin-left: 10px;
+  justify-content: space-around;
   margin-right: 10px;
+  margin-left: 10px;
+  padding-right: 21px;
   list-style: none;
   cursor: pointer;
 
-  @media(max-width: 1024px) {
+  @media (max-width: 1024px) {
     min-width: 100%;
     border-bottom: 1px solid $textColor50;
   }
 }
 
 .titleSubMenu:last-child {
-  margin-right: 0px;
+  margin-right: 0;
 }
 
 .text {
   position: relative;
   display: block;
-  font: 14px/17px $primaryFont;
   color: $textColor50;
+  font: 14px/17px $primaryFont;
   text-align: left;
-  border: none;
   background-color: #fff;
+  border: none;
   cursor: pointer;
 
-  @media(max-width: 1024px) {
-    text-align: center;
-    margin-bottom: 20px;
+  @media (max-width: 1024px) {
     margin-top: 20px;
+    margin-bottom: 20px;
+    text-align: center;
   }
 
   &:hover {
@@ -143,27 +139,27 @@
 
 .text::after {
   display: block;
-  content: attr(title);
-  font-weight: bold;
   height: 0;
   overflow: hidden;
+  font-weight: bold;
   visibility: hidden;
+  content: attr(title);
 }
 
 .link {
   position: relative;
   display: block;
+  color: $textColor50;
   line-height: 17px;
   text-align: left;
   text-decoration: none;
-  color: $textColor50;
 
-  @media(max-width: 1024px) {
-    text-align: center;
-    margin-bottom: 20px;
+  @media (max-width: 1024px) {
     margin-top: 20px;
+    margin-bottom: 20px;
+    text-align: center;
   }
-  
+
   &:hover {
     color: $textColor75;
     font-weight: bold;
@@ -172,16 +168,16 @@
 
 .link::after {
   display: block;
-  content: attr(title);
-  font-weight: bold;
   height: 0;
   overflow: hidden;
+  font-weight: bold;
   visibility: hidden;
+  content: attr(title);
 }
 
 .arrow {
   display: inline-block;
-  font: normal normal 24px/17px 'Material Icons';
+  font: normal 24px/17px 'Material Icons', sans-serif;
 
   &::before {
     content: '\e5cf';
@@ -203,41 +199,44 @@
   position: absolute;
   top: 20px;
   left: -20px;
-  max-width: 150px;
+  z-index: 10;
   display: none;
-  justify-content: center;
   flex-direction: column;
+  justify-content: center;
+  max-width: 150px;
   margin: 0;
   padding: 0;
-  background-color: #FFFFFF;
-  border-radius: 3px;
   list-style: none;
-  z-index: 10;
+  background-color: #fff;
+  border-radius: 3px;
 
-  @media(max-width: 1024px) {
-    min-width: 100%;
+  @media (max-width: 1024px) {
     position: static;
+    min-width: 100%;
   }
 }
+
 .activeSubMenu {
   display: flex;
 }
 
 .subMenuItem {
-  border: none;
   padding: 10px 18px;
+  border: none;
 
-  @media(max-width: 1024px) {
-    border-bottom: 1px dashed $textColor50;
-    padding: 0;
+  @media (max-width: 1024px) {
     width: 100%;
+    padding: 0;
+    border-bottom: 1px dashed $textColor50;
   }
 }
 
 .subMenuItem:first-child {
+  padding-top: 13px;
   border: none;
 
-  @media(max-width: 1024px) {
+  @media (max-width: 1024px) {
+    padding: 0;
     border-top: 1px solid $textColor50;
     border-bottom: 1px dashed $textColor50;
   }
@@ -247,19 +246,11 @@
   border: none;
 }
 
-.subMenuItem:first-child {
-  padding-top: 13px;
-
-  @media(max-width: 1024px) {
-    padding: 0;
-  }
-}
-
 .listItem {
-  border: none;
   margin: 0 10px;
+  border: none;
 
-  @media(max-width: 1024px) {
+  @media (max-width: 1024px) {
     min-width: 100%;
     border-bottom: 1px solid $textColor50;
   }
@@ -268,7 +259,7 @@
 .listItem:first-child {
   border-top: 1px solid $textColor50;
 
-  @media(min-width: 1024px) {
+  @media (min-width: 1024px) {
     border: none;
   }
 }
@@ -276,8 +267,8 @@
 .buttons {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-between;
   min-width: 300px;
   min-height: 100%;
   margin-left: 20px;

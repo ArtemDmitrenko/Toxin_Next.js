@@ -1,0 +1,39 @@
+@import 'Root/style/variables.scss';
+
+.container {
+  max-width: 266px;
+}
+
+.header {
+  margin: 0 0 10px 20px;
+  color: $textColor;
+  font: 700 19px/23px $primaryFont;
+
+  &::first-letter {
+    text-transform: uppercase;
+  }
+}
+
+.list {
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.item {
+  @include paragraph;
+  display: flex;
+  align-items: baseline;
+  padding-top: 10px;
+  line-height: 24px;
+
+  &::before {
+    min-width: 10px;
+    min-height: 10px;
+    margin-right: 10px;
+    background: $textColor25;
+    border-radius: 50%;
+    content: '';
+  }
+}
