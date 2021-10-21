@@ -1,6 +1,4 @@
 import Dropdown, { DropdownConfig } from 'Components/Dropdown/Dropdown';
-import Tooltip from 'Components/Tooltip/Tooltip';
-import RulesList from 'Root/components/RulesList/RulesList';
 
 import styles from './index.module.scss';
 
@@ -43,12 +41,6 @@ const facilitiesDropdownConfig: DropdownConfig = [
   },
 ];
 
-const rulesList = [
-  { id: '0', title: 'Нельзя с питомцами' },
-  { id: '1', title: 'Без вечеринок и мероприятий' },
-  { id: '2', title: 'Время прибытия — после 13:00, а\u00A0выезд до 12:00' },
-];
-
 const Rooms = () => (
   <div>
     <div>
@@ -58,16 +50,6 @@ const Rooms = () => (
     <div className={styles.row}>
       <Dropdown list={guestsDropdownConfig} placeholder="Сколько гостей" />
       <Dropdown list={facilitiesDropdownConfig} placeholder="Выберите удобства" isButtons={false} />
-    </div>
-    <p>
-      Сбор за услуги: скидка 2 179₽
-      <Tooltip text="Давно выяснено, что при оценке дизайна и композиции читаемый текст мешает сосредоточиться" />
-    </p>
-    <div>
-      <RulesList
-        rulesHeader="правила"
-        rulesList={rulesList}
-      />
     </div>
   </div>
 );
