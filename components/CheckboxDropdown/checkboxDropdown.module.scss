@@ -23,7 +23,7 @@
     border-left: none;
     transform: translate(-50%, -70%) rotate(45deg);
     transform-origin: 50% 50%;
-    transition: transform 0.3s ease-in;
+    transition: transform 0.2s ease-in-out;
     content: '';
   }
 
@@ -35,22 +35,14 @@
 }
 
 .list {
-  max-height: 0;
+  display: none;
   margin: 0;
   padding: 0;
   padding-top: 10px;
-  overflow-y: scroll;
   list-style-type: none;
-  transition: max-height 0.3s ease-in;
-  scrollbar-width: 0;
-  -ms-overflow-style: none;
-
-  &::-webkit-scrollbar {
-    width: 0;
-  }
 
   &Active {
-    max-height: 500px;
+    display: block;
   }
 }
 

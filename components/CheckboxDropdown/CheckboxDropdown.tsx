@@ -71,10 +71,7 @@ const CheckboxDropdown = (props: CheckboxDropdownProps) => {
           e.preventDefault();
           handleListToggle();
         }}
-        onKeyDown={(e) => {
-          e.preventDefault();
-          handleListToggle();
-        }}
+        onKeyDown={handleListToggle}
       >
         {title}
       </div>
