@@ -4,7 +4,7 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  max-width: 707px;
+  max-width: 710px;
   color: $textColor75;
   font-size: 14px;
   line-height: 24px;
@@ -41,10 +41,13 @@
 
 .content {
   display: flex;
-  justify-content: space-around;
+  justify-content: flex-start;
   width: 100%;
   margin-top: 10px;
-  margin-left: 2px;
+}
+
+.like {
+  margin: 0 2px;
 }
 
 .text {
