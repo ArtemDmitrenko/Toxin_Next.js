@@ -14,7 +14,12 @@ type CommentProps = {
 
 const Comment = (props: CommentProps) => {
   const {
-    srcIcon, userName, date, text, like, onChange,
+    srcIcon,
+    userName,
+    date,
+    text,
+    like,
+    onChange,
   } = props;
 
   const dateComment = Date.parse(String(date));
