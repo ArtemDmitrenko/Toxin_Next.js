@@ -1,5 +1,7 @@
 import Dropdown, { DropdownConfig } from 'Components/Dropdown/Dropdown';
 import RulesList from 'Root/components/RulesList/RulesList';
+import Comment from 'Components/Comment/Comment';
+import userComment from 'Components/Comment/comment.json';
 
 import styles from './index.module.scss';
 
@@ -64,6 +66,13 @@ const Rooms = () => (
         rulesList={rulesList}
       />
     </div>
+    <Comment
+      srcIcon={userComment.srcIcon}
+      userName={userComment.userName}
+      date={new Date(userComment.date)}
+      text={userComment.text}
+      like={userComment.like}
+    />
   </div>
 );
 
