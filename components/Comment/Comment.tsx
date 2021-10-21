@@ -23,7 +23,7 @@ const Comment = (props: CommentProps) => {
     onChange,
   } = props;
 
-  const dateComment = Date.parse(String(date));
+  const dateComment = date.getTime();
   const currentDate = Date.now();
   const amountDays = Math.floor((currentDate - dateComment) / 86400000);
 

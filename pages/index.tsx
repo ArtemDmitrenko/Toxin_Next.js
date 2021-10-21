@@ -86,11 +86,11 @@ const Home = () => {
       <Reference text="click me" type="bordered" size="big" />
       <Reference text="Перейти к оплате" type="directed" size="big" />
       <Like amountLike={12} isLiked />
-      <CopyrightBar text="Copyright © 2018 Toxin отель. Все права защищены." forMobile={false} />
+      <CopyrightBar text="Copyright © 2018 Toxin отель. Все права защищены." />
       <Comment
         srcIcon={userComment.srcIcon}
         userName={userComment.userName}
-        date={userComment.date}
+        date={new Date(userComment.date)}
         text={userComment.text}
         like={userComment.like}
       />
