@@ -81,6 +81,7 @@ const RoomSearchCard = (props: RoomSearchCardProps) => {
           />
         </div>
         <div className={styles.dropdown}>
+          <h3 className={styles.dropdownTitle}>гости</h3>
           <Dropdown
             list={guestsDropdownConfig}
             placeholder="Сколько гостей"

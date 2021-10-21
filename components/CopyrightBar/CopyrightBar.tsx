@@ -10,7 +10,7 @@ const buttons = [
   {
     id: 1,
     name: 'twitter',
-    href: '/',
+    href: 'https://twitter.com/',
     src: twitter,
     width: 24,
     height: 24,
@@ -18,7 +18,7 @@ const buttons = [
   {
     id: 2,
     name: 'facebook',
-    href: '/',
+    href: 'https://www.facebook.com/',
     src: facebook,
     width: 22,
     height: 22,
@@ -26,7 +26,7 @@ const buttons = [
   {
     id: 3,
     name: 'instagram',
-    href: '/',
+    href: 'https://www.instagram.com/',
     src: instagram,
     width: 22,
     height: 22,
