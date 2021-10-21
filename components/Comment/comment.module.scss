@@ -17,9 +17,6 @@
 }
 
 .icon {
-  width: 45px;
-  height: 45px;
-  margin-right: 10px;
   border-radius: 50%;
   filter: drop-shadow(0 10px 20px rgba(31, 32, 65, 0.1));
 }
@@ -27,6 +24,7 @@
 .user {
   display: flex;
   flex-direction: column;
+  margin-left: 10px;
 }
 
 .userName {

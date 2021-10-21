@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import convertNumToWordform from 'Root/utils/convertNumToWordform';
 import Like from 'Components/Like/Like';
 
@@ -42,7 +43,7 @@ const Comment = (props: CommentProps) => {
   return (
     <div className={styles.comment}>
       <div className={styles.info}>
-        <img className={styles.icon} src={srcIcon} alt={userName} />
+        <Image className={styles.icon} src={srcIcon} alt={userName} width={45} height={45} />
         <div className={styles.user}>
           <span className={styles.userName}>{userName}</span>
           <span className={styles.date}>{makeDateString()}</span>
