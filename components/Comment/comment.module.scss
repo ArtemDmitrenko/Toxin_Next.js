@@ -1,23 +1,13 @@
 @import 'Root/style/variables.scss';
 
 .comment {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
   max-width: 710px;
   color: $textColor75;
-  font-size: 14px;
   line-height: 24px;
 }
 
 .info {
-  position: relative;
   display: flex;
-  justify-content: flex-start;
-}
-
-.icon {
-  border-radius: 50%;
 }
 
 .user {
@@ -27,19 +17,11 @@
 }
 
 .userName {
-  display: inline-block;
-  margin: 0;
   font-weight: bold;
-}
-
-.date {
-  display: inline-block;
 }
 
 .content {
   display: flex;
-  justify-content: flex-start;
-  width: 100%;
   margin-top: 10px;
 }
 

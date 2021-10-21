@@ -43,10 +43,10 @@ const Comment = (props: CommentProps) => {
   return (
     <div className={styles.comment}>
       <div className={styles.info}>
-        <Image className={styles.icon} src={srcIcon} alt={userName} width={45} height={45} />
+        <Image src={srcIcon} alt={userName} width={45} height={45} />
         <div className={styles.user}>
           <span className={styles.userName}>{userName}</span>
-          <span className={styles.date}>{makeDateString()}</span>
+          <span>{makeDateString()}</span>
         </div>
       </div>
       <div className={styles.content}>
