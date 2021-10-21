@@ -1,0 +1,110 @@
+@import 'Root/style/variables.scss';
+
+.roomCard {
+  position: relative;
+  max-width: 100%;
+  min-height: 258px;
+  margin-top: 30px;
+  background: #fff;
+  border-radius: 4px;
+  box-shadow: 0 10px 20px $textColor05;
+}
+
+.description {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  min-height: 110px;
+  padding-right: 17px;
+  padding-bottom: 10px;
+  padding-left: 20px;
+  color: $textColor50;
+}
+
+.dataRoom {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding: 10px 0;
+  border-bottom: 1px solid $textColor10;
+}
+
+.linkRoom {
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.signNumber {
+  padding-right: 5px;
+  font-weight: bold;
+}
+
+.roomNumber {
+  padding-right: 5px;
+  color: $textColor;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.level {
+  color: $primaryColor;
+  font-weight: bold;
+  font-size: 12px;
+  text-transform: uppercase;
+}
+
+.costRoom {
+  display: flex;
+  align-items: center;
+}
+
+.cost {
+  position: relative;
+  font-weight: bold;
+
+  &::after {
+    position: relative;
+    content: '\20BD';
+  }
+}
+
+.costText {
+  padding-left: 3px;
+  font-size: 12px;
+}
+
+.reviews {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.rating {
+  width: 120px;
+}
+
+.signStar {
+  display: inline-block;
+  color: $primaryColor;
+  font-size: 24px;
+  font-family: 'Material Icons', Arial, sans-serif;
+  cursor: default;
+}
+
+.filledStar::before {
+  content: '\e838';
+}
+
+.borderedStar::before {
+  content: '\e83a';
+}
+
+.amountReviews {
+  display: flex;
+  align-items: center;
+}
+
+.amount {
+  padding-right: 7px;
+  font-weight: bold;
+}
