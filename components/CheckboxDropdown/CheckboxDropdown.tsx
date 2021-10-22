@@ -47,11 +47,11 @@ const CheckboxDropdown = (props: CheckboxDropdownProps) => {
     });
   };
 
-  const handleCheckboxChange = (name: string, checked: boolean) => {
+  const handleCheckboxChange = (data: CheckboxData) => {
     setCheckboxList((prevState) => {
       const newState = { ...prevState };
 
-      newState[name].isChecked = checked;
+      newState[data.name].isChecked = data.isChecked;
 
       if (onChange) {
         onChange(newState, active);

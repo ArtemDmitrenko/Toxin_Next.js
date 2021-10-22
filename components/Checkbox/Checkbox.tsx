@@ -2,13 +2,18 @@ import { useState } from 'react';
 
 import styles from './checkbox.module.scss';
 
+type CheckboxData = {
+  name: string,
+  isChecked: boolean,
+};
+
 type CheckboxProps = {
   title: string,
   description?: string,
   isBoldTitle?: boolean,
   isChecked?: boolean,
   name: string,
-  onChange?: (name: string, checked: boolean) => void,
+  onChange?: (data: CheckboxData) => void,
 };
 
 const Checkbox = (props: CheckboxProps) => {
@@ -25,8 +30,9 @@ const Checkbox = (props: CheckboxProps) => {
 
   const handleCheckboxChange = () => {
     setChecked(!checked);
+
     if (onChange) {
-      onChange(name, !checked);
+      onChange({ name, isChecked: !checked });
     }
   };
 
@@ -47,4 +53,5 @@ const Checkbox = (props: CheckboxProps) => {
   );
 };
 
+export type { CheckboxData };
 export default Checkbox;
