@@ -1,21 +1,23 @@
 @import 'Root/style/variables.scss';
 
 .checkboxDropdown {
-  display: inline-block;
+  display: block;
+  max-width: 265px;
   user-select: none;
 }
 
 .title {
   @include h3();
+  display: block;
   position: relative;
-  padding-right: 30px;
+  padding-right: 40px;
   cursor: pointer;
 
   &::before {
     $side: 7px;
     position: absolute;
     top: 50%;
-    right: 7px;
+    right: 12px;
     width: $side;
     height: $side;
     border: 2px solid $textColor50;
