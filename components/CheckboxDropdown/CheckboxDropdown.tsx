@@ -38,27 +38,19 @@ const CheckboxDropdown = (props: CheckboxDropdownProps) => {
   );
 
   const handleListToggle = () => {
-    setActive((prevState) => {
-      if (onChange) {
-        onChange(checkboxList, !prevState);
-      }
-
-      return !prevState;
-    });
+    setActive(!active);
   };
 
   const handleCheckboxChange = (data: CheckboxData) => {
-    setCheckboxList((prevState) => {
-      const newState = { ...prevState };
+    const newState = { ...checkboxList };
 
-      newState[data.name].isChecked = data.isChecked;
+    newState[data.name].isChecked = data.isChecked;
 
-      if (onChange) {
-        onChange(newState, active);
-      }
+    setCheckboxList(newState);
 
-      return newState;
-    });
+    if (onChange) {
+      onChange(newState, active);
+    }
   };
 
   return (
