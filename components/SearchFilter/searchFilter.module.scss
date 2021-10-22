@@ -1,0 +1,31 @@
+@import 'Root/style/variables.scss';
+
+.title {
+  @include h3();
+}
+
+.description {
+  @include paragraph();
+  margin-top: 8px;
+  font-size: 12px;
+}
+
+.wrapper {
+  margin-top: 18px;
+  
+  &Large {
+    margin-top: 31px;
+  }
+}
+
+.checkbox {
+  margin: 6px 0;
+
+  &Rule {
+    max-width: 225px;
+  }
+
+  &Availability {
+    max-width: 255px;
+  }
+}
