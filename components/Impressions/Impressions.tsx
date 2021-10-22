@@ -51,10 +51,42 @@ const Impressions = (props: ImpressionsProps) => {
               <stop offset="0%" stopColor="#909090" />
               <stop offset="100%" stopColor="#3D4975" />
             </linearGradient>
-            <circle className={stylesCircle(good)} r="58" cx="50%" cy="50%" stroke="url(#linear-gradient-green)" strokeDasharray={`${goodInPixels - 2} ${lengthOfCircle}`} strokeDashoffset="-1" />
-            <circle className={stylesCircle(amazing)} r="58" cx="50%" cy="50%" stroke="url(#linear-gradient-yellow)" strokeDasharray={`${amazingInPixels - 2} ${lengthOfCircle}`} strokeDashoffset={`${-(goodInPixels + 1)}`} />
-            <circle className={stylesCircle(satisfactorily)} r="58" cx="50%" cy="50%" stroke="url(#linear-gradient-purple)" strokeDasharray={`${satisfactorilyInPixels - 2} ${lengthOfCircle}`} strokeDashoffset={`${-(goodInPixels + amazingInPixels + 1)}`} />
-            <circle className={stylesCircle(bad)} r="58" cx="50%" cy="50%" stroke="url(#linear-gradient-black)" strokeDasharray={`${badInPixels - 2} ${lengthOfCircle}`} strokeDashoffset={`${-(goodInPixels + amazingInPixels + satisfactorilyInPixels + 1)}`} />
+            <circle
+              className={stylesCircle(good)}
+              r="58"
+              cx="50%"
+              cy="50%"
+              stroke="url(#linear-gradient-green)"
+              strokeDasharray={`${goodInPixels - 2} ${lengthOfCircle}`}
+              strokeDashoffset="-1"
+            />
+            <circle
+              className={stylesCircle(amazing)}
+              r="58"
+              cx="50%"
+              cy="50%"
+              stroke="url(#linear-gradient-yellow)"
+              strokeDasharray={`${amazingInPixels - 2} ${lengthOfCircle}`}
+              strokeDashoffset={`${-(goodInPixels + 1)}`}
+            />
+            <circle
+              className={stylesCircle(satisfactorily)}
+              r="58"
+              cx="50%"
+              cy="50%"
+              stroke="url(#linear-gradient-purple)"
+              strokeDasharray={`${satisfactorilyInPixels - 2} ${lengthOfCircle}`}
+              strokeDashoffset={`${-(goodInPixels + amazingInPixels + 1)}`}
+            />
+            <circle
+              className={stylesCircle(bad)}
+              r="58"
+              cx="50%"
+              cy="50%"
+              stroke="url(#linear-gradient-black)"
+              strokeDasharray={`${badInPixels - 2} ${lengthOfCircle}`}
+              strokeDashoffset={`${-(goodInPixels + amazingInPixels + satisfactorilyInPixels + 1)}`}
+            />
           </svg>
           <h1 className={styles.total}>
             {sum}
