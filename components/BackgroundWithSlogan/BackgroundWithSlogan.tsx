@@ -29,15 +29,15 @@ const handleSearchCardSubmit = (data: RoomSearchCardData) => {
 const BackgroundWithSlogan = () => (
   <div className={styles.main}>
     <div className={styles.wrapper}>
-      <div className={styles.slogan}>
-        <p className={styles.text}>Лучшие номера для вашей работы, отдыха и просто вдохновения</p>
-      </div>
       <div>
         <RoomSearchCard
           guestsDropdownConfig={guestDropdownConfig}
           dateRangeConfig={dateRangeConfig}
           onSubmit={handleSearchCardSubmit}
         />
+      </div>
+      <div className={styles.slogan}>
+        <p className={styles.text}>Лучшие номера для вашей работы, отдыха и просто вдохновения</p>
       </div>
     </div>
   </div>
