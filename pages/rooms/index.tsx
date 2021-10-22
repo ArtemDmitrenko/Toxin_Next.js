@@ -1,5 +1,10 @@
 import Dropdown, { DropdownConfig } from 'Components/Dropdown/Dropdown';
 import Impressions from 'Components/Impressions/Impressions';
+import RulesList from 'Root/components/RulesList/RulesList';
+import Comment from 'Components/Comment/Comment';
+import userComment from 'Components/Comment/comment.json';
+import Pagination from 'Components/Pagination/Pagination';
+import roomsJSON from 'Root/public/rooms-mock/rooms.json';
 
 import styles from './index.module.scss';
 
@@ -59,6 +64,20 @@ const Rooms = () => (
       <Dropdown list={facilitiesDropdownConfig} placeholder="Выберите удобства" isButtons={false} />
     </div>
     <Impressions amazing={130} good={65} satisfactorily={65} />
+    <div>
+      <RulesList
+        rulesHeader="правила"
+        rulesList={rulesList}
+      />
+    </div>
+    <Comment
+      srcIcon={userComment.srcIcon}
+      userName={userComment.userName}
+      date={new Date(userComment.date)}
+      text={userComment.text}
+      like={userComment.like}
+    />
+    <Pagination itemsPerPage={12} allItems={roomsJSON} onChange={(pageNumber) => console.log(`Page ${pageNumber + 1} is clicked`)} />
   </div>
 );
 

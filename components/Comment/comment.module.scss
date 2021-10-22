@@ -1,0 +1,35 @@
+@import 'Root/style/variables.scss';
+
+.comment {
+  max-width: 710px;
+  color: $textColor75;
+  line-height: 24px;
+}
+
+.info {
+  display: flex;
+}
+
+.user {
+  display: flex;
+  flex-direction: column;
+  margin-left: 10px;
+}
+
+.userName {
+  font-weight: bold;
+}
+
+.content {
+  display: flex;
+  margin-top: 10px;
+}
+
+.like {
+  margin: 0 2px;
+}
+
+.text {
+  margin: 0;
+  margin-left: 13px;
+}
