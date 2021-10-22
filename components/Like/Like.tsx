@@ -5,7 +5,7 @@ import styles from './like.module.scss';
 type LikeProps = {
   amountLike: number,
   isLiked?: boolean,
-  onChange?: (active: boolean) => void,
+  onChange?: (amountLike: number, isLiked: boolean) => void,
 };
 
 const Like = ({ amountLike, isLiked = false, onChange }: LikeProps) => {
@@ -13,16 +13,23 @@ const Like = ({ amountLike, isLiked = false, onChange }: LikeProps) => {
   const [active, setActive] = useState(isLiked);
 
   const handleClickButton = () => {
-    if (active) {
-      setAmount(amount - 1);
-    } else {
-      setAmount(amount + 1);
-    }
+    setAmount((prevAmount) => {
+      let newAmount = prevAmount;
+
+      if (active) {
+        newAmount -= 1;
+      } else {
+        newAmount += 1;
+      }
+
+      if (onChange) {
+        onChange(newAmount, !active);
+      }
+
+      return newAmount;
+    });
 
     setActive(!active);
-    if (onChange) {
-      onChange(!active);
-    }
   };
 
   const styleButton = () => (
