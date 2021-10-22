@@ -6,6 +6,8 @@ import valuesWrapper from './helpers/valuesWrapper';
 
 import styles from './rangeSlider.module.scss';
 
+type RangeSliderData = Array<number>;
+
 type RangeSliderProps = {
   min: number,
   max: number,
@@ -16,7 +18,7 @@ type RangeSliderProps = {
   minDistance?: number,
   title?: string,
   postfix?: string,
-  onChange?: (values:Array<number>) => void,
+  onChange?: (values: RangeSliderData) => void,
 };
 
 const RangeSlider = (props: RangeSliderProps) => {
@@ -36,7 +38,7 @@ const RangeSlider = (props: RangeSliderProps) => {
   const [values, setValues] = useState([valueFrom, valueTo]);
   const [input, setInput] = useState(valuesWrapper([valueFrom, valueTo], postfix));
 
-  const validateArr = (arr: Array<number> | null) => {
+  const validateArr = (arr: RangeSliderData | null) => {
     if (!arr) return null;
 
     let [valFrom, valTo] = arr;
@@ -65,7 +67,7 @@ const RangeSlider = (props: RangeSliderProps) => {
     }
   };
 
-  const handleRangeSliderChange = (newValues: Array<number>) => {
+  const handleRangeSliderChange = (newValues: RangeSliderData) => {
     setValues(newValues);
     setInput(valuesWrapper(newValues, postfix));
 
@@ -127,4 +129,5 @@ RangeSlider.defaultProps = {
   onChange: undefined,
 };
 
+export type { RangeSliderData };
 export default RangeSlider;
