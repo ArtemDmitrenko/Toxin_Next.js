@@ -1,10 +1,10 @@
 import { useState } from 'react';
 
-import Checkbox from 'Components/Checkbox/Checkbox';
+import Checkbox, { CheckboxData } from 'Components/Checkbox/Checkbox';
 
 import styles from './checkboxDropdown.module.scss';
 
-type Checkboxes = {
+type CheckboxDropdownData = {
   [key: string]: {
     title: string,
     isChecked: boolean,
@@ -12,10 +12,10 @@ type Checkboxes = {
 };
 
 type CheckboxDropdownProps = {
-  checkboxes: Checkboxes,
+  checkboxes: CheckboxDropdownData,
   title: string,
   isActive?: boolean,
-  onChange?: (checkboxes: Checkboxes, isActive: boolean) => void
+  onChange?: (checkboxes: CheckboxDropdownData, isActive: boolean) => void
 };
 
 const CheckboxDropdown = (props: CheckboxDropdownProps) => {
@@ -93,5 +93,5 @@ const CheckboxDropdown = (props: CheckboxDropdownProps) => {
   );
 };
 
-export type { Checkboxes };
+export type { CheckboxDropdownData };
 export default CheckboxDropdown;
