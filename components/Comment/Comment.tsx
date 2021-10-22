@@ -8,7 +8,7 @@ import styles from './comment.module.scss';
 type CommentProps = {
   srcIcon: string,
   userName: string,
-  date: Date,
+  date: string,
   text: string,
   like: { amountLike: number; isLiked: boolean }
   onChange?: (amountLike: number, isLiked: boolean) => void,
@@ -24,7 +24,7 @@ const Comment = (props: CommentProps) => {
     onChange,
   } = props;
 
-  const dateComment = date.getTime();
+  const dateComment = new Date(date).getTime();
   const currentDate = Date.now();
   const amountDays = Math.floor((currentDate - dateComment) / 86400000);
 

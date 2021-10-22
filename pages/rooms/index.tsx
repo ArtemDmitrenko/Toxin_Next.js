@@ -1,7 +1,7 @@
 import Dropdown, { DropdownConfig } from 'Components/Dropdown/Dropdown';
 import RulesList from 'Root/components/RulesList/RulesList';
-import Comment from 'Components/Comment/Comment';
-import userComment from 'Components/Comment/comment.json';
+import Comments from 'Components/Comments/Comments';
+import userComments from 'Components/Comments/comments.json';
 import Pagination from 'Components/Pagination/Pagination';
 import roomsJSON from 'Root/public/rooms-mock/rooms.json';
 
@@ -68,13 +68,14 @@ const Rooms = () => (
         rulesList={rulesList}
       />
     </div>
-    <Comment
+    {/* <Comment
       srcIcon={userComment.srcIcon}
       userName={userComment.userName}
       date={new Date(userComment.date)}
       text={userComment.text}
       like={userComment.like}
-    />
+    /> */}
+    <Comments comments={userComments} />
     <Pagination itemsPerPage={12} allItems={roomsJSON} onChange={(pageNumber) => console.log(`Page ${pageNumber + 1} is clicked`)} />
   </div>
 );
