@@ -1,8 +1,10 @@
-import DateRange from 'Components/DateRange/DateRange';
-import Dropdown, { DropdownConfig } from 'Components/Dropdown/Dropdown';
-import RangeSlider from 'Components/RangeSlider/RangeSlider';
-import Checkbox from 'Components/Checkbox/Checkbox';
-import CheckboxDropdown from 'Components/CheckboxDropdown/CheckboxDropdown';
+import { useState } from 'react';
+
+import DateRange, { DatesOfStay } from 'Components/DateRange/DateRange';
+import Dropdown, { DropdownConfig, DropdownData } from 'Components/Dropdown/Dropdown';
+import RangeSlider, { RangeSliderData } from 'Components/RangeSlider/RangeSlider';
+import Checkbox, { CheckboxData } from 'Components/Checkbox/Checkbox';
+import CheckboxDropdown, { CheckboxDropdownData } from 'Components/CheckboxDropdown/CheckboxDropdown';
 
 import styles from './searchFilter.module.scss';
 
@@ -66,13 +68,13 @@ const checkboxAvailabilities = [
     title: 'Широкий коридор',
     description: 'Ширина коридоров в номере не\xa0менее 91 см.',
     isBoldTitle: true,
-    name: 'isSmoke',
+    name: 'isWideHall',
   },
   {
     title: 'Помощник для инвалидов',
     description: 'На 1 этаже вас встретит специалист и\xa0проводит до номера',
     isBoldTitle: true,
-    name: 'isPets',
+    name: 'isHelper',
   },
 ];
 
@@ -111,7 +113,31 @@ const checkboxList = {
   },
 };
 
-const SearchFilter = () => {
+type SearchFilterState = {
+  dateRange?: DatesOfStay,
+  guestsDropdown?: DropdownData,
+  rangeSlider?: RangeSliderData,
+  checkboxRules?: {
+    [key: string]: boolean,
+  },
+  checkboxAvailability?: {
+    [key: string]: boolean,
+  },
+  facilitiesData?: DropdownData,
+  checkboxDropdown?: CheckboxDropdownData,
+};
+
+type SearchFilterProps = {
+  onChange?: (data: SearchFilterState) => void,
+};
+
+const SearchFilter = (props: SearchFilterProps) => {
+  const {
+    onChange,
+  } = props;
+
+  const [filter, setFilter] = useState<SearchFilterState>({});
+
   const stylesCheckboxRule = () => (
     `${styles.checkbox} ${styles.checkboxRule}`
   );
@@ -120,12 +146,59 @@ const SearchFilter = () => {
     `${styles.checkbox} ${styles.checkboxAvailability}`
   );
 
+  const handleElementChange = <T extends {}>(propName: string, data: T) => {
+    const newState = { ...filter, [propName]: data };
+
+    setFilter(newState);
+
+    if (onChange) onChange(newState);
+  };
+
+  const handleCheckboxRulesChange = (data: CheckboxData) => {
+    const newState = {
+      ...filter,
+      checkboxRules: {
+        ...filter.checkboxRules,
+        [data.name]: data.isChecked,
+      },
+    };
+
+    setFilter(newState);
+
+    if (onChange) onChange(newState);
+  };
+
+  const handleCheckboxAvailabilityChange = (data: CheckboxData) => {
+    const newState = {
+      ...filter,
+      checkboxAvailability: {
+        ...filter.checkboxAvailability,
+        [data.name]: data.isChecked,
+      },
+    };
+
+    setFilter(newState);
+
+    if (onChange) onChange(newState);
+  };
+
   return (
     <div>
-      <DateRange headers={['даты пребывания в отеле']} />
+      <DateRange
+        headers={['даты пребывания в отеле']}
+        onChange={(data: DatesOfStay) => {
+          handleElementChange<DatesOfStay>('dateRange', data);
+        }}
+      />
       <div className={styles.wrapper}>
         <label className={styles.title}>Гости</label>
-        <Dropdown list={guestDropdownConfig} placeholder="Сколько гостей" />
+        <Dropdown
+          list={guestDropdownConfig}
+          placeholder="Сколько гостей"
+          onChange={(data: DropdownData) => {
+            handleElementChange<DropdownData>('guestsDropdown', data);
+          }}
+        />
       </div>
       <div className={styles.wrapperLarge}>
         <RangeSlider
@@ -135,6 +208,9 @@ const SearchFilter = () => {
           valueTo={10000}
           title="Диапазон цены"
           postfix="₽"
+          onChange={(data: RangeSliderData) => {
+            handleElementChange<RangeSliderData>('rangeSlider', data);
+          }}
         />
         <p className={styles.description}>Стоимость за сутки пребывания в номере</p>
       </div>
@@ -151,6 +227,7 @@ const SearchFilter = () => {
                   title={checkbox.title}
                   name={checkbox.name}
                   isChecked={checkbox.isChecked}
+                  onChange={handleCheckboxRulesChange}
                 />
               </div>
             ))
@@ -171,6 +248,7 @@ const SearchFilter = () => {
                   name={checkbox.name}
                   isBoldTitle={checkbox.isBoldTitle}
                   description={checkbox.description}
+                  onChange={handleCheckboxAvailabilityChange}
                 />
               </div>
             ))
@@ -183,13 +261,23 @@ const SearchFilter = () => {
           list={facilitiesDropdownConfig}
           placeholder="Выберите удобства"
           isButtons={false}
+          onChange={(data: DropdownData) => {
+            handleElementChange<DropdownData>('facilitiesDropdown', data);
+          }}
         />
       </div>
       <div className={styles.wrapperLarge}>
-        <CheckboxDropdown title="Дополнительные удобства" checkboxes={checkboxList} />
+        <CheckboxDropdown
+          title="Дополнительные удобства"
+          checkboxes={checkboxList}
+          onChange={(data: CheckboxDropdownData) => {
+            handleElementChange<CheckboxDropdownData>('checkboxDropdown', data);
+          }}
+        />
       </div>
     </div>
   );
 };
 
+export type { SearchFilterState };
 export default SearchFilter;
