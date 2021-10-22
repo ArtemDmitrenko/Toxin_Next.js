@@ -68,13 +68,6 @@ const Rooms = () => (
         rulesList={rulesList}
       />
     </div>
-    {/* <Comment
-      srcIcon={userComment.srcIcon}
-      userName={userComment.userName}
-      date={new Date(userComment.date)}
-      text={userComment.text}
-      like={userComment.like}
-    /> */}
     <Comments comments={userComments} />
     <Pagination itemsPerPage={12} allItems={roomsJSON} onChange={(pageNumber) => console.log(`Page ${pageNumber + 1} is clicked`)} />
   </div>

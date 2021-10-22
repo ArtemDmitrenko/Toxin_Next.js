@@ -10,8 +10,9 @@ type CommentProps = {
   userName: string,
   date: string,
   text: string,
-  like: { amountLike: number; isLiked: boolean }
-  onChange?: (amountLike: number, isLiked: boolean) => void,
+  name: string,
+  like: { amountLike: number; isLiked: boolean, name: string }
+  onChange?: (amountLike: number, isLiked: boolean, name: string) => void,
 };
 
 const Comment = (props: CommentProps) => {
@@ -21,6 +22,7 @@ const Comment = (props: CommentProps) => {
     date,
     text,
     like,
+    name,
     onChange,
   } = props;
 
@@ -55,6 +57,7 @@ const Comment = (props: CommentProps) => {
           <Like
             amountLike={like.amountLike}
             isLiked={like.isLiked}
+            name={name}
             onChange={onChange}
           />
         </div>
@@ -65,3 +68,4 @@ const Comment = (props: CommentProps) => {
 };
 
 export default Comment;
+export type { CommentProps };

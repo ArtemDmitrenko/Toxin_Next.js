@@ -5,10 +5,16 @@ import styles from './like.module.scss';
 type LikeProps = {
   amountLike: number,
   isLiked?: boolean,
-  onChange?: (amountLike: number, isLiked: boolean) => void,
+  name: string,
+  onChange?: (amountLike: number, isLiked: boolean, name: string) => void,
 };
 
-const Like = ({ amountLike, isLiked = false, onChange }: LikeProps) => {
+const Like = ({
+  amountLike,
+  isLiked = false,
+  name,
+  onChange,
+}: LikeProps) => {
   const [amount, setAmount] = useState(amountLike);
   const [active, setActive] = useState(isLiked);
 
@@ -23,7 +29,7 @@ const Like = ({ amountLike, isLiked = false, onChange }: LikeProps) => {
       }
 
       if (onChange) {
-        onChange(newAmount, !active);
+        onChange(newAmount, !active, name);
       }
 
       return newAmount;
