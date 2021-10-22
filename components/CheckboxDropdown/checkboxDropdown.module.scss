@@ -1,0 +1,51 @@
+@import 'Root/style/variables.scss';
+
+.checkboxDropdown {
+  display: inline-block;
+  user-select: none;
+}
+
+.title {
+  @include h3();
+  position: relative;
+  padding-right: 30px;
+  cursor: pointer;
+
+  &::before {
+    $side: 7px;
+    position: absolute;
+    top: 50%;
+    right: 7px;
+    width: $side;
+    height: $side;
+    border: 2px solid $textColor50;
+    border-top: none;
+    border-left: none;
+    transform: translate(-50%, -70%) rotate(45deg);
+    transform-origin: 50% 50%;
+    transition: transform 0.2s ease-in-out;
+    content: '';
+  }
+
+  &Active {
+    &::before {
+      transform: translate(-50%, -30%) rotate(-135deg);
+    }
+  }
+}
+
+.list {
+  display: none;
+  margin: 0;
+  padding: 0;
+  padding-top: 10px;
+  list-style-type: none;
+
+  &Active {
+    display: block;
+  }
+}
+
+.item {
+  margin: 6px 0;
+}
