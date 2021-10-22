@@ -16,11 +16,11 @@ type CommentsProps = {
     name: string,
     onChange?: (amountLike: number, isLiked: boolean, name: string) => void,
   }>,
-  onChange?: (amountLike: number, isLiked: boolean, name: string) => void,
+  onChangeComment?: (amountLike: number, isLiked: boolean, name: string) => void,
 };
 
 const Comments = (props: CommentsProps) => {
-  const { comments, onChange } = props;
+  const { comments, onChangeComment } = props;
 
   const [commentList, setCommentList] = useState(comments);
 
@@ -36,12 +36,11 @@ const Comments = (props: CommentsProps) => {
         }
       });
 
-      if (onChange) {
-        onChange(amountLike, isLiked, name);
-      }
-
       return newCommentList;
     });
+    if (onChangeComment) {
+      onChangeComment(amountLike, isLiked, name);
+    }
   };
 
   return (
@@ -57,7 +56,7 @@ const Comments = (props: CommentsProps) => {
             name: `comment-${index + 1}`,
           };
           return (
-            <div className={styles.comment}>
+            <div className={styles.comment} key={comment.srcIcon}>
               <Comment
                 srcIcon={comment.srcIcon}
                 userName={comment.userName}
