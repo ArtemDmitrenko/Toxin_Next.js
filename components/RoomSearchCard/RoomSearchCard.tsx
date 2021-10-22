@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 import Reference from 'Components/Reference/Reference';
-import Dropdown, { DropdownConfig, Groups } from 'Components/Dropdown/Dropdown';
+import Dropdown, { DropdownConfig } from 'Components/Dropdown/Dropdown';
 import DateRange, { DateRangeConfig, DatesOfStay } from 'Components/DateRange/DateRange';
 
 import styles from './roomSearchCard.module.scss';
@@ -37,24 +37,8 @@ const RoomSearchCard = (props: RoomSearchCardProps) => {
     });
   };
 
-  const handleNumberOfGuestChange = (
-    guestGroups: Groups,
-  ) => {
-    const newNumberOfGuests: {
-      [key:string]: number,
-    } = {};
-
-    Object.entries(guestGroups).forEach(([groupName, group]) => {
-      let groupSum = 0;
-
-      Object.values(group.items).forEach((item) => {
-        groupSum += item.value;
-      });
-
-      newNumberOfGuests[groupName] = groupSum;
-    });
-
-    setNumberOfGuests(newNumberOfGuests);
+  const handleNumberOfGuestChange = (data: { [key:string]: number }) => {
+    setNumberOfGuests(data);
   };
 
   const handleButtonClick = () => {
