@@ -1,7 +1,7 @@
 import Image from 'next/image';
 
 import convertNumToWordform from 'Root/utils/convertNumToWordform';
-import Like from 'Components/Like/Like';
+import Like, { LikeData } from 'Components/Like/Like';
 
 import styles from './comment.module.scss';
 
@@ -12,7 +12,7 @@ type CommentProps = {
   text: string,
   name: string,
   like: { amountLike: number; isLiked: boolean, name: string }
-  onChange?: (amountLike: number, isLiked: boolean, name: string) => void,
+  onChange?: (data: LikeData) => void,
 };
 
 const Comment = (props: CommentProps) => {

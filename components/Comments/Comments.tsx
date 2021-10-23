@@ -1,8 +1,8 @@
 import { useState } from 'react';
-
 import convertNumToWordform from 'Root/utils/convertNumToWordform';
 
 import Comment from 'Components/Comment/Comment';
+import { LikeData } from '../Like/Like';
 
 import styles from './comments.module.scss';
 
@@ -14,32 +14,32 @@ type CommentsProps = {
     text: string,
     like: { amountLike: number; isLiked: boolean },
     name: string,
-    onChange?: (amountLike: number, isLiked: boolean, name: string) => void,
+    onChange?: (data: LikeData) => void,
   }>,
-  onChangeComment?: (amountLike: number, isLiked: boolean, name: string) => void,
+  onChangeComments?: (data: LikeData) => void,
 };
 
 const Comments = (props: CommentsProps) => {
-  const { comments, onChangeComment } = props;
+  const { comments, onChangeComments } = props;
 
   const [commentList, setCommentList] = useState(comments);
 
-  const handleCommentChange = (amountLike: number, isLiked: boolean, name: string) => {
+  const handleCommentChange = (data: LikeData) => {
     setCommentList(() => {
       const newCommentList = { ...commentList };
 
       Object.keys(newCommentList).forEach((item) => {
         const itemNumber: number = Number(item);
-        if (newCommentList[itemNumber].name === name) {
-          newCommentList[itemNumber].like.amountLike = amountLike;
-          newCommentList[itemNumber].like.isLiked = isLiked;
+        if (newCommentList[itemNumber].name === data.name) {
+          newCommentList[itemNumber].like.amountLike = data.amountLike;
+          newCommentList[itemNumber].like.isLiked = data.isLiked;
         }
       });
 
       return newCommentList;
     });
-    if (onChangeComment) {
-      onChangeComment(amountLike, isLiked, name);
+    if (onChangeComments) {
+      onChangeComments(data);
     }
   };
 
