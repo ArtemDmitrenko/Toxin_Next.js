@@ -1,0 +1,96 @@
+@import 'Root/style/variables.scss';
+
+.container {
+  max-width: 1440px;
+  margin: 0 auto;
+}
+
+.content {
+  display: flex;
+  justify-content: space-between;
+  padding: 70px 140px 0;
+
+  @media (max-width: 1240px) {
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 50px;
+  }
+
+  @media (max-width: $mediaSizeLaptop) {
+    padding: 28px 0 0 0;
+  }
+}
+
+.header {
+  @include h2();
+
+  padding-bottom: 20px;
+}
+
+.information {
+  display: grid;
+  grid-gap: 12px 70px;
+  grid-template-columns: 291px 1fr;
+  padding-bottom: 71px;
+
+  @media (max-width: 800px) {
+    grid-template-columns: 320px;
+  }
+
+  @media (max-width: 480px) {
+    max-width: 300px;
+  }
+}
+
+.bookingCard {
+  margin-left: 20px;
+
+  @media (max-width: $mediaSizeDesktop) {
+    padding-bottom: 70px;
+  }
+
+  @media (max-width: $mediaSizeLaptop) {
+    margin-left: 0;
+  }
+}
+
+.bookingMockCard {
+  width: 380px;
+  height: 512px;
+  border: 1px dashed #000;
+}
+
+.mockChart {
+  width: 311px;
+  height: 126px;
+  border: 1px dashed #000;
+}
+
+.feedback {
+  grid-column: 1/3;
+  max-width: 711px;
+  padding-top: 2px;
+  padding-bottom: 23px;
+
+  @media (max-width: $mediaSizeTablet) {
+    grid-column: 1/2;
+  }
+
+  @media (max-width: $mediaSizeMobile) {
+    max-width: 300px;
+    padding: 5px 10px;
+  }
+}
+
+.cancel {
+  max-width: 341px;
+
+  @media (max-width: $mediaSizeMobile) {
+    max-width: 300px;
+    padding: 5px 10px;
+  }
+}
+
+.cancelText {
+  @include paragraph();
+}
