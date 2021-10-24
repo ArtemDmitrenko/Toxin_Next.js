@@ -1,0 +1,36 @@
+@import 'Root/style/variables.scss';
+
+.container {
+  min-width: 200px;
+  max-width: 380px;
+  padding: 40px 30px 30px;
+  background: #fff;
+  border-radius: 4px;
+  box-shadow: $cardShadow;
+
+  @media (max-width: 390px) {
+    padding: 25px 15px 20px;
+  }
+}
+
+.title {
+  @include h1;
+  max-width: 320px;
+}
+
+.dateRange {
+  margin-top: 22px;
+}
+
+.dropdown {
+  margin-top: 20px;
+}
+
+.dropdownTitle {
+  @include h3;
+  padding-bottom: 5px;
+}
+
+.button {
+  margin-top: 30px;
+}
