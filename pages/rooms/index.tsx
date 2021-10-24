@@ -4,6 +4,7 @@ import Comment from 'Components/Comment/Comment';
 import userComment from 'Components/Comment/comment.json';
 import Pagination from 'Components/Pagination/Pagination';
 import roomsJSON from 'Root/public/rooms-mock/rooms.json';
+import ReservationCard from 'Components/ReservationCard/ReservationCard';
 
 import styles from './index.module.scss';
 
@@ -76,6 +77,7 @@ const Rooms = () => (
       like={userComment.like}
     />
     <Pagination itemsPerPage={12} allItems={roomsJSON} onChange={(pageNumber) => console.log(`Page ${pageNumber + 1} is clicked`)} />
+    <ReservationCard roomNumber={100} level="люкс" cost={1000} />
   </div>
 );
 
