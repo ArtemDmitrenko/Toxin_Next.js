@@ -35,7 +35,11 @@ const Comments = (props: CommentsProps) => {
     <div className={styles.comments}>
       <div className={styles.header}>
         <h2 className={styles.title}>Отзывы посетителей номера</h2>
-        <span className={styles.amountComments}>{`${commentsList.length} ${convertNumToWordform(commentsList.length, ['отзыв', 'отзыва', 'отзывов'])}`}</span>
+        <span className={styles.amountComments}>
+          {`${commentsList.length} 
+            ${convertNumToWordform(commentsList.length,
+            ['отзыв', 'отзыва', 'отзывов'])}`}
+        </span>
       </div>
       <div className={styles.content}>
         {commentsList.map((comment, index) => {
