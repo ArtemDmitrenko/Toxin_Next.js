@@ -18,7 +18,11 @@ const Comments = (props: CommentsProps) => {
 
   const handleCommentChange = (commentNumber: number, data: LikeData) => {
     const newCommentList = [...commentsList];
-    newCommentList[commentNumber - 1].like = data;
+    newCommentList.forEach((element, index) => {
+      if (element.commentNumber === commentNumber) {
+        newCommentList[index].like = data;
+      }
+    });
 
     if (onChange) {
       onChange(newCommentList);
