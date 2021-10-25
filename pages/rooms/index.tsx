@@ -1,21 +1,16 @@
 import Layout from 'Components/Layout/Layout';
 import SearchFilter from 'Components/SearchFilter/SearchFilter';
 import Pagination from 'Components/Pagination/Pagination';
+import addDaysToDate from 'Root/utils/addDaysToDate';
 import roomsMock from 'Root/public/rooms-mock/rooms.json';
 import { DropdownConfig } from 'Root/components/Dropdown/Dropdown';
 
 import styles from './index.module.scss';
 
-const dateCalculate = (date: Date) => {
-  date.setDate(date.getDate() + 3);
-
-  return date;
-};
-
 const dateRange = {
   defaultValues: [
     new Date(),
-    dateCalculate(new Date()),
+    addDaysToDate(new Date(), 3),
   ],
 };
 
