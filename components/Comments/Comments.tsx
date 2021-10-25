@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import convertNumToWordform from 'Root/utils/convertNumToWordform';
 
+import convertNumToWordform from 'Root/utils/convertNumToWordform';
 import Comment from 'Components/Comment/Comment';
-import { LikeData } from '../Like/Like';
+import { LikeData } from 'Components/Like/Like';
 
 import styles from './comments.module.scss';
 
@@ -16,11 +16,10 @@ type CommentsProps = {
     name: string,
     onChange?: (data: LikeData) => void,
   }>,
-  onChangeComments?: (data: LikeData) => void,
 };
 
 const Comments = (props: CommentsProps) => {
-  const { comments, onChangeComments } = props;
+  const { comments } = props;
 
   const [commentList, setCommentList] = useState(comments);
 
@@ -38,9 +37,6 @@ const Comments = (props: CommentsProps) => {
 
       return newCommentList;
     });
-    if (onChangeComments) {
-      onChangeComments(data);
-    }
   };
 
   return (
