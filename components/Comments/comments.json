@@ -1,5 +1,5 @@
-{
-  "0": {
+[
+  {
     "srcIcon": "/images/users/murad-sarafanov.jpg",
     "userName": "Мурад Сарафанов",
     "date": "2021-10-01T00:00:00.000Z",
@@ -7,7 +7,7 @@
     "name": "comment-1",
     "like": { "amountLike": 12, "isLiked": true }
   },
-  "1": {
+  {
   "srcIcon": "/images/users/patrisija-stjoklyshkova.jpg",
   "userName": "Патрисия Стёклышкова",
   "date": "2021-09-20T00:00:00.000Z",
@@ -15,4 +15,4 @@
   "name": "comment-2",
   "like": { "amountLike": 2, "isLiked": false }
   }
-}
+]

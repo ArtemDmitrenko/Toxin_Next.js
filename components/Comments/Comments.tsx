@@ -6,8 +6,8 @@ import { LikeData } from 'Components/Like/Like';
 
 import styles from './comments.module.scss';
 
-type CommentType = {
-  [key: string]: {
+type CommentsProps = {
+  comments: Array<{
     srcIcon: string,
     userName: string,
     date: string,
@@ -15,11 +15,7 @@ type CommentType = {
     like: { amountLike: number; isLiked: boolean },
     name: string,
     onChange?: (data: LikeData) => void,
-  },
-};
-
-type CommentsProps = {
-  comments: CommentType;
+  }>,
 };
 
 const Comments = (props: CommentsProps) => {
@@ -29,7 +25,7 @@ const Comments = (props: CommentsProps) => {
 
   const handleCommentChange = (data: LikeData) => {
     setCommentList(() => {
-      const newCommentList = { ...commentList };
+      const newCommentList = [...commentList];
 
       Object.keys(newCommentList).forEach((item) => {
         const itemNumber: number = Number(item);
@@ -47,21 +43,21 @@ const Comments = (props: CommentsProps) => {
     <div className={styles.comments}>
       <div className={styles.header}>
         <h2 className={styles.title}>Отзывы посетителей номера</h2>
-        <span className={styles.amountComments}>{`${comments.length} ${convertNumToWordform(Object.keys(commentList).length, ['отзыв', 'отзыва', 'отзывов'])}`}</span>
+        <span className={styles.amountComments}>{`${commentList.length} ${convertNumToWordform(commentList.length, ['отзыв', 'отзыва', 'отзывов'])}`}</span>
       </div>
       <div className={styles.content}>
-        {Object.keys(commentList).map((key, index) => {
+        {commentList.map((comment, index) => {
           const like = {
-            ...commentList[key].like,
+            ...comment.like,
             name: `comment-${index + 1}`,
           };
           return (
-            <div className={styles.comment} key={commentList[key].srcIcon}>
+            <div className={styles.comment} key={comment.srcIcon}>
               <Comment
-                srcIcon={commentList[key].srcIcon}
-                userName={commentList[key].userName}
-                date={commentList[key].date}
-                text={commentList[key].text}
+                srcIcon={comment.srcIcon}
+                userName={comment.userName}
+                date={comment.date}
+                text={comment.text}
                 like={like}
                 name={`comment-${index + 1}`}
                 onChange={handleCommentChange}
