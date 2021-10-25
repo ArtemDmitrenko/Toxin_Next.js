@@ -1,4 +1,5 @@
 import Dropdown, { DropdownConfig } from 'Components/Dropdown/Dropdown';
+import Impressions from 'Components/Impressions/Impressions';
 import CheckboxDropdown from 'Components/CheckboxDropdown/CheckboxDropdown';
 import RulesList from 'Root/components/RulesList/RulesList';
 
@@ -94,6 +95,7 @@ const Rooms = () => (
       <Dropdown list={guestsDropdownConfig} placeholder="Сколько гостей" />
       <Dropdown list={facilitiesDropdownConfig} placeholder="Выберите удобства" isButtons={false} />
     </div>
+    <Impressions amazing={130} good={65} satisfactorily={65} />
     <div>
       <RulesList
         rulesHeader="правила"
