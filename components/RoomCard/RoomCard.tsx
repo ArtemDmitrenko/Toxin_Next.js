@@ -31,7 +31,11 @@ const RoomCard = (props: RoomCardProps) => {
 
   return (
     <div className={styles.roomCard}>
-      <CarouselImages images={images} />
+      <div className={styles.aspectRatio}>
+        <div className={styles.imageWrapper}>
+          <CarouselImages images={images} />
+        </div>
+      </div>
       <Link href={href} passHref>
         <a className={styles.linkRoom} href="replace">
           <div className={styles.description}>
