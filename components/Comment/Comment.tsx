@@ -10,9 +10,9 @@ type CommentProps = {
   userName: string,
   date: string,
   text: string,
-  name: string,
-  like: { amountLike: number; isLiked: boolean, name: string }
-  onChange?: (data: LikeData) => void,
+  commentNumber: number,
+  like: { amountLike: number; isLiked: boolean }
+  onChange?: (commentNumber: number, data: LikeData) => void,
 };
 
 const Comment = (props: CommentProps) => {
@@ -22,13 +22,19 @@ const Comment = (props: CommentProps) => {
     date,
     text,
     like,
-    name,
+    commentNumber,
     onChange,
   } = props;
 
   const dateComment = new Date(date).getTime();
   const currentDate = Date.now();
   const amountDays = Math.floor((currentDate - dateComment) / 86400000);
+
+  const handleLikeChange = (data: LikeData) => {
+    if (onChange) {
+      onChange(commentNumber, data);
+    }
+  };
 
   const makeDateString = () => {
     const month = Math.floor(amountDays / 30);
@@ -57,8 +63,7 @@ const Comment = (props: CommentProps) => {
           <Like
             amountLike={like.amountLike}
             isLiked={like.isLiked}
-            name={name}
-            onChange={onChange}
+            onChange={handleLikeChange}
           />
         </div>
         <p className={styles.text}>{text}</p>

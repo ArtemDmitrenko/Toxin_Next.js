@@ -16,16 +16,9 @@ const Comments = (props: CommentsProps) => {
 
   const [commentsList, setCommentList] = useState(comments);
 
-  const handleCommentChange = (data: LikeData) => {
+  const handleCommentChange = (commentNumber: number, data: LikeData) => {
     const newCommentList = [...commentsList];
-
-    Object.keys(newCommentList).forEach((item) => {
-      const itemNumber: number = Number(item);
-      if (newCommentList[itemNumber].name === data.name) {
-        newCommentList[itemNumber].like.amountLike = data.amountLike;
-        newCommentList[itemNumber].like.isLiked = data.isLiked;
-      }
-    });
+    newCommentList[commentNumber].like = data;
 
     if (onChange) {
       onChange(newCommentList);
@@ -54,7 +47,7 @@ const Comments = (props: CommentsProps) => {
                 date={comment.date}
                 text={comment.text}
                 like={like}
-                name={`comment-${index + 1}`}
+                commentNumber={index}
                 onChange={handleCommentChange}
               />
             </div>
