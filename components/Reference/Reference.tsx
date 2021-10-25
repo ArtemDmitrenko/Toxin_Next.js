@@ -5,11 +5,17 @@ import styles from './reference.module.scss';
 type ReferenceProps = {
   text: string,
   type: 'bordered' | 'solid' | 'directed',
-  size: 'big' | 'small'
+  size: 'big' | 'small',
+  href: string,
 };
 
 const Reference = (props: ReferenceProps) => {
-  const { text, type, size } = props;
+  const {
+    text,
+    type,
+    size,
+    href = '/',
+  } = props;
   const classesArr = [styles.reference];
 
   if (type === 'bordered') classesArr.push(styles.bordered);
@@ -21,7 +27,7 @@ const Reference = (props: ReferenceProps) => {
   const classes = classesArr.join(' ');
 
   return (
-    <Link href="/" passHref>
+    <Link href={href} passHref>
       <a href="replace" className={classes}>
         {text}
       </a>
