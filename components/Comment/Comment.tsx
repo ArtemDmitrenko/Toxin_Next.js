@@ -10,9 +10,8 @@ type CommentProps = {
   userName: string,
   date: string,
   text: string,
-  commentNumber: number,
   like: { amountLike: number; isLiked: boolean }
-  onChange?: (commentNumber: number, data: LikeData) => void,
+  onChange?: (data: LikeData) => void,
 };
 
 const Comment = (props: CommentProps) => {
@@ -22,7 +21,6 @@ const Comment = (props: CommentProps) => {
     date,
     text,
     like,
-    commentNumber,
     onChange,
   } = props;
 
@@ -32,7 +30,7 @@ const Comment = (props: CommentProps) => {
 
   const handleLikeChange = (data: LikeData) => {
     if (onChange) {
-      onChange(commentNumber, data);
+      onChange(data);
     }
   };
 
