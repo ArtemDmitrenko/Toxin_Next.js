@@ -1,5 +1,7 @@
 import Layout from 'Components/Layout/Layout';
 import SearchFilter from 'Components/SearchFilter/SearchFilter';
+import Pagination from 'Components/Pagination/Pagination';
+import roomsMock from 'Root/public/rooms-mock/rooms.json';
 import { DropdownConfig } from 'Root/components/Dropdown/Dropdown';
 
 import styles from './index.module.scss';
@@ -143,8 +145,12 @@ const Rooms = () => (
         facilitiesDropdownConfig={facilitiesDropdown}
         checkboxDropdownConfig={checkboxDropdown}
       />
-      <div className={styles.roomsCell}>
-        Here will be rooms
+      <div className={styles.rooms}>
+        <h1 className={styles.title}>Номера, которые мы для вас подобрали</h1>
+        <Pagination
+          itemsPerPage={12}
+          allItems={roomsMock}
+        />
       </div>
     </div>
   </Layout>

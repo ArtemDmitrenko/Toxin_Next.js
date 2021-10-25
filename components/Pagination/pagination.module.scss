@@ -1,14 +1,13 @@
 @import 'Root/style/variables.scss';
 
 .list {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  margin: 0 0 41px 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+  grid-gap: 20px 10px;
+  margin: 0;
   padding: 0;
-  column-gap: 12px;
+  margin-bottom: 41px;
   list-style: none;
-  row-gap: 21px;
 }
 
 .container {
