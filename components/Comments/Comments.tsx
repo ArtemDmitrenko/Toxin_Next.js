@@ -25,7 +25,6 @@ const Comments = (props: CommentsProps) => {
     }
 
     setCommentList(newCommentList);
-    console.log('newCommentList', newCommentList);
   };
 
   return (
