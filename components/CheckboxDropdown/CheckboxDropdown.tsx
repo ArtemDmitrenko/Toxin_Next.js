@@ -1,10 +1,10 @@
 import { useState } from 'react';
 
-import Checkbox from 'Components/Checkbox/Checkbox';
+import Checkbox, { CheckboxData } from 'Components/Checkbox/Checkbox';
 
 import styles from './checkboxDropdown.module.scss';
 
-type Checkboxes = {
+type CheckboxDropdownData = {
   [key: string]: {
     title: string,
     isChecked: boolean,
@@ -12,10 +12,10 @@ type Checkboxes = {
 };
 
 type CheckboxDropdownProps = {
-  checkboxes: Checkboxes,
+  checkboxes: CheckboxDropdownData,
   title: string,
   isActive?: boolean,
-  onChange?: (checkboxes: Checkboxes, isActive: boolean) => void
+  onChange?: (checkboxes: CheckboxDropdownData, isActive: boolean) => void
 };
 
 const CheckboxDropdown = (props: CheckboxDropdownProps) => {
@@ -38,27 +38,19 @@ const CheckboxDropdown = (props: CheckboxDropdownProps) => {
   );
 
   const handleListToggle = () => {
-    setActive((prevState) => {
-      if (onChange) {
-        onChange(checkboxList, !prevState);
-      }
-
-      return !prevState;
-    });
+    setActive(!active);
   };
 
-  const handleCheckboxChange = (name: string, checked: boolean) => {
-    setCheckboxList((prevState) => {
-      const newState = { ...prevState };
+  const handleCheckboxChange = (data: CheckboxData) => {
+    const newState = { ...checkboxList };
 
-      newState[name].isChecked = checked;
+    newState[data.name].isChecked = data.isChecked;
 
-      if (onChange) {
-        onChange(newState, active);
-      }
+    setCheckboxList(newState);
 
-      return newState;
-    });
+    if (onChange) {
+      onChange(newState, active);
+    }
   };
 
   return (
@@ -93,5 +85,5 @@ const CheckboxDropdown = (props: CheckboxDropdownProps) => {
   );
 };
 
-export type { Checkboxes };
+export type { CheckboxDropdownData };
 export default CheckboxDropdown;

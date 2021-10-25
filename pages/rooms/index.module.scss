@@ -1,4 +1,14 @@
-.row {
-  display: flex;
-  flex-grow: 1;
+@import 'Root/style/variables.scss';
+
+.grid {
+  @include container();
+  display: grid;
+  width: 100%;
+  grid-template-columns: 267px 1fr;
+  grid-column-gap: 5%;
+  padding: 30px 20px 78px;
+}
+
+.roomsCell {
+  background-color: tomato;
 }
