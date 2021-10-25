@@ -67,5 +67,5 @@ const Comment = (props: CommentProps) => {
   );
 };
 
-export default Comment;
 export type { CommentProps };
+export default Comment;
