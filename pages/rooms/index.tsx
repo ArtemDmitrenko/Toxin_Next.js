@@ -3,7 +3,7 @@ import Comment from 'Components/Comment/Comment';
 import userComment from 'Components/Comment/comment.json';
 import Pagination from 'Components/Pagination/Pagination';
 import roomsJSON from 'Root/public/rooms-mock/rooms.json';
-import ReservationCard from 'Components/ReservationCard/ReservationCard';
+import ReservationCard, { Service } from 'Components/ReservationCard/ReservationCard';
 
 import styles from './index.module.scss';
 
@@ -12,11 +12,13 @@ const guestsDropdownConfig: DropdownConfig = [
     title: 'Взрослые',
     group: 'guests',
     wordforms: ['гость', 'гостя', 'гостей'],
+    defaultValue: 2,
   },
   {
     title: 'Дети',
     group: 'guests',
     wordforms: ['гость', 'гостя', 'гостей'],
+    defaultValue: 1,
   },
   {
     title: 'Младенцы',
@@ -46,6 +48,12 @@ const facilitiesDropdownConfig: DropdownConfig = [
   },
 ];
 
+const service: Service = {
+  discount: 2179,
+  serviceCost: 0,
+  extraServiceCost: 300,
+};
+
 const Rooms = () => (
   <div>
     <div>
@@ -64,7 +72,7 @@ const Rooms = () => (
       like={userComment.like}
     />
     <Pagination itemsPerPage={12} allItems={roomsJSON} onChange={(pageNumber) => console.log(`Page ${pageNumber + 1} is clicked`)} />
-    <ReservationCard roomNumber={100} level="люкс" cost={1000} />
+    <ReservationCard roomNumber={888} level="люкс" cost={9990} datesOfStay={{ arrival: '2019-08-19', departure: '2019-08-23' }} guests={guestsDropdownConfig} services={service} />
   </div>
 );
 

@@ -14,11 +14,17 @@
   display: flex;
   justify-content: space-between;
   width: 100%;
+  margin-bottom: 20px;
 }
 
 .signNumber {
   padding-right: 5px;
   font-weight: bold;
+}
+
+.dates,
+.dropdown {
+  margin-bottom: 20px;
 }
 
 .roomNumber {
@@ -64,49 +70,72 @@
 .costItem {
   display: flex;
   justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.block {
+  display: flex;
+  flex-grow: 1;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.total {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-top: 30px;
+  margin-bottom: 20px;
 }
 
 .final {
   @include h2();
   color: $textColor;
+
+  &::after {
+    position: relative;
+    content: '\20BD';
+  }
+}
+
+.finalTitle {
+  @include h2();
+  color: $textColor;
 }
 
 .points {
-  color: $textColor25;
+  flex-grow: 0.95;
+  border-bottom: 1px dotted $textColor25;
 }
 
-// .reviews {
-//   display: flex;
-//   justify-content: space-between;
-//   width: 100%;
-// }
+.sum {
+  &::after {
+    position: relative;
+    content: '\20BD';
+  }
+}
 
-// .rating {
-//   width: 120px;
-// }
+.calc {
+  flex-basis: 69%;
+}
 
-// .signStar {
-//   display: inline-block;
-//   color: $primaryColor;
-//   font-size: 24px;
-//   font-family: 'Material Icons', Arial, sans-serif;
-//   cursor: default;
-// }
+.discount {
+  flex-basis: 69%;
 
-// .filledStar::before {
-//   content: '\e838';
-// }
+  &::after {
+    position: relative;
+    content: '\20BD';
+  }
+}
 
-// .borderedStar::before {
-//   content: '\e83a';
-// }
+.button {
+  padding: 0;
+  color: inherit;
+  font: inherit;
+  background-color: transparent;
+  border: none;
 
-// .amountReviews {
-//   display: flex;
-//   align-items: center;
-// }
-
-// .amount {
-//   padding-right: 7px;
-//   font-weight: bold;
-// }
+  /* отображаем курсор в виде руки при наведении; некоторые
+  считают, что необходимо оставлять стрелочный вид для кнопок */
+  cursor: pointer;
+}
