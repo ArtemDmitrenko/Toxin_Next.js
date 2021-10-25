@@ -15,7 +15,7 @@ type DropdownProps = {
   list: DropdownConfig,
   isButtons?: boolean,
   placeholder?: string,
-  onChange?: (data: Groups) => void,
+  onChange?: (data: { [key:string]: number }) => void,
 };
 
 type Groups = {
@@ -93,6 +93,24 @@ const Dropdown = (props: DropdownProps) => {
     return Object.values(items).reduce((prev, current) => (prev + current.value), 0);
   };
 
+  const convertToOutput = (state: DropdownState): { [key:string]: number } => {
+    const { groups } = state;
+
+    const output: { [key:string]: number } = {};
+
+    Object.entries(groups).forEach(([groupName, group]) => {
+      let sum = 0;
+
+      Object.values(group.items).forEach((item) => {
+        sum += item.value;
+      });
+
+      output[groupName] = sum;
+    });
+
+    return output;
+  };
+
   const outputGenerate = () => {
     const outputStr: Array<string> = [];
 
@@ -151,79 +169,73 @@ const Dropdown = (props: DropdownProps) => {
   const handleMinusClick = (groupName: string, itemName: string) => {
     if (dropdown.groups[groupName].items[itemName].value <= 0) return;
 
-    setDropdown((prevState) => {
-      const newState = {
-        ...prevState,
-        groups: {
-          ...prevState.groups,
-          [groupName]: {
-            ...prevState.groups[groupName],
-            items: {
-              ...prevState.groups[groupName].items,
-              [itemName]: {
-                ...prevState.groups[groupName].items[itemName],
-                value: prevState.groups[groupName].items[itemName].value - 1,
-              },
+    const newState = {
+      ...dropdown,
+      groups: {
+        ...dropdown.groups,
+        [groupName]: {
+          ...dropdown.groups[groupName],
+          items: {
+            ...dropdown.groups[groupName].items,
+            [itemName]: {
+              ...dropdown.groups[groupName].items[itemName],
+              value: dropdown.groups[groupName].items[itemName].value - 1,
             },
           },
         },
-      };
+      },
+    };
 
-      if (onChange) {
-        onChange({ ...newState.groups });
-      }
+    setDropdown(newState);
 
-      return newState;
-    });
+    if (onChange) {
+      onChange(convertToOutput(newState));
+    }
   };
 
   const handlePlusClick = (groupName: string, itemName: string) => {
     if (groupSum(groupName) >= MAX_GROUP_VALUE) return;
 
-    setDropdown((prevState) => {
-      const newState = {
-        ...prevState,
-        groups: {
-          ...prevState.groups,
-          [groupName]: {
-            ...prevState.groups[groupName],
-            items: {
-              ...prevState.groups[groupName].items,
-              [itemName]: {
-                ...prevState.groups[groupName].items[itemName],
-                value: prevState.groups[groupName].items[itemName].value + 1,
-              },
+    const newState = {
+      ...dropdown,
+      groups: {
+        ...dropdown.groups,
+        [groupName]: {
+          ...dropdown.groups[groupName],
+          items: {
+            ...dropdown.groups[groupName].items,
+            [itemName]: {
+              ...dropdown.groups[groupName].items[itemName],
+              value: dropdown.groups[groupName].items[itemName].value + 1,
             },
           },
         },
-      };
+      },
+    };
 
-      if (onChange) {
-        onChange({ ...newState.groups });
-      }
+    setDropdown(newState);
 
-      return newState;
-    });
+    if (onChange) {
+      onChange(convertToOutput(newState));
+    }
   };
 
   const handleClearClick = () => {
-    setDropdown((prevState) => {
-      const newState = { ...prevState };
+    const newState = { ...dropdown };
 
-      Object.values(newState.groups).forEach((group) => {
-        Object.values(group.items).forEach((item) => {
-          Object.defineProperty(item, 'value', { value: 0 });
-        });
+    Object.values(newState.groups).forEach((group) => {
+      Object.values(group.items).forEach((item) => {
+        Object.defineProperty(item, 'value', { value: 0 });
       });
-
-      newState.output = '';
-
-      if (onChange) {
-        onChange({ ...newState.groups });
-      }
-
-      return newState;
     });
+
+    newState.output = '';
+
+    setDropdown(newState);
+
+    if (onChange) {
+      onChange(convertToOutput(newState));
+    }
   };
 
   return (
@@ -315,5 +327,5 @@ const Dropdown = (props: DropdownProps) => {
   );
 };
 
-export type { DropdownConfig, Groups };
+export type { DropdownConfig };
 export default Dropdown;
