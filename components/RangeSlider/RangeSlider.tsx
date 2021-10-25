@@ -62,18 +62,25 @@ const RangeSlider = (props: RangeSliderProps) => {
     if (newValues) {
       setValues(newValues);
       setInput(valuesWrapper(newValues, postfix));
+
+      if (onChange) {
+        onChange(newValues);
+      }
     } else {
       setInput(valuesWrapper(values, postfix));
     }
   };
 
-  const handleRangeSliderChange = (newValues: RangeSliderData) => {
+  const handleRangeSliderAfterChange = (newValues: RangeSliderData) => {
     setValues(newValues);
-    setInput(valuesWrapper(newValues, postfix));
 
     if (onChange) {
       onChange(newValues);
     }
+  };
+
+  const handleRangeSliderChange = (newValues: RangeSliderData) => {
+    setInput(valuesWrapper(newValues, postfix));
   };
 
   const handleInputChange = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
@@ -112,6 +119,7 @@ const RangeSlider = (props: RangeSliderProps) => {
         minDistance={minDistance}
         pearling={pearling}
         onChange={handleRangeSliderChange}
+        onAfterChange={handleRangeSliderAfterChange}
         className={styles.rangeSlider}
         thumbClassName={styles.exampleThumb}
         trackClassName={styles.exampleTrack}
