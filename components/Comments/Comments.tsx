@@ -18,13 +18,14 @@ const Comments = (props: CommentsProps) => {
 
   const handleCommentChange = (commentNumber: number, data: LikeData) => {
     const newCommentList = [...commentsList];
-    newCommentList[commentNumber].like = data;
+    newCommentList[commentNumber - 1].like = data;
 
     if (onChange) {
       onChange(newCommentList);
     }
 
     setCommentList(newCommentList);
+    console.log('newCommentList', newCommentList);
   };
 
   return (
@@ -47,7 +48,7 @@ const Comments = (props: CommentsProps) => {
                 date={comment.date}
                 text={comment.text}
                 like={like}
-                commentNumber={index}
+                commentNumber={comment.commentNumber}
                 onChange={handleCommentChange}
               />
             </div>
