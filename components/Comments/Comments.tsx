@@ -47,21 +47,21 @@ const Comments = (props: CommentsProps) => {
     <div className={styles.comments}>
       <div className={styles.header}>
         <h2 className={styles.title}>Отзывы посетителей номера</h2>
-        <span className={styles.amountComments}>{`${comments.length} ${convertNumToWordform(Object.keys(comments).length, ['отзыв', 'отзыва', 'отзывов'])}`}</span>
+        <span className={styles.amountComments}>{`${comments.length} ${convertNumToWordform(Object.keys(commentList).length, ['отзыв', 'отзыва', 'отзывов'])}`}</span>
       </div>
       <div className={styles.content}>
-        {Object.keys(comments).map((key, index) => {
+        {Object.keys(commentList).map((key, index) => {
           const like = {
-            ...comments[key].like,
+            ...commentList[key].like,
             name: `comment-${index + 1}`,
           };
           return (
-            <div className={styles.comment} key={comments[key].srcIcon}>
+            <div className={styles.comment} key={commentList[key].srcIcon}>
               <Comment
-                srcIcon={comments[key].srcIcon}
-                userName={comments[key].userName}
-                date={comments[key].date}
-                text={comments[key].text}
+                srcIcon={commentList[key].srcIcon}
+                userName={commentList[key].userName}
+                date={commentList[key].date}
+                text={commentList[key].text}
                 like={like}
                 name={`comment-${index + 1}`}
                 onChange={handleCommentChange}
