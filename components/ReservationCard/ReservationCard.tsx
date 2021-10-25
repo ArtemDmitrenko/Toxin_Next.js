@@ -176,7 +176,7 @@ const ReservationCard = (props: ReservationCardProps) => {
         type="directed"
         size="big"
         text="забронировать"
-        href="#"
+        href="https://www.mock-link.com/"
         onClick={handleSubmit}
       />
     </form>
