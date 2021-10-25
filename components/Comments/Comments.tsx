@@ -6,8 +6,8 @@ import { LikeData } from 'Components/Like/Like';
 
 import styles from './comments.module.scss';
 
-type CommentsProps = {
-  comments: Array<{
+type CommentType = {
+  [key: string]: {
     srcIcon: string,
     userName: string,
     date: string,
@@ -15,7 +15,11 @@ type CommentsProps = {
     like: { amountLike: number; isLiked: boolean },
     name: string,
     onChange?: (data: LikeData) => void,
-  }>,
+  },
+};
+
+type CommentsProps = {
+  comments: CommentType;
 };
 
 const Comments = (props: CommentsProps) => {
@@ -43,21 +47,21 @@ const Comments = (props: CommentsProps) => {
     <div className={styles.comments}>
       <div className={styles.header}>
         <h2 className={styles.title}>Отзывы посетителей номера</h2>
-        <span className={styles.amountComments}>{`${comments.length} ${convertNumToWordform(comments.length, ['отзыв', 'отзыва', 'отзывов'])}`}</span>
+        <span className={styles.amountComments}>{`${comments.length} ${convertNumToWordform(Object.keys(comments).length, ['отзыв', 'отзыва', 'отзывов'])}`}</span>
       </div>
       <div className={styles.content}>
-        {comments.map((comment, index) => {
+        {Object.keys(comments).map((key, index) => {
           const like = {
-            ...comment.like,
+            ...comments[key].like,
             name: `comment-${index + 1}`,
           };
           return (
-            <div className={styles.comment} key={comment.srcIcon}>
+            <div className={styles.comment} key={comments[key].srcIcon}>
               <Comment
-                srcIcon={comment.srcIcon}
-                userName={comment.userName}
-                date={comment.date}
-                text={comment.text}
+                srcIcon={comments[key].srcIcon}
+                userName={comments[key].userName}
+                date={comments[key].date}
+                text={comments[key].text}
                 like={like}
                 name={`comment-${index + 1}`}
                 onChange={handleCommentChange}
