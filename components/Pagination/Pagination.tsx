@@ -6,6 +6,7 @@ import RoomCard from 'Components/RoomCard/RoomCard';
 import styles from './pagination.module.scss';
 
 type RoomReviews = {
+  terrible?: number,
   bad?: number,
   satisfactory?: number,
   good?: number,
@@ -22,7 +23,6 @@ type RoomType = {
   isLux: boolean,
   cost: number,
   reviews: RoomReviews,
-  imagesPreview: Array<RoomImage>
   images: Array<RoomImage>
 };
 
@@ -37,11 +37,34 @@ const calcAmountReviews = (reviews: RoomReviews) => (
 );
 
 const calcAmountStars = (reviews: RoomReviews) => {
-  const sum = Object.values(reviews).reduce((previewVal, currentVal, index) => (
-    previewVal + currentVal * (index + 1)
-  ));
+  const sum = Object.entries(reviews).reduce((accumulator, [key, value]) => {
+    let coef: number;
 
-  return Math.floor(sum / 5 + 0.5);
+    switch (key) {
+      case 'terrible':
+        coef = 1;
+        break;
+      case 'bad':
+        coef = 2;
+        break;
+      case 'satisfactory':
+        coef = 3;
+        break;
+      case 'good':
+        coef = 4;
+        break;
+      case 'amazing':
+        coef = 5;
+        break;
+      default:
+        coef = 0;
+        break;
+    }
+
+    return accumulator + value * coef;
+  }, 0);
+
+  return Math.floor(sum / calcAmountReviews(reviews) + 0.5);
 };
 
 const Pagination = (props: PaginationProps) => {
@@ -65,7 +88,7 @@ const Pagination = (props: PaginationProps) => {
           isLux={item.isLux}
           cost={item.cost}
           amountReviews={calcAmountReviews(item.reviews)}
-          images={item.imagesPreview}
+          images={item.images}
           href={`/rooms/${item.room}`}
           amountStar={calcAmountStars(item.reviews)}
         />
