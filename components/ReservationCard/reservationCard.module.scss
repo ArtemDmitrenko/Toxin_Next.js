@@ -127,15 +127,3 @@
     content: '\20BD';
   }
 }
-
-.button {
-  padding: 0;
-  color: inherit;
-  font: inherit;
-  background-color: transparent;
-  border: none;
-
-  /* отображаем курсор в виде руки при наведении; некоторые
-  считают, что необходимо оставлять стрелочный вид для кнопок */
-  cursor: pointer;
-}

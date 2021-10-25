@@ -1,9 +1,12 @@
 import { useState } from 'react';
 
-import DateRange, { DateRangeConfig, DatesOfStay } from 'Components/DateRange/DateRange';
+import DateRange, { DatesOfStay } from 'Components/DateRange/DateRange';
 import Dropdown, { DropdownConfig } from 'Components/Dropdown/Dropdown';
 import Reference from 'Components/Reference/Reference';
 import Tooltip from 'Components/Tooltip/Tooltip';
+
+import formatSign from './helpers/formatSign';
+import formatCost from './helpers/formatCost';
 
 import styles from './reservationCard.module.scss';
 
@@ -14,13 +17,12 @@ type Service = {
 };
 
 type ReservationCardData = {
-  datesOfStay: DatesOfStay,
-  numberOfGuests: { [key:string]: number },
   roomNumber: number,
   level?: string,
   cost: number,
-  services: Service,
-  totalCost: number
+  numberOfGuests: { guests: number, babies: number },
+  datesOfStay: DatesOfStay,
+  service: Service,
 };
 
 type ReservationCardProps = {
@@ -29,42 +31,37 @@ type ReservationCardProps = {
   cost: number,
   guests: DropdownConfig,
   datesOfStay: DatesOfStay,
-  services: Service,
-  onSubmit?: (data: ReservationCardData) => void,
+  service: Service,
+  onSubmit: (data: ReservationCardData) => void,
 };
-
-
-
-
-
-
-// Helpers
-const setSign = (daysToStay: number): string => {
-  const sign = (daysToStay % 10 === 1 && daysToStay !== 11) ? 'сутки' : 'суток';
-  return sign;
-};
-
-const displayCost = (cost: number): string => (
-  cost.toString().replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1 ')
-);
-
-
-
-
-
-
-
-
-
 
 const ReservationCard = (props: ReservationCardProps) => {
-  const { roomNumber, level, cost, guests, datesOfStay, services, onSubmit } = props;
-
+  const {
+    roomNumber,
+    level,
+    cost,
+    guests,
+    datesOfStay,
+    service,
+    onSubmit,
+  } = props;
 
   const [dateRange, setDateRange] = useState({
     arrival: datesOfStay.arrival,
     departure: datesOfStay.departure,
   });
+
+  const numberOfGuestsState = (): { guests: number, babies: number } => {
+    const adults: number = guests[0].defaultValue || 0;
+    const children: number = guests[1].defaultValue || 0;
+    const babies: number = guests[2].defaultValue || 0;
+    return {
+      guests: adults + children,
+      babies,
+    };
+  };
+
+  const [numberOfGuests, setNumberOfGuests] = useState(numberOfGuestsState());
 
   const calcDays = (): number => {
     const pattern = /(\d{2})\.(\d{2})\.(\d{4})/;
@@ -78,14 +75,14 @@ const ReservationCard = (props: ReservationCardProps) => {
     return daysInHotel * cost;
   };
 
-  const displayCostForDays = (): string => {
+  const formatCostForDays = (): string => {
     const costForStaying = calcCostForDays();
-    return displayCost(costForStaying);
+    return formatCost(costForStaying);
   };
 
   const displaySign = (): string => {
     const daysInHotel = calcDays();
-    const sign = setSign(daysInHotel);
+    const sign = formatSign(daysInHotel);
     return `${daysInHotel} ${sign}`;
   };
 
@@ -97,13 +94,29 @@ const ReservationCard = (props: ReservationCardProps) => {
   };
 
   const displayTotalCost = () => {
-    const costSum: number = calcCostForDays() + services.serviceCost + services.extraServiceCost;
-    const totalCost: number = costSum - services.discount;
-    return displayCost(totalCost);
+    const costSum: number = calcCostForDays() + service.serviceCost + service.extraServiceCost;
+    const totalCost: number = costSum - service.discount;
+    return formatCost(totalCost);
+  };
+
+  const handleNumberOfGuestChange = (data: { guests: number, babies: number }) => {
+    setNumberOfGuests(data);
+  };
+
+  const handleSubmit = () => {
+    const reservationCardData: ReservationCardData = {
+      datesOfStay: dateRange,
+      numberOfGuests,
+      roomNumber,
+      level,
+      cost,
+      service,
+    };
+    onSubmit(reservationCardData);
   };
 
   return (
-    <form className={styles.roomCard} onSubmit={() => console.log('sfsdfsdfsgfdgreb')}>
+    <form className={styles.roomCard}>
       <div className={styles.dataRoom}>
         <div>
           <span className={styles.signNumber}>№</span>
@@ -111,28 +124,37 @@ const ReservationCard = (props: ReservationCardProps) => {
           <span className={styles.level}>{level}</span>
         </div>
         <div className={styles.costRoom}>
-          <span className={styles.cost}>{displayCost(cost)}</span>
+          <span className={styles.cost}>{formatCost(cost)}</span>
           <span className={styles.costText}>в сутки</span>
         </div>
       </div>
       <div className={styles.dates}>
-        <DateRange headers={['прибытие', 'выезд']} defaultValues={[new Date(dateRange.arrival), new Date(dateRange.departure)]} isDouble onChange={handleDatesOfStayChange} />
+        <DateRange
+          headers={['прибытие', 'выезд']}
+          defaultValues={[new Date(dateRange.arrival), new Date(dateRange.departure)]}
+          isDouble
+          onChange={handleDatesOfStayChange}
+        />
       </div>
       <div className={styles.dropdown}>
-        <Dropdown list={guests} placeholder="Сколько гостей" />
+        <Dropdown
+          list={guests}
+          placeholder="Сколько гостей"
+          onChange={handleNumberOfGuestChange}
+        />
       </div>
       <div className={styles.calculator}>
         <div className={styles.costItem}>
           <div className={styles.calc}>{displaySign()}</div>
-          <div className={styles.sum}>{displayCostForDays()}</div>
+          <div className={styles.sum}>{formatCostForDays()}</div>
         </div>
         <div className={styles.costItem}>
           <div className={styles.discount}>
-            {`Сбор за услуги: скидка ${displayCost(services.discount)}`}
+            {`Сбор за услуги: скидка ${formatCost(service.discount)}`}
           </div>
           <div className={styles.block}>
             <Tooltip text="С учетом Вашей бонусной карты" />
-            <div className={styles.sum}>{`${displayCost(services.serviceCost)}`}</div>
+            <div className={styles.sum}>{`${formatCost(service.serviceCost)}`}</div>
           </div>
         </div>
         <div className={styles.costItem}>
@@ -141,7 +163,7 @@ const ReservationCard = (props: ReservationCardProps) => {
           </div>
           <div className={styles.block}>
             <Tooltip text="С учетом Вашей бонусной карты" />
-            <div className={styles.sum}>{`${displayCost(services.extraServiceCost)}`}</div>
+            <div className={styles.sum}>{`${formatCost(service.extraServiceCost)}`}</div>
           </div>
         </div>
       </div>
@@ -150,9 +172,13 @@ const ReservationCard = (props: ReservationCardProps) => {
         <div className={styles.points} />
         <div className={styles.final}>{displayTotalCost()}</div>
       </div>
-      <button type="submit" className={styles.button}>
-        <Reference type="directed" size="big" text="забронировать" />
-      </button>
+      <Reference
+        type="directed"
+        size="big"
+        text="забронировать"
+        href="#"
+        onClick={handleSubmit}
+      />
     </form>
   );
 };

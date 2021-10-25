@@ -4,6 +4,8 @@ import userComment from 'Components/Comment/comment.json';
 import Pagination from 'Components/Pagination/Pagination';
 import roomsJSON from 'Root/public/rooms-mock/rooms.json';
 import ReservationCard, { Service } from 'Components/ReservationCard/ReservationCard';
+import CheckboxDropdown from 'Components/CheckboxDropdown/CheckboxDropdown';
+import RulesList from 'Root/components/RulesList/RulesList';
 
 import styles from './index.module.scss';
 
@@ -54,6 +56,47 @@ const service: Service = {
   extraServiceCost: 300,
 };
 
+const rulesList = [
+  { id: '0', title: 'Нельзя с питомцами' },
+  { id: '1', title: 'Без вечеринок и мероприятий' },
+  { id: '2', title: 'Время прибытия — после 13:00, а\u00A0выезд до 12:00' },
+];
+
+const checkboxList = {
+  breakfast: {
+    title: 'Завтрак',
+    isChecked: false,
+  },
+  desk: {
+    title: 'Письменный стол',
+    isChecked: true,
+  },
+  feedingChair: {
+    title: 'Стул для кормления',
+    isChecked: true,
+  },
+  crib: {
+    title: 'Кроватка',
+    isChecked: true,
+  },
+  television: {
+    title: 'Телевизор',
+    isChecked: false,
+  },
+  shampoo: {
+    title: 'Шампунь',
+    isChecked: false,
+  },
+  additionTelevision: {
+    title: 'Телевизор',
+    isChecked: false,
+  },
+  additionShampoo: {
+    title: 'Шампунь',
+    isChecked: false,
+  },
+};
+
 const Rooms = () => (
   <div>
     <div>
@@ -72,7 +115,16 @@ const Rooms = () => (
       like={userComment.like}
     />
     <Pagination itemsPerPage={12} allItems={roomsJSON} onChange={(pageNumber) => console.log(`Page ${pageNumber + 1} is clicked`)} />
-    <ReservationCard roomNumber={888} level="люкс" cost={9990} datesOfStay={{ arrival: '2019-08-19', departure: '2019-08-23' }} guests={guestsDropdownConfig} services={service} />
+    <ReservationCard roomNumber={888} level="люкс" cost={9990} datesOfStay={{ arrival: '2019-08-19', departure: '2019-08-23' }} guests={guestsDropdownConfig} service={service} onSubmit={(data) => console.log(data)} />
+    <div>
+      <RulesList
+        rulesHeader="правила"
+        rulesList={rulesList}
+      />
+    </div>
+    <div>
+      <CheckboxDropdown checkboxes={checkboxList} title="Дополнительные удобства" />
+    </div>
   </div>
 );
 
