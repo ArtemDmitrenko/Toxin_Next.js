@@ -5,7 +5,7 @@ import RulesList from 'Components/RulesList/RulesList';
 import RoomInformation from 'Components/RoomInformation/RoomInformation';
 
 import mockData from 'Root/public/room-mock/room.json';
-import userComment from 'Components/Comment/comment.json';
+import userComment from 'Components/Comments/comments.json';
 import rulesList from 'Components/RulesList/rulesList.json';
 import roomInformation from 'Components/RoomInformation/roomInformation.json';
 

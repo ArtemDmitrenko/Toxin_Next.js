@@ -1,0 +1,88 @@
+@import 'Root/style/variables.scss';
+
+%legend {
+  display: inline-block;
+  width: 10.43px;
+  height: 10px;
+  margin-right: 5px;
+  border-radius: 5px;
+  content: '';
+}
+
+.title {
+  @include h2();
+  margin-bottom: 21px;
+}
+
+.hide {
+  display: none;
+}
+
+.diagram {
+  display: flex;
+}
+
+.block {
+  position: relative;
+  max-height: 125px;
+}
+
+.unit {
+  fill: none;
+  stroke-width: 4;
+}
+
+.item {
+  @include paragraph();
+  color: $textColor75;
+}
+
+.amazing::before {
+  @extend %legend;
+  background: linear-gradient(180deg, #ffe39c 0%, #ffba9c 100%);
+}
+
+.good::before {
+  @extend %legend;
+  background: linear-gradient(180deg, #6fcf97 0%, #66d2ea 100%);
+}
+
+.satisfactorily::before {
+  @extend %legend;
+  background: linear-gradient(180deg, #bc9cff 0%, #8ba4f9 100%);
+}
+
+.bad::before {
+  @extend %legend;
+  background: linear-gradient(180deg, #909090 0%, #3d4975 100%);
+}
+
+.total {
+  position: absolute;
+  top: 24%;
+  left: 21%;
+  width: 70px;
+  color: $primaryColor;
+  font-size: 24px;
+  line-height: 19px;
+  text-align: center;
+
+  @include h1();
+
+  & span {
+    @include h3();
+    color: $primaryColor;
+  }
+}
+
+.legend {
+  min-width: 162px;
+  margin-top: 29px;
+  margin-left: 30px;
+}
+
+.list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
