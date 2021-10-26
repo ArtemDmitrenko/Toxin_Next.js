@@ -3,9 +3,9 @@
 .grid {
   @include container();
   display: grid;
-  width: 100%;
-  grid-template-columns: 267px 1fr;
   grid-column-gap: 5%;
+  grid-template-columns: 267px 1fr;
+  width: 100%;
   padding: 30px 20px 78px;
 }
 

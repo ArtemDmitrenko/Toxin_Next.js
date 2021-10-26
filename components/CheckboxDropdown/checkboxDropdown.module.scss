@@ -8,8 +8,8 @@
 
 .title {
   @include h3();
-  display: block;
   position: relative;
+  display: block;
   padding-right: 40px;
   cursor: pointer;
 

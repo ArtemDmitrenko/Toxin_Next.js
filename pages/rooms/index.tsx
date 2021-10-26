@@ -145,6 +145,7 @@ const Rooms = () => (
         <Pagination
           itemsPerPage={12}
           allItems={roomsMock}
+          onChange={() => { }}
         />
       </div>
     </div>
