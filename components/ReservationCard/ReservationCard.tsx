@@ -77,7 +77,7 @@ const ReservationCard = (props: ReservationCardProps) => {
   const displaySign = (): string => {
     const daysInHotel = calcDays(dateRange);
     const sign = formatSign(daysInHotel);
-    return `${daysInHotel} ${sign}`;
+    return ` x ${daysInHotel} ${sign}`;
   };
 
   const handleDatesOfStayChange = (dates: DatesOfStay) => {
@@ -139,7 +139,10 @@ const ReservationCard = (props: ReservationCardProps) => {
       </div>
       <div className={styles.calculator}>
         <div className={styles.costItem}>
-          <div className={styles.calc}>{displaySign()}</div>
+          <div className={styles.calc}>
+            <span className={styles.sum}>{formatCost(cost)}</span>
+            <span>{displaySign()}</span>
+          </div>
           <div className={styles.sum}>{formatCostForDays()}</div>
         </div>
         <div className={styles.costItem}>
