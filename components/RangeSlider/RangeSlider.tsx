@@ -6,6 +6,8 @@ import valuesWrapper from './helpers/valuesWrapper';
 
 import styles from './rangeSlider.module.scss';
 
+type RangeSliderData = Array<number>;
+
 type RangeSliderProps = {
   min: number,
   max: number,
@@ -16,7 +18,7 @@ type RangeSliderProps = {
   minDistance?: number,
   title?: string,
   postfix?: string,
-  onChange?: (values:Array<number>) => void,
+  onChange?: (values: RangeSliderData) => void,
 };
 
 const RangeSlider = (props: RangeSliderProps) => {
@@ -36,7 +38,7 @@ const RangeSlider = (props: RangeSliderProps) => {
   const [values, setValues] = useState([valueFrom, valueTo]);
   const [input, setInput] = useState(valuesWrapper([valueFrom, valueTo], postfix));
 
-  const validateArr = (arr: Array<number> | null) => {
+  const validateArr = (arr: RangeSliderData | null) => {
     if (!arr) return null;
 
     let [valFrom, valTo] = arr;
@@ -60,18 +62,25 @@ const RangeSlider = (props: RangeSliderProps) => {
     if (newValues) {
       setValues(newValues);
       setInput(valuesWrapper(newValues, postfix));
+
+      if (onChange) {
+        onChange(newValues);
+      }
     } else {
       setInput(valuesWrapper(values, postfix));
     }
   };
 
-  const handleRangeSliderChange = (newValues: Array<number>) => {
+  const handleRangeSliderAfterChange = (newValues: RangeSliderData) => {
     setValues(newValues);
-    setInput(valuesWrapper(newValues, postfix));
 
     if (onChange) {
       onChange(newValues);
     }
+  };
+
+  const handleRangeSliderChange = (newValues: RangeSliderData) => {
+    setInput(valuesWrapper(newValues, postfix));
   };
 
   const handleInputChange = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
@@ -110,6 +119,7 @@ const RangeSlider = (props: RangeSliderProps) => {
         minDistance={minDistance}
         pearling={pearling}
         onChange={handleRangeSliderChange}
+        onAfterChange={handleRangeSliderAfterChange}
         className={styles.rangeSlider}
         thumbClassName={styles.exampleThumb}
         trackClassName={styles.exampleTrack}
@@ -127,4 +137,5 @@ RangeSlider.defaultProps = {
   onChange: undefined,
 };
 
+export type { RangeSliderData };
 export default RangeSlider;

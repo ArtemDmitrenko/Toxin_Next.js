@@ -11,11 +11,13 @@ type DropdownConfig = Array<{
   wordforms: [string, string, string],
 }>;
 
+type DropdownData = { [key: string]: number };
+
 type DropdownProps = {
   list: DropdownConfig,
   isButtons?: boolean,
   placeholder?: string,
-  onChange?: (data: { [key:string]: number }) => void,
+  onChange?: (data: DropdownData) => void,
 };
 
 type Groups = {
@@ -93,10 +95,10 @@ const Dropdown = (props: DropdownProps) => {
     return Object.values(items).reduce((prev, current) => (prev + current.value), 0);
   };
 
-  const convertToOutput = (state: DropdownState): { [key:string]: number } => {
+  const convertToOutput = (state: DropdownState): DropdownData => {
     const { groups } = state;
 
-    const output: { [key:string]: number } = {};
+    const output: DropdownData = {};
 
     Object.entries(groups).forEach(([groupName, group]) => {
       let sum = 0;
@@ -298,28 +300,28 @@ const Dropdown = (props: DropdownProps) => {
           </ul>
           {isButtons
             && (
-            <div className={`${styles.buttons} ${styles.buttonsNonEmpty}`}>
-              <button
-                type="button"
-                className={stylesClearButton()}
-                onClick={(e) => {
-                  e.preventDefault();
-                  handleClearClick();
-                }}
-              >
-                Очистить
-              </button>
-              <button
-                type="button"
-                className={stylesApplyButton()}
-                onClick={(e) => {
-                  e.preventDefault();
-                  handleOutputBlur();
-                }}
-              >
-                Применить
-              </button>
-            </div>
+              <div className={`${styles.buttons} ${styles.buttonsNonEmpty}`}>
+                <button
+                  type="button"
+                  className={stylesClearButton()}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handleClearClick();
+                  }}
+                >
+                  Очистить
+                </button>
+                <button
+                  type="button"
+                  className={stylesApplyButton()}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handleOutputBlur();
+                  }}
+                >
+                  Применить
+                </button>
+              </div>
             )}
         </div>
       </div>
@@ -327,5 +329,5 @@ const Dropdown = (props: DropdownProps) => {
   );
 };
 
-export type { DropdownConfig };
+export type { DropdownConfig, DropdownData };
 export default Dropdown;
