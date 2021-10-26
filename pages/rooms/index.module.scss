@@ -7,9 +7,85 @@
   grid-template-columns: 267px 1fr;
   width: 100%;
   padding: 30px 20px 78px;
+
+  @media (max-width: 1024px) {
+    grid-template-columns: 1fr;
+  }
 }
 
 .title {
   @include h1();
   margin-bottom: 22px;
+}
+
+.filter {
+  @media (max-width: 1024px) {
+    display: none;
+    height: 100%;
+
+    &Active {
+      display: block;
+    }
+  }
+}
+
+.filterButton {
+  display: none;
+  background-color: $primaryColor;
+  border: 1px solid #fff;
+  border-left: none;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  cursor: pointer;
+
+  &::before {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    display: block;
+    width: 5px;
+    height: 80%;
+    background-color: #fff;
+    border-radius: 10px;
+    transform: translate(-50%, -50%);
+    content: '';
+  }
+
+  @media (max-width: 1024px) {
+    position: fixed;
+    top: 50%;
+    display: block;
+    width: 40px;
+    height: 160px;
+    transform: translateY(-50%);
+
+    &Active {
+      position: relative;
+    }
+  }
+}
+
+.filterGroup {
+  @media (max-width: 1024px) {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    width: 0;
+    height: 100vh;
+
+    &Active {
+      display: flex;
+      width: 100vw;
+      overflow-y: scroll;
+      background-color: #0000007f;
+    }
+  }
+}
+
+.filterWrapper {
+  padding: 20px;
+  background-color: #fff;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
 }

@@ -1,3 +1,5 @@
+import { useState } from 'react';
+
 import Layout from 'Components/Layout/Layout';
 import SearchFilter from 'Components/SearchFilter/SearchFilter';
 import Pagination from 'Components/Pagination/Pagination';
@@ -128,28 +130,53 @@ const checkboxDropdown = {
   },
 };
 
-const Rooms = () => (
-  <Layout title="Rooms">
-    <div className={styles.grid}>
-      <SearchFilter
-        dateRangeConfig={dateRange}
-        guestsDropdownConfig={guestDropdown}
-        rangeSliderConfig={rangeSlider}
-        checkboxRulesConfig={checkboxRules}
-        checkboxAvailabilitiesConfig={checkboxAvailabilities}
-        facilitiesDropdownConfig={facilitiesDropdown}
-        checkboxDropdownConfig={checkboxDropdown}
-      />
-      <div className={styles.rooms}>
-        <h1 className={styles.title}>Номера, которые мы для вас подобрали</h1>
-        <Pagination
-          itemsPerPage={12}
-          allItems={roomsMock}
-          onChange={() => { }}
-        />
+const Rooms = () => {
+  const [filter, setFilter] = useState(false);
+
+  const handleFilterToggle = () => { setFilter((prevState) => !prevState); };
+
+  const stylesFilterGroup = () => (
+    `${styles.filterGroup} ${filter ? styles.filterGroupActive : ''}`
+  );
+
+  const stylesFilter = () => (
+    `${styles.filter} ${filter ? styles.filterActive : ''}`
+  );
+
+  const stylesButton = () => (
+    `${styles.filterButton} ${filter ? styles.filterButtonActive : ''}`
+  );
+
+  return (
+    <Layout title="Rooms">
+      <div className={styles.grid}>
+        <div className={stylesFilterGroup()}>
+          <div className={stylesFilter()}>
+            <div className={styles.filterWrapper}>
+              <SearchFilter
+                dateRangeConfig={dateRange}
+                guestsDropdownConfig={guestDropdown}
+                rangeSliderConfig={rangeSlider}
+                checkboxRulesConfig={checkboxRules}
+                checkboxAvailabilitiesConfig={checkboxAvailabilities}
+                facilitiesDropdownConfig={facilitiesDropdown}
+                checkboxDropdownConfig={checkboxDropdown}
+              />
+            </div>
+          </div>
+          <button className={stylesButton()} type="button" onClick={handleFilterToggle} />
+        </div>
+        <div className={styles.rooms}>
+          <h1 className={styles.title}>Номера, которые мы для вас подобрали</h1>
+          <Pagination
+            itemsPerPage={12}
+            allItems={roomsMock}
+            onChange={() => { }}
+          />
+        </div>
       </div>
-    </div>
-  </Layout>
-);
+    </Layout>
+  );
+};
 
 export default Rooms;
