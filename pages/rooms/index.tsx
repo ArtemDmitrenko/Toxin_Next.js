@@ -115,7 +115,15 @@ const Rooms = () => (
       like={userComment.like}
     />
     <Pagination itemsPerPage={12} allItems={roomsJSON} onChange={(pageNumber) => console.log(`Page ${pageNumber + 1} is clicked`)} />
-    <ReservationCard roomNumber={888} level="люкс" cost={9990} datesOfStay={{ arrival: '2019-08-19', departure: '2019-08-23' }} guests={guestsDropdownConfig} service={service} onSubmit={(data) => console.log(data)} />
+    <ReservationCard
+      roomNumber={888}
+      level="люкс"
+      cost={9990}
+      datesOfStay={{ arrival: '2019-08-19', departure: '2019-08-23' }}
+      guests={guestsDropdownConfig}
+      service={service}
+      onSubmit={(data) => data}
+    />
     <div>
       <RulesList
         rulesHeader="правила"
