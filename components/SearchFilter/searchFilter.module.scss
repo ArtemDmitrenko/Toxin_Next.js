@@ -2,11 +2,13 @@
 
 .title {
   @include h3();
+  margin-bottom: 5px;
 }
 
 .description {
   @include paragraph();
   margin-top: 8px;
+  color: $textColor50;
   font-size: 12px;
 }
 
@@ -15,6 +17,10 @@
 
   &Large {
     margin-top: 31px;
+  }
+
+  &Small {
+    margin-top: 10px;
   }
 }
 
@@ -27,5 +33,9 @@
 
   &Availability {
     max-width: 255px;
+  }
+
+  &Wrapper {
+    margin-top: 25px;
   }
 }
