@@ -7,6 +7,7 @@ import Tooltip from 'Components/Tooltip/Tooltip';
 
 import formatSign from './helpers/formatSign';
 import formatCost from './helpers/formatCost';
+import calcDays from './helpers/calcDays';
 
 import styles from './reservationCard.module.scss';
 
@@ -63,15 +64,8 @@ const ReservationCard = (props: ReservationCardProps) => {
 
   const [numberOfGuests, setNumberOfGuests] = useState(numberOfGuestsState());
 
-  const calcDays = (): number => {
-    const pattern = /(\d{2})\.(\d{2})\.(\d{4})/;
-    const firstDay = new Date(dateRange.arrival.replace(pattern, '$3-$2-$1')).getTime();
-    const lastDay = new Date(dateRange.departure.replace(pattern, '$3-$2-$1')).getTime();
-    return (lastDay - firstDay) / (24 * 3600 * 1000);
-  };
-
   const calcCostForDays = (): number => {
-    const daysInHotel = calcDays();
+    const daysInHotel = calcDays(dateRange);
     return daysInHotel * cost;
   };
 
@@ -81,7 +75,7 @@ const ReservationCard = (props: ReservationCardProps) => {
   };
 
   const displaySign = (): string => {
-    const daysInHotel = calcDays();
+    const daysInHotel = calcDays(dateRange);
     const sign = formatSign(daysInHotel);
     return `${daysInHotel} ${sign}`;
   };
