@@ -2,6 +2,10 @@ import Dropdown, { DropdownConfig } from 'Components/Dropdown/Dropdown';
 import Impressions from 'Components/Impressions/Impressions';
 import CheckboxDropdown from 'Components/CheckboxDropdown/CheckboxDropdown';
 import RulesList from 'Root/components/RulesList/RulesList';
+import Comments from 'Components/Comments/Comments';
+import userComments from 'Components/Comments/comments.json';
+import Pagination from 'Components/Pagination/Pagination';
+import roomsJSON from 'Root/public/rooms-mock/rooms.json';
 
 import styles from './index.module.scss';
 
@@ -102,6 +106,8 @@ const Rooms = () => (
         rulesList={rulesList}
       />
     </div>
+    <Comments comments={userComments} />
+    <Pagination itemsPerPage={12} allItems={roomsJSON} onChange={(pageNumber) => console.log(`Page ${pageNumber + 1} is clicked`)} />
     <div>
       <CheckboxDropdown checkboxes={checkboxList} title="Дополнительные удобства" />
     </div>

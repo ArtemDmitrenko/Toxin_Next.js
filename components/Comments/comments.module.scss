@@ -1,0 +1,33 @@
+@import 'Root/style/variables';
+
+.comments {
+  max-width: 710px;
+}
+
+.header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 22px;
+
+  @media (max-width: 420px) {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+.title {
+  @include h2();
+}
+
+.amountComments {
+  color: $textColor50;
+
+  @media (max-width: 420px) {
+    margin-top: 10px;
+  }
+}
+
+.comment {
+  margin-bottom: 23px;
+}
