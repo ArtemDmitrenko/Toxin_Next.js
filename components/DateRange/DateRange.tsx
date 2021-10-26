@@ -24,7 +24,7 @@ type DateRangeProps = {
   placeholder?: string,
   defaultValues?: Array<Date>,
   isDouble?: boolean,
-  onChange: (dates: DatesOfStay) => void,
+  onChange?: (dates: DatesOfStay) => void,
 };
 
 const DateRange = (props: DateRangeProps) => {
@@ -74,7 +74,7 @@ const DateRange = (props: DateRangeProps) => {
 
     setCalendarValues(values);
     setDates(userSelectedDates);
-    onChange(userSelectedDates);
+    if (onChange) onChange(userSelectedDates);
   };
 
   const handleClearButtonClick = () => {
@@ -82,7 +82,7 @@ const DateRange = (props: DateRangeProps) => {
 
     setCalendarValues(null);
     setDates(resetDatesOfStay);
-    onChange(resetDatesOfStay);
+    if (onChange) onChange(resetDatesOfStay);
   };
 
   const handleCalendarFocus = () => {
