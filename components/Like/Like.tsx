@@ -2,33 +2,42 @@ import { useState } from 'react';
 
 import styles from './like.module.scss';
 
+type LikeData = {
+  amountLike: number,
+  isLiked: boolean,
+};
+
 type LikeProps = {
   amountLike: number,
   isLiked?: boolean,
-  onChange?: (amountLike: number, isLiked: boolean) => void,
+  onChange?: (data: LikeData) => void,
 };
 
-const Like = ({ amountLike, isLiked = false, onChange }: LikeProps) => {
+const Like = ({
+  amountLike,
+  isLiked = false,
+  onChange,
+}: LikeProps) => {
   const [amount, setAmount] = useState(amountLike);
   const [active, setActive] = useState(isLiked);
 
   const handleClickButton = () => {
-    setAmount((prevAmount) => {
-      let newAmount = prevAmount;
+    let currentValue: number = amount;
 
-      if (active) {
-        newAmount -= 1;
-      } else {
-        newAmount += 1;
-      }
+    if (active) {
+      currentValue -= 1;
+    } else {
+      currentValue += 1;
+    }
 
-      if (onChange) {
-        onChange(newAmount, !active);
-      }
+    if (onChange) {
+      onChange({
+        amountLike: currentValue,
+        isLiked: !active,
+      });
+    }
 
-      return newAmount;
-    });
-
+    setAmount(currentValue);
     setActive(!active);
   };
 
@@ -41,4 +50,5 @@ const Like = ({ amountLike, isLiked = false, onChange }: LikeProps) => {
   );
 };
 
+export type { LikeData };
 export default Like;
