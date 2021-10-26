@@ -6,7 +6,7 @@ import styles from './roomCard.module.scss';
 
 type RoomCardProps = {
   roomNumber: number,
-  isLux?: boolean,
+  level?: string,
   cost: number,
   amountReviews: number,
   images: Array<{
@@ -20,7 +20,7 @@ type RoomCardProps = {
 const RoomCard = (props: RoomCardProps) => {
   const {
     roomNumber = 100,
-    isLux = false,
+    level = '',
     cost = 1000,
     amountReviews = 0,
     images,
@@ -43,7 +43,7 @@ const RoomCard = (props: RoomCardProps) => {
               <div>
                 <span className={styles.signNumber}>№</span>
                 <span className={styles.roomNumber}>{roomNumber}</span>
-                <span className={styles.level}>{isLux ? 'люкс' : ''}</span>
+                <span className={styles.level}>{level}</span>
               </div>
               <div className={styles.costRoom}>
                 <span className={styles.cost}>{`${cost}`}</span>

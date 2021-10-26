@@ -1,7 +1,7 @@
 [
   {
     "room": 888,
-    "isLux": true,
+    "level": "люкс",
     "cost": 9990,
     "reviews": {
       "good": 45,
@@ -28,7 +28,7 @@
   },
   {
     "room": 840,
-    "isLux": false,
+    "level": "",
     "cost": 9990,
     "reviews": {
       "good": 45,
@@ -55,7 +55,7 @@
   },
   {
     "room": 980,
-    "isLux": true,
+    "level": "люкс",
     "cost": 8500,
     "reviews": {
       "bad": 5,
@@ -83,7 +83,7 @@
   },
   {
     "room": 856,
-    "isLux": false,
+    "level": "",
     "cost": 7300,
     "reviews": {
       "good": 4,
@@ -110,7 +110,7 @@
   },
   {
     "room": 740,
-    "isLux": false,
+    "level": "",
     "cost": 6000,
     "reviews": {
       "satisfactory": 7,
@@ -138,7 +138,7 @@
   },
   {
     "room": 982,
-    "isLux": false,
+    "level": "",
     "cost": 5800,
     "reviews": {
       "bad": 4,
@@ -167,7 +167,7 @@
   },
   {
     "room": 678,
-    "isLux": false,
+    "level": "",
     "cost": 5500,
     "reviews": {
       "good": 12,
@@ -194,7 +194,7 @@
   },
   {
     "room": 450,
-    "isLux": false,
+    "level": "",
     "cost": 5300,
     "reviews": {
       "good": 33,
@@ -221,7 +221,7 @@
   },
   {
     "room": 350,
-    "isLux": false,
+    "level": "",
     "cost": 5000,
     "reviews": {
       "bad": 7,
@@ -249,7 +249,7 @@
   },
   {
     "room": 666,
-    "isLux": false,
+    "level": "",
     "cost": 5000,
     "reviews": {
       "amazing": 25
@@ -275,7 +275,7 @@
   },
   {
     "room": 444,
-    "isLux": false,
+    "level": "",
     "cost": 5000,
     "reviews": {
       "satisfactory": 10,
@@ -302,7 +302,7 @@
   },
   {
     "room": 352,
-    "isLux": false,
+    "level": "",
     "cost": 5000,
     "reviews": {
       "bad": 13,

@@ -20,7 +20,7 @@ type RoomImage = {
 
 type RoomType = {
   room: number,
-  isLux: boolean,
+  level: string,
   cost: number,
   reviews: RoomReviews,
   images: Array<RoomImage>
@@ -85,7 +85,7 @@ const Pagination = (props: PaginationProps) => {
       <div key={item.room}>
         <RoomCard
           roomNumber={item.room}
-          isLux={item.isLux}
+          level={item.level}
           cost={item.cost}
           amountReviews={calcAmountReviews(item.reviews)}
           images={item.images}

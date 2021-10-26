@@ -1,6 +1,6 @@
 {
   "room": 888,
-  "isLux": true,
+  "level": "люкс",
   "cost": 9990,
   "rating": 5,
   "reviews": 145,
