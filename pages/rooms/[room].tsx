@@ -1,11 +1,12 @@
+import mockData from 'Root/public/room-mock/room.json';
 import Layout from 'Components/Layout/Layout';
 import Collage from 'Components/Collage/Collage';
-import Comment from 'Components/Comment/Comment';
 import RulesList from 'Components/RulesList/RulesList';
 import RoomInformation from 'Components/RoomInformation/RoomInformation';
-
-import mockData from 'Root/public/room-mock/room.json';
-import userComment from 'Components/Comments/comments.json';
+import Comments from 'Components/Comments/Comments';
+import Impressions from 'Components/Impressions/Impressions';
+import { CommentProps } from 'Components/Comment/Comment';
+import userComments from 'Components/Comments/comments.json';
 import rulesList from 'Components/RulesList/rulesList.json';
 import roomInformation from 'Components/RoomInformation/roomInformation.json';
 
@@ -25,6 +26,10 @@ type RoomProps = {
   },
 };
 
+const handleCommentsChange = (commentList: Array<CommentProps>) => {
+  console.log(commentList);
+};
+
 const Room = (props: RoomProps) => {
   const { data } = props;
 
@@ -35,29 +40,15 @@ const Room = (props: RoomProps) => {
         <div className={styles.content}>
           <div className={styles.information}>
             <RoomInformation heading="Сведения о номере" info={roomInformation} />
-            <section className={styles.chart}>
-              <h2 className={styles.header}>Впечатления от номера</h2>
-              <div className={styles.mockChart} />
-            </section>
-            <section className={styles.feedback}>
-              <h2 className={styles.header}>Отзывы посетителей номера</h2>
-              <Comment
-                srcIcon={userComment.srcIcon}
-                userName={userComment.userName}
-                date={new Date(userComment.date)}
-                text={userComment.text}
-                like={userComment.like}
-                onChange={() => {}}
+            <div className={styles.chart}>
+              <Impressions amazing={130} good={65} satisfactorily={65} />
+            </div>
+            <div className={styles.feedback}>
+              <Comments
+                comments={userComments}
+                onChange={handleCommentsChange}
               />
-              <Comment
-                srcIcon={userComment.srcIcon}
-                userName={userComment.userName}
-                date={new Date(userComment.date)}
-                text={userComment.text}
-                like={userComment.like}
-                onChange={() => {}}
-              />
-            </section>
+            </div>
             <RulesList
               rulesHeader="Правила"
               rulesList={rulesList}
