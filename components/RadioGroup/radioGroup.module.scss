@@ -1,24 +1,5 @@
 @import 'Root/style/variables.scss';
 
-.radioButton {
-  position: relative;
-  display: inline-flex;
-  outline: none;
-  cursor: pointer;
-  user-select: none;
-
-  &:focus {
-    text-shadow: 2px 2px 2px $primaryColor;
-  }
-}
-
-.input {
-  position: absolute;
-  z-index: -1;
-  width: 0;
-  opacity: 0;
-}
-
 .content {
   display: flex;
   align-items: center;
@@ -46,6 +27,31 @@
     transform: translate(-50%, -50%);
     content: '';
   }
+}
+
+.radioButton {
+  position: relative;
+  display: inline-flex;
+  outline: none;
+  cursor: pointer;
+  user-select: none;
+
+  &:focus {
+    & .content {
+      color: $textColor;
+
+      &::before {
+        box-shadow: 3px 3px 3px $primaryColor;
+      }
+    }
+  }
+}
+
+.input {
+  position: absolute;
+  z-index: -1;
+  width: 0;
+  opacity: 0;
 }
 
 .input:checked + .content {
