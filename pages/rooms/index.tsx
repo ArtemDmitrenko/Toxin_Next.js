@@ -1,5 +1,6 @@
 import Layout from 'Components/Layout/Layout';
 import SearchFilter from 'Components/SearchFilter/SearchFilter';
+import Toggle from 'Components/Toggle/Toggle';
 import { DropdownConfig } from 'Root/components/Dropdown/Dropdown';
 
 import styles from './index.module.scss';
@@ -146,6 +147,7 @@ const Rooms = () => (
       <div className={styles.roomsCell}>
         Here will be rooms
       </div>
+      <Toggle title="Получать спецпредложения" name="special-offers" />
     </div>
   </Layout>
 );
