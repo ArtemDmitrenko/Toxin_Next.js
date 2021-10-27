@@ -1,0 +1,83 @@
+@import 'Root/style/variables.scss';
+
+.toggle {
+  position: relative;
+  display: inline-flex;
+  color: $textColor50;
+  line-height: 18px;
+  user-select: none;
+}
+
+.content {
+  position: absolute;
+  opacity: 0;
+}
+
+.indicator {
+  position: absolute;
+  width: 40px;
+  height: 20px;
+  border: 1px solid $textColor25;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+input[type='checkbox'] {
+  & + .indicator::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 23%;
+    width: 12px;
+    height: 12px;
+    background: $textColor25;
+    border-radius: 10px;
+    transform: translate(-50%, -50%);
+  }
+}
+
+input[type='checkbox']:checked {
+  & + .indicator {
+    border: 1px solid $primaryColor;
+  }
+
+  & + .indicator::before {
+    content: '';
+    top: 50%;
+    left: 75%;
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    background: $primaryGradient;
+    border-radius: 10px;
+    transform: translate(-50%, -50%);
+  }
+}
+
+input[type='checkbox']:focus {
+  & + .indicator {
+    box-shadow: 3px 3px 3px $primaryColor;
+  }
+
+  & ~ .title {
+    color: $textColor75;
+  }
+}
+
+.title {
+  padding-top: 1px;
+  padding-left: 50px;
+  cursor: pointer;
+
+  &:hover {
+    color: $textColor75;
+  }
+}
+
+.description {
+  padding-top: 5px;
+  padding-left: 30px;
+  font-size: 12px;
+  line-height: 14px;
+  text-align: left;
+}
