@@ -33,6 +33,7 @@ input[type='checkbox'] {
     background: $textColor25;
     border-radius: 10px;
     transform: translate(-50%, -50%);
+    transition: left 0.3s;
   }
 }
 
@@ -42,15 +43,8 @@ input[type='checkbox']:checked {
   }
 
   & + .indicator::before {
-    content: '';
-    top: 50%;
     left: 75%;
-    position: absolute;
-    width: 12px;
-    height: 12px;
     background: $primaryGradient;
-    border-radius: 10px;
-    transform: translate(-50%, -50%);
   }
 }
 

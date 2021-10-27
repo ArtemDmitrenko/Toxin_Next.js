@@ -41,5 +41,5 @@ const Toggle = (props: ToggleProps) => {
   );
 };
 
-export type { ToggleProps, ToggleData };
+export type { ToggleData };
 export default Toggle;
