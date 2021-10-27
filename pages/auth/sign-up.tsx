@@ -1,8 +1,11 @@
 import Layout from 'Components/Layout/Layout';
+import BackgroundAuth from 'Components/BackgroundAuth/BackgroundAuth';
 
 const SignUp = () => (
   <Layout title="Sign up">
-    Something
+    <BackgroundAuth>
+      Here will be your card
+    </BackgroundAuth>
   </Layout>
 );
 
