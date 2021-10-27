@@ -104,7 +104,7 @@ const Header = (props: HeaderProps) => {
           </ul>
         </nav>
         <div className={stylesButtons()}>
-          <Reference text="Войти" type="bordered" size="small" />
+          <Reference href="/auth/sign-in" text="Войти" type="bordered" size="small" />
           <Reference text="Зарегистрироваться" type="solid" size="small" />
         </div>
       </div>

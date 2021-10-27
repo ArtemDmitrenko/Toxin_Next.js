@@ -1,0 +1,73 @@
+@import 'Root/style/variables.scss';
+
+.mockWrapper {
+  display: flex;
+  justify-content: center;
+  padding: 172px 5px;
+}
+
+.container {
+  width: 380px;
+  padding: 40px 30px 30px;
+  background: #fff;
+  border-radius: 4px;
+  box-shadow: $cardShadow;
+
+  @media (max-width: 390px) {
+    padding: 25px 15px 20px;
+  }
+}
+
+.title {
+  @include h1;
+  max-width: 320px;
+}
+
+.field {
+  width: 100%;
+  padding: 13px;
+  color: $textColor75;
+  font-family: $primaryFont;
+  text-overflow: ellipsis;
+  border: 1px solid $textColor25;
+  border-radius: 4px;
+  outline: none;
+  cursor: pointer;
+
+  &::placeholder {
+    color: $textColor25;
+  }
+
+  &:hover,
+  &:focus-within {
+    &::placeholder {
+      color: $textColor75;
+    }
+  }
+}
+
+.email {
+  margin-top: 20px;
+}
+
+.button {
+  margin-top: 20px;
+  padding: 0;
+  border: none;
+  border-radius: 100px;
+  width: 100%;
+  padding-top: 14px;
+  padding-bottom: 15px;
+  cursor: pointer;
+}
+
+.password {
+  margin-top: 10px;
+}
+
+.question {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 30px;
+}
