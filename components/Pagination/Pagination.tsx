@@ -38,28 +38,15 @@ const calcAmountReviews = (reviews: RoomReviews) => (
 
 const calcAmountStars = (reviews: RoomReviews) => {
   const sum = Object.entries(reviews).reduce((accumulator, [key, value]) => {
-    let coef: number;
+    const collection: { [key: string]: number } = {
+      terrible: 1,
+      bad: 2,
+      satisfactory: 3,
+      good: 4,
+      amazing: 5,
+    };
 
-    switch (key) {
-      case 'terrible':
-        coef = 1;
-        break;
-      case 'bad':
-        coef = 2;
-        break;
-      case 'satisfactory':
-        coef = 3;
-        break;
-      case 'good':
-        coef = 4;
-        break;
-      case 'amazing':
-        coef = 5;
-        break;
-      default:
-        coef = 0;
-        break;
-    }
+    const coef = collection[key] ?? 0;
 
     return accumulator + value * coef;
   }, 0);
