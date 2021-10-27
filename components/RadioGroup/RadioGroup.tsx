@@ -15,7 +15,7 @@ type RadioGroupProps = {
   name: string,
   list: Array<RadioButton>,
   className?: string,
-  classNameRadio?: string,
+  radioClassName?: string,
   defaultCheckedValue?: string,
   onChange?: (data: RadioGroupData) => void,
 };
@@ -25,7 +25,7 @@ const RadioGroup = (props: RadioGroupProps) => {
     name,
     list,
     className,
-    classNameRadio,
+    radioClassName,
     onChange,
     defaultCheckedValue = list[0].value,
   } = props;
@@ -33,7 +33,7 @@ const RadioGroup = (props: RadioGroupProps) => {
   const [value, setValue] = useState(defaultCheckedValue);
 
   const stylesRadioButton = () => (
-    `${styles.radioButton} ${classNameRadio ?? ''}`
+    `${styles.radioButton} ${radioClassName ?? ''}`
   );
 
   const handleGroupToggle = (newValue: string) => {

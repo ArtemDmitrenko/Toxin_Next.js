@@ -20,7 +20,7 @@ const SignUp = () => (
       list={radioList}
       name="sex"
       className={styles.radioGroup}
-      classNameRadio={styles.radioButton}
+      radioClassName={styles.radioButton}
     />
   </Layout>
 );
