@@ -1,5 +1,10 @@
 const formatCost = (cost: number): string => (
-  cost.toString().replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1\u00A0')
+  cost.toLocaleString('ru-RU', {
+    style: 'currency',
+    currency: 'RUB',
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0,
+  })
 );
 
 export default formatCost;

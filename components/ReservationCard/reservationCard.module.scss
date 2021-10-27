@@ -2,7 +2,7 @@
 
 .roomCard {
   box-sizing: border-box;
-  max-width: 380px;
+  max-width: 100%;
   padding: 30px 30px 30px 28px;
   background-color: #fff;
   border: 1px solid rgba(0, 0, 0, 0.12);
@@ -50,11 +50,6 @@
   position: relative;
   color: $textColor50;
   font-weight: bold;
-
-  &::after {
-    position: relative;
-    content: '\20BD';
-  }
 }
 
 .costText {
@@ -91,11 +86,6 @@
 .final {
   @include h2();
   color: $textColor;
-
-  &::after {
-    position: relative;
-    content: '\20BD';
-  }
 }
 
 .finalTitle {
@@ -108,22 +98,10 @@
   border-bottom: 1px dotted $textColor25;
 }
 
-.sum {
-  &::after {
-    position: relative;
-    content: '\20BD';
-  }
-}
-
 .calc {
   flex-basis: 69%;
 }
 
 .discount {
   flex-basis: 69%;
-
-  &::after {
-    position: relative;
-    content: '\20BD';
-  }
 }

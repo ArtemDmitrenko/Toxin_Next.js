@@ -5,7 +5,7 @@ import Dropdown, { DropdownConfig } from 'Components/Dropdown/Dropdown';
 import Reference from 'Components/Reference/Reference';
 import Tooltip from 'Components/Tooltip/Tooltip';
 
-import formatSign from './helpers/formatSign';
+import convertNumToWordform from 'Root/utils/convertNumToWordform';
 import formatCost from './helpers/formatCost';
 import calcDays from './helpers/calcDays';
 
@@ -76,7 +76,7 @@ const ReservationCard = (props: ReservationCardProps) => {
 
   const displaySign = (): string => {
     const daysInHotel = calcDays(dateRange);
-    const sign = formatSign(daysInHotel);
+    const sign = convertNumToWordform(daysInHotel, ['сутки', 'суток', 'суток']);
     return ` x ${daysInHotel} ${sign}`;
   };
 
