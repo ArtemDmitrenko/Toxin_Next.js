@@ -58,7 +58,7 @@
   }
 }
 
-input[type='checkbox']:focus {
+.content:focus {
   & + .indicator {
     box-shadow: 3px 3px 3px $primaryColor;
   }
