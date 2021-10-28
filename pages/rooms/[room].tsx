@@ -6,7 +6,7 @@ import RulesList from 'Components/RulesList/RulesList';
 type RoomProps = {
   data: {
     room: number,
-    isLux: boolean,
+    level: string,
     cost: number,
     rating: number,
     reviews: number,
