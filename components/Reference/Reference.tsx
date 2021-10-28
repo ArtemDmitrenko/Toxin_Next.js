@@ -3,21 +3,26 @@ import Link from 'next/link';
 import styles from './reference.module.scss';
 
 type ReferenceProps = {
+  isButton?: boolean,
+  buttonType?: 'button' | 'submit' | 'reset' | undefined,
   text: string,
   type: 'bordered' | 'solid' | 'directed',
   size: 'big' | 'small',
-  href: string,
+  href?: string,
   onClick?: () => void,
 };
 
 const Reference = (props: ReferenceProps) => {
   const {
+    isButton,
+    buttonType,
     text,
     type,
     size,
     href = '/',
     onClick,
   } = props;
+
   const classesArr = [styles.reference];
 
   if (type === 'bordered') classesArr.push(styles.bordered);
@@ -29,11 +34,25 @@ const Reference = (props: ReferenceProps) => {
   const classes = classesArr.join(' ');
 
   return (
-    <Link href={href} passHref>
-      <a href="replace" onClick={onClick} className={classes}>
-        {text}
-      </a>
-    </Link>
+    isButton
+      ? (
+        <button
+          type={
+            (buttonType === 'submit' ? 'submit' : 'button')
+          }
+          className={classes}
+          onClick={onClick}
+        >
+          {text}
+        </button>
+      )
+      : (
+        <Link href={href} passHref>
+          <a href="replace" onClick={onClick} className={classes}>
+            {text}
+          </a>
+        </Link>
+      )
   );
 };
 

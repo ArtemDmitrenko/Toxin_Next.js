@@ -1,11 +1,11 @@
 import { useState } from 'react';
 
+import convertNumToWordform from 'Root/utils/convertNumToWordform';
 import DateRange, { DatesOfStay } from 'Components/DateRange/DateRange';
 import Dropdown, { DropdownConfig } from 'Components/Dropdown/Dropdown';
 import Reference from 'Components/Reference/Reference';
 import Tooltip from 'Components/Tooltip/Tooltip';
 
-import convertNumToWordform from 'Root/utils/convertNumToWordform';
 import formatCost from './helpers/formatCost';
 import calcDays from './helpers/calcDays';
 
@@ -172,10 +172,11 @@ const ReservationCard = (props: ReservationCardProps) => {
         <div className={styles.final}>{displayTotalCost()}</div>
       </div>
       <Reference
+        isButton
+        buttonType="submit"
         type="directed"
         size="big"
         text="забронировать"
-        href="/404"
         onClick={handleSubmit}
       />
     </form>
