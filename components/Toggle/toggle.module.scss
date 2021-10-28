@@ -11,18 +11,7 @@
 .content {
   position: absolute;
   opacity: 0;
-}
 
-.indicator {
-  position: absolute;
-  width: 40px;
-  height: 20px;
-  border: 1px solid $textColor25;
-  border-radius: 10px;
-  cursor: pointer;
-}
-
-.content {
   & + .indicator::before {
     position: absolute;
     top: 50%;
@@ -35,6 +24,15 @@
     transition: left 0.3s;
     content: '';
   }
+}
+
+.indicator {
+  position: absolute;
+  width: 40px;
+  height: 20px;
+  border: 1px solid $textColor25;
+  border-radius: 10px;
+  cursor: pointer;
 }
 
 .content:checked {
