@@ -105,7 +105,12 @@ const Header = (props: HeaderProps) => {
         </nav>
         <div className={stylesButtons()}>
           <Reference href="/auth/sign-in" text="Войти" type="bordered" size="small" />
-          <Reference text="Зарегистрироваться" type="solid" size="small" />
+          <Reference
+            href="/auth/sign-up"
+            text="Зарегистрироваться"
+            type="solid"
+            size="small"
+          />
         </div>
       </div>
 

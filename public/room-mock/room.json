@@ -1,21 +1,21 @@
 {
   "room": 888,
-  "isLux": true,
+  "level": "люкс",
   "cost": 9990,
   "rating": 5,
   "reviews": 145,
   "images": [
     {
       "alt": "room 888 double bed",
-      "src": "/room-mock/images/room-888-1.jpg"
+      "src": "/images/rooms/room-888.jpg"
     },
     {
       "alt": "room 888 solo bed",
-      "src": "/room-mock/images/room-888-2.jpg"
+      "src": "/images/rooms/room-888-2.jpg"
     },
     {
       "alt": "room 888 workspace",
-      "src": "/room-mock/images/room-888-3.jpg"
+      "src": "/images/rooms/room-888-3.jpg"
     }
   ]
 }

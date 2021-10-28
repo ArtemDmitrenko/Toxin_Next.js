@@ -1,5 +1,6 @@
 import RoomSearchCard, { RoomSearchCardData } from 'Components/RoomSearchCard/RoomSearchCard';
 
+import addDaysToDate from 'Root/utils/addDaysToDate';
 import { DropdownConfig } from 'Components/Dropdown/Dropdown';
 import { DateRangeConfig } from 'Components/DateRange/DateRange';
 
@@ -13,7 +14,7 @@ const guestDropdownConfig: DropdownConfig = [
 
 const dateRangeConfig: DateRangeConfig = {
   headers: ['прибытие', 'выезд'],
-  defaultValues: [new Date('2021-10-19'), new Date('2021-10-23')],
+  defaultValues: [new Date(), addDaysToDate(new Date(), 3)],
   isDouble: true,
 };
 
