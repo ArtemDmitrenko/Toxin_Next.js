@@ -112,7 +112,7 @@ const ReservationCard = (props: ReservationCardProps) => {
   };
 
   return (
-    <form className={styles.roomCard}>
+    <form className={styles.reservationCard}>
       <div className={styles.dataRoom}>
         <div>
           <span className={styles.signNumber}>№</span>
