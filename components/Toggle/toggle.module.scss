@@ -22,7 +22,7 @@
   cursor: pointer;
 }
 
-input[type='checkbox'] {
+.content {
   & + .indicator::before {
     position: absolute;
     top: 50%;
@@ -37,13 +37,13 @@ input[type='checkbox'] {
   }
 }
 
-input[type='checkbox']:checked {
+.content:checked {
   & + .indicator {
     border: 1px solid $primaryColor;
   }
 
   & + .indicator::before {
-    left: 75%;
+    left: 77%;
     background: $primaryGradient;
   }
 }
