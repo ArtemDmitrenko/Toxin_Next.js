@@ -136,9 +136,9 @@ const SearchFilter = (props: SearchFilterProps) => {
         />
         <p className={styles.description}>Стоимость за сутки пребывания в номере</p>
       </div>
-      <div className={styles.checkboxWrapper}>
+      <div className={styles.wrapperLarge}>
         <label className={styles.title}>Правила дома</label>
-        <div className={styles.wrapperSmall}>
+        <div className={styles.wrapper}>
           {
             checkboxRulesConfig.map((checkbox) => (
               <div
@@ -158,9 +158,9 @@ const SearchFilter = (props: SearchFilterProps) => {
           }
         </div>
       </div>
-      <div className={styles.checkboxWrapper}>
+      <div className={styles.wrapperLarge}>
         <label className={styles.title}>Доступность</label>
-        <div className={styles.wrapperSmall}>
+        <div className={styles.wrapper}>
           {
             checkboxAvailabilitiesConfig.map((checkbox) => (
               <div

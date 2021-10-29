@@ -10,7 +10,6 @@ type RoomCardProps = {
   cost: number,
   amountReviews: number,
   images: Array<{
-    id: number,
     src: string,
     alt: string
   }>,
@@ -21,7 +20,7 @@ type RoomCardProps = {
 const RoomCard = (props: RoomCardProps) => {
   const {
     roomNumber = 100,
-    level,
+    level = '',
     cost = 1000,
     amountReviews = 0,
     images,
@@ -32,7 +31,11 @@ const RoomCard = (props: RoomCardProps) => {
 
   return (
     <div className={styles.roomCard}>
-      <CarouselImages data={{ images }} />
+      <div className={styles.aspectRatio}>
+        <div className={styles.imageWrapper}>
+          <CarouselImages images={images} />
+        </div>
+      </div>
       <Link href={href} passHref>
         <a className={styles.linkRoom} href="replace">
           <div className={styles.description}>

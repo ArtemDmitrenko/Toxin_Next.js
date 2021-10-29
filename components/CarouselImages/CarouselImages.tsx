@@ -3,18 +3,14 @@ import { useState } from 'react';
 import styles from './carouselImages.module.scss';
 
 type CarouselImagesProps = {
-  data: {
-    images: Array<{
-      id: number,
-      src: string,
-      alt: string
-    }>,
-  }
+  images: Array<{
+    src: string,
+    alt: string
+  }>,
 };
 
 const CarouselImages = (props: CarouselImagesProps) => {
-  const { data } = props;
-  const { images } = data;
+  const { images } = props;
 
   const [active, setActive] = useState<number>(0);
 
@@ -52,12 +48,13 @@ const CarouselImages = (props: CarouselImagesProps) => {
     <div className={styles.slider}>
       <div className={styles.carousel}>
         {images.map((image, index) => (
-          <div className={stylesContent(index)} key={image.id}>
+          <div className={stylesContent(index)} key={image.src}>
             <img
               className={styles.image}
               src={image.src}
               alt={image.alt}
               width="100%"
+              height="100%"
             />
           </div>
         ))}
@@ -93,7 +90,7 @@ const CarouselImages = (props: CarouselImagesProps) => {
       <div className={styles.switch}>
         {images.map((image, index) => (
           <button
-            key={image.id}
+            key={image.src}
             type="button"
             aria-label="button-switch"
             className={stylesDot(Number(index))}
