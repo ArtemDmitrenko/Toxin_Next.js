@@ -94,7 +94,8 @@
 }
 
 .points {
-  flex-grow: 0.95;
+  flex-grow: 1;
+  margin: 0 5px;
   border-bottom: 1px dotted $textColor25;
 }
 

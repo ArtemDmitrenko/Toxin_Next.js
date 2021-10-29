@@ -5,6 +5,7 @@ import styles from './reference.module.scss';
 type ReferenceProps = {
   isButton?: boolean,
   buttonType?: 'button' | 'submit' | 'reset' | undefined,
+  disabled?: boolean | undefined,
   text: string,
   type: 'bordered' | 'solid' | 'directed',
   size: 'big' | 'small',
@@ -16,6 +17,7 @@ const Reference = (props: ReferenceProps) => {
   const {
     isButton,
     buttonType,
+    disabled,
     text,
     type,
     size,
@@ -40,6 +42,7 @@ const Reference = (props: ReferenceProps) => {
           type={
             (buttonType === 'submit' ? 'submit' : 'button')
           }
+          disabled={disabled}
           className={classes}
           onClick={onClick}
         >

@@ -183,5 +183,5 @@ const ReservationCard = (props: ReservationCardProps) => {
   );
 };
 
-export default ReservationCard;
 export type { Service };
+export default ReservationCard;
