@@ -1,35 +1,81 @@
-import Dropdown, { DropdownConfig } from 'Components/Dropdown/Dropdown';
-import Comment from 'Components/Comment/Comment';
-import userComment from 'Components/Comment/comment.json';
+import { useState } from 'react';
+
+import Layout from 'Components/Layout/Layout';
+import SearchFilter from 'Components/SearchFilter/SearchFilter';
 import Pagination from 'Components/Pagination/Pagination';
-import roomsJSON from 'Root/public/rooms-mock/rooms.json';
-import ReservationCard, { Service } from 'Components/ReservationCard/ReservationCard';
-import CheckboxDropdown from 'Components/CheckboxDropdown/CheckboxDropdown';
-import RulesList from 'Root/components/RulesList/RulesList';
+import addDaysToDate from 'Root/utils/addDaysToDate';
+import roomsMock from 'Root/public/rooms-mock/rooms.json';
+import { DropdownConfig } from 'Root/components/Dropdown/Dropdown';
 
 import styles from './index.module.scss';
 
-const guestsDropdownConfig: DropdownConfig = [
+const dateRange = {
+  defaultValues: [
+    new Date(),
+    addDaysToDate(new Date(), 3),
+  ],
+};
+
+const guestDropdown: DropdownConfig = [
   {
-    title: 'Взрослые',
-    group: 'guests',
+    title: 'взрослые',
+    group: 'adults',
     wordforms: ['гость', 'гостя', 'гостей'],
     defaultValue: 2,
   },
   {
-    title: 'Дети',
-    group: 'guests',
+    title: 'дети',
+    group: 'adults',
     wordforms: ['гость', 'гостя', 'гостей'],
     defaultValue: 1,
   },
   {
-    title: 'Младенцы',
+    title: 'младенцы',
     group: 'babies',
     wordforms: ['младенец', 'младенца', 'младенцев'],
+    defaultValue: 1,
   },
 ];
 
-const facilitiesDropdownConfig: DropdownConfig = [
+const rangeSlider = {
+  valueFrom: 5000,
+  valueTo: 10000,
+};
+
+const checkboxRules = [
+  {
+    title: 'Можно курить',
+    name: 'isSmoke',
+  },
+  {
+    title: 'Можно с питомцами',
+    name: 'isPets',
+    isChecked: true,
+  },
+  {
+    title: 'Можно пригласить гостей (до 10 человек)',
+    name: 'isGuests',
+    isChecked: true,
+  },
+];
+
+const checkboxAvailabilities = [
+  {
+    title: 'Широкий коридор',
+    description: 'Ширина коридоров в номере не\xa0менее 91 см.',
+    isBoldTitle: true,
+    name: 'isWideHall',
+    isChecked: true,
+  },
+  {
+    title: 'Помощник для инвалидов',
+    description: 'На 1 этаже вас встретит специалист и\xa0проводит до номера',
+    isBoldTitle: true,
+    name: 'isHelper',
+  },
+];
+
+const facilitiesDropdown: DropdownConfig = [
   {
     title: 'Спальни',
     group: 'bedrooms',
@@ -39,30 +85,17 @@ const facilitiesDropdownConfig: DropdownConfig = [
   {
     title: 'Кровати',
     group: 'beds',
-    defaultValue: 1,
+    defaultValue: 2,
     wordforms: ['кровать', 'кровати', 'кроватей'],
   },
   {
     title: 'Ванные комнаты',
     group: 'bathrooms',
-    defaultValue: 1,
     wordforms: ['ванная комната', 'ванные комнаты', 'ванных комнат'],
   },
 ];
 
-const service: Service = {
-  discount: 2179,
-  serviceCost: 0,
-  extraServiceCost: 300,
-};
-
-const rulesList = [
-  { id: '0', title: 'Нельзя с питомцами' },
-  { id: '1', title: 'Без вечеринок и мероприятий' },
-  { id: '2', title: 'Время прибытия — после 13:00, а\u00A0выезд до 12:00' },
-];
-
-const checkboxList = {
+const checkboxDropdown = {
   breakfast: {
     title: 'Завтрак',
     isChecked: false,
@@ -97,43 +130,53 @@ const checkboxList = {
   },
 };
 
-const Rooms = () => (
-  <div>
-    <div>
-      <Dropdown list={guestsDropdownConfig} placeholder="Сколько гостей" />
-      <Dropdown list={facilitiesDropdownConfig} placeholder="Выберите удобства" isButtons={false} />
-    </div>
-    <div className={styles.row}>
-      <Dropdown list={guestsDropdownConfig} placeholder="Сколько гостей" />
-      <Dropdown list={facilitiesDropdownConfig} placeholder="Выберите удобства" isButtons={false} />
-    </div>
-    <Comment
-      srcIcon={userComment.srcIcon}
-      userName={userComment.userName}
-      date={new Date(userComment.date)}
-      text={userComment.text}
-      like={userComment.like}
-    />
-    <Pagination itemsPerPage={12} allItems={roomsJSON} onChange={(pageNumber) => console.log(`Page ${pageNumber + 1} is clicked`)} />
-    <ReservationCard
-      roomNumber={888}
-      level="люкс"
-      cost={9990}
-      datesOfStay={{ arrival: '2019-08-19', departure: '2019-08-23' }}
-      guests={guestsDropdownConfig}
-      service={service}
-      onSubmit={(data) => data}
-    />
-    <div>
-      <RulesList
-        rulesHeader="правила"
-        rulesList={rulesList}
-      />
-    </div>
-    <div>
-      <CheckboxDropdown checkboxes={checkboxList} title="Дополнительные удобства" />
-    </div>
-  </div>
-);
+const Rooms = () => {
+  const [filter, setFilter] = useState(false);
+
+  const handleFilterToggle = () => { setFilter((prevState) => !prevState); };
+
+  const stylesFilterGroup = () => (
+    `${styles.filterGroup} ${filter ? styles.filterGroupActive : ''}`
+  );
+
+  const stylesFilter = () => (
+    `${styles.filter} ${filter ? styles.filterActive : ''}`
+  );
+
+  const stylesButton = () => (
+    `${styles.filterButton} ${filter ? styles.filterButtonActive : ''}`
+  );
+
+  return (
+    <Layout title="Rooms">
+      <div className={styles.grid}>
+        <div className={stylesFilterGroup()}>
+          <div className={stylesFilter()}>
+            <div className={styles.filterWrapper}>
+              <SearchFilter
+                dateRangeConfig={dateRange}
+                guestsDropdownConfig={guestDropdown}
+                rangeSliderConfig={rangeSlider}
+                checkboxRulesConfig={checkboxRules}
+                checkboxAvailabilitiesConfig={checkboxAvailabilities}
+                facilitiesDropdownConfig={facilitiesDropdown}
+                checkboxDropdownConfig={checkboxDropdown}
+              />
+            </div>
+          </div>
+          <button className={stylesButton()} type="button" onClick={handleFilterToggle} />
+        </div>
+        <div className={styles.rooms}>
+          <h1 className={styles.title}>Номера, которые мы для вас подобрали</h1>
+          <Pagination
+            itemsPerPage={12}
+            allItems={roomsMock}
+            onChange={() => { }}
+          />
+        </div>
+      </div>
+    </Layout>
+  );
+};
 
 export default Rooms;

@@ -4,7 +4,10 @@ import Header from 'Components/Header/Header';
 import FooterDesktop from 'Components/FooterDesktop/FooterDesktop';
 import footerItems from 'Components/FooterDesktop/footer-items.json';
 import FooterMobile from 'Components/FooterMobile/FooterMobile';
+
 import navigation from './navigation.json';
+
+import styles from './layout.module.scss';
 
 const addNewEmail = (email: string) => {
   const subscriptionData = {
@@ -28,7 +31,7 @@ const Layout = (props: LayoutProps) => {
   } = props;
 
   return (
-    <div>
+    <div className={styles.wrapper}>
       <Head>
         <meta charSet="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -37,7 +40,7 @@ const Layout = (props: LayoutProps) => {
         <title>{title}</title>
       </Head>
       <Header menu={navigation} />
-      <main>
+      <main className={styles.main}>
         {children}
       </main>
       <FooterDesktop

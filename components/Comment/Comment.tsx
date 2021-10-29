@@ -1,17 +1,17 @@
 import Image from 'next/image';
 
 import convertNumToWordform from 'Root/utils/convertNumToWordform';
-import Like from 'Components/Like/Like';
+import Like, { LikeData } from 'Components/Like/Like';
 
 import styles from './comment.module.scss';
 
 type CommentProps = {
   srcIcon: string,
   userName: string,
-  date: Date,
+  date: string,
   text: string,
   like: { amountLike: number; isLiked: boolean }
-  onChange?: (amountLike: number, isLiked: boolean) => void,
+  onChange?: (data: LikeData) => void,
 };
 
 const Comment = (props: CommentProps) => {
@@ -24,9 +24,15 @@ const Comment = (props: CommentProps) => {
     onChange,
   } = props;
 
-  const dateComment = date.getTime();
+  const dateComment = new Date(date).getTime();
   const currentDate = Date.now();
   const amountDays = Math.floor((currentDate - dateComment) / 86400000);
+
+  const handleLikeChange = (data: LikeData) => {
+    if (onChange) {
+      onChange(data);
+    }
+  };
 
   const makeDateString = () => {
     const month = Math.floor(amountDays / 30);
@@ -55,7 +61,7 @@ const Comment = (props: CommentProps) => {
           <Like
             amountLike={like.amountLike}
             isLiked={like.isLiked}
-            onChange={onChange}
+            onChange={handleLikeChange}
           />
         </div>
         <p className={styles.text}>{text}</p>
@@ -64,4 +70,5 @@ const Comment = (props: CommentProps) => {
   );
 };
 
+export type { CommentProps };
 export default Comment;
