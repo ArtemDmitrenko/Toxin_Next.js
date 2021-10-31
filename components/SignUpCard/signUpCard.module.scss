@@ -1,0 +1,11 @@
+@import 'Root/style/variables.scss';
+
+.container {
+  width: 380px;
+  padding: 40px 30px 30px;
+  background: #fff;
+}
+
+.title {
+  @include h1();
+}
