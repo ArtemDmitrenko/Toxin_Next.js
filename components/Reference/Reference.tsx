@@ -4,8 +4,8 @@ import styles from './reference.module.scss';
 
 type ReferenceProps = {
   isButton?: boolean,
-  buttonType?: 'button' | 'submit' | 'reset' | undefined,
-  disabled?: boolean | undefined,
+  buttonType?: 'button' | 'submit' | 'reset',
+  disabled?: boolean,
   text: string,
   type: 'bordered' | 'solid' | 'directed',
   size: 'big' | 'small',
