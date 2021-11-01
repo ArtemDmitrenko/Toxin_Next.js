@@ -18,6 +18,17 @@
 
 .surname {
   margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.subtitle {
+  @include h3();
+  margin-bottom: 5px;
+}
+
+.sign {
+  display: block;
+  color: red;
 }
 
 .field {
@@ -46,6 +57,31 @@
       color: $textColor75;
     }
   }
+}
+
+.question {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 30px;
+  column-gap: 10px;
+}
+
+.sex {
+  margin-bottom: 10px;
+
+  & > label {
+    margin-right: 20px;
+  }
+}
+
+.dateOfBirth {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.offers {
+  margin-bottom: 20px;
 }
 
 //================ TODO ===============//

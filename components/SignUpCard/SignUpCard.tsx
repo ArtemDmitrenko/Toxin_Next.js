@@ -1,45 +1,56 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import { Field, Form } from 'react-final-form';
+import { Field, Form, FieldRenderProps } from 'react-final-form';
+import { IMaskInput } from 'react-imask';
 
-import Toggle, { ToggleData } from 'Components/Toggle/Toggle';
-import Checkbox from '../Checkbox/Checkbox';
+import hasValidateEmail from 'Root/utils/hasValidateEmail';
+import RadioButton from 'Components/RadioButton/RadioButton';
+import Toggle from 'Components/Toggle/Toggle';
+import Reference from 'Components/Reference/Reference';
 
 import styles from './signUpCard.module.scss';
 
+type Sex = 'male' | 'female';
+
 type SignUpCardData = {
-  // name: string,
-  // surname: string,
-  // dateOfBirth: string,
-  // email: string,
-  // password: string,
-  // getSpecialOffers: boolean
+  name: string,
+  surname: string,
+  dateOfBirth: string,
+  email: string,
+  password: string,
+  specialOffers: { isChecked: boolean }
 };
 
 type SignUpCardProps = {
   onSubmit: (data: SignUpCardData) => void
 };
 
-// const ToggleAdapter = ({ title, name, onChange, ...rest }: { title: string, name: string, onChange: (data) => void }) => (
-//   <Toggle
-//     title={title}
-//     name={name}
-//     onChange={(data: ToggleData) => onChange(data)}
-//     {...rest}
-//   />
-// );
-
-
-// const ToggleAdapter = ({ input: { onChange, value }, label, ...rest }) => (
-//   <Toggle
-//     name={label}
-//     {...rest}
-//   />
-// )
-
-
+const ToggleAdapter = ({ input: { onChange }, ...rest }: FieldRenderProps<boolean, any>) => (
+  <Toggle
+    title={rest.title}
+    name={rest.name}
+    onChange={(data) => onChange(data)}
+    {...rest}
+  />
+);
 
 const SignUpCard = ({ onSubmit }: SignUpCardProps) => {
   const validate = (text: string) => (value: string) => (value ? undefined : text);
+
+  const birthdayValidate = (signNoText: string, signNotValid: string) => (value: string) => {
+    validate(signNoText);
+    const dateReg = /^\d{2}([./-])\d{2}\1\d{4}$/;
+    if (value) {
+      if (!value.match(dateReg)) return signNotValid;
+      return undefined;
+    }
+    return signNoText;
+  };
+
+  const emailValidate = (signNoText: string, signNotValid: string) => (value: string) => {
+    if (!value) return signNoText;
+    if (!hasValidateEmail(value)) return signNotValid;
+    return '';
+  };
 
   const buttonClass = `${styles.button} ${styles.directed} ${styles.big}`;
 
@@ -53,11 +64,11 @@ const SignUpCard = ({ onSubmit }: SignUpCardProps) => {
               name="name"
               type="text"
               placeholder="Имя"
-              validate={validate('Введите имя')}
+              validate={validate('Обязательное поле')}
             >
               {({ input, meta, placeholder }) => (
                 <div className={styles.name}>
-                  {meta.error && meta.touched && <span>{meta.error}</span>}
+                  {meta.error && meta.touched && <span className={styles.sign}>{meta.error}</span>}
                   <input
                     {...input}
                     className={styles.field}
@@ -70,11 +81,70 @@ const SignUpCard = ({ onSubmit }: SignUpCardProps) => {
               name="surname"
               type="text"
               placeholder="Фамилия"
-              validate={validate('Введите фамилию')}
+              validate={validate('Обязательное поле')}
             >
               {({ input, meta, placeholder }) => (
                 <div className={styles.surname}>
-                  {meta.error && meta.touched && <span>{meta.error}</span>}
+                  {meta.error && meta.touched && <span className={styles.sign}>{meta.error}</span>}
+                  <input
+                    {...input}
+                    className={styles.field}
+                    placeholder={placeholder}
+                  />
+                </div>
+              )}
+            </Field>
+            <div className={styles.sex}>
+              <Field<Sex>
+                component={RadioButton}
+                name="sex"
+                content="Мужчина"
+                value="male"
+                type="radio"
+                checked
+              />
+
+              <Field<Sex>
+                component={RadioButton}
+                name="sex"
+                content="Женщина"
+                value="female"
+                type="radio"
+              />
+            </div>
+
+            <Field
+              name="dateOfBirth"
+              type="text"
+              validate={birthdayValidate('Обязательное поле', 'Заполнено некорректно')}
+            >
+              {({ input, meta }) => (
+                <div className={styles.dateOfBirth}>
+                  <div className={styles.subtitle}>Дата рождения</div>
+                  {meta.error && meta.touched && <span className={styles.sign}>{meta.error}</span>}
+                  <IMaskInput
+                    {...input}
+                    className={styles.field}
+                    mask={Date}
+                    placeholder="ДД.ММ.ГГГГ"
+                    min={new Date(1990, 0, 1)}
+                    max={new Date()}
+                  />
+                </div>
+              )}
+            </Field>
+
+
+            <Field
+              name="email"
+              type="email"
+              placeholder="Email"
+              validate={emailValidate('Обязательное поле', 'Заполнено некорректно')}
+            >
+              {({ input, meta, placeholder }) => (
+                <div className={styles.name}>
+                  <div className={styles.subtitle}>Данные для входа в сервис</div>
+                  {meta.error && meta.touched && <span className={styles.sign}>{meta.error}</span>}
                   <input
                     {...input}
                     className={styles.field}
@@ -84,25 +154,32 @@ const SignUpCard = ({ onSubmit }: SignUpCardProps) => {
               )}
             </Field>
             <Field
-              name="specialOffers"
-              type="checkbox"
+              name="password"
+              type="text"
+              placeholder="Пароль"
+              validate={validate('Обязательное поле')}
             >
-              {() => (
+              {({ input, meta, placeholder }) => (
                 <div className={styles.surname}>
-                  <Toggle title="Получать спецпредложения" name="specialOffers" />
+                  {meta.error && meta.touched && <span className={styles.sign}>{meta.error}</span>}
+                  <input
+                    {...input}
+                    className={styles.field}
+                    placeholder={placeholder}
+                  />
                 </div>
               )}
             </Field>
-            <Field
-              name="specialOffers"
-              type="checkbox"
-            >
-              { (fieldState) => (
-                <pre>
-                  {JSON.stringify(fieldState, undefined, 2)}
-                </pre>
-              )}
-            </Field>
+
+            <div className={styles.offers}>
+              <Field
+                name="specialOffers"
+                title="Получить спецпредложения"
+                component={ToggleAdapter}
+              />
+            </div>
+
+
             <button
               className={buttonClass}
               type="submit"
@@ -113,8 +190,12 @@ const SignUpCard = ({ onSubmit }: SignUpCardProps) => {
           </form>
         )}
       </Form>
-      <Toggle title="Получать спецпредложения" name="specialOffers" isChecked />
-      <Checkbox title="Выбери меня" name="specialOffers" isChecked />
+      <div className={styles.question}>
+        <span>Уже есть аккаунт на Toxin</span>
+        <Reference href="/auth/sign-in" text="войти" type="bordered" size="big" />
+      </div>
+
+
     </div>
   );
 };

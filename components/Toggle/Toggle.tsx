@@ -3,7 +3,6 @@ import { useState } from 'react';
 import styles from './toggle.module.scss';
 
 type ToggleData = {
-  name: string,
   isChecked: boolean,
 };
 
@@ -28,7 +27,7 @@ const Toggle = (props: ToggleProps) => {
     setChecked(!checked);
 
     if (onChange) {
-      onChange({ name, isChecked: !checked });
+      onChange({ isChecked: !checked });
     }
   };
 
