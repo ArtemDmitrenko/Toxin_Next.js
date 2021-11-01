@@ -1,5 +1,13 @@
 import { initializeApp } from 'firebase/app';
-import { getFirestore, getDocs, collection } from 'firebase/firestore';
+import {
+  getFirestore,
+  collection,
+  getDocs,
+  query,
+  orderBy,
+  startAfter,
+  limit,
+} from 'firebase/firestore';
 
 // import roomsMock from 'Root/public/rooms-mock/rooms.json';
 
@@ -18,8 +26,23 @@ abstract class Firebase {
 
   public static firestore = getFirestore();
 
-  public static getRooms = async () => {
-    const snapshot = await getDocs(collection(this.firestore, 'rooms'));
+  public static getFullSize = async () => {
+    // временное неоптимальное решение
+    const request = query(collection(this.firestore, 'rooms'));
+    const snapshot = await getDocs(request);
+
+    return snapshot.size;
+  };
+
+  public static getRooms = (start: number, itemsPerPage: number) => {
+    const request = query(
+      collection(this.firestore, 'rooms'),
+      orderBy('cost'),
+      startAfter(start),
+      limit(itemsPerPage),
+    );
+
+    const snapshot = getDocs(request);
 
     return snapshot;
   };

@@ -1,12 +1,10 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
-import roomsMock from 'Root/public/rooms-mock/rooms.json';
 import { DropdownConfig } from 'Root/components/Dropdown/Dropdown';
 import Layout from 'Components/Layout/Layout';
 import SearchFilter from 'Components/SearchFilter/SearchFilter';
 import Pagination from 'Components/Pagination/Pagination';
 import addDaysToDate from 'Root/utils/addDaysToDate';
-import Firebase from 'Root/utils/Firebase';
 
 import styles from './index.module.scss';
 
@@ -134,16 +132,6 @@ const checkboxDropdown = {
 const Rooms = () => {
   const [filter, setFilter] = useState(false);
 
-  useEffect(() => {
-    const fetchRooms = async () => {
-      const rooms = await Firebase.getRooms();
-
-      rooms.forEach((room) => console.log(room.data()));
-    };
-
-    fetchRooms();
-  }, []);
-
   const handleFilterToggle = () => { setFilter((prevState) => !prevState); };
 
   const stylesFilterGroup = () => (
@@ -181,7 +169,6 @@ const Rooms = () => {
           <h1 className={styles.title}>Номера, которые мы для вас подобрали</h1>
           <Pagination
             itemsPerPage={12}
-            allItems={roomsMock}
             onChange={() => { }}
           />
         </div>

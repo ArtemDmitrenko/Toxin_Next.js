@@ -11,6 +11,7 @@
     "stylelint:fix": "stylelint '**/*{.css,.scss}' --fix"
   },
   "dependencies": {
+    "@firebase/firestore": "^3.2.0",
     "@reduxjs/toolkit": "^1.6.1",
     "@types/react-paginate": "^7.1.1",
     "final-form": "^4.20.4",
