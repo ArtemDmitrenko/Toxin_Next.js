@@ -6,51 +6,53 @@ $mediaSizeMobile: 420px;
 $containerWidth: 1200px;
 $headerPadding: 18px;
 
-$textColor: #1F2041;
+$textColor: #1f2041;
 $textColor75: rgba($textColor, 0.75);
-$textColor50: rgba($textColor, 0.50);
+$textColor50: rgba($textColor, 0.5);
 $textColor25: rgba($textColor, 0.25);
-$textColor10: rgba($textColor, 0.10);
+$textColor10: rgba($textColor, 0.1);
 $textColor05: rgba($textColor, 0.05);
 
-$primaryColor: #BC9CFF;
-$secondaryColor: #6FCF97;
-$complementaryColor: #66D2EA;
+$primaryColor: #bc9cff;
+$secondaryColor: #6fcf97;
+$complementaryColor: #66d2ea;
 
-$primaryShadow: 0px 10px 20px $textColor05;
-$cardShadow: 0px 0px 25px $textColor25;
+$primaryShadow: 0 10px 20px $textColor05;
+$cardShadow: 0 0 25px $textColor25;
 
-$primaryGradient: linear-gradient(to top, #8BA4F9, $primaryColor);
-$primaryGradientTranslucent: linear-gradient(to top, rgba(#8BA4F9, .5), rgba($primaryColor, .5));
-$primaryGradientTranslucent25: linear-gradient(to top, rgba(#8BA4F9, .25), rgba($primaryColor, .25));
+$primaryGradient: linear-gradient(to top, #8ba4f9, $primaryColor);
+$primaryGradientTranslucent: linear-gradient(to top, rgba(#8ba4f9, 0.5), rgba($primaryColor, 0.5));
+$primaryGradientTranslucent25: linear-gradient(to top, rgba(#8ba4f9, 0.25), rgba($primaryColor, 0.25));
 $secondaryGradient: linear-gradient(to top, $complementaryColor, $secondaryColor);
 
 $primaryFont: 'Montserrat', 'Arial', 'sans-serif';
 
 @mixin font-face($font-family, $font-path, $font-postfix, $font-weight, $font-style) {
   @font-face {
+    font-weight: $font-weight;
     font-family: $font-family;
-    src:local('#{$font-family} #{$font-postfix}'), local('#{$font-family}-#{$font-postfix}'),
+    font-style: $font-style;
+    src:
+      local('#{$font-family} #{$font-postfix}'),
+      local('#{$font-family}-#{$font-postfix}'),
       url('#{$font-path}.woff2') format('woff2'),
       url('#{$font-path}.woff') format('woff');
-    font-weight: $font-weight;
-    font-style: $font-style;
   }
 }
 
 @mixin container() {
-  max-width: $containerWidth;
   width: 100%;
-  padding: 0 20px;
+  max-width: $containerWidth;
   margin: 0 auto;
+  padding: 0 20px;
 }
 
 @mixin h1() {
   margin-top: 0;
   margin-bottom: 0;
-  font-family: $primaryFont;
   font-weight: bold;
   font-size: 24px;
+  font-family: $primaryFont;
   line-height: 29.6px;
   letter-spacing: 0;
 }
@@ -58,20 +60,21 @@ $primaryFont: 'Montserrat', 'Arial', 'sans-serif';
 @mixin h2() {
   margin-top: 0;
   margin-bottom: 0;
-  font-family: $primaryFont;
   font-weight: bold;
   font-size: 20px;
+  font-family: $primaryFont;
   letter-spacing: -0.6px;
 }
 
 @mixin h3() {
+  display: inline-block;
   margin-top: 0;
   margin-bottom: 0;
-  display: inline-block;
-  text-transform: uppercase;
-  font-size: 12px;
   font-weight: bold;
-  letter-spacing: 0px;
+  font-size: 12px;
+  font-family: $primaryFont;
+  letter-spacing: 0;
+  text-transform: uppercase;
 }
 
 @mixin paragraph() {
@@ -82,36 +85,38 @@ $primaryFont: 'Montserrat', 'Arial', 'sans-serif';
 }
 
 @mixin link() {
-  text-decoration: none;
   color: inherit;
+  text-decoration: none;
 }
 
 @mixin input {
   width: 100%;
-  font-size: 13.6px;
-  border: 1px solid $textColor25;
-  border-radius: 5px;
   padding: 13px;
+  color: $textColor75;
+  font-size: 13.6px;
   font-family: $primaryFont;
   letter-spacing: 0.2px;
-  color: $textColor75;
+  border: 1px solid $textColor25;
+  border-radius: 5px;
 
   &::placeholder {
     color: $textColor25;
   }
 
-  &:hover, &:focus, &.hover-focus {
+  &:hover,
+  &:focus,
+  &.hover-focus {
     border-color: $textColor50;
   }
 
   &:focus {
-    outline: none;
     border-color: $textColor50;
+    outline: none;
   }
 }
 
 @mixin text-gradient-fill($color) {
+  color: transparent;
   background: $color;
   background-clip: text;
-  color: transparent;
 }
