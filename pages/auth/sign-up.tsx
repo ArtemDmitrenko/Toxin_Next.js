@@ -8,7 +8,7 @@ import styles from './sign-up.module.scss';
 const SignUp = () => (
   <Layout title="Sign up">
     <BackgroundAuth>
-      <SignUpCard onSubmit={() => {}} />
+      <SignUpCard onSubmit={(data) => {console.log(data)}} />
     </BackgroundAuth>
   </Layout>
 );
