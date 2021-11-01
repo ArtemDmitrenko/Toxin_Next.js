@@ -1,0 +1,30 @@
+import InferValueTypes from 'Root/redux/utils';
+
+import AuthActionsTypes from './authActionTypes';
+import * as actions from './authActions';
+
+type AuthState = {
+  userId: string | null,
+  email: string | null,
+  isAuth: boolean,
+};
+
+const initialState: AuthState = {
+  userId: '',
+  email: '',
+  isAuth: false,
+};
+
+type AuthAction = ReturnType<InferValueTypes<typeof actions>>;
+
+const authReducer = (state = initialState, action: AuthAction) => {
+  switch (action.type) {
+    case AuthActionsTypes.SET_AUTH_USER_DATA:
+      return { ...state, ...action.data, isAuth: true };
+
+    default:
+      return state;
+  }
+};
+
+export default authReducer;
