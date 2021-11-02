@@ -7,21 +7,17 @@ import Reference from 'Components/Reference/Reference';
 import styles from './passwordRecoveryCard.module.scss';
 
 type FormProps = {
-  onSubmit: (loginEmail: string) => void,
-};
-
-type PasswordRecoveryFormData = {
-  loginEmail: string
+  onSubmit: (email: string) => void,
 };
 
 const PasswordRecoveryCard = ({ onSubmit }: FormProps) => (
   <div className={styles.container}>
     <h1 className={styles.title}>Восстановление пароля</h1>
-    <Form onSubmit={onSubmit}>
+    <Form onSubmit={(e) => { onSubmit(e.Email); }}>
       {({ handleSubmit }) => (
         <form onSubmit={handleSubmit}>
           <Field
-            name="loginEmail"
+            name="Email"
             type="email"
             placeholder="Email"
             validate={requiredEmail}
@@ -38,7 +34,7 @@ const PasswordRecoveryCard = ({ onSubmit }: FormProps) => (
             )}
           </Field>
           <div className={styles.buttonRecovery}>
-            <Reference buttonType="submit" text="Восстановить пароль" type="directed" size="big" />
+            <Reference isButton buttonType="submit" text="Восстановить пароль" type="directed" size="big" />
           </div>
           <div className={styles.buttonBack}>
             <Reference href="/auth/sign-in" text="Назад" type="bordered" size="big" />
@@ -49,5 +45,4 @@ const PasswordRecoveryCard = ({ onSubmit }: FormProps) => (
   </div>
 );
 
-export type { PasswordRecoveryFormData };
 export default PasswordRecoveryCard;
