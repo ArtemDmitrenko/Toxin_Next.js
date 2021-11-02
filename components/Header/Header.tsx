@@ -53,7 +53,7 @@ const Header = (props: HeaderProps) => {
   );
 
   return (
-    <div className={styles.header}>
+    <header className={styles.header}>
       <div className={styles.content}>
         <Logo width={110} height={40} alt="Logo" />
         <button className={stylesBurgerMenu()} type="button" aria-label="open or close" onClick={() => setIsOpenBurgerMenu(!isOpenBurgerMenu)} onKeyDown={() => setIsOpenBurgerMenu(!isOpenBurgerMenu)} />
@@ -113,8 +113,7 @@ const Header = (props: HeaderProps) => {
           />
         </div>
       </div>
-
-    </div>
+    </header>
   );
 };
 
