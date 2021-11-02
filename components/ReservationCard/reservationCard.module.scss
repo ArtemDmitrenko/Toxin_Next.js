@@ -2,12 +2,18 @@
 
 .reservationCard {
   box-sizing: border-box;
-  max-width: 380px;
+  min-width: 380px;
   padding: 30px 30px 30px 28px;
   background-color: #fff;
   border: 1px solid rgba(0, 0, 0, 0.12);
   border-radius: 4px;
   box-shadow: 0 0 25px rgb(0 0 0 / 12%);
+
+  @media (max-width: $mediaSizeMobile) {
+    min-width: 200px;
+    max-width: 320px;
+    padding: 20px 15px;
+  }
 }
 
 .dataRoom {
