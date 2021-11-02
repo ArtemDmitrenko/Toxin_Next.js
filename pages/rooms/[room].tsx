@@ -1,15 +1,16 @@
 import mockData from 'Root/public/room-mock/room.json';
+import { DropdownConfig } from 'Root/components/Dropdown/Dropdown';
 import Layout from 'Components/Layout/Layout';
 import Collage from 'Components/Collage/Collage';
-import RulesList from 'Components/RulesList/RulesList';
-import RoomInformation from 'Components/RoomInformation/RoomInformation';
 import Comments from 'Components/Comments/Comments';
+import RulesList from 'Components/RulesList/RulesList';
 import Impressions from 'Components/Impressions/Impressions';
+import RoomInformation from 'Components/RoomInformation/RoomInformation';
+import ReservationCard, { Service } from 'Components/ReservationCard/ReservationCard';
 import userComments from 'Components/Comments/comments.json';
 import rulesList from 'Components/RulesList/rulesList.json';
 import roomInformation from 'Components/RoomInformation/roomInformation.json';
-import { DropdownConfig } from 'Root/components/Dropdown/Dropdown';
-import ReservationCard, { Service } from 'Components/ReservationCard/ReservationCard';
+
 import styles from './room.module.scss';
 
 type RoomProps = {
@@ -88,9 +89,9 @@ const Room = (props: RoomProps) => {
           </div>
           <div className={styles.bookingCard}>
             <ReservationCard
-              roomNumber={888}
-              level="люкс"
-              cost={9990}
+              roomNumber={data.room}
+              level={data.level}
+              cost={data.cost}
               datesOfStay={{ arrival: '2019-08-19', departure: '2019-08-23' }}
               guests={guestDropdown}
               service={service}
