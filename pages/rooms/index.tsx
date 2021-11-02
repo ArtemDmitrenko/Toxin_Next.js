@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 import roomsMock from 'Root/public/rooms-mock/rooms.json';
 import { DropdownConfig } from 'Root/components/Dropdown/Dropdown';
@@ -6,7 +6,6 @@ import Layout from 'Components/Layout/Layout';
 import SearchFilter from 'Components/SearchFilter/SearchFilter';
 import Pagination from 'Components/Pagination/Pagination';
 import addDaysToDate from 'Root/utils/addDaysToDate';
-import Firebase from 'Root/utils/Firebase';
 
 import styles from './index.module.scss';
 
@@ -133,12 +132,6 @@ const checkboxDropdown = {
 
 const Rooms = () => {
   const [filter, setFilter] = useState(false);
-
-  useEffect(() => {
-    /*
-      Здесь будет обращение к Firebase за данными с сервера (список номеров)
-    */
-  }, []);
 
   const handleFilterToggle = () => { setFilter((prevState) => !prevState); };
 
