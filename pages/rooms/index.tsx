@@ -167,7 +167,7 @@ const Rooms = () => {
         </div>
         <div className={styles.rooms}>
           <h1 className={styles.title}>Номера, которые мы для вас подобрали</h1>
-          <Pagination limit={3} />
+          <Pagination limit={12} />
         </div>
       </div>
     </Layout>
