@@ -1,0 +1,25 @@
+@import 'Root/style/variables.scss';
+
+.backgroundAuth {
+  width: 100%;
+  min-height: 683px;
+  background: url('./images/background-authorization.jpg');
+  background-repeat: no-repeat;
+  background-position: 50% 85%;
+  background-size: cover;
+}
+
+.container {
+  @include container();
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: inherit;
+  padding-top: 20px;
+  padding-bottom: 20px;
+
+  @media (max-width: $mediaSizeTablet) {
+    padding-right: 5px;
+    padding-left: 5px;
+  }
+}

@@ -1,14 +1,21 @@
 @import 'Root/style/variables.scss';
 
 .list {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  margin: 0 0 41px 0;
+  display: grid;
+  grid-gap: 20px 10px;
+  grid-template-columns: repeat(3, minmax(270px, 1fr));
+  margin: 0;
+  margin-bottom: 41px;
   padding: 0;
-  column-gap: 12px;
   list-style: none;
-  row-gap: 21px;
+
+  @media (max-width: $mediaSizeDesktop) {
+    grid-template-columns: repeat(2, minmax(270px, 1fr));
+  }
+
+  @media (max-width: 600px) {
+    grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+  }
 }
 
 .container {

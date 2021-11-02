@@ -5,17 +5,17 @@ import RulesList from 'Components/RulesList/RulesList';
 import RoomInformation from 'Components/RoomInformation/RoomInformation';
 import Comments from 'Components/Comments/Comments';
 import Impressions from 'Components/Impressions/Impressions';
-import { CommentProps } from 'Components/Comment/Comment';
 import userComments from 'Components/Comments/comments.json';
 import rulesList from 'Components/RulesList/rulesList.json';
 import roomInformation from 'Components/RoomInformation/roomInformation.json';
-
+import { DropdownConfig } from 'Root/components/Dropdown/Dropdown';
+import ReservationCard, { Service } from 'Components/ReservationCard/ReservationCard';
 import styles from './room.module.scss';
 
 type RoomProps = {
   data: {
     room: number,
-    isLux: boolean,
+    level: string,
     cost: number,
     rating: number,
     reviews: number,
@@ -26,8 +26,31 @@ type RoomProps = {
   },
 };
 
-const handleCommentsChange = (commentList: Array<CommentProps>) => {
-  console.log(commentList);
+const guestDropdown: DropdownConfig = [
+  {
+    title: 'взрослые',
+    group: 'adults',
+    wordforms: ['гость', 'гостя', 'гостей'],
+    defaultValue: 2,
+  },
+  {
+    title: 'дети',
+    group: 'adults',
+    wordforms: ['гость', 'гостя', 'гостей'],
+    defaultValue: 1,
+  },
+  {
+    title: 'младенцы',
+    group: 'babies',
+    wordforms: ['младенец', 'младенца', 'младенцев'],
+    defaultValue: 1,
+  },
+];
+
+const service: Service = {
+  discount: 2179,
+  serviceCost: 0,
+  extraServiceCost: 300,
 };
 
 const Room = (props: RoomProps) => {
@@ -46,7 +69,7 @@ const Room = (props: RoomProps) => {
             <div className={styles.feedback}>
               <Comments
                 comments={userComments}
-                onChange={handleCommentsChange}
+                onChange={() => {}}
               />
             </div>
             <RulesList
@@ -64,11 +87,20 @@ const Room = (props: RoomProps) => {
             </div>
           </div>
           <div className={styles.bookingCard}>
-            <div className={styles.bookingMockCard} />
+            <ReservationCard
+              roomNumber={888}
+              level="люкс"
+              cost={9990}
+              datesOfStay={{ arrival: '2019-08-19', departure: '2019-08-23' }}
+              guests={guestDropdown}
+              service={service}
+              onSubmit={() => {}}
+            />
           </div>
         </div>
       </div>
     </Layout>
+
   );
 };
 

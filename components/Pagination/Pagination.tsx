@@ -1,20 +1,57 @@
 import { useState } from 'react';
 import ReactPaginate from 'react-paginate';
 
+import RoomCard from 'Components/RoomCard/RoomCard';
+
 import styles from './pagination.module.scss';
 
-type RoomCard = {
-  albumId: number,
-  id: number,
-  title: string,
-  url: string,
-  thumbnailUrl: string
+type RoomReviews = {
+  terrible?: number,
+  bad?: number,
+  satisfactory?: number,
+  good?: number,
+  amazing?: number,
+};
+
+type RoomImage = {
+  alt: string,
+  src: string,
+};
+
+type RoomType = {
+  room: number,
+  level: string,
+  cost: number,
+  reviews: RoomReviews,
+  images: Array<RoomImage>
 };
 
 type PaginationProps = {
-  allItems: Array<RoomCard>,
+  allItems: Array<RoomType>,
   itemsPerPage: number,
-  onChange: (pageNumber: number) => void
+  onChange?: (pageNumber: number) => void
+};
+
+const calcAmountReviews = (reviews: RoomReviews) => (
+  Object.values(reviews).reduce((previewVal, currentVal) => previewVal + currentVal)
+);
+
+const calcAmountStars = (reviews: RoomReviews) => {
+  const sum = Object.entries(reviews).reduce((accumulator, [key, value]) => {
+    const collection: { [key: string]: number } = {
+      terrible: 1,
+      bad: 2,
+      satisfactory: 3,
+      good: 4,
+      amazing: 5,
+    };
+
+    const coef = collection[key] ?? 0;
+
+    return accumulator + value * coef;
+  }, 0);
+
+  return Math.floor(sum / calcAmountReviews(reviews) + 0.5);
 };
 
 const Pagination = (props: PaginationProps) => {
@@ -26,15 +63,24 @@ const Pagination = (props: PaginationProps) => {
 
   const handlePageClick = (page: { selected: number }) => {
     setCurrentPage(page.selected);
-    onChange(page.selected);
+    if (onChange) onChange(page.selected);
   };
 
   const displayItems = allItems
     .slice(startPosition, startPosition + itemsPerPage)
     .map((item) => (
-      <li key={item.id}>
-        <img src={item.thumbnailUrl} alt="room" />
-      </li>
+      <div key={item.room}>
+        <RoomCard
+          roomNumber={item.room}
+          level={item.level}
+          cost={item.cost}
+          amountReviews={calcAmountReviews(item.reviews)}
+          images={item.images}
+          href={`/rooms/${item.room}`}
+          amountStar={calcAmountStars(item.reviews)}
+        />
+      </div>
+
     ));
 
   const displaySign = () => {
@@ -59,29 +105,35 @@ const Pagination = (props: PaginationProps) => {
   );
 
   return (
-    <div>
+    <>
       <ul className={styles.list}>
         {displayItems}
       </ul>
-      <ReactPaginate
-        pageCount={pagesTotal}
-        initialPage={currentPage}
-        pageRangeDisplayed={2}
-        marginPagesDisplayed={1}
-        previousLabel=""
-        nextLabel=""
-        previousLinkClassName={previousClasses()}
-        nextLinkClassName={nextClasses()}
-        pageClassName={styles.page}
-        onPageChange={handlePageClick}
-        containerClassName={styles.container}
-        breakClassName={styles.break}
-        activeClassName={styles.active}
-        pageLinkClassName={styles.link}
-        breakLinkClassName={styles.break}
-      />
-      <p className={styles.sign}>{displaySign()}</p>
-    </div>
+      {
+        (allItems.length > itemsPerPage) && (
+          <>
+            <ReactPaginate
+              pageCount={pagesTotal}
+              initialPage={currentPage}
+              pageRangeDisplayed={2}
+              marginPagesDisplayed={1}
+              previousLabel=""
+              nextLabel=""
+              previousLinkClassName={previousClasses()}
+              nextLinkClassName={nextClasses()}
+              pageClassName={styles.page}
+              onPageChange={handlePageClick}
+              containerClassName={styles.container}
+              breakClassName={styles.break}
+              activeClassName={styles.active}
+              pageLinkClassName={styles.link}
+              breakLinkClassName={styles.break}
+            />
+            <p className={styles.sign}>{displaySign()}</p>
+          </>
+        )
+      }
+    </>
   );
 };
 
