@@ -24,16 +24,16 @@ type SignUpCardProps = {
   onSubmit: (data: SignUpCardData) => void
 };
 
-const ToggleAdapter = ({ input: { onChange }, ...rest }: FieldRenderProps<boolean, any>) => (
-  <Toggle
-    title={rest.title}
-    name={rest.name}
-    onChange={(data) => onChange(data)}
-    {...rest}
-  />
-);
-
 const SignUpCard = ({ onSubmit }: SignUpCardProps) => {
+  const ToggleAdapter = ({ input: { onChange }, ...rest }: FieldRenderProps<boolean, any>) => (
+    <Toggle
+      title={rest.title}
+      name={rest.name}
+      onChange={(data) => onChange(data)}
+      {...rest}
+    />
+  );
+
   const validate = (text: string) => (value: string) => (value ? undefined : text);
 
   const birthdayValidate = (signNoText: string, signNotValid: string) => (value: string) => {
