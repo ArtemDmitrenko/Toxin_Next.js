@@ -5,15 +5,18 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  max-width: 768px;
   min-height: 367px;
-  margin: 0 auto;
   border-top: 1px solid $textColor25;
-  box-shadow: 0 10px 20px $textColor05;
 
   @media (min-width: 768px) {
     display: none;
   }
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .text {
