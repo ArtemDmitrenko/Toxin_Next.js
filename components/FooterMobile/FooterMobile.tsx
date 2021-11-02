@@ -5,8 +5,10 @@ import styles from './footerMobile.module.scss';
 
 const FooterMobile = () => (
   <div className={styles.footerMobile}>
-    <Logo width={110} height={44} alt="Logo" />
-    <CopyrightBar text="Copyright © 2018 Toxin отель. Все права защищены." forMobile />
+    <div className={styles.wrapper}>
+      <Logo width={110} height={40} alt="Logo" />
+      <CopyrightBar text="Copyright © 2021 Toxin отель. Все права защищены." forMobile />
+    </div>
   </div>
 );
 
