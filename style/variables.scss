@@ -93,25 +93,27 @@ $primaryFont: 'Montserrat', 'Arial', 'sans-serif';
   width: 100%;
   padding: 13px;
   color: $textColor75;
-  font-size: 13.6px;
   font-family: $primaryFont;
-  letter-spacing: 0.2px;
+  text-overflow: ellipsis;
   border: 1px solid $textColor25;
   border-radius: 5px;
+  outline: none;
+  cursor: pointer;
 
   &::placeholder {
     color: $textColor25;
   }
 
   &:hover,
-  &:focus,
-  &.hover-focus {
+  &:focus {
     border-color: $textColor50;
   }
 
-  &:focus {
-    border-color: $textColor50;
-    outline: none;
+  &:hover,
+  &:focus-within {
+    &::placeholder {
+      color: $textColor75;
+    }
   }
 }
 
