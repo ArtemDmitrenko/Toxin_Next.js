@@ -14,8 +14,6 @@ type PasswordRecoveryFormData = {
   loginEmail: string
 };
 
-const buttonClass = `${styles.button} ${styles.directed} ${styles.big}`;
-
 const PasswordRecoveryCard = ({ onSubmit }: FormProps) => (
   <div className={styles.container}>
     <h1 className={styles.title}>Восстановление пароля</h1>
@@ -39,12 +37,9 @@ const PasswordRecoveryCard = ({ onSubmit }: FormProps) => (
               </div>
             )}
           </Field>
-          <button
-            className={buttonClass}
-            type="submit"
-          >
-            Восстановить пароль
-          </button>
+          <div className={styles.buttonRecovery}>
+            <Reference buttonType="submit" text="Восстановить пароль" type="directed" size="big" />
+          </div>
           <div className={styles.buttonBack}>
             <Reference href="/auth/sign-in" text="Назад" type="bordered" size="big" />
           </div>
