@@ -1,7 +1,6 @@
 import Layout from 'Components/Layout/Layout';
 import BackgroundAuth from 'Components/BackgroundAuth/BackgroundAuth';
-import SignUpCard from 'Components/SignUpCard/signUpCard';
-import RadioButton from 'Components/RadioButton/RadioButton';
+import SignUpCard from 'Components/SignUpCard/SignUpCard';
 
 import styles from './sign-up.module.scss';
 
@@ -14,12 +13,3 @@ const SignUp = () => (
 );
 
 export default SignUp;
-
-
-{/* <div className={styles.radioButton}>
-  <RadioButton
-    name="sex"
-    value="female"
-    content="Женщина"
-  />
-</div> */}

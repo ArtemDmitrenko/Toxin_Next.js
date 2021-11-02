@@ -17,7 +17,7 @@ type SignUpCardData = {
   dateOfBirth: string,
   email: string,
   password: string,
-  specialOffers: { isChecked: boolean }
+  specialOffers6666: { isChecked: boolean }
 };
 
 type SignUpCardProps = {
@@ -30,6 +30,15 @@ const SignUpCard = ({ onSubmit }: SignUpCardProps) => {
       title={rest.title}
       name={rest.name}
       onChange={(data) => onChange(data)}
+      {...rest}
+    />
+  );
+
+  const RadioButtonAdapter = ({ input: { name }, ...rest }: FieldRenderProps<Sex, any>) => (
+    <RadioButton
+      content={rest.content}
+      name={name}
+      value={rest.value}
       {...rest}
     />
   );
@@ -47,24 +56,22 @@ const SignUpCard = ({ onSubmit }: SignUpCardProps) => {
   };
 
   const emailValidate = (signNoText: string, signNotValid: string) => (value: string) => {
-    if (!value) return signNoText;
+    validate(signNoText);
     if (!hasValidateEmail(value)) return signNotValid;
-    return '';
+    return undefined;
   };
-
-  const buttonClass = `${styles.button} ${styles.directed} ${styles.big}`;
 
   return (
     <div className={styles.container}>
       <h1 className={styles.title}>Регистрация аккаунта</h1>
       <Form onSubmit={onSubmit}>
-        {({ handleSubmit, submitting }) => (
+        {({ handleSubmit, submitting, pristine }) => (
           <form onSubmit={handleSubmit}>
             <Field
               name="name"
               type="text"
               placeholder="Имя"
-              validate={validate('Обязательное поле')}
+              validate={validate('Укажите имя')}
             >
               {({ input, meta, placeholder }) => (
                 <div className={styles.name}>
@@ -81,7 +88,7 @@ const SignUpCard = ({ onSubmit }: SignUpCardProps) => {
               name="surname"
               type="text"
               placeholder="Фамилия"
-              validate={validate('Обязательное поле')}
+              validate={validate('Укажите фамилию')}
             >
               {({ input, meta, placeholder }) => (
                 <div className={styles.surname}>
@@ -96,27 +103,23 @@ const SignUpCard = ({ onSubmit }: SignUpCardProps) => {
             </Field>
             <div className={styles.sex}>
               <Field<Sex>
-                component={RadioButton}
+                component={RadioButtonAdapter}
                 name="sex"
                 content="Мужчина"
                 value="male"
-                type="radio"
-                checked
+                isDefaultChecked
               />
-
               <Field<Sex>
-                component={RadioButton}
+                component={RadioButtonAdapter}
                 name="sex"
                 content="Женщина"
                 value="female"
-                type="radio"
               />
             </div>
-
             <Field
               name="dateOfBirth"
               type="text"
-              validate={birthdayValidate('Обязательное поле', 'Заполнено некорректно')}
+              validate={birthdayValidate('Укажите дату рождения', 'Некорректная дата')}
             >
               {({ input, meta }) => (
                 <div className={styles.dateOfBirth}>
@@ -133,13 +136,11 @@ const SignUpCard = ({ onSubmit }: SignUpCardProps) => {
                 </div>
               )}
             </Field>
-
-
             <Field
               name="email"
               type="email"
               placeholder="Email"
-              validate={emailValidate('Обязательное поле', 'Заполнено некорректно')}
+              validate={emailValidate('Укажите Email', 'Некорректный Email')}
             >
               {({ input, meta, placeholder }) => (
                 <div className={styles.name}>
@@ -157,7 +158,7 @@ const SignUpCard = ({ onSubmit }: SignUpCardProps) => {
               name="password"
               type="text"
               placeholder="Пароль"
-              validate={validate('Обязательное поле')}
+              validate={validate('Укажите пароль')}
             >
               {({ input, meta, placeholder }) => (
                 <div className={styles.surname}>
@@ -170,7 +171,6 @@ const SignUpCard = ({ onSubmit }: SignUpCardProps) => {
                 </div>
               )}
             </Field>
-
             <div className={styles.offers}>
               <Field
                 name="specialOffers"
@@ -178,24 +178,26 @@ const SignUpCard = ({ onSubmit }: SignUpCardProps) => {
                 component={ToggleAdapter}
               />
             </div>
-
-
-            <button
-              className={buttonClass}
-              type="submit"
-              disabled={submitting}
-            >
-              зарегистрироваться
-            </button>
+            <Reference
+              isButton
+              buttonType="submit"
+              disabled={submitting || pristine}
+              text="зарегистрироваться"
+              type="directed"
+              size="big"
+            />
           </form>
         )}
       </Form>
       <div className={styles.question}>
         <span>Уже есть аккаунт на Toxin</span>
-        <Reference href="/auth/sign-in" text="войти" type="bordered" size="big" />
+        <Reference
+          href="/auth/sign-in"
+          text="войти"
+          type="bordered"
+          size="big"
+        />
       </div>
-
-
     </div>
   );
 };

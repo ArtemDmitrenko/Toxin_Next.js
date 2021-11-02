@@ -1,26 +1,32 @@
-/* eslint-disable react/jsx-props-no-spreading */
-import { FieldRenderProps } from 'react-final-form';
-
 import styles from './radioButton.module.scss';
 
-function RadioButton<T extends string>({
-  input, meta, ...rest
-}: FieldRenderProps<T, any>) {
+type RadioButtonProps = {
+  name: string,
+  value: string,
+  content: string,
+  isDefaultChecked?: boolean,
+};
+
+const RadioButton = (props: RadioButtonProps) => {
   const {
+    name,
+    value,
     content,
-  } = rest;
+    isDefaultChecked = false,
+  } = props;
 
   return (
     <label className={styles.radioButton}>
       <input
         className={styles.input}
         type="radio"
-        {...input}
-        {...rest}
+        name={name}
+        value={value}
+        defaultChecked={isDefaultChecked}
       />
       <div className={styles.content}>{content}</div>
     </label>
   );
-}
+};
 
 export default RadioButton;
