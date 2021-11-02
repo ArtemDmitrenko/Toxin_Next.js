@@ -109,24 +109,30 @@ const Pagination = (props: PaginationProps) => {
       <ul className={styles.list}>
         {displayItems}
       </ul>
-      <ReactPaginate
-        pageCount={pagesTotal}
-        initialPage={currentPage}
-        pageRangeDisplayed={2}
-        marginPagesDisplayed={1}
-        previousLabel=""
-        nextLabel=""
-        previousLinkClassName={previousClasses()}
-        nextLinkClassName={nextClasses()}
-        pageClassName={styles.page}
-        onPageChange={handlePageClick}
-        containerClassName={styles.container}
-        breakClassName={styles.break}
-        activeClassName={styles.active}
-        pageLinkClassName={styles.link}
-        breakLinkClassName={styles.break}
-      />
-      <p className={styles.sign}>{displaySign()}</p>
+      {
+        (allItems.length > itemsPerPage) && (
+          <>
+            <ReactPaginate
+              pageCount={pagesTotal}
+              initialPage={currentPage}
+              pageRangeDisplayed={2}
+              marginPagesDisplayed={1}
+              previousLabel=""
+              nextLabel=""
+              previousLinkClassName={previousClasses()}
+              nextLinkClassName={nextClasses()}
+              pageClassName={styles.page}
+              onPageChange={handlePageClick}
+              containerClassName={styles.container}
+              breakClassName={styles.break}
+              activeClassName={styles.active}
+              pageLinkClassName={styles.link}
+              breakLinkClassName={styles.break}
+            />
+            <p className={styles.sign}>{displaySign()}</p>
+          </>
+        )
+      }
     </>
   );
 };
