@@ -17,6 +17,7 @@ const ForgotPassword = () => {
   });
 
   const auth = getAuth();
+  auth.languageCode = 'ru';
 
   const onSubmit = async (email: string) => {
     await sendPasswordResetEmail(auth, email)
