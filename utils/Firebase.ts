@@ -1,4 +1,5 @@
 import { initializeApp } from 'firebase/app';
+import { Query, DocumentData, QueryDocumentSnapshot } from '@firebase/firestore';
 import {
   getFirestore,
   collection,
@@ -34,15 +35,30 @@ abstract class Firebase {
     return snapshot.size;
   };
 
-  public static getRooms = (start: number, itemsPerPage: number) => {
-    const request = query(
-      collection(this.firestore, 'rooms'),
-      orderBy('cost'),
-      startAfter(start),
-      limit(itemsPerPage),
-    );
+  public static getRooms = async (props: {
+    documentsLimit: number,
+    documentPoint?: QueryDocumentSnapshot<DocumentData>
+  }) => {
+    const { documentsLimit, documentPoint } = props;
 
-    const snapshot = getDocs(request);
+    let request: Query<DocumentData>;
+
+    if (documentPoint) {
+      request = query(
+        collection(this.firestore, 'rooms'),
+        orderBy('cost'),
+        limit(documentsLimit),
+        startAfter(documentPoint),
+      );
+    } else {
+      request = query(
+        collection(this.firestore, 'rooms'),
+        orderBy('cost'),
+        limit(documentsLimit),
+      );
+    }
+
+    const snapshot = await getDocs(request);
 
     return snapshot;
   };

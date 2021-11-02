@@ -2,101 +2,22 @@
 
 .list {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
   grid-gap: 20px 10px;
+  grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
   margin: 0;
-  padding: 0;
   margin-bottom: 41px;
-  list-style: none;
-}
-
-.container {
-  display: flex;
-  justify-content: center;
-  margin: 0;
   padding: 0;
-  text-align: center;
   list-style: none;
 }
 
-.buttonArrow {
-  display: block;
-  padding: 8px;
-  color: #fff;
-  font: 24px/24px 'Material Icons', Arial, sans-serif;
-  background: $secondaryGradient;
-  border: none;
-  border-radius: 50%;
-  cursor: pointer;
-}
-
-.previous {
-  &::before {
-    content: '\e5c4';
-  }
-
-  &:hover {
-    background: $primaryGradientTranslucent;
-  }
-}
-
-.next {
-  &::before {
-    content: '\e5c8';
-  }
-
-  &:hover {
-    background: $primaryGradientTranslucent;
-  }
-}
-
-.page,
-.break {
-  @include h3();
+.pagination {
   display: flex;
-  flex-direction: column;
   justify-content: center;
-  width: 40px;
-  height: 40px;
-  color: $textColor50;
-  font-weight: normal;
-  border-radius: 50%;
-  outline: none;
-  cursor: pointer;
+  user-select: none;
+}
 
-  &:focus {
-    color: $textColor;
-    font-weight: bold;
+.showMore {
+  &Hidden {
+    display: none;
   }
-
-  &:hover {
-    font-weight: bold;
-    background: $primaryGradientTranslucent;
-  }
-}
-
-.active {
-  color: #fff;
-  font-weight: bold;
-  background: $primaryGradient;
-  border-radius: 50%;
-}
-
-.hide {
-  display: none;
-}
-
-.link {
-  outline: none;
-
-  &:focus {
-    color: $textColor;
-    font-weight: bold;
-  }
-}
-
-.sign {
-  @include paragraph();
-  margin-top: 11px;
-  text-align: center;
 }

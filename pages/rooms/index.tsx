@@ -167,10 +167,7 @@ const Rooms = () => {
         </div>
         <div className={styles.rooms}>
           <h1 className={styles.title}>Номера, которые мы для вас подобрали</h1>
-          <Pagination
-            itemsPerPage={12}
-            onChange={() => { }}
-          />
+          <Pagination limit={3} />
         </div>
       </div>
     </Layout>

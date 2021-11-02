@@ -1,7 +1,8 @@
 import { useState, useEffect, ReactNode } from 'react';
-import ReactPaginate from 'react-paginate';
+import { DocumentData, QueryDocumentSnapshot, QuerySnapshot } from '@firebase/firestore';
 
 import Firebase from 'Root/utils/Firebase';
+import convertNumToWordform from 'Root/utils/convertNumToWordform';
 import RoomCard from 'Components/RoomCard/RoomCard';
 import LoadingSpinner from 'Components/LoadingSpinner/LoadingSpinner';
 
@@ -15,21 +16,8 @@ type RoomReviews = {
   amazing?: number,
 };
 
-// type RoomImage = {
-//   alt: string,
-//   src: string,
-// };
-
-// type RoomType = {
-//   room: number,
-//   level: string,
-//   cost: number,
-//   reviews: RoomReviews,
-//   images: Array<RoomImage>
-// };
-
 type PaginationProps = {
-  itemsPerPage: number,
+  limit: number,
   onChange?: (pageNumber: number) => void
 };
 
@@ -55,111 +43,126 @@ const calcAmountStars = (reviews: RoomReviews) => {
   return Math.floor(sum / calcAmountReviews(reviews) + 0.5);
 };
 
+type PageState = {
+  viewPages: number,
+  totalPages: number,
+  endDataPoint?: QueryDocumentSnapshot<DocumentData>,
+};
+
 const Pagination = (props: PaginationProps) => {
-  const { itemsPerPage, onChange } = props;
+  const { limit, onChange } = props;
 
-  const [totalItems, setTotalItems] = useState(0); // объединить в один стейт?
-  const [totalPages, setTotalPages] = useState(0); // объединить в один стейт?
-  const [currentPage, setCurrentPage] = useState(0); // объединить в один стейт?
-  const [loading, setLoading] = useState(true);
-  const [rooms, setRooms] = useState<ReactNode>([]);
+  const [page, setPage] = useState<PageState>({
+    viewPages: 1,
+    totalPages: 1,
+  });
 
-  useEffect(() => { // side-effect определения общего количества элементов и страниц
-    const fetchSize = async () => {
-      setTotalItems(await Firebase.getFullSize());
+  const [loading, setLoading] = useState({
+    initial: true,
+    additional: false,
+  });
 
-      setTotalPages(Math.ceil(totalItems / itemsPerPage));
-    };
+  const [rooms, setRooms] = useState<Array<ReactNode>>([]);
 
-    fetchSize();
-  }, []);
+  const convertSnapshotToJSX = (snapshot: QuerySnapshot<DocumentData>) => {
+    const roomsJSX: Array<ReactNode> = [];
 
-  useEffect(() => { // side-effect для получения номеров на текующую страницу
+    snapshot.forEach((item) => {
+      const room = item.data();
+
+      roomsJSX.push(
+        <li key={room.room}>
+          <RoomCard
+            roomNumber={room.room}
+            level={room.level}
+            cost={room.cost}
+            amountReviews={calcAmountReviews(room.reviews)}
+            images={room.images}
+            href={`/rooms/${room.room}`}
+            amountStar={calcAmountStars(room.reviews)}
+          />
+        </li>,
+      );
+    });
+
+    return roomsJSX;
+  };
+
+  useEffect(() => {
     const fetchRooms = async () => {
-      const snapshot = await Firebase.getRooms(itemsPerPage * currentPage, itemsPerPage);
+      let snapshot: QuerySnapshot<DocumentData>;
 
-      const roomsJSX: Array<ReactNode> = [];
+      if (page.endDataPoint === undefined) {
+        snapshot = await Firebase.getRooms({ documentsLimit: limit });
+      } else {
+        snapshot = await Firebase.getRooms({
+          documentsLimit: limit,
+          documentPoint: page.endDataPoint,
+        });
+      }
 
-      snapshot.forEach((item) => {
-        const room = item.data();
+      const newTotalPages = (Math.ceil(await Firebase.getFullSize()) / limit);
 
-        roomsJSX.push(
-          <div key={room.room}>
-            <RoomCard
-              roomNumber={room.room}
-              level={room.level}
-              cost={room.cost}
-              amountReviews={calcAmountReviews(room.reviews)}
-              images={room.images}
-              href={`/rooms/${room.room}`}
-              amountStar={calcAmountStars(room.reviews)}
-            />
-          </div>,
-        );
-      });
-
-      setRooms(roomsJSX);
-      setLoading(false);
+      setRooms((prevState) => ([...prevState, ...convertSnapshotToJSX(snapshot)]));
+      setPage((prevState) => ({
+        ...prevState,
+        totalPages: newTotalPages,
+        endDataPoint: snapshot.docs[snapshot.docs.length - 1],
+      }));
+      setLoading({ additional: false, initial: false });
     };
 
     fetchRooms();
-  }, []);
+  }, [page.viewPages]);
 
-  const handlePageClick = (page: { selected: number }) => {
-    setCurrentPage(page.selected);
-    if (onChange) onChange(page.selected);
+  const handlePageClick = () => {
+    const newViewPages = page.viewPages + 1;
+
+    if (newViewPages > page.totalPages) return;
+
+    setPage((prevState) => ({ ...prevState, viewPages: newViewPages }));
+    setLoading((prevState) => ({ ...prevState, additional: true }));
+
+    if (onChange) onChange(newViewPages);
   };
 
-  const displaySign = () => {
-    const shownTotalItems: string = totalItems < 100 ? totalItems.toString() : '100+';
-    const from: number = itemsPerPage * currentPage + 1;
-    let to: number;
-    if (currentPage + 1 === totalPages) {
-      to = totalItems;
-    } else {
-      to = totalItems < itemsPerPage ? totalItems : itemsPerPage * (currentPage + 1);
-    }
-    return `${from} – ${to} из ${shownTotalItems} вариантов аренды`;
-  };
-
-  const previousClasses = () => (
-    `${styles.buttonArrow} ${styles.previous} ${currentPage === 0 ? styles.hide : ''}`
-  );
-
-  const nextClasses = () => (
-    `${styles.buttonArrow} ${styles.next} ${currentPage === itemsPerPage ? styles.hide : ''}`
+  const stylesLoadButton = () => (
+    `${styles.showMore} ${page.viewPages === page.totalPages ? styles.showMoreHidden : ''}`
   );
 
   return (
-    loading ? (
+    loading.initial ? (
       <LoadingSpinner />
     ) : (
       <>
         <ul className={styles.list}>
           {rooms}
         </ul>
-        <ReactPaginate
-          pageCount={totalPages}
-          initialPage={currentPage}
-          pageRangeDisplayed={2}
-          marginPagesDisplayed={1}
-          previousLabel=""
-          nextLabel=""
-          previousLinkClassName={previousClasses()}
-          nextLinkClassName={nextClasses()}
-          pageClassName={styles.page}
-          onPageChange={handlePageClick}
-          containerClassName={styles.container}
-          breakClassName={styles.break}
-          activeClassName={styles.active}
-          pageLinkClassName={styles.link}
-          breakLinkClassName={styles.break}
-        />
-        <p className={styles.sign}>{displaySign()}</p>
+        <div className={styles.pagination}>
+          {
+            loading.additional ? (
+              <LoadingSpinner />
+            ) : (
+              <button
+                type="button"
+                className={stylesLoadButton()}
+                onClick={handlePageClick}
+              >
+                {`Показать еще
+                (${page.viewPages}
+                  ${convertNumToWordform(page.viewPages, [
+                  'страница',
+                  'страницы',
+                  'страниц',
+                ])} из 
+                ${page.totalPages})`}
+              </button>
+            )
+          }
+        </div>
       </>
     )
   );
 };
 
-// export type { RoomType };
 export default Pagination;
