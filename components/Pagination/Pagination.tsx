@@ -1,7 +1,7 @@
 import { useState, useEffect, ReactNode } from 'react';
 import { DocumentData, QueryDocumentSnapshot, QuerySnapshot } from '@firebase/firestore';
 
-import Firebase from 'Root/utils/Firebase';
+import Firebase from 'Root/api/Firebase';
 import convertNumToWordform from 'Root/utils/convertNumToWordform';
 import RoomCard from 'Components/RoomCard/RoomCard';
 import LoadingSpinner from 'Components/LoadingSpinner/LoadingSpinner';
