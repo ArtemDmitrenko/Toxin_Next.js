@@ -1,5 +1,5 @@
 import { initializeApp } from 'firebase/app';
-import { getAuth } from 'firebase/auth';
+import { getAuth, sendPasswordResetEmail } from 'firebase/auth';
 
 import firebaseCfg from './firebaseConfig';
 
@@ -8,7 +8,24 @@ abstract class Firebase {
 
   public static firebase = initializeApp(this.firebaseConfig);
 
-  public static auth = getAuth();
+  public static initAuth = () => {
+    const auth = getAuth();
+    auth.languageCode = 'ru';
+
+    return auth;
+  };
+
+  public static auth = this.initAuth();
+
+  public static sendPasswordRecovery = async (email: string) => {
+    await sendPasswordResetEmail(this.auth, email)
+      .then(() => {
+        alert('Инструкция по восстановлению пароля направлена на указанный email');
+      })
+      .catch(() => {
+        alert('По указанному email не найдено зарегистрированных пользователей. Пожалуйста, введите корректный email.');
+      });
+  };
 }
 
 export default Firebase;
