@@ -45,7 +45,7 @@ const PasswordRecoveryCard = ({ onSubmit }: FormProps) => (
           </div>
           <div className={styles.buttonBack}>
             <Reference
-              href="/auth/sign-in"
+              href="/auth/log-in"
               text="Назад"
               type="bordered"
               size="big"
