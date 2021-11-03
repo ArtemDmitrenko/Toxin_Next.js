@@ -6,11 +6,10 @@ import BackgroundAuth from 'Components/BackgroundAuth/BackgroundAuth';
 import PasswordRecoveryCard from 'Components/PasswordRecoveryCard/PasswordRecoveryCard';
 
 const PasswordRecovery = () => {
-  const auth = Firebase.auth();
-  auth.languageCode = 'ru';
+  Firebase.auth.languageCode = 'ru';
 
   const onSubmit = async (email: string) => {
-    await sendPasswordResetEmail(auth, email)
+    await sendPasswordResetEmail(Firebase.auth, email)
       .then(() => {
         alert('Инструкция по восстановлению пароля направлена на указанный email');
       })

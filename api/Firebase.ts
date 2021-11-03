@@ -8,7 +8,7 @@ abstract class Firebase {
 
   public static firebase = initializeApp(this.firebaseConfig);
 
-  public static auth = getAuth;
+  public static auth = getAuth();
 }
 
 export default Firebase;
