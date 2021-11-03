@@ -18,13 +18,7 @@ abstract class Firebase {
   public static auth = this.initAuth();
 
   public static sendPasswordRecovery = async (email: string) => {
-    await sendPasswordResetEmail(this.auth, email)
-      .then(() => {
-        alert('Инструкция по восстановлению пароля направлена на указанный email');
-      })
-      .catch(() => {
-        alert('По указанному email не найдено зарегистрированных пользователей. Пожалуйста, введите корректный email.');
-      });
+    await sendPasswordResetEmail(this.auth, email);
   };
 }
 
