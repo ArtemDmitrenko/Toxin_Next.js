@@ -5,7 +5,7 @@ import Layout from 'Components/Layout/Layout';
 import BackgroundAuth from 'Components/BackgroundAuth/BackgroundAuth';
 import PasswordRecoveryCard from 'Components/PasswordRecoveryCard/PasswordRecoveryCard';
 
-const ForgotPassword = () => {
+const PasswordRecovery = () => {
   initializeApp({
     apiKey: 'AIzaSyDjlISC_n81sYbH9ziz66rrYcOnEkNIWQo',
     authDomain: 'toxin-coolhackers.firebaseapp.com',
@@ -30,7 +30,7 @@ const ForgotPassword = () => {
   };
 
   return (
-    <Layout title="Forgot password">
+    <Layout title="Password recovery">
       <BackgroundAuth>
         <PasswordRecoveryCard onSubmit={onSubmit} />
       </BackgroundAuth>
@@ -38,4 +38,4 @@ const ForgotPassword = () => {
   );
 };
 
-export default ForgotPassword;
+export default PasswordRecovery;

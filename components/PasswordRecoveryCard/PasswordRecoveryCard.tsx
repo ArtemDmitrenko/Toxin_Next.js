@@ -14,7 +14,7 @@ const PasswordRecoveryCard = ({ onSubmit }: FormProps) => (
   <div className={styles.container}>
     <h1 className={styles.title}>Восстановление пароля</h1>
     <Form onSubmit={(e) => { onSubmit(e.Email); }}>
-      {({ handleSubmit }) => (
+      {({ handleSubmit, submitting }) => (
         <form onSubmit={handleSubmit}>
           <Field
             name="Email"
@@ -34,10 +34,22 @@ const PasswordRecoveryCard = ({ onSubmit }: FormProps) => (
             )}
           </Field>
           <div className={styles.buttonRecovery}>
-            <Reference isButton buttonType="submit" text="Восстановить пароль" type="directed" size="big" />
+            <Reference
+              isButton
+              buttonType="submit"
+              disabled={submitting}
+              text="Восстановить пароль"
+              type="directed"
+              size="big"
+            />
           </div>
           <div className={styles.buttonBack}>
-            <Reference href="/auth/sign-in" text="Назад" type="bordered" size="big" />
+            <Reference
+              href="/auth/sign-in"
+              text="Назад"
+              type="bordered"
+              size="big"
+            />
           </div>
         </form>
       )}
