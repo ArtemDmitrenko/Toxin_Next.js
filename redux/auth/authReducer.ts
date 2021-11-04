@@ -7,12 +7,14 @@ type AuthState = {
   userId: string | null,
   email: string | null,
   isAuth: boolean,
+  error: string,
 };
 
 const initialState: AuthState = {
   userId: '',
   email: '',
   isAuth: false,
+  error: '',
 };
 
 type AuthAction = ReturnType<InferValueTypes<typeof actions>>;
@@ -21,6 +23,8 @@ const authReducer = (state = initialState, action: AuthAction) => {
   switch (action.type) {
     case AuthActionsTypes.SET_AUTH_USER_DATA:
       return { ...state, ...action.data, isAuth: true };
+    case AuthActionsTypes.SET_AUTH_USER_FAILED_STATUS:
+      return { ...state, ...action.data, isAuth: false };
 
     default:
       return state;

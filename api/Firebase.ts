@@ -8,7 +8,7 @@ abstract class Firebase {
 
   public static firebase = initializeApp(this.firebaseConfig);
 
-  private static auth = getAuth();
+  public static auth = getAuth();
 
   public static singInWithEmail = (
     email:string,

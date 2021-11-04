@@ -3,8 +3,10 @@ import { createWrapper } from 'next-redux-wrapper';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import createSagaMiddleware, { SagaMiddleware } from 'redux-saga';
 
+import { all } from 'redux-saga/effects';
 import rootReducer from './rootReducer';
 import countWatcher from './testCounter/saga/counterSaga';
+import userLoginRequestWatcher from './auth/saga/sagaAuth';
 
 const environment = process.env.NODE_ENV;
 const isDev = environment === 'development';
@@ -18,10 +20,14 @@ const bindMiddleware = (middleware: SagaMiddleware[]) => {
 
 const sagaMiddleware: SagaMiddleware = createSagaMiddleware();
 
+function* rootSaga() {
+  yield all([countWatcher(), userLoginRequestWatcher()]);
+}
+
 let store: Store;
 const makeStore = () => {
   store = createStore(rootReducer, bindMiddleware([sagaMiddleware]));
-  sagaMiddleware.run(countWatcher);
+  sagaMiddleware.run(rootSaga);
   return store;
 };
 
