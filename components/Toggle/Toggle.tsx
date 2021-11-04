@@ -2,15 +2,11 @@ import { useState } from 'react';
 
 import styles from './toggle.module.scss';
 
-type ToggleData = {
-  isChecked: boolean,
-};
-
 type ToggleProps = {
   title: string,
   isChecked?: boolean,
   name: string,
-  onChange?: (data: ToggleData) => void,
+  onChange?: (isChecked: boolean) => void,
 };
 
 const Toggle = (props: ToggleProps) => {
@@ -27,7 +23,7 @@ const Toggle = (props: ToggleProps) => {
     setChecked(!checked);
 
     if (onChange) {
-      onChange({ isChecked: !checked });
+      onChange(!checked);
     }
   };
 
@@ -40,5 +36,4 @@ const Toggle = (props: ToggleProps) => {
   );
 };
 
-export type { ToggleData };
 export default Toggle;

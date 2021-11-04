@@ -2,10 +2,14 @@
 import { Field, Form, FieldRenderProps } from 'react-final-form';
 import { IMaskInput } from 'react-imask';
 
-import hasValidateEmail from 'Root/utils/hasValidateEmail';
 import RadioButton from 'Components/RadioButton/RadioButton';
 import Toggle from 'Components/Toggle/Toggle';
 import Reference from 'Components/Reference/Reference';
+
+import validate from './helpers/validate';
+import nameValidate from './helpers/nameValidate';
+import birthdayValidate from './helpers/birthdayValidate';
+import emailValidate from './helpers/emailValidate';
 
 import styles from './signUpCard.module.scss';
 
@@ -17,7 +21,8 @@ type SignUpCardData = {
   dateOfBirth: string,
   email: string,
   password: string,
-  specialOffers6666: { isChecked: boolean }
+  sex: string,
+  specialOffers: boolean
 };
 
 type SignUpCardProps = {
@@ -29,37 +34,26 @@ const SignUpCard = ({ onSubmit }: SignUpCardProps) => {
     <Toggle
       title={rest.title}
       name={rest.name}
-      onChange={(data) => onChange(data)}
+      onChange={onChange}
       {...rest}
     />
   );
 
-  const RadioButtonAdapter = ({ input: { name }, ...rest }: FieldRenderProps<Sex, any>) => (
+  const RadioButtonAdapter = ({
+    input: {
+      name, value, checked, onChange,
+    },
+    ...rest
+  }: FieldRenderProps<Sex, any>) => (
     <RadioButton
       content={rest.content}
       name={name}
-      value={rest.value}
+      value={value}
+      isChecked={checked}
+      onChange={onChange}
       {...rest}
     />
   );
-
-  const validate = (text: string) => (value: string) => (value ? undefined : text);
-
-  const birthdayValidate = (signNoText: string, signNotValid: string) => (value: string) => {
-    validate(signNoText);
-    const dateReg = /^\d{2}([./-])\d{2}\1\d{4}$/;
-    if (value) {
-      if (!value.match(dateReg)) return signNotValid;
-      return undefined;
-    }
-    return signNoText;
-  };
-
-  const emailValidate = (signNoText: string, signNotValid: string) => (value: string) => {
-    validate(signNoText);
-    if (!hasValidateEmail(value)) return signNotValid;
-    return undefined;
-  };
 
   return (
     <div className={styles.container}>
@@ -71,7 +65,7 @@ const SignUpCard = ({ onSubmit }: SignUpCardProps) => {
               name="name"
               type="text"
               placeholder="Имя"
-              validate={validate('Укажите имя')}
+              validate={nameValidate('Укажите имя', 'Имя не должно содержать символы')}
             >
               {({ input, meta, placeholder }) => (
                 <div className={styles.name}>
@@ -88,7 +82,7 @@ const SignUpCard = ({ onSubmit }: SignUpCardProps) => {
               name="surname"
               type="text"
               placeholder="Фамилия"
-              validate={validate('Укажите фамилию')}
+              validate={nameValidate('Укажите имя', 'Фамилия не должна содержать символы')}
             >
               {({ input, meta, placeholder }) => (
                 <div className={styles.surname}>
@@ -102,18 +96,20 @@ const SignUpCard = ({ onSubmit }: SignUpCardProps) => {
               )}
             </Field>
             <div className={styles.sex}>
-              <Field<Sex>
+              <Field
                 component={RadioButtonAdapter}
                 name="sex"
                 content="Мужчина"
                 value="male"
-                isDefaultChecked
+                type="radio"
+                isChecked
               />
-              <Field<Sex>
+              <Field
                 component={RadioButtonAdapter}
                 name="sex"
                 content="Женщина"
                 value="female"
+                type="radio"
               />
             </div>
             <Field
@@ -127,11 +123,11 @@ const SignUpCard = ({ onSubmit }: SignUpCardProps) => {
                   {meta.error && meta.touched && <span className={styles.sign}>{meta.error}</span>}
                   <IMaskInput
                     {...input}
-                    className={styles.field}
                     mask={Date}
                     placeholder="ДД.ММ.ГГГГ"
-                    min={new Date(1990, 0, 1)}
+                    min={new Date(1900, 0, 1)}
                     max={new Date()}
+                    className={styles.field}
                   />
                 </div>
               )}
@@ -156,7 +152,7 @@ const SignUpCard = ({ onSubmit }: SignUpCardProps) => {
             </Field>
             <Field
               name="password"
-              type="text"
+              type="password"
               placeholder="Пароль"
               validate={validate('Укажите пароль')}
             >

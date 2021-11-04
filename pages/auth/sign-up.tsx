@@ -5,7 +5,7 @@ import SignUpCard from 'Components/SignUpCard/SignUpCard';
 const SignUp = () => (
   <Layout title="Sign up">
     <BackgroundAuth>
-      <SignUpCard onSubmit={(data) => data} />
+      <SignUpCard onSubmit={(data) => console.log(data)} />
     </BackgroundAuth>
   </Layout>
 );

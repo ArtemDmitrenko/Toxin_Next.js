@@ -1,10 +1,13 @@
+import { useState } from 'react';
+
 import styles from './radioButton.module.scss';
 
 type RadioButtonProps = {
   name: string,
   value: string,
   content: string,
-  isDefaultChecked?: boolean,
+  isChecked?: boolean,
+  onChange?: (value: string) => void,
 };
 
 const RadioButton = (props: RadioButtonProps) => {
@@ -12,8 +15,19 @@ const RadioButton = (props: RadioButtonProps) => {
     name,
     value,
     content,
-    isDefaultChecked = false,
+    isChecked,
+    onChange,
   } = props;
+
+  const [checked, setChecked] = useState(isChecked);
+
+  const handleRadioChange = () => {
+    setChecked(!checked);
+
+    if (onChange) {
+      onChange(value);
+    }
+  };
 
   return (
     <label className={styles.radioButton}>
@@ -22,7 +36,8 @@ const RadioButton = (props: RadioButtonProps) => {
         type="radio"
         name={name}
         value={value}
-        defaultChecked={isDefaultChecked}
+        checked={checked}
+        onChange={handleRadioChange}
       />
       <div className={styles.content}>{content}</div>
     </label>
