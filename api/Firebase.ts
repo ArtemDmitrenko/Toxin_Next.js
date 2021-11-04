@@ -44,7 +44,7 @@ abstract class Firebase {
     } else {
       request = query(
         collection(this.firestore, 'rooms'),
-        orderBy('cost'),
+        orderBy('cost', 'desc'),
         limit(documentsLimit),
       );
     }
