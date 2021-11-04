@@ -8,13 +8,13 @@ import requiredPassword from './helpers/requiredPassword';
 
 import styles from './loginCard.module.scss';
 
-type FormProps = {
-  onSubmit: ({ email, password }: { email: string, password: string }) => void,
-};
-
 type AuthData = {
   email: string,
   password: string,
+};
+
+type FormProps = {
+  onSubmit: ({ email, password }: AuthData) => void,
 };
 
 const LoginCard = ({ onSubmit }: FormProps) => (
