@@ -7,41 +7,14 @@ import RoomCard from 'Components/RoomCard/RoomCard';
 import LoadingSpinner from 'Components/LoadingSpinner/LoadingSpinner';
 import Reference from 'Components/Reference/Reference';
 
-import styles from './pagination.module.scss';
+import calcAmountReviews from './helpers/calcAmountReviews';
+import calcAmountStars from './helpers/calcAmountStars';
 
-type RoomReviews = {
-  terrible?: number,
-  bad?: number,
-  satisfactory?: number,
-  good?: number,
-  amazing?: number,
-};
+import styles from './pagination.module.scss';
 
 type PaginationProps = {
   limit: number,
   onChange?: (pageNumber: number) => void
-};
-
-const calcAmountReviews = (reviews: RoomReviews) => (
-  Object.values(reviews).reduce((previewVal, currentVal) => previewVal + currentVal)
-);
-
-const calcAmountStars = (reviews: RoomReviews) => {
-  const sum = Object.entries(reviews).reduce((accumulator, [key, value]) => {
-    const collection: { [key: string]: number } = {
-      terrible: 1,
-      bad: 2,
-      satisfactory: 3,
-      good: 4,
-      amazing: 5,
-    };
-
-    const coef = collection[key] ?? 0;
-
-    return accumulator + value * coef;
-  }, 0);
-
-  return Math.floor(sum / calcAmountReviews(reviews) + 0.5);
 };
 
 type PageState = {
