@@ -41,7 +41,7 @@ const AuthErrorMessage = ({ href }:{ href: string }) => (
         </a>
       </Link>
       {' '}
-      &ensp;чтобы восстановить пароль.
+      чтобы восстановить пароль.
     </span>
   </div>
 );
