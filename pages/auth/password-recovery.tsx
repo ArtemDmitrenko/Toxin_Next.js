@@ -1,6 +1,6 @@
 import Router from 'next/router';
 
-import Firebase from 'api/Firebase';
+import Firebase from 'Root/api/Firebase';
 
 import Layout from 'Components/Layout/Layout';
 import BackgroundAuth from 'Components/BackgroundAuth/BackgroundAuth';
