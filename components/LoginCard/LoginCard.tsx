@@ -6,7 +6,7 @@ import Reference from 'Components/Reference/Reference';
 import requiredEmail from './helpers/requiredEmail';
 import requiredPassword from './helpers/requiredPassword';
 
-import styles from './login.module.scss';
+import styles from './loginCard.module.scss';
 
 type FormProps = {
   onSubmit: ({ email, password }: { email: string, password: string }) => void,
@@ -17,7 +17,7 @@ type AuthData = {
   password: string,
 };
 
-const Login = ({ onSubmit }: FormProps) => (
+const LoginCard = ({ onSubmit }: FormProps) => (
   <div className={styles.container}>
     <h1 className={styles.title}>Войти</h1>
     <Form onSubmit={onSubmit}>
@@ -76,4 +76,4 @@ const Login = ({ onSubmit }: FormProps) => (
 );
 
 export type { AuthData };
-export default Login;
+export default LoginCard;
