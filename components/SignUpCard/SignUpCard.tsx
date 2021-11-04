@@ -13,8 +13,6 @@ import emailValidate from './helpers/emailValidate';
 
 import styles from './signUpCard.module.scss';
 
-type Sex = 'male' | 'female';
-
 type SignUpCardData = {
   name: string,
   surname: string,
@@ -41,17 +39,19 @@ const SignUpCard = ({ onSubmit }: SignUpCardProps) => {
 
   const RadioButtonAdapter = ({
     input: {
-      name, value, checked, onChange,
+      name, value, onChange, ...restInput
     },
     ...rest
-  }: FieldRenderProps<Sex, any>) => (
+  }: FieldRenderProps<string, any>) => (
     <RadioButton
       content={rest.content}
       name={name}
       value={value}
-      isChecked={checked}
+      // checked={checked}
+      // isChecked={checked}
       onChange={onChange}
       {...rest}
+      {...restInput}
     />
   );
 
@@ -59,7 +59,7 @@ const SignUpCard = ({ onSubmit }: SignUpCardProps) => {
     <div className={styles.container}>
       <h1 className={styles.title}>Регистрация аккаунта</h1>
       <Form onSubmit={onSubmit}>
-        {({ handleSubmit, submitting, pristine }) => (
+        {({ handleSubmit, submitting, pristine, values }) => (
           <form onSubmit={handleSubmit}>
             <Field
               name="name"
@@ -102,8 +102,21 @@ const SignUpCard = ({ onSubmit }: SignUpCardProps) => {
                 content="Мужчина"
                 value="male"
                 type="radio"
-                isChecked
+                checked
               />
+              <Field
+                component={RadioButtonAdapter}
+                name="sex"
+                content="Мужчина"
+                value="male"
+                type="radio"
+                checked
+                fieldState
+              >
+                {fieldState => (
+                  <pre>{JSON.stringify(fieldState, undefined, 2)}</pre>
+                )}
+              </Field>
               <Field
                 component={RadioButtonAdapter}
                 name="sex"
@@ -111,6 +124,17 @@ const SignUpCard = ({ onSubmit }: SignUpCardProps) => {
                 value="female"
                 type="radio"
               />
+              <Field
+                component={RadioButtonAdapter}
+                name="sex"
+                content="Женщина"
+                value="female"
+                type="radio"
+              >
+                {fieldState => (
+                  <pre>{JSON.stringify(fieldState, undefined, 2)}</pre>
+                )}
+              </Field>
             </div>
             <Field
               name="dateOfBirth"
@@ -182,6 +206,7 @@ const SignUpCard = ({ onSubmit }: SignUpCardProps) => {
               type="directed"
               size="big"
             />
+            <pre>{JSON.stringify(values, 0, 2)}</pre>
           </form>
         )}
       </Form>

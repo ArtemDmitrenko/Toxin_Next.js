@@ -6,7 +6,6 @@ type RadioButtonProps = {
   name: string,
   value: string,
   content: string,
-  isChecked?: boolean,
   onChange?: (value: string) => void,
 };
 
@@ -15,11 +14,9 @@ const RadioButton = (props: RadioButtonProps) => {
     name,
     value,
     content,
-    isChecked,
     onChange,
   } = props;
-
-  const [checked, setChecked] = useState(isChecked);
+  const [checked, setChecked] = useState(false);
 
   const handleRadioChange = () => {
     setChecked(!checked);
@@ -36,7 +33,6 @@ const RadioButton = (props: RadioButtonProps) => {
         type="radio"
         name={name}
         value={value}
-        checked={checked}
         onChange={handleRadioChange}
       />
       <div className={styles.content}>{content}</div>
