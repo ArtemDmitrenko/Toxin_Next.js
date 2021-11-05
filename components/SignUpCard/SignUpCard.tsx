@@ -28,38 +28,32 @@ type SignUpCardProps = {
 };
 
 const SignUpCard = ({ onSubmit }: SignUpCardProps) => {
-  const ToggleAdapter = ({ input: { onChange }, ...rest }: FieldRenderProps<boolean, any>) => (
+  const ToggleAdapter = ({ input, title }: FieldRenderProps<boolean, any>) => (
     <Toggle
-      title={rest.title}
-      name={rest.name}
-      onChange={onChange}
-      {...rest}
+      title={title}
+      name={input.name}
+      isChecked={input.checked}
+      onChange={input.onChange}
     />
   );
 
-  const RadioButtonAdapter = ({
-    input: {
-      name, value, onChange, ...restInput
-    },
-    ...rest
-  }: FieldRenderProps<string, any>) => (
+  const RadioButtonAdapter = ({ input, content }: FieldRenderProps<string, any>) => (
     <RadioButton
-      content={rest.content}
-      name={name}
-      value={value}
-      // checked={checked}
-      // isChecked={checked}
-      onChange={onChange}
-      {...rest}
-      {...restInput}
+      content={content}
+      name={input.name}
+      value={input.value}
+      isDefaultChecked={input.checked}
+      onChange={input.onChange}
     />
   );
 
   return (
     <div className={styles.container}>
       <h1 className={styles.title}>Регистрация аккаунта</h1>
-      <Form onSubmit={onSubmit}>
-        {({ handleSubmit, submitting, pristine, values }) => (
+      <Form onSubmit={onSubmit} initialValues={{ sex: 'male' }}>
+        {({
+          handleSubmit, submitting, pristine,
+        }) => (
           <form onSubmit={handleSubmit}>
             <Field
               name="name"
@@ -107,34 +101,10 @@ const SignUpCard = ({ onSubmit }: SignUpCardProps) => {
               <Field
                 component={RadioButtonAdapter}
                 name="sex"
-                content="Мужчина"
-                value="male"
-                type="radio"
-                checked
-                fieldState
-              >
-                {fieldState => (
-                  <pre>{JSON.stringify(fieldState, undefined, 2)}</pre>
-                )}
-              </Field>
-              <Field
-                component={RadioButtonAdapter}
-                name="sex"
                 content="Женщина"
                 value="female"
                 type="radio"
               />
-              <Field
-                component={RadioButtonAdapter}
-                name="sex"
-                content="Женщина"
-                value="female"
-                type="radio"
-              >
-                {fieldState => (
-                  <pre>{JSON.stringify(fieldState, undefined, 2)}</pre>
-                )}
-              </Field>
             </div>
             <Field
               name="dateOfBirth"
@@ -195,6 +165,7 @@ const SignUpCard = ({ onSubmit }: SignUpCardProps) => {
               <Field
                 name="specialOffers"
                 title="Получить спецпредложения"
+                type="checkbox"
                 component={ToggleAdapter}
               />
             </div>
@@ -206,7 +177,6 @@ const SignUpCard = ({ onSubmit }: SignUpCardProps) => {
               type="directed"
               size="big"
             />
-            <pre>{JSON.stringify(values, 0, 2)}</pre>
           </form>
         )}
       </Form>

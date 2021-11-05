@@ -1,35 +1,25 @@
-import { useState } from 'react';
+import { ChangeEventHandler } from 'react';
 
 import styles from './toggle.module.scss';
 
 type ToggleProps = {
   title: string,
-  isChecked?: boolean,
   name: string,
-  onChange?: (isChecked: boolean) => void,
+  isChecked?: boolean,
+  onChange?: ChangeEventHandler,
 };
 
 const Toggle = (props: ToggleProps) => {
   const {
     title,
-    isChecked = false,
     name,
+    isChecked = false,
     onChange,
   } = props;
 
-  const [checked, setChecked] = useState(isChecked);
-
-  const handleToggleChange = () => {
-    setChecked(!checked);
-
-    if (onChange) {
-      onChange(!checked);
-    }
-  };
-
   return (
     <label className={styles.toggle}>
-      <input className={styles.content} name={name} type="checkbox" checked={checked} onChange={handleToggleChange} />
+      <input className={styles.content} name={name} type="checkbox" checked={isChecked} onChange={onChange} />
       <span className={styles.indicator} />
       <span className={styles.title}>{title}</span>
     </label>
