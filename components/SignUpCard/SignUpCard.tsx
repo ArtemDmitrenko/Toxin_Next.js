@@ -20,7 +20,7 @@ type SignUpCardData = {
   email: string,
   password: string,
   sex: string,
-  specialOffers: boolean
+  specialOffers?: boolean
 };
 
 type SignUpCardProps = {
