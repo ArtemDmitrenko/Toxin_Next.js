@@ -1,20 +1,20 @@
 import { takeEvery, call, put } from 'redux-saga/effects';
 
-import Firebase from 'Root/api/Firebase';
 import {
   AuthGeneralAction,
   LoginUserRequest,
   setAuthUserData,
   userAuthFailed,
-} from '../authActions';
-import AuthActionsTypes from '../authActionTypes';
+} from 'Root/redux/auth/authActions';
+import AuthActionsTypes from 'Root/redux/auth/authActionTypes';
+import Firebase from 'Root/api/Firebase';
 
 type RequestToAuth = AuthGeneralAction<AuthActionsTypes.SET_AUTH_USER_DATA, LoginUserRequest>;
 
 function* userLoginRequestWorker({ data }: RequestToAuth) {
   try {
     const { email, password } = data;
-    const { user } = yield call(Firebase.singInWithEmail, email, password);
+    const { user } = yield call(Firebase.signInWithEmail, email, password);
 
     yield put(setAuthUserData({
       userId: user.uid,

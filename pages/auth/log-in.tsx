@@ -1,10 +1,10 @@
 import Router from 'next/router';
 import { useEffect, useState } from 'react';
 
+import LoginCard, { AuthData } from 'Root/components/LoginCard/LoginCard';
 import { userLoginRequest } from 'Root/redux/auth/authActions';
 import { useAppDispatch, useAppSelector } from 'Root/redux/hooks';
 import Layout from 'Components/Layout/Layout';
-import LoginCard, { AuthData } from 'Root/components/LoginCard/LoginCard';
 import BackgroundAuth from 'Components/BackgroundAuth/BackgroundAuth';
 import AuthErrorMessage from 'Components/AuthErrorMessage/AuthErrorMessage';
 

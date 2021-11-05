@@ -10,10 +10,10 @@ abstract class Firebase {
 
   public static auth = getAuth();
 
-  public static singInWithEmail = (
+  public static signInWithEmail = async (
     email:string,
     password:string,
-  ) => signInWithEmailAndPassword(Firebase.auth, email, password);
+  ) => signInWithEmailAndPassword(this.auth, email, password);
 }
 
 export default Firebase;
