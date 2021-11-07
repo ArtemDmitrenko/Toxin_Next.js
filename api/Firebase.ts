@@ -37,7 +37,7 @@ abstract class Firebase {
     if (documentPoint) {
       request = query(
         collection(this.firestore, 'rooms'),
-        orderBy('cost'),
+        orderBy('cost', 'desc'),
         limit(documentsLimit),
         startAfter(documentPoint),
       );
