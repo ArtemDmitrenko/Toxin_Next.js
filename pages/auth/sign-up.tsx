@@ -7,7 +7,7 @@ import BackgroundAuth from 'Components/BackgroundAuth/BackgroundAuth';
 import SignUpCard, { SignUpCardData } from 'Components/SignUpCard/SignUpCard';
 
 const SignUp = () => {
-  const register = async (data: SignUpCardData) => {
+  const handleRegistrationSubmit = async (data: SignUpCardData) => {
     await Firebase.createUser(data);
     Router.push('/');
   };
@@ -15,7 +15,7 @@ const SignUp = () => {
   return (
     <Layout title="Sign up">
       <BackgroundAuth>
-        <SignUpCard onSubmit={register} />
+        <SignUpCard onSubmit={handleRegistrationSubmit} />
       </BackgroundAuth>
     </Layout>
   );

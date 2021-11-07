@@ -19,7 +19,7 @@ const Toggle = (props: ToggleProps) => {
 
   return (
     <label className={styles.toggle}>
-      <input className={styles.content} name={name} type="checkbox" checked={isChecked} onChange={onChange} />
+      <input className={styles.content} name={name} type="checkbox" defaultChecked={isChecked} onChange={onChange} />
       <span className={styles.indicator} />
       <span className={styles.title}>{title}</span>
     </label>

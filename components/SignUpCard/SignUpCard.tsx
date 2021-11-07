@@ -76,7 +76,7 @@ const SignUpCard = ({ onSubmit }: SignUpCardProps) => {
               name="surname"
               type="text"
               placeholder="Фамилия"
-              validate={nameValidate('Укажите имя', 'Фамилия не должна содержать символы')}
+              validate={nameValidate('Укажите фамилию', 'Фамилия не должна содержать символы')}
             >
               {({ input, meta, placeholder }) => (
                 <div className={styles.surname}>
