@@ -11,8 +11,8 @@ type AuthState = {
 };
 
 const initialState: AuthState = {
-  userId: '',
-  email: '',
+  userId: null,
+  email: null,
   isAuth: false,
   error: '',
 };
