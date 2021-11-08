@@ -1,4 +1,6 @@
-import mockData from 'Root/public/room-mock/room.json';
+import { GetServerSideProps } from 'next';
+
+import mockData from 'Root/public/rooms-mock/rooms.json';
 import { DropdownConfig } from 'Root/components/Dropdown/Dropdown';
 import Layout from 'Components/Layout/Layout';
 import Collage from 'Components/Collage/Collage';
@@ -59,7 +61,7 @@ const Room = (props: RoomProps) => {
 
   return (
     <Layout title={`Room ${data.room}`}>
-      <Collage images={data.images} />
+      <Collage images={data.images.slice(0, 3)} />
       <div className={styles.container}>
         <div className={styles.content}>
           <div className={styles.information}>
@@ -106,8 +108,12 @@ const Room = (props: RoomProps) => {
   );
 };
 
-const getServerSideProps = async () => {
-  const data = mockData;
+const getServerSideProps: GetServerSideProps = async (context) => {
+  const { room } = context.query;
+
+  const data = mockData.find((roomNumber) => (
+    roomNumber.room === Number(room)
+  ));
 
   return { props: { data } };
 };
