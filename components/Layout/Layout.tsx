@@ -1,5 +1,6 @@
 import Head from 'next/head';
 
+import { useAppSelector } from 'Root/redux/hooks';
 import Header from 'Components/Header/Header';
 import FooterDesktop from 'Components/FooterDesktop/FooterDesktop';
 import footerItems from 'Components/FooterDesktop/footer-items.json';
@@ -24,6 +25,8 @@ const Layout = (props: LayoutProps) => {
     keywords = 'отель, люкс, гостиница, проживание',
   } = props;
 
+  const userAuthData = useAppSelector((state) => state.auth);
+
   return (
     <div className={styles.wrapper}>
       <Head>
@@ -33,7 +36,7 @@ const Layout = (props: LayoutProps) => {
         <meta name="keywords" content={keywords} />
         <title>{title}</title>
       </Head>
-      <Header menu={navigation} isAuth />
+      <Header menu={navigation} isAuth={userAuthData.isAuth} />
       <main className={styles.main}>
         {children}
       </main>

@@ -111,7 +111,7 @@ const Header = (props: HeaderProps) => {
         { isAuth ? (<div className={stylesUserData()}>Константин Константинопольский</div>)
           : (
             <div className={stylesButtons()}>
-              <Reference text="Войти" type="bordered" size="small" />
+              <Reference href="/auth/log-in" text="Войти" type="bordered" size="small" />
               <Reference
                 href="/auth/sign-up"
                 text="Зарегистрироваться"
