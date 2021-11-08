@@ -1,10 +1,12 @@
 import { combineReducers } from 'redux';
-import authReducer from './auth/authReducer';
 
-import { testCounterReducer } from './testCounter/testCounterReducer';
+import authReducer, { AuthState } from './auth/authReducer';
 
-const rootReducer = combineReducers({
-  testCounter: testCounterReducer,
+type StoreState = {
+  auth: AuthState,
+};
+
+const rootReducer = combineReducers<StoreState>({
   auth: authReducer,
 });
 
