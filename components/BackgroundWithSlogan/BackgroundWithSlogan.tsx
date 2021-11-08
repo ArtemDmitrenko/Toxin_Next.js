@@ -1,4 +1,4 @@
-import RoomSearchCard, { RoomSearchCardData } from 'Components/RoomSearchCard/RoomSearchCard';
+import RoomSearchCard from 'Components/RoomSearchCard/RoomSearchCard';
 
 import addDaysToDate from 'Root/utils/addDaysToDate';
 import { DropdownConfig } from 'Components/Dropdown/Dropdown';
@@ -18,15 +18,6 @@ const dateRangeConfig: DateRangeConfig = {
   isDouble: true,
 };
 
-const handleSearchCardSubmit = (data: RoomSearchCardData) => {
-  console.log(data);
-
-  /* здесь нужно определиться что мы делаем
-  /* с данными из формы
-  /* (отправляем на сервер/добавляем в стор редакса???)
-  */
-};
-
 const BackgroundWithSlogan = () => (
   <div className={styles.main}>
     <div className={styles.wrapper}>
@@ -34,7 +25,7 @@ const BackgroundWithSlogan = () => (
         <RoomSearchCard
           guestsDropdownConfig={guestDropdownConfig}
           dateRangeConfig={dateRangeConfig}
-          onSubmit={handleSearchCardSubmit}
+          onSubmit={() => {}}
         />
       </div>
       <div className={styles.slogan}>

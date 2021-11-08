@@ -1,0 +1,83 @@
+@import 'Root/style/variables.scss';
+
+.container {
+  @include container;
+
+  @media (max-width: $mediaSizeMobile) {
+    padding: 0 10px;
+  }
+}
+
+.content {
+  display: grid;
+  grid-gap: 12px;
+  grid-template-areas:
+    'info chart booking'
+    'feedback feedback booking'
+    'rules cancel booking';
+  grid-template-columns: 361px 1fr 1fr;
+  padding: 70px 0;
+
+  @media (max-width: $mediaSizeDesktop) {
+    grid-gap: 40px;
+    grid-template-areas:
+      'info chart'
+      'feedback feedback'
+      'rules cancel'
+      'booking booking';
+    grid-template-columns: 320px 320px;
+    justify-content: center;
+    padding: 40px 0;
+  }
+
+  @media (max-width: $mediaSizeTablet) {
+    grid-template-areas:
+      'info'
+      'chart'
+      'feedback'
+      'rules'
+      'cancel'
+      'booking';
+    grid-template-columns: 300px;
+    justify-content: center;
+  }
+}
+
+.header {
+  @include h2();
+  padding-bottom: 20px;
+}
+
+.information {
+  grid-area: info;
+}
+
+.chart {
+  grid-area: chart;
+}
+
+.feedback {
+  grid-area: feedback;
+}
+
+.rules {
+  grid-area: rules;
+}
+
+.cancel {
+  grid-area: cancel;
+  max-width: 341px;
+}
+
+.bookingCard {
+  grid-area: booking;
+  max-width: 380px;
+
+  @media (max-width: $mediaSizeDesktop) {
+    justify-self: center;
+  }
+}
+
+.cancelText {
+  @include paragraph;
+}

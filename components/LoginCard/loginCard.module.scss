@@ -1,0 +1,40 @@
+@import 'Root/style/variables.scss';
+
+.container {
+  min-width: 380px;
+  max-width: 380px;
+  padding: 40px 30px 30px;
+  background: #fff;
+  border-radius: 4px;
+  box-shadow: $cardShadow;
+
+  @media (max-width: $mediaSizeMobile) {
+    min-width: 200px;
+    padding: 25px 15px 20px;
+  }
+}
+
+.title {
+  @include h1;
+}
+
+.field {
+  @include input;
+}
+
+.email {
+  margin-top: 20px;
+}
+
+.password {
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+.question {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 30px;
+  column-gap: 10px;
+}

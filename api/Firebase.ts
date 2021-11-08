@@ -1,5 +1,5 @@
 import { initializeApp } from 'firebase/app';
-import { getAuth, sendPasswordResetEmail } from 'firebase/auth';
+import { getAuth, signInWithEmailAndPassword, sendPasswordResetEmail } from 'firebase/auth';
 
 import firebaseCfg from './firebaseConfig';
 
@@ -16,6 +16,11 @@ abstract class Firebase {
   };
 
   public static auth = this.initAuth();
+
+  public static signInWithEmail = async (
+    email:string,
+    password:string,
+  ) => signInWithEmailAndPassword(this.auth, email, password);
 
   public static sendPasswordRecovery = async (email: string) => {
     await sendPasswordResetEmail(this.auth, email);
