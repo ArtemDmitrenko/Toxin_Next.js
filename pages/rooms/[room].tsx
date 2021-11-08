@@ -64,28 +64,30 @@ const Room = (props: RoomProps) => {
         <div className={styles.content}>
           <div className={styles.information}>
             <RoomInformation heading="Сведения о номере" info={roomInformation} />
-            <div className={styles.chart}>
-              <Impressions amazing={130} good={65} satisfactorily={65} />
-            </div>
-            <div className={styles.feedback}>
-              <Comments
-                comments={userComments}
-                onChange={() => {}}
-              />
-            </div>
+          </div>
+          <div className={styles.chart}>
+            <Impressions amazing={130} good={65} satisfactorily={65} />
+          </div>
+          <div className={styles.feedback}>
+            <Comments
+              comments={userComments}
+              onChange={() => {}}
+            />
+          </div>
+          <div className={styles.rules}>
             <RulesList
               rulesHeader="Правила"
               rulesList={rulesList}
             />
-            <div className={styles.cancel}>
-              <h2 className={styles.header}>Отмена</h2>
-              <p className={styles.cancelText}>
-                Бесплатная отмена в течение 48 ч.
-                После&nbsp;этого при отмене не позднее
-                чем&nbsp;за 5 дн. до прибытия вы получите
-                полный возврат за вычетом сбора за услуги.
-              </p>
-            </div>
+          </div>
+          <div className={styles.cancel}>
+            <h2 className={styles.header}>Отмена</h2>
+            <p className={styles.cancelText}>
+              Бесплатная отмена в течение 48 ч.
+              После&nbsp;этого при отмене не позднее
+              чем&nbsp;за 5 дн. до прибытия вы получите
+              полный возврат за вычетом сбора за услуги.
+            </p>
           </div>
           <div className={styles.bookingCard}>
             <ReservationCard
@@ -101,7 +103,6 @@ const Room = (props: RoomProps) => {
         </div>
       </div>
     </Layout>
-
   );
 };
 

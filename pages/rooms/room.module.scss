@@ -1,28 +1,45 @@
 @import 'Root/style/variables.scss';
 
 .container {
-  max-width: 1440px;
-  margin: 0 auto;
+  @include container;
+
+  @media (max-width: $mediaSizeMobile) {
+    padding: 0 10px;
+  }
 }
 
 .content {
-  display: flex;
-  justify-content: space-between;
-  padding: 70px 140px 0;
+  display: grid;
+  grid-gap: 12px;
+  grid-template-areas:
+    'info chart booking'
+    'feedback feedback booking'
+    'rules cancel booking';
+  grid-template-columns: 361px 1fr 1fr;
+  padding: 70px 0;
 
-  @media (max-width: 1240px) {
-    flex-direction: column;
-    align-items: center;
-    padding-bottom: 50px;
+  @media (max-width: $mediaSizeDesktop) {
+    grid-gap: 40px;
+    grid-template-areas:
+      'info chart'
+      'feedback feedback'
+      'rules cancel'
+      'booking booking';
+    grid-template-columns: 320px 320px;
+    justify-content: center;
+    padding: 40px 0;
   }
 
-  @media (max-width: $mediaSizeLaptop) {
-    padding: 28px 0 0 0;
-  }
-
-  @media (max-width: 340px) {
-    align-items: inherit;
-    padding: 28px 10px 0;
+  @media (max-width: $mediaSizeTablet) {
+    grid-template-areas:
+      'info'
+      'chart'
+      'feedback'
+      'rules'
+      'cancel'
+      'booking';
+    grid-template-columns: 300px;
+    justify-content: center;
   }
 }
 
@@ -32,53 +49,35 @@
 }
 
 .information {
-  display: grid;
-  grid-gap: 12px 70px;
-  grid-template-columns: 291px 1fr;
-  padding-bottom: 71px;
-
-  @media (max-width: 800px) {
-    grid-gap: 40px;
-    grid-template-columns: 320px;
-  }
+  grid-area: info;
 }
 
-.bookingCard {
-  margin-left: 20px;
-
-  @media (max-width: $mediaSizeDesktop) {
-    padding-bottom: 70px;
-  }
-
-  @media (max-width: $mediaSizeLaptop) {
-    margin-left: 0;
-  }
+.chart {
+  grid-area: chart;
 }
 
 .feedback {
-  grid-column: 1/3;
-  max-width: 711px;
-  padding-top: 2px;
+  grid-area: feedback;
+}
 
-  @media (max-width: $mediaSizeTablet) {
-    grid-column: 1/2;
-  }
-
-  @media (max-width: $mediaSizeMobile) {
-    max-width: 300px;
-    padding: 5px 10px;
-  }
+.rules {
+  grid-area: rules;
 }
 
 .cancel {
+  grid-area: cancel;
   max-width: 341px;
+}
 
-  @media (max-width: $mediaSizeMobile) {
-    max-width: 300px;
-    padding: 5px 10px;
+.bookingCard {
+  grid-area: booking;
+  max-width: 380px;
+
+  @media (max-width: $mediaSizeDesktop) {
+    justify-self: center;
   }
 }
 
 .cancelText {
-  @include paragraph();
+  @include paragraph;
 }
