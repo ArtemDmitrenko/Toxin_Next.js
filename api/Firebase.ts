@@ -1,5 +1,5 @@
 import { initializeApp } from 'firebase/app';
-import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
+import { getAuth, createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 
 import { SignUpCardData } from 'Components/SignUpCard/SignUpCard';
 
@@ -18,6 +18,16 @@ abstract class Firebase {
       data.email,
       data.password,
     );
+  };
+
+  public static updateUserName = (name: string) => {
+    this.auth.onAuthStateChanged((user) => {
+      if (user) {
+        updateProfile(user, {
+          displayName: name,
+        });
+      }
+    });
   };
 }
 

@@ -9,6 +9,7 @@ import SignUpCard, { SignUpCardData } from 'Components/SignUpCard/SignUpCard';
 const SignUp = () => {
   const handleRegistrationSubmit = async (data: SignUpCardData) => {
     await Firebase.createUser(data);
+    Firebase.updateUserName(`${data.name} ${data.surname}`);
     Router.push('/');
   };
 
