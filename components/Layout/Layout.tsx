@@ -9,12 +9,6 @@ import navigation from './navigation.json';
 
 import styles from './layout.module.scss';
 
-const addNewEmail = (email: string) => {
-  const subscriptionData = {
-    userEmail: email,
-  };
-};
-
 type LayoutProps = {
   children: React.ReactNode,
   title: string,
@@ -48,7 +42,7 @@ const Layout = (props: LayoutProps) => {
         logoSign={footerItems.logoSign}
         subscribeSign={footerItems.subscribeSign}
         subscribeTitle={footerItems.subscribeTitle}
-        addNewEmail={addNewEmail}
+        addNewEmail={() => {}}
       />
       <FooterMobile />
     </div>
