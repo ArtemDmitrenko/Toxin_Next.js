@@ -30,7 +30,7 @@ const SignIn = () => {
     <Layout title="Sign in">
       <BackgroundAuth>
         <div>
-          { hasAuthError && <AuthErrorMessage href="/auth/forgot-password" /> }
+          { hasAuthError && <AuthErrorMessage href="/auth/password-recovery" /> }
           <LoginCard onSubmit={handleLoginCardSubmit} />
         </div>
       </BackgroundAuth>

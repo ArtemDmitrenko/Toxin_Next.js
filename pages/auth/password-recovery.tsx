@@ -7,11 +7,11 @@ import BackgroundAuth from 'Components/BackgroundAuth/BackgroundAuth';
 import PasswordRecoveryCard from 'Components/PasswordRecoveryCard/PasswordRecoveryCard';
 
 const PasswordRecovery = () => {
-  const handleSubmit = async (email: string) => {
-    await Firebase.sendPasswordRecovery(email)
+  const handleSubmit = (email: string) => {
+    Firebase.sendPasswordRecovery(email)
       .then(() => {
         alert('Инструкция по восстановлению пароля направлена на указанный email');
-        Router.push('/');
+        Router.push('/auth/log-in');
       })
       .catch(() => {
         alert('По указанному email не найдено зарегистрированных пользователей. Пожалуйста, введите корректный email.');
