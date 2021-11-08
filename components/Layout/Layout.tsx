@@ -33,7 +33,7 @@ const Layout = (props: LayoutProps) => {
         <meta name="keywords" content={keywords} />
         <title>{title}</title>
       </Head>
-      <Header menu={navigation} />
+      <Header menu={navigation} isAuth />
       <main className={styles.main}>
         {children}
       </main>

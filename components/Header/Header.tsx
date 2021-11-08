@@ -21,10 +21,11 @@ type HeaderMenu = {
 
 type HeaderProps = {
   menu: Array<HeaderMenu>,
+  isAuth: boolean,
 };
 
 const Header = (props: HeaderProps) => {
-  const { menu } = props;
+  const { menu, isAuth = false } = props;
   const [activeMenu, setActiveMenu] = useState<number | null>(null);
   const [isOpenBurgerMenu, setIsOpenBurgerMenu] = useState<boolean>(false);
 
@@ -42,6 +43,10 @@ const Header = (props: HeaderProps) => {
 
   const stylesButtons = () => (
     `${styles.buttons} ${isOpenBurgerMenu ? styles.buttonsVisible : ''}`
+  );
+
+  const stylesUserData = () => (
+    `${styles.userData} ${isOpenBurgerMenu ? styles.userDataVisible : ''}`
   );
 
   const stylesBurgerMenu = () => (
@@ -103,15 +108,18 @@ const Header = (props: HeaderProps) => {
             })}
           </ul>
         </nav>
-        <div className={stylesButtons()}>
-          <Reference href="/auth/log-in" text="Войти" type="bordered" size="small" />
-          <Reference
-            href="/auth/sign-up"
-            text="Зарегистрироваться"
-            type="solid"
-            size="small"
-          />
-        </div>
+        { isAuth ? (<div className={stylesUserData()}>Константин Константинопольский</div>)
+          : (
+            <div className={stylesButtons()}>
+              <Reference text="Войти" type="bordered" size="small" />
+              <Reference
+                href="/auth/sign-up"
+                text="Зарегистрироваться"
+                type="solid"
+                size="small"
+              />
+            </div>
+          )}
       </div>
     </header>
   );
