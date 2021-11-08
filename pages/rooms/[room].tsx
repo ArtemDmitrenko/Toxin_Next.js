@@ -1,9 +1,19 @@
-import mockData from 'Root/public/room-mock/room.json';
-import Collage from 'Components/Collage/Collage';
-import Tooltip from 'Components/Tooltip/Tooltip';
-import RulesList from 'Components/RulesList/RulesList';
-import ReservationCard, { Service } from 'Components/ReservationCard/ReservationCard';
+import { GetServerSideProps } from 'next';
+
+import mockData from 'Root/public/rooms-mock/rooms.json';
 import { DropdownConfig } from 'Root/components/Dropdown/Dropdown';
+import Layout from 'Components/Layout/Layout';
+import Collage from 'Components/Collage/Collage';
+import Comments from 'Components/Comments/Comments';
+import RulesList from 'Components/RulesList/RulesList';
+import Impressions from 'Components/Impressions/Impressions';
+import RoomInformation from 'Components/RoomInformation/RoomInformation';
+import ReservationCard, { Service } from 'Components/ReservationCard/ReservationCard';
+import userComments from 'Components/Comments/comments.json';
+import rulesList from 'Components/RulesList/rulesList.json';
+import roomInformation from 'Components/RoomInformation/roomInformation.json';
+
+import styles from './room.module.scss';
 
 type RoomProps = {
   data: {
@@ -18,12 +28,6 @@ type RoomProps = {
     }>
   },
 };
-
-const rulesList = [
-  { id: '0', title: 'Нельзя с питомцами' },
-  { id: '1', title: 'Без вечеринок и мероприятий' },
-  { id: '2', title: 'Время прибытия — после 13:00, а\u00A0выезд до 12:00' },
-];
 
 const guestDropdown: DropdownConfig = [
   {
@@ -56,35 +60,60 @@ const Room = (props: RoomProps) => {
   const { data } = props;
 
   return (
-    <div>
-      <div>
-        <Collage images={data.images} />
+    <Layout title={`Room ${data.room}`}>
+      <Collage images={data.images.slice(0, 3)} />
+      <div className={styles.container}>
+        <div className={styles.content}>
+          <div className={styles.information}>
+            <RoomInformation heading="Сведения о номере" info={roomInformation} />
+          </div>
+          <div className={styles.chart}>
+            <Impressions amazing={130} good={65} satisfactorily={65} />
+          </div>
+          <div className={styles.feedback}>
+            <Comments
+              comments={userComments}
+              onChange={() => {}}
+            />
+          </div>
+          <div className={styles.rules}>
+            <RulesList
+              rulesHeader="Правила"
+              rulesList={rulesList}
+            />
+          </div>
+          <div className={styles.cancel}>
+            <h2 className={styles.header}>Отмена</h2>
+            <p className={styles.cancelText}>
+              Бесплатная отмена в течение 48 ч.
+              После&nbsp;этого при отмене не позднее
+              чем&nbsp;за 5 дн. до прибытия вы получите
+              полный возврат за вычетом сбора за услуги.
+            </p>
+          </div>
+          <div className={styles.bookingCard}>
+            <ReservationCard
+              roomNumber={data.room}
+              level={data.level}
+              cost={data.cost}
+              datesOfStay={{ arrival: '2019-08-19', departure: '2019-08-23' }}
+              guests={guestDropdown}
+              service={service}
+              onSubmit={() => {}}
+            />
+          </div>
+        </div>
       </div>
-      <div>
-        <RulesList
-          rulesHeader="правила"
-          rulesList={rulesList}
-        />
-      </div>
-      <p>
-        Сбор за услуги: скидка 2 179₽
-        <Tooltip text="Давно выяснено, что при оценке дизайна и композиции читаемый текст мешает сосредоточиться" />
-      </p>
-      <ReservationCard
-        roomNumber={888}
-        level="люкс"
-        cost={9990}
-        datesOfStay={{ arrival: '2019-08-19', departure: '2019-08-23' }}
-        guests={guestDropdown}
-        service={service}
-        onSubmit={() => {}}
-      />
-    </div>
+    </Layout>
   );
 };
 
-const getServerSideProps = async () => {
-  const data = mockData;
+const getServerSideProps: GetServerSideProps = async (context) => {
+  const { room } = context.query;
+
+  const data = mockData.find((roomNumber) => (
+    roomNumber.room === Number(room)
+  ));
 
   return { props: { data } };
 };

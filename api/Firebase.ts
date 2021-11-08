@@ -9,6 +9,7 @@ import {
   startAfter,
   limit,
 } from 'firebase/firestore';
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 
 import firebaseCfg from './firebaseConfig';
 
@@ -17,7 +18,14 @@ abstract class Firebase {
 
   public static firebase = initializeApp(this.firebaseConfig);
 
+  public static auth = getAuth();
+
   public static firestore = getFirestore();
+
+  public static signInWithEmail = async (
+    email: string,
+    password: string,
+  ) => signInWithEmailAndPassword(this.auth, email, password);
 
   public static getFullSize = async () => {
     const request = query(collection(this.firestore, 'rooms'));
