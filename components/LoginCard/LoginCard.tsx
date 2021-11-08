@@ -3,8 +3,8 @@ import { Field, Form } from 'react-final-form';
 
 import Reference from 'Components/Reference/Reference';
 
-import requiredEmail from './helpers/requiredEmail';
-import requiredPassword from './helpers/requiredPassword';
+import requiredEmail from '../../utils/requiredEmail';
+import requiredPassword from '../../utils/requiredPassword';
 
 import styles from './loginCard.module.scss';
 
