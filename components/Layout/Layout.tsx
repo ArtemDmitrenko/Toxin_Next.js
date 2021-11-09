@@ -1,5 +1,6 @@
 import Head from 'next/head';
 
+import { useAppSelector } from 'Root/redux/hooks';
 import Header from 'Components/Header/Header';
 import FooterDesktop from 'Components/FooterDesktop/FooterDesktop';
 import footerItems from 'Components/FooterDesktop/footer-items.json';
@@ -8,12 +9,6 @@ import FooterMobile from 'Components/FooterMobile/FooterMobile';
 import navigation from './navigation.json';
 
 import styles from './layout.module.scss';
-
-const addNewEmail = (email: string) => {
-  const subscriptionData = {
-    userEmail: email,
-  };
-};
 
 type LayoutProps = {
   children: React.ReactNode,
@@ -30,6 +25,8 @@ const Layout = (props: LayoutProps) => {
     keywords = 'отель, люкс, гостиница, проживание',
   } = props;
 
+  const { isAuth, userName } = useAppSelector((state) => state.auth);
+
   return (
     <div className={styles.wrapper}>
       <Head>
@@ -39,7 +36,11 @@ const Layout = (props: LayoutProps) => {
         <meta name="keywords" content={keywords} />
         <title>{title}</title>
       </Head>
-      <Header menu={navigation} />
+      <Header
+        menu={navigation}
+        isAuth={isAuth}
+        userName={userName}
+      />
       <main className={styles.main}>
         {children}
       </main>
@@ -48,7 +49,7 @@ const Layout = (props: LayoutProps) => {
         logoSign={footerItems.logoSign}
         subscribeSign={footerItems.subscribeSign}
         subscribeTitle={footerItems.subscribeTitle}
-        addNewEmail={addNewEmail}
+        addNewEmail={() => {}}
       />
       <FooterMobile />
     </div>
