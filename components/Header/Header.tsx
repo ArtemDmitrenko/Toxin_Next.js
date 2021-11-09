@@ -22,10 +22,12 @@ type HeaderMenu = {
 type HeaderProps = {
   menu: Array<HeaderMenu>,
   isAuth: boolean,
+  userName: string | null,
 };
 
 const Header = (props: HeaderProps) => {
-  const { menu, isAuth = false } = props;
+  const mockUserName = 'Неопознанная панда';
+  const { menu, isAuth = false, userName = mockUserName } = props;
   const [activeMenu, setActiveMenu] = useState<number | null>(null);
   const [isOpenBurgerMenu, setIsOpenBurgerMenu] = useState<boolean>(false);
 
@@ -108,7 +110,7 @@ const Header = (props: HeaderProps) => {
             })}
           </ul>
         </nav>
-        { isAuth ? (<div className={stylesUserData()}>Константин Константинопольский</div>)
+        { isAuth ? (<div className={stylesUserData()}>{userName || mockUserName}</div>)
           : (
             <div className={stylesButtons()}>
               <Reference href="/auth/log-in" text="Войти" type="bordered" size="small" />
