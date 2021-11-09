@@ -25,7 +25,7 @@ const Layout = (props: LayoutProps) => {
     keywords = 'отель, люкс, гостиница, проживание',
   } = props;
 
-  const userAuthData = useAppSelector((state) => state.auth);
+  const { isAuth, userName } = useAppSelector((state) => state.auth);
 
   return (
     <div className={styles.wrapper}>
@@ -38,8 +38,8 @@ const Layout = (props: LayoutProps) => {
       </Head>
       <Header
         menu={navigation}
-        isAuth={userAuthData.isAuth}
-        userName={userAuthData.userName}
+        isAuth={isAuth}
+        userName={userName}
       />
       <main className={styles.main}>
         {children}
