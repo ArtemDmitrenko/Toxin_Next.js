@@ -8,7 +8,8 @@ type AuthGeneralAction<T, K> = {
 type AuthUserData = {
   userId: string | null,
   email: string | null,
-  error: string,
+  userName: string | null,
+  error: string | null,
 };
 
 type LoginUserRequest = {
