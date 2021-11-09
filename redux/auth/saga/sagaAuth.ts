@@ -19,12 +19,14 @@ function* userLoginRequestWorker({ data }: RequestToAuth) {
     yield put(setAuthUserData({
       userId: user.uid,
       email: user.email,
+      userName: user.displayName,
       error: '',
     }));
   } catch ({ code }) {
     yield put(userAuthFailed({
       userId: '',
       email: '',
+      userName: '',
       error: code as string,
     }));
   }
