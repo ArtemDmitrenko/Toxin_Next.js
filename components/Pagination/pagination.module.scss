@@ -3,108 +3,19 @@
 .list {
   display: grid;
   grid-gap: 20px 10px;
-  grid-template-columns: repeat(3, minmax(270px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
   margin: 0;
   margin-bottom: 41px;
   padding: 0;
   list-style: none;
-
-  @media (max-width: $mediaSizeDesktop) {
-    grid-template-columns: repeat(2, minmax(270px, 1fr));
-  }
-
-  @media (max-width: 600px) {
-    grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
-  }
 }
 
-.container {
+.pagination {
   display: flex;
   justify-content: center;
-  margin: 0;
-  padding: 0;
-  text-align: center;
-  list-style: none;
-}
+  user-select: none;
 
-.buttonArrow {
-  display: block;
-  padding: 8px;
-  color: #fff;
-  font: 24px/24px 'Material Icons', Arial, sans-serif;
-  background: $secondaryGradient;
-  border: none;
-  border-radius: 50%;
-  cursor: pointer;
-}
-
-.previous {
-  &::before {
-    content: '\e5c4';
+  &Hidden {
+    display: none;
   }
-
-  &:hover {
-    background: $primaryGradientTranslucent;
-  }
-}
-
-.next {
-  &::before {
-    content: '\e5c8';
-  }
-
-  &:hover {
-    background: $primaryGradientTranslucent;
-  }
-}
-
-.page,
-.break {
-  @include h3();
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  width: 40px;
-  height: 40px;
-  color: $textColor50;
-  font-weight: normal;
-  border-radius: 50%;
-  outline: none;
-  cursor: pointer;
-
-  &:focus {
-    color: $textColor;
-    font-weight: bold;
-  }
-
-  &:hover {
-    font-weight: bold;
-    background: $primaryGradientTranslucent;
-  }
-}
-
-.active {
-  color: #fff;
-  font-weight: bold;
-  background: $primaryGradient;
-  border-radius: 50%;
-}
-
-.hide {
-  display: none;
-}
-
-.link {
-  outline: none;
-
-  &:focus {
-    color: $textColor;
-    font-weight: bold;
-  }
-}
-
-.sign {
-  @include paragraph();
-  margin-top: 11px;
-  text-align: center;
 }

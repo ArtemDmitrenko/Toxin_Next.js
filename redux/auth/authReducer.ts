@@ -6,15 +6,17 @@ import * as actions from './authActions';
 type AuthState = {
   userId: string | null,
   email: string | null,
+  userName: string | null,
+  error: string | null,
   isAuth: boolean,
-  error: string,
 };
 
 const initialState: AuthState = {
   userId: null,
   email: null,
+  userName: null,
+  error: null,
   isAuth: false,
-  error: '',
 };
 
 type AuthAction = ReturnType<InferValueTypes<typeof actions>>;
