@@ -1,6 +1,5 @@
 import { useState } from 'react';
 
-import roomsMock from 'Root/public/rooms-mock/rooms.json';
 import { DropdownConfig } from 'Root/components/Dropdown/Dropdown';
 import Layout from 'Components/Layout/Layout';
 import SearchFilter from 'Components/SearchFilter/SearchFilter';
@@ -168,11 +167,7 @@ const Rooms = () => {
         </div>
         <div className={styles.rooms}>
           <h1 className={styles.title}>Номера, которые мы для вас подобрали</h1>
-          <Pagination
-            itemsPerPage={12}
-            allItems={roomsMock}
-            onChange={() => { }}
-          />
+          <Pagination limit={12} />
         </div>
       </div>
     </Layout>
