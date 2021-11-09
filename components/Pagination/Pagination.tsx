@@ -1,8 +1,10 @@
-import { useState, useEffect, ReactNode } from 'react';
-import { DocumentData, QueryDocumentSnapshot, QuerySnapshot } from '@firebase/firestore';
+import { useEffect } from 'react';
+import { DocumentData, QueryDocumentSnapshot } from '@firebase/firestore';
 
-import Firebase from 'Root/api/Firebase';
 import convertNumToWordform from 'Root/utils/convertNumToWordform';
+import { requestRooms } from 'Root/redux/rooms/roomsActions';
+import { useAppDispatch, useAppSelector } from 'Root/redux/hooks';
+
 import RoomCard from 'Components/RoomCard/RoomCard';
 import LoadingSpinner from 'Components/LoadingSpinner/LoadingSpinner';
 import Reference from 'Components/Reference/Reference';
@@ -17,29 +19,14 @@ type PaginationProps = {
   onChange?: (pageNumber: number) => void
 };
 
-type PageState = {
-  viewPages: number,
-  totalPages: number,
-  endDataPoint?: QueryDocumentSnapshot<DocumentData>,
-};
-
 const Pagination = (props: PaginationProps) => {
   const { limit, onChange } = props;
 
-  const [page, setPage] = useState<PageState>({
-    viewPages: 1,
-    totalPages: 1,
-  });
+  const dispatch = useAppDispatch();
+  const roomsStore = useAppSelector((store) => store.rooms);
 
-  const [loading, setLoading] = useState({
-    initial: true,
-    additional: false,
-  });
-
-  const [rooms, setRooms] = useState<Array<ReactNode>>([]);
-
-  const convertSnapshotToJSX = (snapshot: QuerySnapshot<DocumentData>) => {
-    const roomsJSX: Array<ReactNode> = [];
+  const convertSnapshotToJSX = (snapshot: Array<QueryDocumentSnapshot<DocumentData>>) => {
+    const roomsJSX: Array<JSX.Element> = [];
 
     snapshot.forEach((item) => {
       const room = item.data();
@@ -63,95 +50,48 @@ const Pagination = (props: PaginationProps) => {
   };
 
   useEffect(() => {
-    const fetchRooms = async () => {
-      const snapshot = await Firebase.getRooms({ documentsLimit: limit });
-
-      const totalItems = await Firebase.getFullSize();
-      const newTotalPages = Math.ceil(totalItems / limit);
-
-      setRooms(convertSnapshotToJSX(snapshot));
-      setPage((prevState) => ({
-        ...prevState,
-        totalPages: newTotalPages,
-        endDataPoint: snapshot.docs[snapshot.docs.length - 1],
-      }));
-      setLoading((prevState) => ({ ...prevState, initial: false }));
-    };
-
-    fetchRooms();
-
-    return () => {
-      setRooms([]);
-      setPage({
-        viewPages: 1,
-        totalPages: 1,
-      });
-      setLoading({
-        initial: true,
-        additional: false,
-      });
-    };
+    dispatch(requestRooms({ limit }));
   }, []);
 
-  useEffect(() => {
-    if (page.endDataPoint === undefined) return;
-
-    const fetchRooms = async () => {
-      const snapshot = await Firebase.getRooms({
-        documentsLimit: limit,
-        documentPoint: page.endDataPoint,
-      });
-
-      setRooms((prevState) => ([...prevState, ...convertSnapshotToJSX(snapshot)]));
-      setPage((prevState) => ({
-        ...prevState,
-        endDataPoint: snapshot.docs[snapshot.docs.length - 1],
-      }));
-      setLoading((prevState) => ({ ...prevState, additional: false }));
-    };
-
-    fetchRooms();
-  }, [page.viewPages]);
-
   const handlePageClick = () => {
-    const newViewPages = page.viewPages + 1;
+    if (roomsStore.currentPages > roomsStore.totalPages) return;
 
-    if (newViewPages > page.totalPages) return;
+    dispatch(requestRooms({
+      limit,
+      endDataPoint: roomsStore.rooms[roomsStore.rooms.length - 1],
+    }));
 
-    setPage((prevState) => ({ ...prevState, viewPages: newViewPages }));
-    setLoading((prevState) => ({ ...prevState, additional: true }));
-
-    if (onChange) onChange(newViewPages);
+    if (onChange) onChange(roomsStore.currentPages);
   };
 
   const stylesPagination = () => (
-    `${styles.pagination} ${page.viewPages === page.totalPages ? styles.paginationHidden : ''}`
+    `${styles.pagination} ${roomsStore.currentPages === roomsStore.totalPages ? styles.paginationHidden : ''}`
   );
 
   return (
-    loading.initial ? (
+    roomsStore.loadingInit ? (
       <LoadingSpinner />
     ) : (
       <>
         <ul className={styles.list}>
-          {rooms}
+          {roomsStore.rooms && convertSnapshotToJSX(roomsStore.rooms)}
         </ul>
         <div className={stylesPagination()}>
           {
-            loading.additional ? (
+            roomsStore.loadingAdditional ? (
               <LoadingSpinner />
             ) : (
               <Reference
                 isButton
                 buttonType="button"
                 text={`Показать еще
-                (${page.viewPages}
-                  ${convertNumToWordform(page.viewPages, [
+                (${roomsStore.currentPages}
+                  ${convertNumToWordform(roomsStore.currentPages, [
                   'страница',
                   'страницы',
                   'страниц',
                 ])} из 
-                ${page.totalPages})`}
+                ${roomsStore.totalPages})`}
                 type="bordered"
                 size="big"
                 onClick={handlePageClick}

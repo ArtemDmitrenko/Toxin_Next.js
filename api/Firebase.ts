@@ -59,7 +59,7 @@ abstract class Firebase {
 
     const snapshot = await getDocs(request);
 
-    return snapshot;
+    return snapshot.docs;
   };
 }
 
