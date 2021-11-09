@@ -20,13 +20,13 @@ function* userLoginRequestWorker({ data }: RequestToAuth) {
       userId: user.uid,
       email: user.email,
       userName: user.displayName,
-      error: '',
+      error: null,
     }));
   } catch ({ code }) {
     yield put(userAuthFailed({
-      userId: '',
-      email: '',
-      userName: '',
+      userId: null,
+      email: null,
+      userName: null,
       error: code as string,
     }));
   }

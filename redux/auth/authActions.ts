@@ -9,7 +9,7 @@ type AuthUserData = {
   userId: string | null,
   email: string | null,
   userName: string | null,
-  error: string,
+  error: string | null,
 };
 
 type LoginUserRequest = {
