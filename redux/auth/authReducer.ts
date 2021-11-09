@@ -6,6 +6,7 @@ import * as actions from './authActions';
 type AuthState = {
   userId: string | null,
   email: string | null,
+  userName: string | null,
   isAuth: boolean,
   error: string,
 };
@@ -13,6 +14,7 @@ type AuthState = {
 const initialState: AuthState = {
   userId: null,
   email: null,
+  userName: null,
   isAuth: false,
   error: '',
 };
