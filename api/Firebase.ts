@@ -1,4 +1,5 @@
 import { initializeApp } from 'firebase/app';
+
 import { Query, QueryDocumentSnapshot, DocumentData } from '@firebase/firestore';
 import {
   getFirestore,
@@ -9,7 +10,7 @@ import {
   startAfter,
   limit,
 } from 'firebase/firestore';
-import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+import { getAuth, signInWithEmailAndPassword, sendPasswordResetEmail } from 'firebase/auth';
 
 import firebaseCfg from './firebaseConfig';
 
@@ -18,7 +19,14 @@ abstract class Firebase {
 
   public static firebase = initializeApp(this.firebaseConfig);
 
-  public static auth = getAuth();
+  public static initAuth = () => {
+    const auth = getAuth();
+    auth.languageCode = 'ru';
+
+    return auth;
+  };
+
+  public static auth = this.initAuth();
 
   public static firestore = getFirestore();
 
@@ -26,6 +34,10 @@ abstract class Firebase {
     email: string,
     password: string,
   ) => signInWithEmailAndPassword(this.auth, email, password);
+
+  public static sendPasswordRecovery = async (email: string) => {
+    await sendPasswordResetEmail(this.auth, email);
+  };
 
   public static getFullSize = async () => {
     const request = query(collection(this.firestore, 'rooms'));
