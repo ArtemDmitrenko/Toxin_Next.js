@@ -1,10 +1,16 @@
 import { initializeApp } from 'firebase/app';
 
-import { Query, QueryDocumentSnapshot, DocumentData } from '@firebase/firestore';
+import {
+  Query,
+  QueryDocumentSnapshot,
+  DocumentData,
+  setDoc,
+} from '@firebase/firestore';
 import {
   getFirestore,
   collection,
   getDocs,
+  doc,
   query,
   orderBy,
   startAfter,
@@ -12,7 +18,76 @@ import {
 } from 'firebase/firestore';
 import { getAuth, signInWithEmailAndPassword, sendPasswordResetEmail } from 'firebase/auth';
 
+import RoomReviews from 'Components/Pagination/helpers/RoomReviews';
+import roomInformation from 'Components/RoomInformation/roomInformation.json';
+
 import firebaseCfg from './firebaseConfig';
+import FirebaseDocumentType from './FirebaseDocumentType';
+
+type OldFirebaseDocumentType = {
+  room: number,
+  level: string,
+  cost: number,
+  reviews: RoomReviews,
+  images: Array<{
+    alt: string,
+    src: string,
+  }>,
+};
+
+function getRandomArbitrary(min: number, max: number, step?: number) {
+  const generatedNumber = Math.floor((Math.random() * (max - min)) + 0.5) + min;
+
+  if (step) {
+    return Math.floor(generatedNumber / step) * step;
+  }
+
+  return generatedNumber;
+}
+
+const mutateDocuments = (docs: Array<OldFirebaseDocumentType>) => {
+  const newDocs: Array<FirebaseDocumentType> = [];
+
+  docs.forEach((document) => {
+    const newBedrooms = getRandomArbitrary(1, 3);
+
+    newDocs.push({
+      ...document,
+      reserved: [],
+      rules: {
+        allowSmoke: !!getRandomArbitrary(0, 1),
+        allowPets: !getRandomArbitrary(0, 2),
+        allowGuests: !getRandomArbitrary(0, 5),
+      },
+      accessibility: {
+        isWideHall: !!getRandomArbitrary(0, 1),
+        isHelper: !getRandomArbitrary(0, 5),
+      },
+      facilities: {
+        bedrooms: newBedrooms,
+        beds: newBedrooms + getRandomArbitrary(0, 2),
+        bathrooms: getRandomArbitrary(1, 2),
+      },
+      additions: {
+        breakfast: !!getRandomArbitrary(0, 5),
+        desk: !!getRandomArbitrary(0, 5),
+        feedingChair: !!getRandomArbitrary(0, 5),
+        crib: !!getRandomArbitrary(0, 5),
+        television: !!getRandomArbitrary(0, 5),
+        shampoo: !!getRandomArbitrary(0, 5),
+        additionTelevision: !!getRandomArbitrary(0, 3),
+        additionShampoo: !!getRandomArbitrary(0, 5),
+      },
+      details: [...(roomInformation.slice(
+        getRandomArbitrary(0, 1),
+        getRandomArbitrary(1, 2),
+      ))],
+      commentaries: [],
+    });
+  });
+
+  return newDocs;
+};
 
 abstract class Firebase {
   private static firebaseConfig = firebaseCfg;
@@ -73,6 +148,23 @@ abstract class Firebase {
 
     return snapshot.docs;
   };
+
+  public static modifyCollection = async () => {
+    const snapshot = await getDocs(collection(this.firestore, 'rooms'));
+    const docs = snapshot.docs.map((document) => (
+      document.data()
+    )) as Array<OldFirebaseDocumentType>;
+
+    const mutatedDocs = mutateDocuments(docs);
+
+    mutatedDocs.forEach(async (document) => {
+      await setDoc(doc(this.firestore, 'rooms', String(document.room)), document);
+    });
+  };
 }
+
+// Чтобы перезаписать данные на сервере расскоментируйте строку ниже
+// она будет приведена в соответствие с заданной функцией mutateDocuments
+// Firebase.modifyCollection();
 
 export default Firebase;

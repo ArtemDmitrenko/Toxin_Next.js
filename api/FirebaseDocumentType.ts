@@ -35,7 +35,7 @@ type FirebaseDocumentType = {
   details: Array<{
     title: string,
     description: string,
-    name: string,
+    iconName: string,
   }>,
   commentaries: Array<{
     user: {
