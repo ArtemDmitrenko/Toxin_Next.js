@@ -31,11 +31,11 @@ const Impressions = (props: ImpressionsProps) => {
   const satisfactorilyInPixels = calcLengthOfOneReview(satisfactorily);
   const badInPixels = calcLengthOfOneReview(bad);
 
-  const stylesCircle = (amount: number, type: string) => {
+  const stylesCircle = (amount: number, impression: string) => {
     const classesArr = [styles.unit];
     
     if (amount === 0) classesArr.push(styles.hide);
-    if (type === activeImpression) classesArr.push(styles.unitActive);
+    if (impression === activeImpression) classesArr.push(styles.unitActive);
 
     return classesArr.join(' ');
   };
