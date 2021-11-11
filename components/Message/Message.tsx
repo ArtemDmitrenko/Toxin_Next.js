@@ -16,7 +16,7 @@ const Message = (props: PropsWithChildren<MessageProps>) => {
       success: styles.success,
     };
 
-    return `${styles.message} ${map[type]}`;
+    return [styles.message, map[type]].join(' ');
   };
 
   return (
