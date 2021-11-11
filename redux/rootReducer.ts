@@ -1,9 +1,16 @@
 import { combineReducers } from 'redux';
 
-import { testCounterReducer } from './testCounter/testCounterReducer';
+import authReducer, { AuthState } from './auth/authReducer';
+import roomsReducer, { RoomsState } from './rooms/roomsReducer';
 
-const rootReducer = combineReducers({
-  testCounter: testCounterReducer,
+type StoreState = {
+  auth: AuthState,
+  rooms: RoomsState,
+};
+
+const rootReducer = combineReducers<StoreState>({
+  auth: authReducer,
+  rooms: roomsReducer,
 });
 
 export default rootReducer;

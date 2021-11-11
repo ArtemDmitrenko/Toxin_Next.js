@@ -21,10 +21,13 @@ type HeaderMenu = {
 
 type HeaderProps = {
   menu: Array<HeaderMenu>,
+  isAuth: boolean,
+  userName: string | null,
 };
 
 const Header = (props: HeaderProps) => {
-  const { menu } = props;
+  const mockUserName = 'Неопознанная панда';
+  const { menu, isAuth = false, userName = mockUserName } = props;
   const [activeMenu, setActiveMenu] = useState<number | null>(null);
   const [isOpenBurgerMenu, setIsOpenBurgerMenu] = useState<boolean>(false);
 
@@ -44,6 +47,10 @@ const Header = (props: HeaderProps) => {
     `${styles.buttons} ${isOpenBurgerMenu ? styles.buttonsVisible : ''}`
   );
 
+  const stylesUserData = () => (
+    `${styles.userData} ${isOpenBurgerMenu ? styles.userDataVisible : ''}`
+  );
+
   const stylesBurgerMenu = () => (
     `${styles.burger} ${isOpenBurgerMenu ? styles.burgerOpened : ''}`
   );
@@ -53,7 +60,7 @@ const Header = (props: HeaderProps) => {
   );
 
   return (
-    <div className={styles.header}>
+    <header className={styles.header}>
       <div className={styles.content}>
         <Logo width={110} height={40} alt="Logo" />
         <button className={stylesBurgerMenu()} type="button" aria-label="open or close" onClick={() => setIsOpenBurgerMenu(!isOpenBurgerMenu)} onKeyDown={() => setIsOpenBurgerMenu(!isOpenBurgerMenu)} />
@@ -103,18 +110,20 @@ const Header = (props: HeaderProps) => {
             })}
           </ul>
         </nav>
-        <div className={stylesButtons()}>
-          <Reference text="Войти" type="bordered" size="small" />
-          <Reference
-            href="/auth/sign-up"
-            text="Зарегистрироваться"
-            type="solid"
-            size="small"
-          />
-        </div>
+        { isAuth ? (<div className={stylesUserData()}>{userName || mockUserName}</div>)
+          : (
+            <div className={stylesButtons()}>
+              <Reference href="/auth/log-in" text="Войти" type="bordered" size="small" />
+              <Reference
+                href="/auth/sign-up"
+                text="Зарегистрироваться"
+                type="solid"
+                size="small"
+              />
+            </div>
+          )}
       </div>
-
-    </div>
+    </header>
   );
 };
 
