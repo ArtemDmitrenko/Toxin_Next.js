@@ -11,7 +11,10 @@ import {
   limit,
 } from 'firebase/firestore';
 import {
-  getAuth, signInWithEmailAndPassword, sendPasswordResetEmail, signOut,
+  getAuth,
+  signInWithEmailAndPassword,
+  sendPasswordResetEmail,
+  signOut,
 } from 'firebase/auth';
 
 import firebaseCfg from './firebaseConfig';

@@ -30,9 +30,9 @@ const Header = (props: HeaderProps) => {
   const mockUserName = 'Неопознанная панда';
   const {
     menu,
+    handleLogoutButtonClick,
     isAuth = false,
     userName = mockUserName,
-    handleLogoutButtonClick,
   } = props;
   const [activeMenu, setActiveMenu] = useState<number | null>(null);
   const [isOpenBurgerMenu, setIsOpenBurgerMenu] = useState<boolean>(false);
