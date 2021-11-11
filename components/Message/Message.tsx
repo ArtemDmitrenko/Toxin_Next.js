@@ -1,11 +1,12 @@
+import { PropsWithChildren } from 'react';
+
 import styles from './message.module.scss';
 
 type MessageProps = {
   type: 'error' | 'warning' | 'success',
-  children: React.ReactNode
 };
 
-const Message = (props: MessageProps) => {
+const Message = (props: PropsWithChildren<MessageProps>) => {
   const { children, type } = props;
 
   const stylesMessage = () => {
