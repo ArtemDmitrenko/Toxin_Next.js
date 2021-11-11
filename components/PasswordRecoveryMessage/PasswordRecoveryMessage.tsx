@@ -6,12 +6,14 @@ type PasswordRecoveryMessageProps = {
 };
 
 const PasswordRecoveryMessage = ({ message, isError = false }: PasswordRecoveryMessageProps) => {
-  const stylesMessage = (error: boolean) => (
-    `${styles.container} ${error ? styles.error : ''}`
-  );
+  const classesArr = [styles.container];
+
+  if (isError) classesArr.push(styles.error);
+
+  const classes = classesArr.join(' ');
 
   return (
-    <div className={stylesMessage(isError)}>
+    <div className={classes}>
       <p>{message}</p>
     </div>
   );
