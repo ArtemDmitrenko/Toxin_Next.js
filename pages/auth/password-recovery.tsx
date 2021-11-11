@@ -1,8 +1,6 @@
 import Router from 'next/router';
 import { useEffect, useState } from 'react';
 
-import Firebase from 'Root/api/Firebase';
-
 import { passwordRecoveryRequest } from 'Root/redux/auth/authActions';
 import { useAppDispatch, useAppSelector } from 'Root/redux/hooks';
 import Layout from 'Components/Layout/Layout';
@@ -17,30 +15,30 @@ const PasswordRecovery = () => {
 
   const handlePasswordRecoveryCard = (email: string) => {
     dispatch(passwordRecoveryRequest({ email }));
-  }
+  };
 
-  const userAuthData = useAppSelector((state) => state.auth);
+  const { email, error } = useAppSelector((state) => state.auth);
 
   useEffect(() => {
-    if (userAuthData.email && userAuthData.error) {
+    if (email && error) {
       setEmailSuccess(false);
       setEmailError(true);
-    };
-    if (userAuthData.email && !userAuthData.error) {
+    }
+    if (email && !error) {
       setEmailError(false);
       setEmailSuccess(true);
-      setTimeout(()=> {
+      setTimeout(() => {
         Router.push('/auth/log-in');
       }, 3000);
     }
-  }, [userAuthData]);
+  }, [email, error]);
 
   return (
     <Layout title="Password recovery">
       <BackgroundAuth>
         <div>
-          { hasEmailError && <PasswordRecoveryMessage message={'По указанному email не найдено зарегистрированных пользователей. Пожалуйста, введите корректный email.'} />}
-          { hasEmailSuccess && <PasswordRecoveryMessage message={'Инструкция по восстановлению пароля направлена на указанный email.'} />}
+          { hasEmailError && <PasswordRecoveryMessage message="По указанному email не найдено зарегистрированных пользователей. Пожалуйста, введите корректный email." isError={true} />}
+          { hasEmailSuccess && <PasswordRecoveryMessage message="Инструкция по восстановлению пароля направлена на указанный email." />}
           <PasswordRecoveryCard onSubmit={handlePasswordRecoveryCard} />
         </div>
       </BackgroundAuth>
