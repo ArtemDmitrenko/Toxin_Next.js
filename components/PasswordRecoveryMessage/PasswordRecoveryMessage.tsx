@@ -6,9 +6,8 @@ type PasswordRecoveryMessageProps = {
 };
 
 const PasswordRecoveryMessage = ({ message, isError = false }: PasswordRecoveryMessageProps) => {
-
-  const stylesMessage = (isError: boolean) => (
-    `${styles.container} ${isError ? styles.error : ""}`
+  const stylesMessage = (error: boolean) => (
+    `${styles.container} ${error ? styles.error : ''}`
   );
 
   return (

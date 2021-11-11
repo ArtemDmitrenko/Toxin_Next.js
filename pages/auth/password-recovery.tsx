@@ -37,7 +37,7 @@ const PasswordRecovery = () => {
     <Layout title="Password recovery">
       <BackgroundAuth>
         <div>
-          { hasEmailError && <PasswordRecoveryMessage message="По указанному email не найдено зарегистрированных пользователей. Пожалуйста, введите корректный email." isError={true} />}
+          { hasEmailError && <PasswordRecoveryMessage message="По указанному email не найдено зарегистрированных пользователей. Пожалуйста, введите корректный email." isError />}
           { hasEmailSuccess && <PasswordRecoveryMessage message="Инструкция по восстановлению пароля направлена на указанный email." />}
           <PasswordRecoveryCard onSubmit={handlePasswordRecoveryCard} />
         </div>
