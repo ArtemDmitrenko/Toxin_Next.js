@@ -27,6 +27,8 @@ const authReducer = (state = initialState, action: AuthAction) => {
       return { ...state, ...action.data, isAuth: true };
     case AuthActionsTypes.SET_AUTH_USER_FAILED_STATUS:
       return { ...state, ...action.data, isAuth: false };
+    case AuthActionsTypes.USER_LOGOUT_SUCCESS:
+      return { ...state, ...action.data, isAuth: false };
 
     default:
       return state;

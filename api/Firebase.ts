@@ -10,7 +10,9 @@ import {
   startAfter,
   limit,
 } from 'firebase/firestore';
-import { getAuth, signInWithEmailAndPassword, sendPasswordResetEmail } from 'firebase/auth';
+import {
+  getAuth, signInWithEmailAndPassword, sendPasswordResetEmail, signOut,
+} from 'firebase/auth';
 
 import firebaseCfg from './firebaseConfig';
 
@@ -73,6 +75,8 @@ abstract class Firebase {
 
     return snapshot.docs;
   };
+
+  public static logOut = async () => { signOut(this.auth); };
 }
 
 export default Firebase;
