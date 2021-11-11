@@ -1,0 +1,19 @@
+@import 'Root/style/variables.scss';
+
+.message {
+  padding: 10px;
+  border-radius: 4px;
+  box-shadow: $cardShadow;
+}
+
+.error {
+  background-color: $errorColor;
+}
+
+.warning {
+  background-color: $warningColor;
+}
+
+.success {
+  background-color: $secondaryColor;
+}
