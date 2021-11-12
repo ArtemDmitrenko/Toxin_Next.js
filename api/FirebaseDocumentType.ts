@@ -38,10 +38,7 @@ type FirebaseDocumentType = {
     iconName: string,
   }>,
   commentaries: Array<{
-    user: {
-      name: string,
-      image: string,
-    },
+    userId: string,
     date: Date,
     likes: Array<string>,
   }>,
