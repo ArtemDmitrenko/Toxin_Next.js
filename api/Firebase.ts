@@ -5,6 +5,8 @@ import {
   getFirestore,
   collection,
   getDocs,
+  getDoc,
+  doc,
   query,
   orderBy,
   startAfter,
@@ -72,6 +74,12 @@ abstract class Firebase {
     const snapshot = await getDocs(request);
 
     return snapshot.docs;
+  };
+
+  public static getRoom = async (roomNumber: string) => {
+    const room = await getDoc(doc(this.firestore, 'rooms', roomNumber));
+
+    return room.data();
   };
 }
 
