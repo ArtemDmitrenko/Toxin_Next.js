@@ -23,7 +23,7 @@ const Impressions = (props: ImpressionsProps) => {
   );
 
   const [currentReviewsValue, setCurrentReviewsValue] = useState<number>(sum);
-  const [activeImpression, setActiveImpression] = useState<string | null>(null)
+  const [activeImpression, setActiveImpression] = useState<string | null>(null);
 
   const calcLengthOfOneReview = (number: number): number => (lengthOfCircle * number) / sum;
   const goodInPixels = calcLengthOfOneReview(good);
@@ -33,7 +33,7 @@ const Impressions = (props: ImpressionsProps) => {
 
   const stylesCircle = (amount: number, impression: string) => {
     const classesArr = [styles.unit];
-    
+
     if (amount === 0) classesArr.push(styles.hide);
     if (impression === activeImpression) classesArr.push(styles.unitActive);
 
@@ -43,12 +43,12 @@ const Impressions = (props: ImpressionsProps) => {
   const handleImpressionMouseMove = (amount: number, impression: string) => {
     setCurrentReviewsValue(amount);
     setActiveImpression(impression);
-  }
+  };
 
   const handleImpressionMouseOut = () => {
     setCurrentReviewsValue(sum);
     setActiveImpression(null);
-  }
+  };
 
   return (
     <div>
@@ -116,18 +116,42 @@ const Impressions = (props: ImpressionsProps) => {
         </div>
         <div className={styles.legend}>
           <ul className={styles.list}>
-            <li className={`${styles.item} ${styles.amazing}`}
-              onMouseMove={() => {handleImpressionMouseMove(amazing, 'amazing')}}
-              onMouseOut={handleImpressionMouseOut}>Великолепно</li>
-            <li className={`${styles.item} ${styles.good}`}
-              onMouseMove={() => {handleImpressionMouseMove(good, 'good')}}
-              onMouseOut={handleImpressionMouseOut}>Хорошо</li>
-            <li className={`${styles.item} ${styles.satisfactorily}`}
-              onMouseMove={() => {handleImpressionMouseMove(satisfactorily, 'satisfactorily')}}
-              onMouseOut={handleImpressionMouseOut}>Удовлетворительно</li>
-            <li className={`${styles.item} ${styles.bad}`}
-              onMouseMove={() => {handleImpressionMouseMove(bad, 'bad')}}
-              onMouseOut={handleImpressionMouseOut}>Разочарован</li>
+            <li
+              className={`${styles.item} ${styles.amazing}`}
+              onMouseMove={() => { handleImpressionMouseMove(amazing, 'amazing'); }}
+              onFocus={() => { handleImpressionMouseMove(amazing, 'amazing'); }}
+              onMouseOut={handleImpressionMouseOut}
+              onBlur={handleImpressionMouseOut}
+            >
+              Великолепно
+            </li>
+            <li
+              className={`${styles.item} ${styles.good}`}
+              onMouseMove={() => { handleImpressionMouseMove(good, 'good'); }}
+              onFocus={() => { handleImpressionMouseMove(good, 'good'); }}
+              onMouseOut={handleImpressionMouseOut}
+              onBlur={handleImpressionMouseOut}
+            >
+              Хорошо
+            </li>
+            <li
+              className={`${styles.item} ${styles.satisfactorily}`}
+              onMouseMove={() => { handleImpressionMouseMove(satisfactorily, 'satisfactorily'); }}
+              onFocus={() => { handleImpressionMouseMove(satisfactorily, 'satisfactorily'); }}
+              onMouseOut={handleImpressionMouseOut}
+              onBlur={handleImpressionMouseOut}
+            >
+              Удовлетворительно
+            </li>
+            <li
+              className={`${styles.item} ${styles.bad}`}
+              onMouseMove={() => { handleImpressionMouseMove(bad, 'bad'); }}
+              onFocus={() => { handleImpressionMouseMove(bad, 'bad'); }}
+              onMouseOut={handleImpressionMouseOut}
+              onBlur={handleImpressionMouseOut}
+            >
+              Разочарован
+            </li>
           </ul>
         </div>
       </div>

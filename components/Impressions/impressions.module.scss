@@ -44,7 +44,7 @@
 .item {
   @include paragraph();
   color: $textColor75;
-  cursor: default;
+  cursor: pointer;
 }
 
 .amazing::before {
