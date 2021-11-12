@@ -20,6 +20,7 @@
 
 .diagram {
   display: flex;
+  user-select: none;
 
   @media (max-width: $mediaSizeMobile) {
     flex-direction: column;
@@ -69,14 +70,15 @@
 
 .total {
   position: absolute;
-  top: 33%;
-  left: 23%;
+  top: 50%;
+  left: 50%;
   width: 70px;
   margin: 0;
   color: $primaryColor;
   font-size: 24px;
   line-height: 20.6px;
   text-align: center;
+  transform: translate(-50%, -50%);
 
   & span {
     @include h3();
