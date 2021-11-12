@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import Link from 'next/link';
 
 import { useAppSelector } from 'Root/redux/hooks';
 import convertNumToWordform from 'Root/utils/convertNumToWordform';
@@ -190,9 +191,11 @@ const ReservationCard = (props: ReservationCardProps) => {
             Для бронирования необходимо
             {' '}
             <b>
-              <a className={styles.link} href="/auth/log-in">
-                войти в&nbsp;аккаунт
-              </a>
+              <Link href="/auth/log-in">
+                <a className={styles.link} href="replace">
+                  войти в&nbsp;аккаунт
+                </a>
+              </Link>
             </b>
             !
           </Message>
