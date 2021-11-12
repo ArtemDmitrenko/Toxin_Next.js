@@ -41,7 +41,7 @@ function* userPasswordRecoveryRequestWorker({ data }: RequestToAuth) {
 
     yield put(passwordRecoverySuccess({
       userId: null,
-      email: email,
+      email,
       userName: null,
       error: null,
     }));
@@ -49,7 +49,7 @@ function* userPasswordRecoveryRequestWorker({ data }: RequestToAuth) {
     const { email } = data;
     yield put(passwordRecoveryFailed({
       userId: null,
-      email: email,
+      email,
       userName: null,
       error: code as string,
     }));
