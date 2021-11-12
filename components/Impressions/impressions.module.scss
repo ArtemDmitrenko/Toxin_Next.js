@@ -80,6 +80,7 @@
 
   & span {
     @include h3();
+    min-width: 64px;
     color: $primaryColor;
   }
 }

@@ -1,5 +1,7 @@
 import { useState } from 'react';
 
+import convertNumToWordform from 'Root/utils/convertNumToWordform';
+
 import styles from './impressions.module.scss';
 
 type ImpressionsProps = {
@@ -111,7 +113,7 @@ const Impressions = (props: ImpressionsProps) => {
           </svg>
           <h1 className={styles.total}>
             {currentReviewsValue}
-            <span>голосов</span>
+            <span>{convertNumToWordform(currentReviewsValue, ['голос', 'голоса', 'голосов'])}</span>
           </h1>
         </div>
         <div className={styles.legend}>
