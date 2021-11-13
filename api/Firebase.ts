@@ -7,8 +7,6 @@ import {
   updateProfile,
 } from 'firebase/auth';
 
-import { SignUpCardData } from 'Components/SignUpCard/SignUpCard';
-
 import { Query, QueryDocumentSnapshot, DocumentData } from '@firebase/firestore';
 import {
   getFirestore,
@@ -27,11 +25,11 @@ abstract class Firebase {
 
   public static firebase = initializeApp(this.firebaseConfig);
 
-  public static createUser = async (data: SignUpCardData) => {
-    await createUserWithEmailAndPassword(
+  public static createUser = (email: string, password: string) => {
+    createUserWithEmailAndPassword(
       this.auth,
-      data.email,
-      data.password,
+      email,
+      password,
     );
   };
 

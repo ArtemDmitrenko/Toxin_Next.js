@@ -1,36 +1,38 @@
 import SignUpActionsTypes from './signUpActionsTypes';
 
-// type userRegistrationAction<T, K> = {
-//   type: T,
-//   payload: K,
-// };
+type SignUpGeneralAction<T, K> = {
+  type: T,
+  payload: K,
+};
 
 type UserSignUpData = {
-  name: string,
-  surname: string,
-  dateOfBirth: string,
-  email: string,
-  password: string,
-  sex: string,
-  specialOffers?: boolean
+  name: string | null,
+  surname: string | null,
+  dateOfBirth: string | null,
+  email: string | null,
+  password: string | null,
+  sex: string | null,
+  specialOffers?: boolean | null,
 };
 
-type UserSignUpErrorData = {
-  error: string,
+type SignUpStateData = {
+  error: string | null
 };
 
-const signUpUser = (payload: UserSignUpData) => (<const>{
-  type: SignUpActionsTypes.SIGNUP_USER,
+const signUpUserRequest = (payload: UserSignUpData) => (<const>{
+  type: SignUpActionsTypes.SIGNUP_USER_REQUEST,
   payload,
 });
 
-const signUpUserSuccess = () => (<const>{
+const signUpUserSuccess = (payload: SignUpStateData) => (<const>{
   type: SignUpActionsTypes.SIGNUP_USER_SUCCESS,
+  payload,
 });
 
-const signUpUserError = (payload: UserSignUpErrorData) => (<const>{
+const signUpUserError = (payload: SignUpStateData) => (<const>{
   type: SignUpActionsTypes.SIGNUP_USER_ERROR,
   payload,
 });
 
-export { signUpUser, signUpUserSuccess, signUpUserError };
+export type { UserSignUpData, SignUpGeneralAction };
+export { signUpUserRequest, signUpUserSuccess, signUpUserError };
