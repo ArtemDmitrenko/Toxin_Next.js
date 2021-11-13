@@ -16,7 +16,8 @@ type UserSignUpData = {
 };
 
 type SignUpStateData = {
-  error: string | null
+  error: string | null,
+  isSignUp: boolean
 };
 
 const signUpUserRequest = (payload: UserSignUpData) => (<const>{
@@ -24,9 +25,9 @@ const signUpUserRequest = (payload: UserSignUpData) => (<const>{
   payload,
 });
 
-const signUpUserSuccess = (payload: SignUpStateData) => (<const>{
+const signUpUserSuccess = () => (<const>{
   type: SignUpActionsTypes.SIGNUP_USER_SUCCESS,
-  payload,
+  // payload,
 });
 
 const signUpUserError = (payload: SignUpStateData) => (<const>{
@@ -34,5 +35,5 @@ const signUpUserError = (payload: SignUpStateData) => (<const>{
   payload,
 });
 
-export type { UserSignUpData, SignUpGeneralAction };
+export type { SignUpStateData, UserSignUpData, SignUpGeneralAction };
 export { signUpUserRequest, signUpUserSuccess, signUpUserError };

@@ -63,3 +63,12 @@
 .offers {
   margin-bottom: 20px;
 }
+
+.warningMessage {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.link {
+  @include link();
+}

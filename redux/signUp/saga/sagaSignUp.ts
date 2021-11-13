@@ -15,12 +15,11 @@ function* userSignUpRequestWorker(action: RequestToSignUp) {
   try {
     yield call(Firebase.createUser, payload.email, payload.password);
     // здесь будет еще одно асинхронная функция по добавлению данных о пользователе в Firestore
-    yield put(signUpUserSuccess({
-      error: null,
-    }));
+    yield put(signUpUserSuccess());
   } catch ({ code }) {
     yield put(signUpUserError({
       error: code as string,
+      isSignUp: false,
     }));
   }
 }

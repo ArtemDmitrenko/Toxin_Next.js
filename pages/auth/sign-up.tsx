@@ -10,8 +10,8 @@ import { signUpUserRequest } from 'Root/redux/signUp/signUpActions';
 
 const SignUp = () => {
   const dispatch = useAppDispatch();
-  const [hasSignUpError, setSignUpError] = useState(false);
-  const userSignUpData = useAppSelector((state) => state.signUp);
+  // const [hasSignUpError, setSignUpError] = useState(false);
+  // const userSignUpData = useAppSelector((state) => state.signUp);
 
   const handleRegistrationSubmit = (userData: SignUpCardData) => {
     dispatch(signUpUserRequest(userData));

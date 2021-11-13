@@ -1,10 +1,13 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import { Field, Form, FieldRenderProps } from 'react-final-form';
 import { IMaskInput } from 'react-imask';
+import Link from 'next/link';
 
+import { useAppSelector } from 'Root/redux/hooks';
 import RadioButton from 'Components/RadioButton/RadioButton';
 import Toggle from 'Components/Toggle/Toggle';
 import Reference from 'Components/Reference/Reference';
+import Message from 'Components/Message/Message';
 
 import validate from './helpers/validate';
 import nameValidate from './helpers/nameValidate';
@@ -28,6 +31,8 @@ type SignUpCardProps = {
 };
 
 const SignUpCard = ({ onSubmit }: SignUpCardProps) => {
+  const { error, isSignUp } = useAppSelector((store) => store.signUp);
+
   const ToggleAdapter = ({ input, title }: FieldRenderProps<boolean, any>) => (
     <Toggle
       title={title}
@@ -177,6 +182,43 @@ const SignUpCard = ({ onSubmit }: SignUpCardProps) => {
               type="directed"
               size="big"
             />
+            {error && (
+              <div className={styles.warningMessage}>
+                {error === 'auth/email-already-in-use'
+                  ? (
+                    <Message type="error">
+                      Пользователь с такой электронной&nbsp;почтой уже существует.
+                      <br />
+                      <b>
+                        <Link href="/auth/log-in">
+                          <a className={styles.link} href="replace">
+                          &nbsp;Попробуйте войти в аккаунт
+                          </a>
+                        </Link>
+                      </b>
+                    </Message>
+                  )
+                  : (
+                    <Message type="error">
+                      {error}
+                    </Message>
+                  )}
+              </div>
+            )}
+            {isSignUp && (
+              <div className={styles.warningMessage}>
+                <Message type="success">
+                  Вы успешно зарегистрированы и можете
+                  <b>
+                    <Link href="/auth/log-in">
+                      <a className={styles.link} href="replace">
+                      &nbsp;войти в аккаунт
+                      </a>
+                    </Link>
+                  </b>
+                </Message>
+              </div>
+            )}
           </form>
         )}
       </Form>

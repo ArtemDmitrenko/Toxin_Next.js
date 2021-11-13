@@ -25,8 +25,8 @@ abstract class Firebase {
 
   public static firebase = initializeApp(this.firebaseConfig);
 
-  public static createUser = (email: string, password: string) => {
-    createUserWithEmailAndPassword(
+  public static createUser = async (email: string, password: string) => {
+    await createUserWithEmailAndPassword(
       this.auth,
       email,
       password,

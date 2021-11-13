@@ -51,6 +51,8 @@ const ReservationCard = (props: ReservationCardProps) => {
   } = props;
 
   const { isAuth } = useAppSelector((store) => store.auth);
+  console.log(isAuth);
+  
 
   const [dateRange, setDateRange] = useState({
     arrival: datesOfStay.arrival,
