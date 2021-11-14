@@ -2,14 +2,18 @@ import InferValueTypes from 'Root/redux/utils';
 
 import SignUpActionsTypes from './signUpActionsTypes';
 import * as actions from './signUpActions';
-import { SignUpStateData } from './signUpActions';
 
-const initialState: SignUpStateData = {
-  error: null,
-  isSignUp: false,
+type SignUpState = {
+  error: string | null,
+  isSignUp: boolean,
 };
 
 type SignUpAction = ReturnType<InferValueTypes<typeof actions>>;
+
+const initialState: SignUpState = {
+  error: null,
+  isSignUp: false,
+};
 
 const signUpReducer = (state = initialState, action: SignUpAction) => {
   switch (action.type) {
@@ -22,6 +26,7 @@ const signUpReducer = (state = initialState, action: SignUpAction) => {
     case SignUpActionsTypes.SIGNUP_USER_ERROR:
       return {
         ...state,
+        isSignUp: false,
         ...action.payload,
       };
     default:
@@ -29,4 +34,5 @@ const signUpReducer = (state = initialState, action: SignUpAction) => {
   }
 };
 
+export type { SignUpState };
 export default signUpReducer;

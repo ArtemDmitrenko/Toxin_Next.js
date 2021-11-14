@@ -7,7 +7,13 @@ import {
   updateProfile,
 } from 'firebase/auth';
 
-import { Query, QueryDocumentSnapshot, DocumentData } from '@firebase/firestore';
+import {
+  Query,
+  QueryDocumentSnapshot,
+  DocumentData,
+  doc,
+  setDoc,
+} from '@firebase/firestore';
 import {
   getFirestore,
   collection,
@@ -17,6 +23,8 @@ import {
   startAfter,
   limit,
 } from 'firebase/firestore';
+
+import { SignUpCardData } from 'Root/components/SignUpCard/SignUpCard';
 
 import firebaseCfg from './firebaseConfig';
 
@@ -33,11 +41,26 @@ abstract class Firebase {
     );
   };
 
-  public static updateUserName = (name: string) => {
+  public static addUserInfo = async (usersData: SignUpCardData) => {
+    const userUid = this.auth.currentUser?.uid;
+    if (userUid) {
+      await setDoc(doc(this.firestore, 'users', userUid), {
+        name: usersData.name,
+        surname: usersData.surname,
+        dateOfBirth: usersData.dateOfBirth,
+        email: usersData.email,
+        password: usersData.password,
+        sex: usersData.sex,
+        specialOffers: usersData.specialOffers,
+      });
+    }
+  };
+
+  public static updateUserName = (name: string, surname: string) => {
     this.auth.onAuthStateChanged((user) => {
       if (user) {
         updateProfile(user, {
-          displayName: name,
+          displayName: `${name} ${surname}`,
         });
       }
     });

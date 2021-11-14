@@ -23,7 +23,7 @@ type SignUpCardData = {
   email: string,
   password: string,
   sex: string,
-  specialOffers?: boolean
+  specialOffers: boolean
 };
 
 type SignUpCardProps = {
@@ -52,10 +52,41 @@ const SignUpCard = ({ onSubmit }: SignUpCardProps) => {
     />
   );
 
+  const showErrorMessage = () => {
+    switch (error) {
+      case 'auth/email-already-in-use':
+        return (
+          <Message type="error">
+            Пользователь с такой электронной&nbsp;почтой уже существует.
+            <br />
+            <b>
+              <Link href="/auth/log-in">
+                <a className={styles.link} href="replace">
+                &nbsp;Попробуйте войти в аккаунт
+                </a>
+              </Link>
+            </b>
+          </Message>
+        );
+      case 'auth/weak-password':
+        return (
+          <Message type="error">
+            Введенный пароль слабо защищен и должен содержать не менее 6 символов
+          </Message>
+        );
+      default:
+        return (
+          <Message type="error">
+            {error}
+          </Message>
+        );
+    }
+  };
+
   return (
     <div className={styles.container}>
       <h1 className={styles.title}>Регистрация аккаунта</h1>
-      <Form onSubmit={onSubmit} initialValues={{ sex: 'male' }}>
+      <Form onSubmit={onSubmit} initialValues={{ sex: 'male', specialOffers: false }}>
         {({
           handleSubmit, submitting, pristine,
         }) => (
@@ -184,25 +215,7 @@ const SignUpCard = ({ onSubmit }: SignUpCardProps) => {
             />
             {error && (
               <div className={styles.warningMessage}>
-                {error === 'auth/email-already-in-use'
-                  ? (
-                    <Message type="error">
-                      Пользователь с такой электронной&nbsp;почтой уже существует.
-                      <br />
-                      <b>
-                        <Link href="/auth/log-in">
-                          <a className={styles.link} href="replace">
-                          &nbsp;Попробуйте войти в аккаунт
-                          </a>
-                        </Link>
-                      </b>
-                    </Message>
-                  )
-                  : (
-                    <Message type="error">
-                      {error}
-                    </Message>
-                  )}
+                {showErrorMessage()}
               </div>
             )}
             {isSignUp && (

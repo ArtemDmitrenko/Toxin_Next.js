@@ -12,12 +12,11 @@ type UserSignUpData = {
   email: string | null,
   password: string | null,
   sex: string | null,
-  specialOffers?: boolean | null,
+  specialOffers: boolean | null,
 };
 
-type SignUpStateData = {
+type SignUpData = {
   error: string | null,
-  isSignUp: boolean
 };
 
 const signUpUserRequest = (payload: UserSignUpData) => (<const>{
@@ -27,13 +26,12 @@ const signUpUserRequest = (payload: UserSignUpData) => (<const>{
 
 const signUpUserSuccess = () => (<const>{
   type: SignUpActionsTypes.SIGNUP_USER_SUCCESS,
-  // payload,
 });
 
-const signUpUserError = (payload: SignUpStateData) => (<const>{
+const signUpUserError = (payload: SignUpData) => (<const>{
   type: SignUpActionsTypes.SIGNUP_USER_ERROR,
   payload,
 });
 
-export type { SignUpStateData, UserSignUpData, SignUpGeneralAction };
+export type { UserSignUpData, SignUpGeneralAction };
 export { signUpUserRequest, signUpUserSuccess, signUpUserError };
