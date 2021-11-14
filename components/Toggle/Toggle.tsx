@@ -13,8 +13,8 @@ const Toggle = (props: ToggleProps) => {
   const {
     title,
     name,
-    isChecked = false,
     onChange,
+    isChecked = false,
   } = props;
 
   return (

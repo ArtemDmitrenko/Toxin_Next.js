@@ -1,3 +1,3 @@
-const validate = (text: string) => (value: string) => (value ? undefined : text);
+const validate = (value: string) => (value ? undefined : 'Заполните поле');
 
 export default validate;

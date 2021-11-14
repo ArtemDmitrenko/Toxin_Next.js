@@ -1,5 +1,5 @@
-import { takeEvery, put } from 'redux-saga/effects';
-import * as Effects from 'redux-saga/effects';
+import { takeEvery, put, call } from 'redux-saga/effects';
+// import * as Effects from 'redux-saga/effects';
 import Firebase from 'Root/api/Firebase';
 import SignUpActionsTypes from '../signUpActionsTypes';
 import {
@@ -10,8 +10,6 @@ import {
 } from '../signUpActions';
 
 type RequestToSignUp = SignUpGeneralAction<SignUpActionsTypes.SIGNUP_USER_REQUEST, UserSignUpData>;
-
-const { call }: any = Effects;
 
 function* userSignUpRequestWorker(action: RequestToSignUp) {
   const { payload } = action;

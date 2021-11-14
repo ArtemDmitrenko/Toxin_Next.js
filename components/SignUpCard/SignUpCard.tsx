@@ -10,9 +10,9 @@ import Reference from 'Components/Reference/Reference';
 import Message from 'Components/Message/Message';
 
 import validate from './helpers/validate';
-import nameValidate from './helpers/nameValidate';
-import birthdayValidate from './helpers/birthdayValidate';
-import emailValidate from './helpers/emailValidate';
+import validateName from './helpers/validateName';
+import validateBirthday from './helpers/validateBirthday';
+import validateEmail from './helpers/validateEmail';
 
 import styles from './signUpCard.module.scss';
 
@@ -95,7 +95,7 @@ const SignUpCard = ({ onSubmit }: SignUpCardProps) => {
               name="name"
               type="text"
               placeholder="Имя"
-              validate={nameValidate('Укажите имя', 'Имя не должно содержать символы')}
+              validate={validateName}
             >
               {({ input, meta, placeholder }) => (
                 <div className={styles.name}>
@@ -112,7 +112,7 @@ const SignUpCard = ({ onSubmit }: SignUpCardProps) => {
               name="surname"
               type="text"
               placeholder="Фамилия"
-              validate={nameValidate('Укажите фамилию', 'Фамилия не должна содержать символы')}
+              validate={validateName}
             >
               {({ input, meta, placeholder }) => (
                 <div className={styles.surname}>
@@ -145,7 +145,7 @@ const SignUpCard = ({ onSubmit }: SignUpCardProps) => {
             <Field
               name="dateOfBirth"
               type="text"
-              validate={birthdayValidate('Укажите дату рождения', 'Некорректная дата')}
+              validate={validateBirthday}
             >
               {({ input, meta }) => (
                 <div className={styles.dateOfBirth}>
@@ -166,7 +166,7 @@ const SignUpCard = ({ onSubmit }: SignUpCardProps) => {
               name="email"
               type="email"
               placeholder="Email"
-              validate={emailValidate('Укажите Email', 'Некорректный Email')}
+              validate={validateEmail}
             >
               {({ input, meta, placeholder }) => (
                 <div className={styles.name}>
@@ -184,7 +184,7 @@ const SignUpCard = ({ onSubmit }: SignUpCardProps) => {
               name="password"
               type="password"
               placeholder="Пароль"
-              validate={validate('Укажите пароль')}
+              validate={validate}
             >
               {({ input, meta, placeholder }) => (
                 <div className={styles.surname}>
