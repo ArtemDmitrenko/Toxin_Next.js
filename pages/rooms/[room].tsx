@@ -2,7 +2,7 @@ import { GetServerSideProps } from 'next';
 import { useEffect } from 'react';
 
 import { DropdownConfig } from 'Root/components/Dropdown/Dropdown';
-import { requestRoom } from 'Root/redux/room/roomActions';
+import { clearRoom, requestRoom } from 'Root/redux/room/roomActions';
 import { useAppDispatch, useAppSelector } from 'Root/redux/hooks';
 import convertDateToString from 'Root/utils/convertDateToString';
 import addDaysToDate from 'Root/utils/addDaysToDate';
@@ -16,6 +16,7 @@ import RoomInformation from 'Components/RoomInformation/RoomInformation';
 import ReservationCard, { Service } from 'Components/ReservationCard/ReservationCard';
 import userComments from 'Components/Comments/comments.json';
 import rulesList from 'Components/RulesList/rulesList.json';
+import LoadingSpinner from 'Components/LoadingSpinner/LoadingSpinner';
 
 import styles from './room.module.scss';
 
@@ -55,13 +56,16 @@ const Room = (props: RoomProps) => {
 
   const dispatch = useAppDispatch();
   const data: FirebaseDocumentType = useAppSelector((store) => store.room);
-  const { reviews } = data;
 
   useEffect(() => {
     dispatch(requestRoom({ roomNumber }));
+
+    return () => {
+      dispatch(clearRoom());
+    };
   }, []);
 
-  return (
+  return data !== null ? (
     <Layout title={`Room ${data.room}`}>
       <Collage images={data.images.slice(0, 3)} />
       <div className={styles.container}>
@@ -71,10 +75,10 @@ const Room = (props: RoomProps) => {
           </div>
           <div className={styles.chart}>
             <Impressions
-              amazing={reviews.amazing}
-              good={reviews.good}
-              satisfactorily={reviews.satisfactory}
-              bad={reviews.bad}
+              amazing={data.reviews.amazing}
+              good={data.reviews.good}
+              satisfactorily={data.reviews.satisfactory}
+              bad={data.reviews.bad}
             />
           </div>
           <div className={styles.feedback}>
@@ -113,6 +117,12 @@ const Room = (props: RoomProps) => {
             />
           </div>
         </div>
+      </div>
+    </Layout>
+  ) : (
+    <Layout title="Loading">
+      <div className={styles.wrapper}>
+        <LoadingSpinner />
       </div>
     </Layout>
   );

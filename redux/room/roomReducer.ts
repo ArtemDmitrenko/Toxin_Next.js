@@ -6,31 +6,15 @@ import * as actions from './roomActions';
 
 type RoomAction = ReturnType<InferValueTypes<typeof actions>>;
 
-type RoomState = FirebaseDocumentType;
+type RoomState = FirebaseDocumentType | null;
 
-const initialState: RoomState = {
-  room: 0,
-  level: '',
-  cost: 0,
-  reviews: {},
-  images: [],
-  reserved: [],
-  rules: {},
-  accessibility: {},
-  facilities: {
-    bedrooms: 0,
-    beds: 0,
-    bathrooms: 0,
-  },
-  additions: {},
-  details: [],
-  commentaries: [],
-};
-
-const roomReducer = (state = initialState, action: RoomAction) => {
+const roomReducer = (state = null, action: RoomAction) => {
   switch (action.type) {
     case RoomActionTypes.FETCH_ROOM:
-      return { ...state, ...action.payload };
+      return { ...action.payload };
+
+    case RoomActionTypes.CLEAR_ROOM:
+      return null;
 
     default:
       return state;

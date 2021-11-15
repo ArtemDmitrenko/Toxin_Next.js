@@ -21,5 +21,9 @@ const fetchRoom = (payload: FirebaseDocumentType) => (<const>{
   payload,
 });
 
+const clearRoom = () => (<const>{
+  type: RoomActionTypes.CLEAR_ROOM,
+});
+
 export type { RoomGeneralAction, RequestRoomType };
-export { requestRoom, fetchRoom };
+export { requestRoom, fetchRoom, clearRoom };
