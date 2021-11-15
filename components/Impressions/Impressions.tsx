@@ -4,6 +4,8 @@ import convertNumToWordform from 'Root/utils/convertNumToWordform';
 
 import styles from './impressions.module.scss';
 
+type Union = 'amazing' | 'good' | 'satisfactorily' | 'bad';
+
 type ImpressionsProps = {
   amazing?: number,
   good?: number,
@@ -33,7 +35,7 @@ const Impressions = (props: ImpressionsProps) => {
   const satisfactorilyInPixels = calcLengthOfOneReview(satisfactorily);
   const badInPixels = calcLengthOfOneReview(bad);
 
-  const stylesCircle = (amount: number, impression: string) => {
+  const stylesCircle = (amount: number, impression: Union) => {
     const classesArr = [styles.unit];
 
     if (amount === 0) classesArr.push(styles.hide);
@@ -42,7 +44,7 @@ const Impressions = (props: ImpressionsProps) => {
     return classesArr.join(' ');
   };
 
-  const handleImpressionMouseMove = (amount: number, impression: string) => {
+  const handleImpressionMouseMove = (amount: number, impression: Union) => {
     setCurrentReviewsValue(amount);
     setActiveImpression(impression);
   };
