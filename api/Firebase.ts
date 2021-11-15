@@ -79,7 +79,7 @@ abstract class Firebase {
   public static getRoom = async (roomNumber: string) => {
     const room = await getDoc(doc(this.firestore, 'rooms', roomNumber));
 
-    return room.data();
+    return room;
   };
 }
 
