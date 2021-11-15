@@ -14,7 +14,6 @@ import RoomInformation from 'Components/RoomInformation/RoomInformation';
 import ReservationCard, { Service } from 'Components/ReservationCard/ReservationCard';
 import userComments from 'Components/Comments/comments.json';
 import rulesList from 'Components/RulesList/rulesList.json';
-import roomInformation from 'Components/RoomInformation/roomInformation.json';
 
 import styles from './room.module.scss';
 
@@ -65,7 +64,7 @@ const Room = (props: RoomProps) => {
       <div className={styles.container}>
         <div className={styles.content}>
           <div className={styles.information}>
-            <RoomInformation heading="Сведения о номере" info={roomInformation} />
+            <RoomInformation heading="Сведения о номере" info={data.details} />
           </div>
           <div className={styles.chart}>
             <Impressions amazing={130} good={65} satisfactorily={65} />

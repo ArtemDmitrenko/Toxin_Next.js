@@ -1,18 +1,15 @@
 [
   {
-    "id": 1,
     "title": "Комфорт",
     "description": "Шумопоглащающие стены",
     "iconName": "mood"
   },
   {
-    "id": 2,
     "title": "Удобство",
     "description": "Окно в каждой из спален",
     "iconName": "locationCity"
   },
   {
-    "id": 3,
     "title": "Уют",
     "description": "Номер оснащён камином",
     "iconName": "whatshot"
