@@ -4,6 +4,8 @@ import { useEffect } from 'react';
 import { DropdownConfig } from 'Root/components/Dropdown/Dropdown';
 import { requestRoom } from 'Root/redux/room/roomActions';
 import { useAppDispatch, useAppSelector } from 'Root/redux/hooks';
+import convertDateToString from 'Root/utils/convertDateToString';
+import addDaysToDate from 'Root/utils/addDaysToDate';
 import FirebaseDocumentType from 'Root/api/FirebaseDocumentType';
 import Layout from 'Components/Layout/Layout';
 import Collage from 'Components/Collage/Collage';
@@ -101,7 +103,10 @@ const Room = (props: RoomProps) => {
               roomNumber={data.room}
               level={data.level}
               cost={data.cost}
-              datesOfStay={{ arrival: '2019-08-19', departure: '2019-08-23' }}
+              datesOfStay={{
+                arrival: convertDateToString(new Date()),
+                departure: convertDateToString(addDaysToDate(new Date(), 3)),
+              }}
               guests={guestDropdown}
               service={service}
               onSubmit={() => { }}
