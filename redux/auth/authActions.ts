@@ -33,4 +33,8 @@ const userLoginRequest = (data: LoginUserRequest) => (<const>{
 });
 
 export type { LoginUserRequest, AuthGeneralAction };
-export { setAuthUserData, userLoginRequest, userAuthFailed };
+export {
+  setAuthUserData,
+  userLoginRequest,
+  userAuthFailed,
+};
