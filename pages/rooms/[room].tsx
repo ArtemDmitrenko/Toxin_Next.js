@@ -1,7 +1,10 @@
 import { GetServerSideProps } from 'next';
+import { useEffect } from 'react';
 
 import { DropdownConfig } from 'Root/components/Dropdown/Dropdown';
-import Firebase from 'Root/api/Firebase';
+import { requestRoom } from 'Root/redux/room/roomActions';
+import { useAppDispatch, useAppSelector } from 'Root/redux/hooks';
+import FirebaseDocumentType from 'Root/api/FirebaseDocumentType';
 import Layout from 'Components/Layout/Layout';
 import Collage from 'Components/Collage/Collage';
 import Comments from 'Components/Comments/Comments';
@@ -16,17 +19,7 @@ import roomInformation from 'Components/RoomInformation/roomInformation.json';
 import styles from './room.module.scss';
 
 type RoomProps = {
-  data: {
-    room: number,
-    level: string,
-    cost: number,
-    rating: number,
-    reviews: number,
-    images: Array<{
-      alt: string,
-      src: string
-    }>
-  },
+  roomNumber: string,
 };
 
 const guestDropdown: DropdownConfig = [
@@ -57,7 +50,14 @@ const service: Service = {
 };
 
 const Room = (props: RoomProps) => {
-  const { data } = props;
+  const { roomNumber } = props;
+
+  const dispatch = useAppDispatch();
+  const data: FirebaseDocumentType = useAppSelector((store) => store.room);
+
+  useEffect(() => {
+    dispatch(requestRoom({ roomNumber }));
+  }, []);
 
   return (
     <Layout title={`Room ${data.room}`}>
@@ -109,17 +109,15 @@ const Room = (props: RoomProps) => {
 };
 
 const getServerSideProps: GetServerSideProps = async (context) => {
-  const room = context.params?.room;
+  const roomNumber = context.params?.room;
 
-  if (typeof room !== 'string') {
+  if (typeof roomNumber !== 'string') {
     return {
       notFound: true,
     };
   }
 
-  const data = await Firebase.getRoom(room);
-
-  return { props: { data } };
+  return { props: { roomNumber } };
 };
 
 export { getServerSideProps };

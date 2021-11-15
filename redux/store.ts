@@ -7,6 +7,7 @@ import { all } from 'redux-saga/effects';
 import rootReducer from './rootReducer';
 import userLoginRequestWatcher from './auth/saga/sagaAuth';
 import roomsWatcher from './rooms/saga/sagaRooms';
+import roomWatcher from './room/saga/sagaRoom';
 
 const environment = process.env.NODE_ENV;
 const isDev = environment === 'development';
@@ -21,7 +22,7 @@ const bindMiddleware = (middleware: SagaMiddleware[]) => {
 const sagaMiddleware: SagaMiddleware = createSagaMiddleware();
 
 function* rootSaga() {
-  yield all([userLoginRequestWatcher(), roomsWatcher()]);
+  yield all([userLoginRequestWatcher(), roomsWatcher(), roomWatcher()]);
 }
 
 let store: Store;

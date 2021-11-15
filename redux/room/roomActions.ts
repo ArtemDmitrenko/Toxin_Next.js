@@ -1,7 +1,14 @@
+import FirebaseDocumentType from 'Root/api/FirebaseDocumentType';
+
 import RoomActionTypes from './roomActionTypes';
 
+type RoomGeneralAction<T, K> = {
+  type: T,
+  payload: K;
+};
+
 type RequestRoomType = {
-  roomNumber: number
+  roomNumber: string
 };
 
 const requestRoom = (payload: RequestRoomType) => (<const>{
@@ -9,9 +16,10 @@ const requestRoom = (payload: RequestRoomType) => (<const>{
   payload,
 });
 
-const fetchRoom = (payload: RequestRoomType) => (<const>{
+const fetchRoom = (payload: FirebaseDocumentType) => (<const>{
   type: RoomActionTypes.FETCH_ROOM,
   payload,
 });
 
+export type { RoomGeneralAction, RequestRoomType };
 export { requestRoom, fetchRoom };
