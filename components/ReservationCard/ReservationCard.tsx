@@ -1,10 +1,13 @@
 import { useState } from 'react';
+import Link from 'next/link';
 
+import { useAppSelector } from 'Root/redux/hooks';
 import convertNumToWordform from 'Root/utils/convertNumToWordform';
 import DateRange, { DatesOfStay } from 'Components/DateRange/DateRange';
 import Dropdown, { DropdownConfig } from 'Components/Dropdown/Dropdown';
 import Reference from 'Components/Reference/Reference';
 import Tooltip from 'Components/Tooltip/Tooltip';
+import Message from 'Components/Message/Message';
 
 import formatCost from './helpers/formatCost';
 import calcDays from './helpers/calcDays';
@@ -46,6 +49,8 @@ const ReservationCard = (props: ReservationCardProps) => {
     service,
     onSubmit,
   } = props;
+
+  const { isAuth } = useAppSelector((store) => store.auth);
 
   const [dateRange, setDateRange] = useState({
     arrival: datesOfStay.arrival,
@@ -178,7 +183,24 @@ const ReservationCard = (props: ReservationCardProps) => {
         size="big"
         text="забронировать"
         onClick={handleSubmit}
+        disabled={!isAuth}
       />
+      {!isAuth && (
+        <div className={styles.warningMessage}>
+          <Message type="warning">
+            Для бронирования необходимо
+            {' '}
+            <b>
+              <Link href="/auth/log-in">
+                <a className={styles.link} href="replace">
+                  войти в&nbsp;аккаунт
+                </a>
+              </Link>
+            </b>
+            !
+          </Message>
+        </div>
+      )}
     </form>
   );
 };

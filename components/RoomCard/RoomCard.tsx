@@ -1,5 +1,6 @@
 import Link from 'next/link';
 
+import convertNumToWordform from 'Root/utils/convertNumToWordform';
 import CarouselImages from 'Components/CarouselImages/CarouselImages';
 
 import styles from './roomCard.module.scss';
@@ -62,7 +63,9 @@ const RoomCard = (props: RoomCardProps) => {
               </div>
               <div className={styles.amountReviews}>
                 <span className={styles.amount}>{amountReviews}</span>
-                <span className={styles.amountText}>Отзывов</span>
+                <span className={styles.amountText}>
+                  {convertNumToWordform(amountReviews, ['отзыв', 'отзыва', 'отзывов'])}
+                </span>
               </div>
             </div>
           </div>
