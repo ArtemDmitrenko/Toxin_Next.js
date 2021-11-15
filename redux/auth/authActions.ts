@@ -17,10 +17,6 @@ type LoginUserRequest = {
   password: string,
 };
 
-type PasswordRecoveryRequest = {
-  email: string,
-}
-
 const setAuthUserData = (data: AuthUserData) => (<const>{
   type: AuthActionsTypes.SET_AUTH_USER_DATA,
   data,
@@ -36,27 +32,9 @@ const userLoginRequest = (data: LoginUserRequest) => (<const>{
   data,
 });
 
-const passwordRecoveryRequest = (data: PasswordRecoveryRequest) => (<const>{
-  type: AuthActionsTypes.PASSWORD_RECOVERY_REQUEST,
-  data,
-});
-
-const passwordRecoverySuccess = (data: AuthUserData) => (<const>{
-  type: AuthActionsTypes.PASSWORD_RECOVERY_SUCCESS,
-  data,
-});
-
-const passwordRecoveryFailed = (data: AuthUserData) => (<const>{
-  type: AuthActionsTypes.PASSWORD_RECOVERY_FAILED,
-  data,
-});
-
-export type { LoginUserRequest, PasswordRecoveryRequest, AuthGeneralAction };
+export type { LoginUserRequest, AuthGeneralAction };
 export {
   setAuthUserData,
   userLoginRequest,
   userAuthFailed,
-  passwordRecoveryRequest,
-  passwordRecoverySuccess,
-  passwordRecoveryFailed
 };
