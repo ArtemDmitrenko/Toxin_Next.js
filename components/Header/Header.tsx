@@ -120,7 +120,8 @@ const Header = (props: HeaderProps) => {
           <div className={stylesUserProfile()}>
             <p className={styles.userName}>{userName || mockUserName}</p>
             <Reference
-              href="/auth/log-in"
+              isButton
+              buttonType="button"
               text="Выйти"
               type="bordered"
               size="small"
