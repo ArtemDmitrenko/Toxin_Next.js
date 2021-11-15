@@ -53,6 +53,7 @@ const Room = (props: RoomProps) => {
 
   const dispatch = useAppDispatch();
   const data: FirebaseDocumentType = useAppSelector((store) => store.room);
+  const { reviews } = data;
 
   useEffect(() => {
     dispatch(requestRoom({ roomNumber }));
@@ -67,7 +68,12 @@ const Room = (props: RoomProps) => {
             <RoomInformation heading="Сведения о номере" info={data.details} />
           </div>
           <div className={styles.chart}>
-            <Impressions amazing={130} good={65} satisfactorily={65} />
+            <Impressions
+              amazing={reviews.amazing}
+              good={reviews.good}
+              satisfactorily={reviews.satisfactory}
+              bad={reviews.bad}
+            />
           </div>
           <div className={styles.feedback}>
             <Comments
