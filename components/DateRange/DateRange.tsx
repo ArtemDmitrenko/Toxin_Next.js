@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Calendar from 'react-calendar';
 
 import formattingLabel from './helpers/formattingLabel';
@@ -57,6 +57,10 @@ const DateRange = (props: DateRangeProps) => {
   const [formattedDates, setDates] = useState(formattedDefaultValues);
   const [calendarValues, setCalendarValues] = useState(defaultValues);
 
+  useEffect(() => {
+    if (onChange) onChange(formattedDates);
+  }, [formattedDates]);
+
   const { isOpen, calView } = calendarState;
 
   const wrapperClass = `${isDouble ? styles.doubleInputWrapper : styles.oneInputWrapper}`;
@@ -74,7 +78,6 @@ const DateRange = (props: DateRangeProps) => {
 
     setCalendarValues(values);
     setDates(userSelectedDates);
-    if (onChange) onChange(userSelectedDates);
   };
 
   const handleClearButtonClick = () => {
@@ -82,7 +85,6 @@ const DateRange = (props: DateRangeProps) => {
 
     setCalendarValues(null);
     setDates(resetDatesOfStay);
-    if (onChange) onChange(resetDatesOfStay);
   };
 
   const handleCalendarFocus = () => {

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 import DateRange, { DatesOfStay } from 'Components/DateRange/DateRange';
 import Dropdown, { DropdownConfig, DropdownData } from 'Components/Dropdown/Dropdown';
@@ -38,8 +38,8 @@ type SearchFilterProps = {
     defaultValues?: Array<Date>
   },
   rangeSliderConfig?: {
-    min?: number,
-    max?: number,
+    min: number,
+    max: number,
     valueFrom?: number,
     valueTo?: number,
   },
@@ -54,10 +54,19 @@ const SearchFilter = (props: SearchFilterProps) => {
     facilitiesDropdownConfig,
     checkboxDropdownConfig,
     dateRangeConfig = {},
-    rangeSliderConfig = {},
+    rangeSliderConfig = {
+      min: 0,
+      max: 15000,
+    },
   } = props;
 
   const [filter, setFilter] = useState<SearchFilterState>({});
+
+  useEffect(() => {
+    const isFilterNonEmpty = Object.keys(filter).length !== 0;
+
+    if (onChange && isFilterNonEmpty) onChange(filter);
+  }, [filter]);
 
   const stylesCheckboxRule = () => (
     `${styles.checkbox} ${styles.checkboxRule}`
@@ -68,39 +77,30 @@ const SearchFilter = (props: SearchFilterProps) => {
   );
 
   const handleElementChange = <T extends {}>(propName: string, data: T) => {
-    const newState = { ...filter, [propName]: data };
-
-    setFilter(newState);
-
-    if (onChange) onChange(newState);
+    setFilter((prevState) => ({
+      ...prevState,
+      [propName]: data,
+    }));
   };
 
   const handleCheckboxRulesChange = (data: CheckboxData) => {
-    const newState = {
-      ...filter,
+    setFilter((prevState) => ({
+      ...prevState,
       checkboxRules: {
-        ...filter.checkboxRules,
+        ...prevState.checkboxRules,
         [data.name]: data.isChecked,
       },
-    };
-
-    setFilter(newState);
-
-    if (onChange) onChange(newState);
+    }));
   };
 
   const handleCheckboxAvailabilityChange = (data: CheckboxData) => {
-    const newState = {
-      ...filter,
+    setFilter((prevState) => ({
+      ...prevState,
       checkboxAvailability: {
-        ...filter.checkboxAvailability,
+        ...prevState.checkboxAvailability,
         [data.name]: data.isChecked,
       },
-    };
-
-    setFilter(newState);
-
-    if (onChange) onChange(newState);
+    }));
   };
 
   return (
@@ -124,10 +124,10 @@ const SearchFilter = (props: SearchFilterProps) => {
       </div>
       <div className={styles.wrapperLarge}>
         <RangeSlider
-          min={rangeSliderConfig.min ?? 0}
-          max={rangeSliderConfig.max ?? 15000}
-          valueFrom={rangeSliderConfig.valueFrom ?? 0}
-          valueTo={rangeSliderConfig.valueTo ?? 15000}
+          min={rangeSliderConfig.min}
+          max={rangeSliderConfig.max}
+          valueFrom={rangeSliderConfig.valueFrom ?? rangeSliderConfig.min}
+          valueTo={rangeSliderConfig.valueTo ?? rangeSliderConfig.max}
           title="Диапазон цены"
           postfix="₽"
           onChange={(data: RangeSliderData) => {

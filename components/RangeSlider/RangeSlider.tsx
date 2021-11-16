@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import ReactSlider from 'react-slider';
 
 import validateStr from './helpers/validateStr';
@@ -27,16 +27,20 @@ const RangeSlider = (props: RangeSliderProps) => {
     max,
     valueFrom,
     valueTo,
-    step = 1,
-    pearling,
-    minDistance,
-    title,
-    postfix,
     onChange,
+    step = 1,
+    pearling = false,
+    minDistance = 0,
+    title = 'range slider',
+    postfix = '',
   } = props;
 
   const [values, setValues] = useState([valueFrom, valueTo]);
   const [input, setInput] = useState(valuesWrapper([valueFrom, valueTo], postfix));
+
+  useEffect(() => {
+    if (onChange) onChange(values);
+  }, [values]);
 
   const validateArr = (arr: RangeSliderData | null) => {
     if (!arr) return null;
@@ -62,10 +66,6 @@ const RangeSlider = (props: RangeSliderProps) => {
     if (newValues) {
       setValues(newValues);
       setInput(valuesWrapper(newValues, postfix));
-
-      if (onChange) {
-        onChange(newValues);
-      }
     } else {
       setInput(valuesWrapper(values, postfix));
     }
@@ -73,10 +73,6 @@ const RangeSlider = (props: RangeSliderProps) => {
 
   const handleRangeSliderAfterChange = (newValues: RangeSliderData) => {
     setValues(newValues);
-
-    if (onChange) {
-      onChange(newValues);
-    }
   };
 
   const handleRangeSliderChange = (newValues: RangeSliderData) => {
@@ -126,15 +122,6 @@ const RangeSlider = (props: RangeSliderProps) => {
       />
     </div>
   );
-};
-
-RangeSlider.defaultProps = {
-  step: 1,
-  pearling: false,
-  minDistance: 0,
-  title: 'range slider',
-  postfix: '',
-  onChange: undefined,
 };
 
 export type { RangeSliderData };

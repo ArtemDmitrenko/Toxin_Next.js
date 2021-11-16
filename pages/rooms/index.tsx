@@ -37,6 +37,8 @@ const guestDropdown: DropdownConfig = [
 ];
 
 const rangeSlider = {
+  min: 0,
+  max: 15000,
   valueFrom: 5000,
   valueTo: 10000,
 };

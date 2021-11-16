@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 import Checkbox, { CheckboxData } from 'Components/Checkbox/Checkbox';
 
@@ -15,7 +15,7 @@ type CheckboxDropdownProps = {
   checkboxes: CheckboxDropdownData,
   title: string,
   isActive?: boolean,
-  onChange?: (checkboxes: CheckboxDropdownData, isActive: boolean) => void
+  onChange?: (checkboxes: CheckboxDropdownData) => void
 };
 
 const CheckboxDropdown = (props: CheckboxDropdownProps) => {
@@ -28,6 +28,10 @@ const CheckboxDropdown = (props: CheckboxDropdownProps) => {
 
   const [active, setActive] = useState(isActive);
   const [checkboxList, setCheckboxList] = useState(checkboxes);
+
+  useEffect(() => {
+    if (onChange) onChange(checkboxList);
+  }, [checkboxList]);
 
   const stylesTitle = () => (
     `${styles.title} ${active ? styles.titleActive : ''}`
@@ -42,15 +46,13 @@ const CheckboxDropdown = (props: CheckboxDropdownProps) => {
   };
 
   const handleCheckboxChange = (data: CheckboxData) => {
+    if (checkboxList[data.name].isChecked === data.isChecked) return;
+
     const newState = { ...checkboxList };
 
     newState[data.name].isChecked = data.isChecked;
 
     setCheckboxList(newState);
-
-    if (onChange) {
-      onChange(newState, active);
-    }
   };
 
   return (
