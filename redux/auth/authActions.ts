@@ -32,5 +32,14 @@ const userLoginRequest = (data: LoginUserRequest) => (<const>{
   data,
 });
 
+const getUserStatus = () => (<const>{
+  type: AuthActionsTypes.GET_USER_STATUS,
+});
+
 export type { LoginUserRequest, AuthGeneralAction };
-export { setAuthUserData, userLoginRequest, userAuthFailed };
+export {
+  setAuthUserData,
+  userLoginRequest,
+  userAuthFailed,
+  getUserStatus,
+};

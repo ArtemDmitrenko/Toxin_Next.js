@@ -10,7 +10,13 @@ import {
   startAfter,
   limit,
 } from 'firebase/firestore';
-import { getAuth, signInWithEmailAndPassword, sendPasswordResetEmail } from 'firebase/auth';
+import {
+  getAuth,
+  signInWithEmailAndPassword,
+  sendPasswordResetEmail,
+  onAuthStateChanged,
+  User,
+} from 'firebase/auth';
 
 import firebaseCfg from './firebaseConfig';
 
@@ -34,6 +40,8 @@ abstract class Firebase {
     email: string,
     password: string,
   ) => signInWithEmailAndPassword(this.auth, email, password);
+
+  public static getOnAuthStateChanged = () => onAuthStateChanged;
 
   public static sendPasswordRecovery = async (email: string) => {
     await sendPasswordResetEmail(this.auth, email);
@@ -75,4 +83,5 @@ abstract class Firebase {
   };
 }
 
+export type { User };
 export default Firebase;
