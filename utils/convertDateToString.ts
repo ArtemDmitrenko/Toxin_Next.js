@@ -1,5 +1,5 @@
 const convertDateToString = (date: Date) => (
-  `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDay()}`
+  `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`
 );
 
 export default convertDateToString;
