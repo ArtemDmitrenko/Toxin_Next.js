@@ -9,7 +9,7 @@ import {
 import AuthActionsTypes from 'Root/redux/auth/authActionTypes';
 import Firebase from 'Root/api/Firebase';
 
-type RequestToAuth = AuthGeneralAction<AuthActionsTypes.SET_AUTH_USER_DATA, LoginUserRequest>;
+type RequestToAuth = AuthGeneralAction<AuthActionsTypes, LoginUserRequest>;
 
 function* userLoginRequestWorker({ data }: RequestToAuth) {
   try {
