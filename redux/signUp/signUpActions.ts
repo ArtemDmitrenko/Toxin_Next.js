@@ -6,13 +6,13 @@ type SignUpGeneralAction<T, K> = {
 };
 
 type UserSignUpData = {
-  name: string | null,
-  surname: string | null,
-  dateOfBirth: string | null,
-  email: string | null,
-  password: string | null,
-  sex: string | null,
-  specialOffers: boolean | null,
+  name: string,
+  surname: string,
+  dateOfBirth: string,
+  email: string,
+  password: string,
+  sex: string,
+  specialOffers: boolean,
 };
 
 type SignUpData = {

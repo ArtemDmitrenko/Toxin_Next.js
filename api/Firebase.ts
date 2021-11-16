@@ -48,8 +48,6 @@ abstract class Firebase {
         name: usersData.name,
         surname: usersData.surname,
         dateOfBirth: usersData.dateOfBirth,
-        email: usersData.email,
-        password: usersData.password,
         sex: usersData.sex,
         specialOffers: usersData.specialOffers,
       });

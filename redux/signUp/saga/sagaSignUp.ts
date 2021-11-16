@@ -1,13 +1,12 @@
 import { takeEvery, put, call } from 'redux-saga/effects';
-// import * as Effects from 'redux-saga/effects';
 import Firebase from 'Root/api/Firebase';
-import SignUpActionsTypes from '../signUpActionsTypes';
+import SignUpActionsTypes from 'Root/redux/signUp/signUpActionsTypes';
 import {
   UserSignUpData,
   signUpUserSuccess,
   signUpUserError,
   SignUpGeneralAction,
-} from '../signUpActions';
+} from 'Root/redux/signUp/signUpActions';
 
 type RequestToSignUp = SignUpGeneralAction<SignUpActionsTypes.SIGNUP_USER_REQUEST, UserSignUpData>;
 
@@ -20,7 +19,7 @@ function* userSignUpRequestWorker(action: RequestToSignUp) {
     yield put(signUpUserSuccess());
   } catch ({ code }) {
     yield put(signUpUserError({
-      error: code as string,
+      error: String(code),
     }));
   }
 }
