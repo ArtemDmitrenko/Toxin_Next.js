@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import { Field, Form, FieldRenderProps } from 'react-final-form';
-import { IMaskInput } from 'react-imask';
+import MaskedInput from 'react-text-mask';
 import Link from 'next/link';
 
 import { useAppSelector } from 'Root/redux/hooks';
@@ -151,13 +151,11 @@ const SignUpCard = ({ onSubmit }: SignUpCardProps) => {
                 <div className={styles.dateOfBirth}>
                   <div className={styles.subtitle}>Дата рождения</div>
                   {meta.error && meta.touched && <span className={styles.sign}>{meta.error}</span>}
-                  <IMaskInput
+                  <MaskedInput
                     {...input}
-                    mask={Date}
-                    placeholder="ДД.ММ.ГГГГ"
-                    min={new Date(1900, 0, 1)}
-                    max={new Date()}
+                    mask={[/[0-3]/, /[0-9]/, '.', /[0-1]/, /[0-9]/, '.', /[1-2]/, /[0-9]/, /[0-9]/, /[0-9]/]}
                     className={styles.field}
+                    placeholder="ДД.ММ.ГГГГ"
                   />
                 </div>
               )}
