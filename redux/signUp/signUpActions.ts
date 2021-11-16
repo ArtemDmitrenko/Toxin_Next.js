@@ -24,14 +24,10 @@ const signUpUserRequest = (payload: UserSignUpData) => (<const>{
   payload,
 });
 
-const signUpUserSuccess = () => (<const>{
-  type: SignUpActionsTypes.SIGNUP_USER_SUCCESS,
-});
-
 const signUpUserError = (payload: SignUpData) => (<const>{
   type: SignUpActionsTypes.SIGNUP_USER_ERROR,
   payload,
 });
 
 export type { UserSignUpData, SignUpGeneralAction };
-export { signUpUserRequest, signUpUserSuccess, signUpUserError };
+export { signUpUserRequest, signUpUserError };

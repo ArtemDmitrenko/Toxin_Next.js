@@ -31,7 +31,7 @@ type SignUpCardProps = {
 };
 
 const SignUpCard = ({ onSubmit }: SignUpCardProps) => {
-  const { error, isSignUp } = useAppSelector((store) => store.signUp);
+  const { error } = useAppSelector((store) => store.signUp);
 
   const ToggleAdapter = ({ input, title }: FieldRenderProps<boolean, any>) => (
     <Toggle
@@ -216,20 +216,6 @@ const SignUpCard = ({ onSubmit }: SignUpCardProps) => {
             {error && (
               <div className={styles.warningMessage}>
                 {showErrorMessage()}
-              </div>
-            )}
-            {isSignUp && (
-              <div className={styles.warningMessage}>
-                <Message type="success">
-                  Вы успешно зарегистрированы и можете
-                  <b>
-                    <Link href="/auth/log-in">
-                      <a className={styles.link} href="replace">
-                      &nbsp;войти в аккаунт
-                      </a>
-                    </Link>
-                  </b>
-                </Message>
               </div>
             )}
           </form>
