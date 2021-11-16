@@ -8,7 +8,7 @@ type RoomAction = ReturnType<InferValueTypes<typeof actions>>;
 
 type RoomState = FirebaseDocumentType | null;
 
-const roomReducer = (state = null, action: RoomAction) => {
+const roomReducer = (state: RoomState = null, action: RoomAction) => {
   switch (action.type) {
     case RoomActionTypes.FETCH_ROOM:
       return { ...action.payload };
