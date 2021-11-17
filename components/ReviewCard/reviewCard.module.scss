@@ -1,0 +1,39 @@
+@import 'Root/style/variables.scss';
+
+.title {
+  @include paragraph;
+  padding: 0;
+  color: $primaryColor;
+  font: bold 14px $primaryFont;
+  background: #fff;
+  border: none;
+  cursor: pointer;
+
+  &:hover,
+  &:focus {
+    color: $textColor50;
+  }
+}
+
+.field {
+  @include input;
+  margin-top: 20px;
+  overflow: hidden;
+  color: $textColor50;
+  font-size: 14px;
+  line-height: 24px;
+  border: 1px solid $textColor10;
+  box-shadow: inset 0 0.5px 5px $textColor10;
+  resize: none;
+
+  &:hover,
+  &:focus {
+    border-color: $textColor25;
+  }
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 15px;
+}
