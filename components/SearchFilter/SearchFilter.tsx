@@ -187,7 +187,7 @@ const SearchFilter = (props: SearchFilterProps) => {
           placeholder="Выберите удобства"
           isButtons={false}
           onChange={(data: DropdownData) => {
-            handleElementChange<DropdownData>('facilitiesDropdown', data);
+            handleElementChange<DropdownData>('facilitiesData', data);
           }}
         />
       </div>

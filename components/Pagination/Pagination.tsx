@@ -67,7 +67,7 @@ const Pagination = (props: PaginationProps) => {
   };
 
   const stylesPagination = () => (
-    `${styles.pagination} ${roomsStore.currentPages === roomsStore.totalPages ? styles.paginationHidden : ''}`
+    `${styles.pagination} ${roomsStore.currentPages >= roomsStore.totalPages ? styles.paginationHidden : ''}`
   );
 
   return (
@@ -78,6 +78,9 @@ const Pagination = (props: PaginationProps) => {
         <ul className={styles.list}>
           {roomsStore.rooms && convertSnapshotToJSX(roomsStore.rooms)}
         </ul>
+        {!roomsStore.totalPages && (
+          <p> По вашему запросу ничего не найдено </p>
+        )}
         <div className={stylesPagination()}>
           {
             roomsStore.loadingAdditional ? (
