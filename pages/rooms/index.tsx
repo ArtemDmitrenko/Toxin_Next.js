@@ -48,16 +48,16 @@ const rangeSlider = {
 const checkboxRules = [
   {
     title: 'Можно курить',
-    name: 'isSmoke',
+    name: 'allowSmoke',
   },
   {
     title: 'Можно с питомцами',
-    name: 'isPets',
+    name: 'allowPets',
     isChecked: true,
   },
   {
     title: 'Можно пригласить гостей (до 10 человек)',
-    name: 'isGuests',
+    name: 'allowGuests',
     isChecked: true,
   },
 ];
