@@ -1,7 +1,6 @@
 @import 'Root/style/variables.scss';
 
 .title {
-  @include paragraph;
   padding: 0;
   color: $primaryColor;
   font: bold 14px $primaryFont;
