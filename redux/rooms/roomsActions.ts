@@ -1,4 +1,4 @@
-import { DocumentData, QueryDocumentSnapshot } from '@firebase/firestore';
+import { DocumentData, QueryDocumentSnapshot, QueryConstraint } from '@firebase/firestore';
 
 import RoomsActionTypes from './roomsActionTypes';
 
@@ -17,6 +17,7 @@ type FetchRoomsType = {
 type RequestRoomsType = {
   limit: number,
   endDataPoint?: QueryDocumentSnapshot<DocumentData>,
+  filterConstraints?: Array<QueryConstraint>,
 };
 
 const requestRooms = (payload: RequestRoomsType) => (<const>{

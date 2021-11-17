@@ -1,16 +1,22 @@
 import { initializeApp } from 'firebase/app';
-
-import { Query, QueryDocumentSnapshot, DocumentData } from '@firebase/firestore';
+import {
+  QueryDocumentSnapshot,
+  DocumentData,
+  QueryConstraint,
+} from '@firebase/firestore';
 import {
   getFirestore,
   collection,
   getDocs,
   query,
+  where,
   orderBy,
   startAfter,
   limit,
 } from 'firebase/firestore';
 import { getAuth, signInWithEmailAndPassword, sendPasswordResetEmail } from 'firebase/auth';
+
+import { SearchFilterState } from 'Root/components/SearchFilter/SearchFilter';
 
 import firebaseCfg from './firebaseConfig';
 
@@ -39,8 +45,8 @@ abstract class Firebase {
     await sendPasswordResetEmail(this.auth, email);
   };
 
-  public static getFullSize = async () => {
-    const request = query(collection(this.firestore, 'rooms'));
+  public static getSize = async (queryConstraints: Array<QueryConstraint> = []) => {
+    const request = query(collection(this.firestore, 'rooms'), ...queryConstraints);
     const snapshot = await getDocs(request);
 
     return snapshot.size;
@@ -48,30 +54,37 @@ abstract class Firebase {
 
   public static getRooms = async (props: {
     documentsLimit: number,
-    documentPoint?: QueryDocumentSnapshot<DocumentData>
+    documentPoint?: QueryDocumentSnapshot<DocumentData>,
+    filterConstraints?: Array<QueryConstraint>,
   }) => {
-    const { documentsLimit, documentPoint } = props;
+    const { documentsLimit, documentPoint, filterConstraints = [] } = props;
 
-    let request: Query<DocumentData>;
+    const queryParams: Array<QueryConstraint> = [
+      ...filterConstraints,
+      orderBy('cost', 'desc'),
+      limit(documentsLimit),
+    ];
 
     if (documentPoint) {
-      request = query(
-        collection(this.firestore, 'rooms'),
-        orderBy('cost', 'desc'),
-        limit(documentsLimit),
-        startAfter(documentPoint),
-      );
-    } else {
-      request = query(
-        collection(this.firestore, 'rooms'),
-        orderBy('cost', 'desc'),
-        limit(documentsLimit),
-      );
+      queryParams.push(startAfter(documentPoint));
     }
 
-    const snapshot = await getDocs(request);
+    const snapshot = await getDocs(query(collection(this.firestore, 'rooms'), ...queryParams));
 
     return snapshot.docs;
+  };
+
+  public static createConstraints = (data: SearchFilterState) => {
+    const queryParams: Array<QueryConstraint> = [];
+
+    if (data.rangeSlider) {
+      const [min, max] = data.rangeSlider;
+
+      queryParams.push(where('cost', '>=', min));
+      queryParams.push(where('cost', '<=', max));
+    }
+
+    return queryParams;
   };
 }
 

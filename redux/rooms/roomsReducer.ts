@@ -40,6 +40,7 @@ const roomsReducer = (state = initialState, action: RoomsAction): RoomsState => 
         ...state,
         rooms: action.payload.snapshot,
         size: action.payload.size,
+        currentPages: 1,
         totalPages: Math.ceil(action.payload.size / action.payload.limit),
       };
 

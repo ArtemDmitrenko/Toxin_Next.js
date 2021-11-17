@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { DocumentData, QueryDocumentSnapshot } from '@firebase/firestore';
+import { DocumentData, QueryConstraint, QueryDocumentSnapshot } from '@firebase/firestore';
 
 import convertNumToWordform from 'Root/utils/convertNumToWordform';
 import { requestRooms } from 'Root/redux/rooms/roomsActions';
@@ -16,11 +16,12 @@ import styles from './pagination.module.scss';
 
 type PaginationProps = {
   limit: number,
+  filterConstraints?: Array<QueryConstraint>,
   onChange?: (pageNumber: number) => void
 };
 
 const Pagination = (props: PaginationProps) => {
-  const { limit, onChange } = props;
+  const { limit, onChange, filterConstraints } = props;
 
   const dispatch = useAppDispatch();
   const roomsStore = useAppSelector((store) => store.rooms);
@@ -50,8 +51,8 @@ const Pagination = (props: PaginationProps) => {
   };
 
   useEffect(() => {
-    dispatch(requestRooms({ limit }));
-  }, []);
+    dispatch(requestRooms({ limit, filterConstraints }));
+  }, [filterConstraints]);
 
   const handlePageClick = () => {
     if (roomsStore.currentPages > roomsStore.totalPages) return;
@@ -59,6 +60,7 @@ const Pagination = (props: PaginationProps) => {
     dispatch(requestRooms({
       limit,
       endDataPoint: roomsStore.rooms[roomsStore.rooms.length - 1],
+      filterConstraints,
     }));
 
     if (onChange) onChange(roomsStore.currentPages);

@@ -1,5 +1,5 @@
 import { takeEvery, put, call } from 'redux-saga/effects';
-import { DocumentData, QueryDocumentSnapshot } from '@firebase/firestore';
+import { DocumentData, QueryDocumentSnapshot, QueryConstraint } from '@firebase/firestore';
 
 import {
   RequestRoomsType,
@@ -18,10 +18,11 @@ type RequestInit = RoomsGeneralAction<RoomsActionTypes.REQUEST_ROOMS, RequestRoo
 async function fetchFirebaseRooms(props: {
   documentsLimit: number,
   documentPoint?: QueryDocumentSnapshot<DocumentData>,
+  filterConstraints?: Array<QueryConstraint>,
 }) {
   const snapshot = await Firebase.getRooms(props);
 
-  const totalItems = await Firebase.getFullSize();
+  const totalItems = await Firebase.getSize(props.filterConstraints);
 
   return [snapshot, totalItems];
 }
@@ -35,6 +36,7 @@ function* roomsWorker({ payload }: RequestInit) {
       {
         documentsLimit: payload.limit,
         documentPoint: payload.endDataPoint,
+        filterConstraints: payload.filterConstraints,
       },
     );
 
@@ -49,7 +51,11 @@ function* roomsWorker({ payload }: RequestInit) {
     yield put(showLoadingInit());
 
     const [snapshot, size]: [Array<QueryDocumentSnapshot<DocumentData>>, number] = yield call(
-      fetchFirebaseRooms, { documentsLimit: payload.limit },
+      fetchFirebaseRooms,
+      {
+        documentsLimit: payload.limit,
+        filterConstraints: payload.filterConstraints,
+      },
     );
 
     yield put(fetchRooms({

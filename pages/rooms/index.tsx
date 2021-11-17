@@ -1,8 +1,10 @@
 import { useState } from 'react';
+import { QueryConstraint } from '@firebase/firestore';
 
 import { DropdownConfig } from 'Root/components/Dropdown/Dropdown';
+import Firebase from 'Root/api/Firebase';
 import Layout from 'Components/Layout/Layout';
-import SearchFilter from 'Components/SearchFilter/SearchFilter';
+import SearchFilter, { SearchFilterState } from 'Components/SearchFilter/SearchFilter';
 import Pagination from 'Components/Pagination/Pagination';
 import addDaysToDate from 'Root/utils/addDaysToDate';
 
@@ -133,6 +135,7 @@ const checkboxDropdown = {
 
 const Rooms = () => {
   const [filter, setFilter] = useState(false);
+  const [filterConstraints, setFilterConstraints] = useState<Array<QueryConstraint>>([]);
 
   const handleFilterToggle = () => { setFilter((prevState) => !prevState); };
 
@@ -148,6 +151,10 @@ const Rooms = () => {
     `${styles.filterButton} ${filter ? styles.filterButtonActive : ''}`
   );
 
+  const handleFilterChange = (data: SearchFilterState) => {
+    setFilterConstraints(Firebase.createConstraints(data));
+  };
+
   return (
     <Layout title="Rooms">
       <div className={styles.grid}>
@@ -162,6 +169,7 @@ const Rooms = () => {
                 checkboxAvailabilitiesConfig={checkboxAvailabilities}
                 facilitiesDropdownConfig={facilitiesDropdown}
                 checkboxDropdownConfig={checkboxDropdown}
+                onChange={handleFilterChange}
               />
             </div>
           </div>
@@ -169,7 +177,7 @@ const Rooms = () => {
         </div>
         <div className={styles.rooms}>
           <h1 className={styles.title}>Номера, которые мы для вас подобрали</h1>
-          <Pagination limit={12} />
+          <Pagination limit={12} filterConstraints={filterConstraints} />
         </div>
       </div>
     </Layout>
