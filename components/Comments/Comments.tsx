@@ -19,7 +19,7 @@ const Comments = (props: CommentsProps) => {
   const handleCommentChange = (index: number, data: LikeData) => {
     const newCommentList = [...commentsList];
 
-    newCommentList[index].like = data;
+    newCommentList[index].likes = data.likeArray;
 
     if (onChange) {
       onChange(newCommentList);
@@ -39,24 +39,18 @@ const Comments = (props: CommentsProps) => {
         </span>
       </div>
       <div className={styles.content}>
-        {commentsList.map((comment, index) => {
-          const like = {
-            ...comment.like,
-            name: `comment-${index + 1}`,
-          };
-          return (
-            <div className={styles.comment} key={comment.srcIcon}>
-              <Comment
-                srcIcon={comment.srcIcon}
-                userName={comment.userName}
-                date={comment.date}
-                text={comment.text}
-                like={like}
-                onChange={(data: LikeData) => handleCommentChange(index, data)}
-              />
-            </div>
-          );
-        })}
+        {commentsList.map((comment, index) => (
+          <div className={styles.comment} key={comment.srcIcon}>
+            <Comment
+              srcIcon={comment.srcIcon}
+              userName={comment.userName}
+              date={comment.date}
+              text={comment.text}
+              likes={comment.likes}
+              onChange={(data: LikeData) => handleCommentChange(index, data)}
+            />
+          </div>
+        ))}
       </div>
     </div>
   );
