@@ -17,7 +17,6 @@ import {
 } from 'firebase/firestore';
 import { getAuth, signInWithEmailAndPassword, sendPasswordResetEmail } from 'firebase/auth';
 
-import { ReviewCardData } from 'Root/components/ReviewCard/ReviewCard';
 import firebaseCfg from './firebaseConfig';
 
 abstract class Firebase {
@@ -80,8 +79,11 @@ abstract class Firebase {
     return snapshot.docs;
   };
 
-  public static addComment = async (reviewCardData: ReviewCardData) => {
-    const { userId, text, roomNumber } = reviewCardData;
+  public static addComment = async (
+    userId: string,
+    text: string,
+    roomNumber: string,
+  ) => {
     const docRef = doc(this.firestore, `rooms/${roomNumber}`);
     await updateDoc(docRef, {
       commentaries: arrayUnion({

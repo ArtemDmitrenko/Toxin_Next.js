@@ -10,7 +10,12 @@ import styles from './reviewCard.module.scss';
 type ReviewCardData = {
   userId: string,
   text: string,
-  roomNumber?: string,
+};
+
+type NewCommentData = {
+  userId: string,
+  text: string,
+  roomNumber: string,
 };
 
 type ReviewCardProps = {
@@ -106,5 +111,5 @@ const ReviewCard = ({ maxLength, onSubmit }: ReviewCardProps) => {
   );
 };
 
-export type { ReviewCardData };
+export type { ReviewCardData, NewCommentData };
 export default ReviewCard;

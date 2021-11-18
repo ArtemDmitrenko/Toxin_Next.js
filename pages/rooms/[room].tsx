@@ -1,5 +1,6 @@
 import { GetServerSideProps } from 'next';
 
+import { addNewCommentRequest } from 'Root/redux/comment/commentActions';
 import mockData from 'Root/public/rooms-mock/rooms.json';
 import { DropdownConfig } from 'Root/components/Dropdown/Dropdown';
 import Layout from 'Components/Layout/Layout';
@@ -12,9 +13,9 @@ import ReservationCard, { Service } from 'Components/ReservationCard/Reservation
 import userComments from 'Components/Comments/comments.json';
 import rulesList from 'Components/RulesList/rulesList.json';
 import roomInformation from 'Components/RoomInformation/roomInformation.json';
-
 import { ReviewCardData } from 'Root/components/ReviewCard/ReviewCard';
-import Firebase from 'Root/api/Firebase';
+import { useAppDispatch } from 'Root/redux/hooks';
+
 import styles from './room.module.scss';
 
 type RoomProps = {
@@ -60,12 +61,13 @@ const service: Service = {
 
 const Room = (props: RoomProps) => {
   const { data } = props;
+  const dispatch = useAppDispatch();
 
   const handleCommentsSubmit = (commentData: ReviewCardData) => {
     const { userId, text } = commentData;
     const roomNumber = String(data.room);
 
-    Firebase.addComment({ userId, text, roomNumber });
+    dispatch(addNewCommentRequest({ userId, text, roomNumber }));
   };
 
   return (
