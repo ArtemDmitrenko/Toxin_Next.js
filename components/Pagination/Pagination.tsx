@@ -51,6 +51,8 @@ const Pagination = (props: PaginationProps) => {
   };
 
   useEffect(() => {
+    if (!filterConstraints) return;
+
     dispatch(requestRooms({ limit, filterConstraints }));
   }, [filterConstraints]);
 

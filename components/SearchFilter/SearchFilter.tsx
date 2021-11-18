@@ -50,6 +50,23 @@ type SearchFilterProps = {
   },
 };
 
+const initState: SearchFilterState = {
+  dateRange: {
+    arrival: convertDateToString(new Date()),
+    departure: convertDateToString(new Date()),
+  },
+  guestsDropdown: {},
+  rangeSlider: [],
+  checkboxRules: {},
+  checkboxAvailability: {},
+  facilitiesData: {
+    bedrooms: 0,
+    beds: 0,
+    bathrooms: 0,
+  },
+  checkboxDropdown: {},
+};
+
 const SearchFilter = (props: SearchFilterProps) => {
   const {
     onChange,
@@ -65,27 +82,12 @@ const SearchFilter = (props: SearchFilterProps) => {
     },
   } = props;
 
-  const [filter, setFilter] = useState<SearchFilterState>({
-    dateRange: {
-      arrival: convertDateToString(new Date()),
-      departure: convertDateToString(new Date()),
-    },
-    guestsDropdown: {},
-    rangeSlider: [],
-    checkboxRules: {},
-    checkboxAvailability: {},
-    facilitiesData: {
-      bedrooms: 0,
-      beds: 0,
-      bathrooms: 0,
-    },
-    checkboxDropdown: {},
-  });
+  const [filter, setFilter] = useState(initState);
 
   useEffect(() => {
-    const isFilterNonEmpty = Object.keys(filter).length !== 0;
+    const isFilterMount = filter === initState;
 
-    if (onChange && isFilterNonEmpty) onChange(filter);
+    if (onChange && !isFilterMount) onChange(filter);
   }, [filter]);
 
   const stylesCheckboxRule = () => (
