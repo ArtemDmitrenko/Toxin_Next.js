@@ -6,19 +6,17 @@ import {
   createUserWithEmailAndPassword,
   updateProfile,
 } from 'firebase/auth';
-
 import {
   Query,
   QueryDocumentSnapshot,
   DocumentData,
-  doc,
-  setDoc,
 } from '@firebase/firestore';
 import {
   getFirestore,
   collection,
   getDocs,
   getDoc,
+  setDoc,
   doc,
   query,
   orderBy,
