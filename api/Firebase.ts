@@ -5,6 +5,8 @@ import {
   getFirestore,
   collection,
   getDocs,
+  doc,
+  getDoc,
   query,
   orderBy,
   startAfter,
@@ -37,6 +39,12 @@ abstract class Firebase {
 
   public static sendPasswordRecovery = async (email: string) => {
     await sendPasswordResetEmail(this.auth, email);
+  };
+
+  public static getRoom = async (roomNumber: string) => {
+    const room = await getDoc(doc(this.firestore, 'rooms', roomNumber));
+
+    return room;
   };
 
   public static getFullSize = async () => {

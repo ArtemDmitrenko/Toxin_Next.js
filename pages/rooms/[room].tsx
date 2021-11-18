@@ -1,10 +1,13 @@
 import { GetServerSideProps } from 'next';
 
+// import { useAppDispatch } from 'Root/redux/hooks';
+// import commentRequest from 'Root/redux/rooms/commentActions';
 import mockData from 'Root/public/rooms-mock/rooms.json';
 import { DropdownConfig } from 'Root/components/Dropdown/Dropdown';
 import Layout from 'Components/Layout/Layout';
 import Collage from 'Components/Collage/Collage';
 import Comments from 'Components/Comments/Comments';
+import { CommentProps } from 'Components/Comment/Comment';
 import RulesList from 'Components/RulesList/RulesList';
 import Impressions from 'Components/Impressions/Impressions';
 import RoomInformation from 'Components/RoomInformation/RoomInformation';
@@ -58,6 +61,12 @@ const service: Service = {
 
 const Room = (props: RoomProps) => {
   const { data } = props;
+  // const dispatch = useAppDispatch();
+
+  const handleChangeComment = (room: number, index: number, comment: CommentProps) => {
+    // dispatch(commentRequest({ room, index, comment }));
+    console.log('pfukeirf', room, index, comment);
+  };
 
   return (
     <Layout title={`Room ${data.room}`}>
@@ -72,8 +81,9 @@ const Room = (props: RoomProps) => {
           </div>
           <div className={styles.feedback}>
             <Comments
+              room={data.room}
               comments={userComments}
-              onChange={() => {}}
+              onChange={handleChangeComment}
             />
           </div>
           <div className={styles.rules}>

@@ -21,16 +21,22 @@ const Like = ({
     (state) => state.auth,
   );
 
+  // const isAuth = true;
+  // const userId = 'v8tqgqsiXTNMxrWLCFG7YHk2HFA2';
+
+  const initLike = () => {
+    if (isAuth) {
+      const isActive = likeArray.filter((like: string) => like === userId);
+      if (isActive[0] === userId) {
+        return true;
+      }
+    }
+    return false;
+  };
+
   const [likes, setLike] = useState(likeArray);
   const [amount, setAmount] = useState(likeArray.length);
-  const [active, setActive] = useState(false);
-
-  if (isAuth) {
-    const isActive = likeArray.filter((like: string) => like === userId);
-    if (isActive.length > 0) {
-      setActive(true);
-    }
-  }
+  const [active, setActive] = useState(initLike());
 
   const handleClickButton = () => {
     let currentValue: number = amount;
