@@ -1,4 +1,11 @@
 import { initializeApp } from 'firebase/app';
+import {
+  getAuth,
+  signInWithEmailAndPassword,
+  sendPasswordResetEmail,
+  createUserWithEmailAndPassword,
+  updateProfile,
+} from 'firebase/auth';
 
 import {
   Query,
@@ -13,9 +20,11 @@ import {
   orderBy,
   startAfter,
   limit,
+  setDoc,
   doc,
 } from 'firebase/firestore';
-import { getAuth, signInWithEmailAndPassword, sendPasswordResetEmail } from 'firebase/auth';
+
+import { SignUpCardData } from 'Root/components/SignUpCard/SignUpCard';
 
 import firebaseCfg from './firebaseConfig';
 
@@ -23,6 +32,37 @@ abstract class Firebase {
   private static firebaseConfig = firebaseCfg;
 
   public static firebase = initializeApp(this.firebaseConfig);
+
+  public static createUser = async (email: string, password: string) => {
+    await createUserWithEmailAndPassword(
+      this.auth,
+      email,
+      password,
+    );
+  };
+
+  public static addUserInfo = async (usersData: SignUpCardData) => {
+    const userUid = this.auth.currentUser?.uid;
+    if (userUid) {
+      await setDoc(doc(this.firestore, 'users', userUid), {
+        name: usersData.name,
+        surname: usersData.surname,
+        dateOfBirth: usersData.dateOfBirth,
+        sex: usersData.sex,
+        specialOffers: usersData.specialOffers,
+      });
+    }
+  };
+
+  public static updateUserName = (name: string, surname: string) => {
+    this.auth.onAuthStateChanged((user) => {
+      if (user) {
+        updateProfile(user, {
+          displayName: `${name} ${surname}`,
+        });
+      }
+    });
+  };
 
   public static initAuth = () => {
     const auth = getAuth();

@@ -9,6 +9,7 @@ import userLoginRequestWatcher from './auth/saga/sagaAuth';
 import passwordRecoveryRequestWatcher from './auth/saga/sagaPasswordRecovery';
 import roomsWatcher from './rooms/saga/sagaRooms';
 import addCommentRequestWatcher from './comment/saga/sagaComment';
+import userSignUpRequestWatcher from './signUp/saga/sagaSignUp';
 
 const environment = process.env.NODE_ENV;
 const isDev = environment === 'development';
@@ -28,6 +29,7 @@ function* rootSaga() {
     passwordRecoveryRequestWatcher(),
     roomsWatcher(),
     addCommentRequestWatcher(),
+    userSignUpRequestWatcher(),
   ]);
 }
 
