@@ -15,7 +15,7 @@ import {
 import AuthActionsTypes from 'Root/redux/auth/authActionTypes';
 import Firebase, { User } from 'Root/api/Firebase';
 
-type RequestToAuth = AuthGeneralAction<AuthActionsTypes.SET_AUTH_USER_DATA, LoginUserRequest>;
+type RequestToAuth = AuthGeneralAction<AuthActionsTypes, LoginUserRequest>;
 
 const getAuthChannel = async () => eventChannel((emit) => {
   const onAuthStateChanged = Firebase.getOnAuthStateChanged();
