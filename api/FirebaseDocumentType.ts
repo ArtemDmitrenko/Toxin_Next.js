@@ -22,7 +22,7 @@ type FirebaseDocumentType = {
     [key: string]: boolean,
   },
   accessibility: {
-    [key: string]: boolean
+    [key: string]: boolean,
   },
   facilities: {
     bedrooms: number,
