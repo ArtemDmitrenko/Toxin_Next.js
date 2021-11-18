@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 
+import convertDateToString from 'Root/utils/convertDateToString';
 import DateRange, { DatesOfStay } from 'Components/DateRange/DateRange';
 import Dropdown, { DropdownConfig, DropdownData } from 'Components/Dropdown/Dropdown';
 import RangeSlider, { RangeSliderData } from 'Components/RangeSlider/RangeSlider';
@@ -9,17 +10,21 @@ import CheckboxDropdown, { CheckboxDropdownData } from 'Components/CheckboxDropd
 import styles from './searchFilter.module.scss';
 
 type SearchFilterState = {
-  dateRange?: DatesOfStay,
-  guestsDropdown?: DropdownData,
-  rangeSlider?: RangeSliderData,
-  checkboxRules?: {
+  dateRange: DatesOfStay,
+  guestsDropdown: DropdownData,
+  rangeSlider: RangeSliderData,
+  checkboxRules: {
     [key: string]: boolean,
   },
-  checkboxAvailability?: {
+  checkboxAvailability: {
     [key: string]: boolean,
   },
-  facilitiesData?: DropdownData,
-  checkboxDropdown?: CheckboxDropdownData,
+  facilitiesData: {
+    bedrooms: number,
+    beds: number,
+    bathrooms: number,
+  },
+  checkboxDropdown: CheckboxDropdownData,
 };
 
 type SearchFilterProps = {
@@ -60,7 +65,22 @@ const SearchFilter = (props: SearchFilterProps) => {
     },
   } = props;
 
-  const [filter, setFilter] = useState<SearchFilterState>({});
+  const [filter, setFilter] = useState<SearchFilterState>({
+    dateRange: {
+      arrival: convertDateToString(new Date()),
+      departure: convertDateToString(new Date()),
+    },
+    guestsDropdown: {},
+    rangeSlider: [],
+    checkboxRules: {},
+    checkboxAvailability: {},
+    facilitiesData: {
+      bedrooms: 0,
+      beds: 0,
+      bathrooms: 0,
+    },
+    checkboxDropdown: {},
+  });
 
   useEffect(() => {
     const isFilterNonEmpty = Object.keys(filter).length !== 0;

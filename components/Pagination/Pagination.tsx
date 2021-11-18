@@ -65,7 +65,7 @@ const Pagination = (props: PaginationProps) => {
   const stylesNextButton = () => {
     const style = [styles.button, styles.buttonToggle, styles.buttonNext];
 
-    if (roomsStore.currentPage === roomsStore.totalPages) style.push(styles.hide);
+    if (roomsStore.currentPage >= roomsStore.totalPages) style.push(styles.hide);
 
     return style.join(' ');
   };
@@ -73,7 +73,7 @@ const Pagination = (props: PaginationProps) => {
   const stylesPrevButton = () => {
     const style = [styles.button, styles.buttonToggle, styles.buttonPrev];
 
-    if (roomsStore.currentPage === 1) style.push(styles.hide);
+    if (roomsStore.currentPage <= 1) style.push(styles.hide);
 
     return style.join(' ');
   };
@@ -90,16 +90,20 @@ const Pagination = (props: PaginationProps) => {
 
   const generatePagesRefs = () => {
     const elements: Array<JSX.Element> = [];
-    for (let i = 0; i < roomsStore.totalPages; i += 1) {
-      elements.push(
-        <button
-          type="button"
-          onClick={() => { handlePageClick(i + 1); }}
-          className={stylesButton(i + 1 === roomsStore.currentPage)}
-        >
-          {i + 1}
-        </button>,
-      );
+
+    if (roomsStore.totalPages > 1) {
+      for (let i = 0; i < roomsStore.totalPages; i += 1) {
+        elements.push(
+          <button
+            type="button"
+            onClick={() => { handlePageClick(i + 1); }}
+            className={stylesButton(i + 1 === roomsStore.currentPage)}
+            key={i}
+          >
+            {i + 1}
+          </button>,
+        );
+      }
     }
 
     return elements;
@@ -111,7 +115,7 @@ const Pagination = (props: PaginationProps) => {
     ) : (
       <>
         <ul className={styles.list}>
-          {roomsStore.rooms.length
+          {roomsStore.rooms.length > 0
             && convertSnapshotToJSX(roomsStore.rooms[roomsStore.currentPage - 1])}
         </ul>
         {!roomsStore.totalPages && (
