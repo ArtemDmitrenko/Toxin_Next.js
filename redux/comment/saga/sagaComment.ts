@@ -1,9 +1,9 @@
 import { takeEvery, call, put } from 'redux-saga/effects';
 
-import Firebase from 'Root/api/Firebase';
+import CommentActionsTypes from 'Root/redux/comment/commentActionTypes';
+import { addNewCommentFailed, CommentGeneralAction } from 'Root/redux/comment/commentActions';
 import { NewCommentData } from 'Root/components/ReviewCard/ReviewCard';
-import CommentActionsTypes from '../commentActionTypes';
-import { addNewCommentFailed, CommentGeneralAction } from '../commentActions';
+import Firebase from 'Root/api/Firebase';
 
 type RequestToComment = CommentGeneralAction<CommentActionsTypes, NewCommentData>;
 
