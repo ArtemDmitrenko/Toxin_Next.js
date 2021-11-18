@@ -1,7 +1,11 @@
 import { initializeApp } from 'firebase/app';
 
-import { Query, QueryDocumentSnapshot, DocumentData } from '@firebase/firestore';
 import {
+  Query,
+  QueryDocumentSnapshot,
+  DocumentData,
+  updateDoc,
+  arrayUnion,
   getFirestore,
   collection,
   getDocs,
@@ -9,9 +13,11 @@ import {
   orderBy,
   startAfter,
   limit,
+  doc,
 } from 'firebase/firestore';
 import { getAuth, signInWithEmailAndPassword, sendPasswordResetEmail } from 'firebase/auth';
 
+import { ReviewCardData } from 'Root/components/ReviewCard/ReviewCard';
 import firebaseCfg from './firebaseConfig';
 
 abstract class Firebase {
@@ -72,6 +78,19 @@ abstract class Firebase {
     const snapshot = await getDocs(request);
 
     return snapshot.docs;
+  };
+
+  public static addComment = async (reviewCardData: ReviewCardData) => {
+    const { userId, text, roomNumber } = reviewCardData;
+    const docRef = doc(this.firestore, `rooms/${roomNumber}`);
+    await updateDoc(docRef, {
+      commentaries: arrayUnion({
+        userId,
+        date: new Date(),
+        text,
+        likes: [],
+      }),
+    });
   };
 }
 

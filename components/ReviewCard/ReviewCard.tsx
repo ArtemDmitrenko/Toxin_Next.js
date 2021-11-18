@@ -9,13 +9,17 @@ import styles from './reviewCard.module.scss';
 
 type ReviewCardData = {
   userId: string,
-  date: Date,
-  text: string
+  text: string,
+  roomNumber?: string,
 };
 
 type ReviewCardProps = {
   maxLength: number,
   onSubmit: (data: ReviewCardData) => void
+};
+
+type FormApi = {
+  reset: () => void,
 };
 
 const ReviewCard = ({ maxLength, onSubmit }: ReviewCardProps) => {
@@ -27,13 +31,13 @@ const ReviewCard = ({ maxLength, onSubmit }: ReviewCardProps) => {
     text ? setTextLength(text.length) : setTextLength(0)
   );
 
-  const handleFormSubmit = ({ text }:{ text: string }) => {
+  const handleFormSubmit = ({ text }:{ text: string }, form: FormApi) => {
     if (onSubmit) {
       onSubmit({
         userId,
-        date: new Date(),
         text,
       });
+      form.reset();
     }
   };
 

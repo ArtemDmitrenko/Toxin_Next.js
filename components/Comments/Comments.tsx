@@ -11,7 +11,7 @@ import styles from './comments.module.scss';
 type CommentsProps = {
   comments: Array<CommentProps>,
   onChange?: (commentList: Array<CommentProps>) => void,
-  onSubmit?: (data: ReviewCardData) => void
+  onSubmit: (data: ReviewCardData) => void
 };
 
 const Comments = (props: CommentsProps) => {
@@ -62,8 +62,7 @@ const Comments = (props: CommentsProps) => {
           );
         })}
       </div>
-      {/* {isAuth && <ReviewCard maxLength={500} />} */}
-      <ReviewCard maxLength={500} onSubmit={onSubmit} />
+      {isAuth && <ReviewCard maxLength={500} onSubmit={onSubmit} />}
     </div>
   );
 };
