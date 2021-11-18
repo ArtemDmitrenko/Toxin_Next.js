@@ -1,4 +1,6 @@
-import { DocumentData, QueryDocumentSnapshot, QueryConstraint } from '@firebase/firestore';
+import { DocumentData, QueryDocumentSnapshot } from '@firebase/firestore';
+
+import { SearchFilterState } from 'Components/SearchFilter/SearchFilter';
 
 import RoomsActionTypes from './roomsActionTypes';
 
@@ -10,14 +12,12 @@ type RoomsGeneralAction<T, K> = {
 type FetchRoomsType = {
   size: number,
   limit: number,
-  snapshot: Array<QueryDocumentSnapshot<DocumentData>>,
-  isAddition?: boolean,
+  snapshot: Array<Array<QueryDocumentSnapshot<DocumentData>>>,
 };
 
 type RequestRoomsType = {
   limit: number,
-  endDataPoint?: QueryDocumentSnapshot<DocumentData>,
-  filterConstraints?: Array<QueryConstraint>,
+  filterConstraints?: SearchFilterState,
 };
 
 const requestRooms = (payload: RequestRoomsType) => (<const>{
@@ -38,12 +38,9 @@ const hideLoadingInit = () => (<const>{
   type: RoomsActionTypes.HIDE_LOADING_INIT,
 });
 
-const showLoadingAdditional = () => (<const>{
-  type: RoomsActionTypes.SHOW_LOADING_ADDITIONAL,
-});
-
-const hideLoadingAdditional = () => (<const>{
-  type: RoomsActionTypes.HIDE_LOADING_ADDITIONAL,
+const setCurrentPage = (payload: { newCurrentPage: number }) => (<const>{
+  type: RoomsActionTypes.SET_CURRENT_PAGE,
+  payload,
 });
 
 export type {
@@ -55,6 +52,5 @@ export {
   fetchRooms,
   showLoadingInit,
   hideLoadingInit,
-  showLoadingAdditional,
-  hideLoadingAdditional,
+  setCurrentPage,
 };

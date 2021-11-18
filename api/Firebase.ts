@@ -9,15 +9,14 @@ import {
   collection,
   getDocs,
   query,
-  where,
   orderBy,
   startAfter,
-  limit,
 } from 'firebase/firestore';
 import { getAuth, signInWithEmailAndPassword, sendPasswordResetEmail } from 'firebase/auth';
 
 import { SearchFilterState } from 'Root/components/SearchFilter/SearchFilter';
 
+import separateToPages from './helpers/separateToPages';
 import firebaseCfg from './firebaseConfig';
 
 abstract class Firebase {
@@ -45,24 +44,15 @@ abstract class Firebase {
     await sendPasswordResetEmail(this.auth, email);
   };
 
-  public static getSize = async (queryConstraints: Array<QueryConstraint> = []) => {
-    const request = query(collection(this.firestore, 'rooms'), ...queryConstraints);
-    const snapshot = await getDocs(request);
-
-    return snapshot.size;
-  };
-
   public static getRooms = async (props: {
     documentsLimit: number,
     documentPoint?: QueryDocumentSnapshot<DocumentData>,
-    filterConstraints?: Array<QueryConstraint>,
+    filterConstraints?: SearchFilterState,
   }) => {
-    const { documentsLimit, documentPoint, filterConstraints = [] } = props;
+    const { documentsLimit, documentPoint, filterConstraints } = props;
 
     const queryParams: Array<QueryConstraint> = [
-      ...filterConstraints,
       orderBy('cost', 'desc'),
-      limit(documentsLimit),
     ];
 
     if (documentPoint) {
@@ -71,20 +61,12 @@ abstract class Firebase {
 
     const snapshot = await getDocs(query(collection(this.firestore, 'rooms'), ...queryParams));
 
-    return snapshot.docs;
-  };
+    const documents = snapshot.docs;
 
-  public static createConstraints = (data: SearchFilterState) => {
-    const queryParams: Array<QueryConstraint> = [];
-
-    if (data.rangeSlider) {
-      const [min, max] = data.rangeSlider;
-
-      queryParams.push(where('cost', '>=', min));
-      queryParams.push(where('cost', '<=', max));
-    }
-
-    return queryParams;
+    return {
+      documents: separateToPages(documents, documentsLimit),
+      length: documents.length,
+    };
   };
 }
 

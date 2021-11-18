@@ -1,10 +1,11 @@
 import { useEffect } from 'react';
-import { DocumentData, QueryConstraint, QueryDocumentSnapshot } from '@firebase/firestore';
+import { DocumentData, QueryDocumentSnapshot } from '@firebase/firestore';
 
 import convertNumToWordform from 'Root/utils/convertNumToWordform';
-import { requestRooms } from 'Root/redux/rooms/roomsActions';
+import { requestRooms, setCurrentPage } from 'Root/redux/rooms/roomsActions';
 import { useAppDispatch, useAppSelector } from 'Root/redux/hooks';
 
+import { SearchFilterState } from 'Components/SearchFilter/SearchFilter';
 import RoomCard from 'Components/RoomCard/RoomCard';
 import LoadingSpinner from 'Components/LoadingSpinner/LoadingSpinner';
 import Reference from 'Components/Reference/Reference';
@@ -16,7 +17,7 @@ import styles from './pagination.module.scss';
 
 type PaginationProps = {
   limit: number,
-  filterConstraints?: Array<QueryConstraint>,
+  filterConstraints?: SearchFilterState,
   onChange?: (pageNumber: number) => void
 };
 
@@ -57,11 +58,7 @@ const Pagination = (props: PaginationProps) => {
   const handlePageClick = () => {
     if (roomsStore.currentPages > roomsStore.totalPages) return;
 
-    dispatch(requestRooms({
-      limit,
-      endDataPoint: roomsStore.rooms[roomsStore.rooms.length - 1],
-      filterConstraints,
-    }));
+    dispatch(setCurrentPage({ newCurrentPage: roomsStore.currentPages + 1 }));
 
     if (onChange) onChange(roomsStore.currentPages);
   };
@@ -76,7 +73,8 @@ const Pagination = (props: PaginationProps) => {
     ) : (
       <>
         <ul className={styles.list}>
-          {roomsStore.rooms && convertSnapshotToJSX(roomsStore.rooms)}
+          {roomsStore.rooms.length
+            && convertSnapshotToJSX(roomsStore.rooms[roomsStore.currentPages - 1])}
         </ul>
         {!roomsStore.totalPages && (
           <p> По вашему запросу ничего не найдено </p>

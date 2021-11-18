@@ -1,8 +1,6 @@
 import { useState } from 'react';
-import { QueryConstraint } from '@firebase/firestore';
 
 import { DropdownConfig } from 'Root/components/Dropdown/Dropdown';
-import Firebase from 'Root/api/Firebase';
 import Layout from 'Components/Layout/Layout';
 import SearchFilter, { SearchFilterState } from 'Components/SearchFilter/SearchFilter';
 import Pagination from 'Components/Pagination/Pagination';
@@ -135,7 +133,7 @@ const checkboxDropdown = {
 
 const Rooms = () => {
   const [filter, setFilter] = useState(false);
-  const [filterConstraints, setFilterConstraints] = useState<Array<QueryConstraint>>([]);
+  const [filterConstraints, setFilterConstraints] = useState<SearchFilterState>();
 
   const handleFilterToggle = () => { setFilter((prevState) => !prevState); };
 
@@ -152,7 +150,7 @@ const Rooms = () => {
   );
 
   const handleFilterChange = (data: SearchFilterState) => {
-    setFilterConstraints(Firebase.createConstraints(data));
+    setFilterConstraints(data);
   };
 
   return (
