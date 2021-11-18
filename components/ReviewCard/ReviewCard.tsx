@@ -7,9 +7,15 @@ import CircularProgressBar from 'Components/CircularProgressBar/CircularProgress
 
 import styles from './reviewCard.module.scss';
 
+type ReviewCardData = {
+  userId: string,
+  date: Date,
+  text: string
+};
+
 type ReviewCardProps = {
   maxLength: number,
-  onSubmit: (data: { userId: string, comment: string }) => void;
+  onSubmit: (data: ReviewCardData) => void
 };
 
 const ReviewCard = ({ maxLength, onSubmit }: ReviewCardProps) => {
@@ -22,10 +28,13 @@ const ReviewCard = ({ maxLength, onSubmit }: ReviewCardProps) => {
   );
 
   const handleFormSubmit = ({ text }:{ text: string }) => {
-    onSubmit({
-      userId,
-      comment: text,
-    });
+    if (onSubmit) {
+      onSubmit({
+        userId,
+        date: new Date(),
+        text,
+      });
+    }
   };
 
   const handleTitleButtonClick = () => { setOpen(!isOpen); };
@@ -64,7 +73,7 @@ const ReviewCard = ({ maxLength, onSubmit }: ReviewCardProps) => {
               className={styles.field}
               name="text"
               component="textarea"
-              maxLength={500}
+              maxLength={maxLength}
               required
               validate={letterCounter}
               onKeyDown={handleKeyDown}
@@ -93,4 +102,5 @@ const ReviewCard = ({ maxLength, onSubmit }: ReviewCardProps) => {
   );
 };
 
+export type { ReviewCardData };
 export default ReviewCard;

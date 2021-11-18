@@ -13,6 +13,7 @@ import userComments from 'Components/Comments/comments.json';
 import rulesList from 'Components/RulesList/rulesList.json';
 import roomInformation from 'Components/RoomInformation/roomInformation.json';
 
+import { ReviewCardData } from 'Root/components/ReviewCard/ReviewCard';
 import styles from './room.module.scss';
 
 type RoomProps = {
@@ -56,6 +57,10 @@ const service: Service = {
   extraServiceCost: 300,
 };
 
+const addComment = (data: ReviewCardData) => {
+  console.log('addComment', data);
+};
+
 const Room = (props: RoomProps) => {
   const { data } = props;
 
@@ -73,7 +78,8 @@ const Room = (props: RoomProps) => {
           <div className={styles.feedback}>
             <Comments
               comments={userComments}
-              onChange={() => {}}
+              onChange={(data) => { console.log(data); }}
+              onSubmit={addComment}
             />
           </div>
           <div className={styles.rules}>

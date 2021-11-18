@@ -3,18 +3,19 @@ import { useState } from 'react';
 import convertNumToWordform from 'Root/utils/convertNumToWordform';
 import Comment, { CommentProps } from 'Components/Comment/Comment';
 import { LikeData } from 'Components/Like/Like';
-import ReviewCard from 'Components/ReviewCard/ReviewCard';
-
+import ReviewCard, { ReviewCardData } from 'Components/ReviewCard/ReviewCard';
 import { useAppSelector } from 'Root/redux/hooks';
+
 import styles from './comments.module.scss';
 
 type CommentsProps = {
-  comments: Array<CommentProps>
-  onChange?: (commentList: Array<CommentProps>) => void
+  comments: Array<CommentProps>,
+  onChange?: (commentList: Array<CommentProps>) => void,
+  onSubmit?: (data: ReviewCardData) => void
 };
 
 const Comments = (props: CommentsProps) => {
-  const { comments, onChange } = props;
+  const { comments, onChange, onSubmit } = props;
 
   const [commentsList, setCommentList] = useState(comments);
   const { isAuth } = useAppSelector((state) => state.auth);
@@ -62,7 +63,7 @@ const Comments = (props: CommentsProps) => {
         })}
       </div>
       {/* {isAuth && <ReviewCard maxLength={500} />} */}
-      <ReviewCard maxLength={500} />
+      <ReviewCard maxLength={500} onSubmit={onSubmit} />
     </div>
   );
 };
