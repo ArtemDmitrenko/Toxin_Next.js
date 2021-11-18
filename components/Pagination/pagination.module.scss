@@ -10,12 +10,65 @@
   list-style: none;
 }
 
-.pagination {
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  user-select: none;
+}
+
+.pagesNavigation {
   display: flex;
   justify-content: center;
-  user-select: none;
+}
 
-  &Hidden {
-    display: none;
+.button {
+  width: 40px;
+  height: 40px;
+  color: $textColor50;
+  font-family: 'Montserrat', Arial, Helvetica, sans-serif;
+  background: none;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+
+  &:hover {
+    color: $secondaryColor;
+    background: white;
+    border: 2px solid $secondaryColor;
   }
+
+  &Toggle {
+    color: white;
+    font: 24px/24px 'Material Icons', Arial, sans-serif;
+    background: $secondaryGradient;
+  }
+
+  &Next {
+    &::before {
+      content: '\e5c8';
+    }
+  }
+
+  &Prev {
+    &::before {
+      content: '\e5c4';
+    }
+  }
+
+  &Active {
+    color: white;
+    font-weight: bold;
+    background: $primaryGradient;
+  }
+}
+
+.paragraph {
+  @include paragraph();
+  display: block;
+  margin-top: 10px;
+}
+
+.hide {
+  display: none;
 }

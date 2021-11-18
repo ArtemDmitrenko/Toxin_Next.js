@@ -16,7 +16,6 @@ type RequestInit = RoomsGeneralAction<RoomsActionTypes.REQUEST_ROOMS, RequestRoo
 
 async function fetchFirebaseRooms(props: {
   documentsLimit: number,
-  documentPoint?: QueryDocumentSnapshot<DocumentData>,
   filterConstraints?: SearchFilterState,
 }) {
   const { documents, length } = await Firebase.getRooms(props);

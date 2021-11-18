@@ -11,7 +11,7 @@ type RoomsState = {
   rooms: Array<Array<QueryDocumentSnapshot<DocumentData>>>,
   size: number,
   totalPages: number,
-  currentPages: number,
+  currentPage: number,
   loadingInit: boolean,
 };
 
@@ -19,7 +19,7 @@ const initialState: RoomsState = {
   rooms: [],
   size: 0,
   totalPages: 1,
-  currentPages: 1,
+  currentPage: 1,
   loadingInit: false,
 };
 
@@ -30,12 +30,12 @@ const roomsReducer = (state = initialState, action: RoomsAction): RoomsState => 
         ...state,
         rooms: action.payload.snapshot,
         size: action.payload.size,
-        currentPages: 1,
-        totalPages: Math.ceil(action.payload.size / action.payload.limit),
+        currentPage: 1,
+        totalPages: action.payload.snapshot.length,
       };
 
     case RoomsActionTypes.SET_CURRENT_PAGE:
-      return { ...state, currentPages: action.payload.newCurrentPage };
+      return { ...state, currentPage: action.payload.newCurrentPage };
 
     case RoomsActionTypes.SHOW_LOADING_INIT:
       return { ...state, loadingInit: true };
