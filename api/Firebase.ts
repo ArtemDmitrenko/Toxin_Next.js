@@ -7,6 +7,7 @@ import {
   sendPasswordResetEmail,
   onAuthStateChanged,
   User,
+  signOut,
 } from 'firebase/auth';
 import {
   Query,
@@ -119,6 +120,8 @@ abstract class Firebase {
 
     return snapshot.docs;
   };
+
+  public static logOut = async () => { signOut(this.auth); };
 }
 
 export type { User };

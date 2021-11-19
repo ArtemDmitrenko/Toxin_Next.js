@@ -11,6 +11,7 @@ import {
   LoginUserRequest,
   setAuthUserData,
   userAuthFailed,
+  userLogoutSuccess,
 } from 'Root/redux/auth/authActions';
 import AuthActionsTypes from 'Root/redux/auth/authActionTypes';
 import Firebase, { User } from 'Root/api/Firebase';
@@ -63,9 +64,24 @@ function* checkAuthWorker() {
   }
 }
 
+function* userLogoutRequestWorker() {
+  yield call(Firebase.logOut);
+
+  yield put(userLogoutSuccess({
+    userId: null,
+    email: null,
+    userName: null,
+    error: null,
+  }));
+}
+
 function* userLoginRequestWatcher() {
   yield takeEvery(AuthActionsTypes.USER_LOGIN_REQUEST, userLoginRequestWorker);
   yield takeEvery(AuthActionsTypes.GET_USER_STATUS, checkAuthWorker);
 }
 
-export default userLoginRequestWatcher;
+function* userLogoutRequestWatcher() {
+  yield takeEvery(AuthActionsTypes.USER_LOGOUT_REQUEST, userLogoutRequestWorker);
+}
+
+export { userLoginRequestWatcher, userLogoutRequestWatcher };
