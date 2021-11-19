@@ -1,3 +1,5 @@
+import { Timestamp } from 'firebase/firestore';
+
 type FirebaseDocumentType = {
   room: number,
   level: string,
@@ -15,8 +17,8 @@ type FirebaseDocumentType = {
   }>,
   reserved: Array<{
     userId: string,
-    from: Date,
-    to: Date,
+    from: Timestamp,
+    to: Timestamp,
   }>,
   rules: {
     [key: string]: boolean,
@@ -39,7 +41,7 @@ type FirebaseDocumentType = {
   }>,
   commentaries: Array<{
     userId: string,
-    date: Date,
+    date: Timestamp,
     likes: Array<string>,
   }>,
 };
