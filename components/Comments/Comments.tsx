@@ -1,45 +1,28 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 import convertNumToWordform from 'Root/utils/convertNumToWordform';
 import Comment, { CommentProps } from 'Components/Comment/Comment';
 import { LikeData } from 'Components/Like/Like';
-import { useAppDispatch, useAppSelector } from 'Root/redux/hooks';
-import FirebaseDocumentType from 'Root/api/FirebaseDocumentType';
-import { commentRequest } from 'Root/redux/like/likeActions';
 
 import styles from './comments.module.scss';
 
 type CommentsProps = {
-  room: number,
   comments: Array<CommentProps>
-  onChange?: (room: number, index: number, comment: CommentProps) => void
+  onChange?: (comments: Array<CommentProps>) => void
 };
 
 const Comments = (props: CommentsProps) => {
-  const { room, comments, onChange } = props;
-  const roomNumber = String(room);
-  console.log('roomNumber comments', roomNumber);
-
-  const dispatch = useAppDispatch();
-
-  const dataComments: FirebaseDocumentType = useAppSelector((store) => store.comment);
-  console.log('data', dataComments);
-
-  const { userId }: { userId: string | null } = useAppSelector(
-    (state) => state.auth,
-  );
+  const { comments, onChange } = props;
 
   const [commentsList, setCommentList] = useState(comments);
 
   const handleCommentChange = (index: number, data: LikeData) => {
-    dispatch(commentRequest({ roomNumber }));
-
     const newCommentList = [...commentsList];
 
     newCommentList[index].likes = data.likeArray;
 
     if (onChange) {
-      onChange(room, index, newCommentList[index]);
+      onChange(newCommentList);
     }
 
     setCommentList(newCommentList);
@@ -57,10 +40,9 @@ const Comments = (props: CommentsProps) => {
       </div>
       <div className={styles.content}>
         {commentsList.map((comment, index) => (
-          <div className={styles.comment} key={comment.srcIcon}>
+          <div className={styles.comment} key={Number(comment.date)}>
             <Comment
-              srcIcon={comment.srcIcon}
-              userName={comment.userName}
+              userId={comment.userId}
               date={comment.date}
               text={comment.text}
               likes={comment.likes}

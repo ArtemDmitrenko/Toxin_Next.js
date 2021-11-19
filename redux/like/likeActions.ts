@@ -1,24 +1,30 @@
-import FirebaseDocumentType from 'Root/api/FirebaseDocumentType';
-import CommentActionTypes from './likeActionTypes';
+import { CommentProps } from 'Components/Comment/Comment';
+import LikeActionTypes from './likeActionTypes';
 
 type AuthGeneralAction<T, K> = {
   type: T,
   data: K;
 };
 
-type CommentRequest = {
-  roomNumber: string
+type LikeState = {
+  roomNumber: string,
+  comments: Array<CommentProps>
 };
 
-const commentRequest = (data: CommentRequest) => (<const>{
-  type: CommentActionTypes.COMMENT_REQUEST,
+const likeUpdate = (data: LikeState) => (<const>{
+  type: LikeActionTypes.LIKE_UPDATE,
   data,
 });
 
-const commentFetch = (data: FirebaseDocumentType) => (<const>{
-  type: CommentActionTypes.COMMENT_FETCH,
+const likeUpdateSuccess = (data: LikeState) => (<const>{
+  type: LikeActionTypes.LIKE_UPDATE__SUCCESS,
   data,
 });
 
-export type { CommentRequest, AuthGeneralAction };
-export { commentRequest, commentFetch };
+const likeUpdateError = ({ error }: { error : string }) => (<const>{
+  type: LikeActionTypes.LIKE_UPDATE_ERROR,
+  error,
+});
+
+export type { LikeState, AuthGeneralAction };
+export { likeUpdate, likeUpdateSuccess, likeUpdateError };

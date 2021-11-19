@@ -6,9 +6,8 @@ import Like, { LikeData } from 'Components/Like/Like';
 import styles from './comment.module.scss';
 
 type CommentProps = {
-  srcIcon: string,
-  userName: string,
-  date: string,
+  userId: string,
+  date: Date,
   text: string,
   likes: string[]
   onChange?: (data: LikeData) => void,
@@ -16,15 +15,15 @@ type CommentProps = {
 
 const Comment = (props: CommentProps) => {
   const {
-    srcIcon,
-    userName,
+    userId,
     date,
     text,
     likes,
     onChange,
   } = props;
 
-  const dateComment = new Date(date).getTime();
+  const dateComment = date.toDate();
+
   const currentDate = Date.now();
   const amountDays = Math.floor((currentDate - dateComment) / 86400000);
 
@@ -50,9 +49,9 @@ const Comment = (props: CommentProps) => {
   return (
     <div className={styles.comment}>
       <div className={styles.info}>
-        <Image src={srcIcon} alt={userName} width={45} height={45} />
+        <Image src={'/'} alt={userId} width={45} height={45} />
         <div className={styles.user}>
-          <span className={styles.userName}>{userName}</span>
+          <span className={styles.userName}>{userId}</span>
           <span>{makeDateString()}</span>
         </div>
       </div>

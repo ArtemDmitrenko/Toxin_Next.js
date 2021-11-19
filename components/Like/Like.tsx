@@ -21,9 +21,6 @@ const Like = ({
     (state) => state.auth,
   );
 
-  // const isAuth = true;
-  // const userId = 'v8tqgqsiXTNMxrWLCFG7YHk2HFA2';
-
   const initLike = () => {
     if (isAuth) {
       const isActive = likeArray.filter((like: string) => like === userId);
@@ -40,22 +37,21 @@ const Like = ({
 
   const handleClickButton = () => {
     let currentValue: number = amount;
+    let newLikesArray: string[] = likes;
 
     if (userId !== null) {
       if (active) {
         currentValue -= 1;
-        const newLikesArray = likes.filter((like: string) => like !== userId);
-        setLike(newLikesArray);
+        newLikesArray = likes.filter((like: string) => like !== userId);
       } else {
         currentValue += 1;
-        const newLikesArray = [...likes, userId];
-        setLike(newLikesArray);
+        newLikesArray = [...likes, userId];
       }
     }
 
     if (onChange) {
       onChange({
-        likeArray: likes,
+        likeArray: newLikesArray,
       });
     }
 
@@ -63,6 +59,7 @@ const Like = ({
     if (userId !== null) {
       setActive(!active);
     }
+    setLike(newLikesArray);
   };
 
   const styleButton = () => (

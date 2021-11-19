@@ -1,22 +1,32 @@
 import InferValueTypes from 'Root/redux/utils';
-import FirebaseDocumentType from 'Root/api/FirebaseDocumentType';
+import { CommentProps } from 'Components/Comment/Comment';
 
-import CommentActionTypes from './likeActionTypes';
+import LikeActionTypes from './likeActionTypes';
 import * as actions from './likeActions';
 
-type CommentAction = ReturnType<InferValueTypes<typeof actions>>;
+type LikeAction = ReturnType<InferValueTypes<typeof actions>>;
 
-type RoomState = FirebaseDocumentType | null;
+type LikeState = {
+  roomNumber: string,
+  comments: Array<CommentProps>,
+};
 
-const commentReducer = (state: RoomState = null, action: CommentAction) => {
+const initialState = {
+  roomNumber: '',
+  comments: [],
+};
+
+const likeReducer = (state: LikeState = initialState, action: LikeAction) => {
   switch (action.type) {
-    case CommentActionTypes.COMMENT_FETCH:
+    case LikeActionTypes.LIKE_UPDATE__SUCCESS:
       return { ...action.data };
+    case LikeActionTypes.LIKE_UPDATE_ERROR:
+      return { ...state };
 
     default:
       return state;
   }
 };
 
-export type { RoomState };
-export default commentReducer;
+export type { LikeState };
+export default likeReducer;

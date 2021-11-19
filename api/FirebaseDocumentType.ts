@@ -40,6 +40,7 @@ type FirebaseDocumentType = {
   commentaries: Array<{
     userId: string,
     date: Date,
+    text: string,
     likes: Array<string>,
   }>,
 };

@@ -1,6 +1,7 @@
-enum CommentActionTypes {
-  COMMENT_REQUEST = 'PASSWORD_RECOVERY_REQUEST',
-  COMMENT_FETCH = 'COMMENT_FETCH',
+enum LikeActionTypes {
+  LIKE_UPDATE = 'LIKE_UPDATE',
+  LIKE_UPDATE__SUCCESS = 'LIKE_UPDATE__SUCCESS',
+  LIKE_UPDATE_ERROR = 'LIKE_UPDATE_ERROR',
 }
 
-export default CommentActionTypes;
+export default LikeActionTypes;

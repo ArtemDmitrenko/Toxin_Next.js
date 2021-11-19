@@ -1,33 +1,34 @@
 import { takeEvery, call, put } from 'redux-saga/effects';
 
 import {
-  commentFetch,
+  likeUpdateError,
+  likeUpdateSuccess,
   AuthGeneralAction,
-  CommentRequest,
+  LikeState,
 } from 'Root/redux/like/likeActions';
-import CommentActionTypes from 'Root/redux/like/likeActionTypes';
+import LikeActionTypes from 'Root/redux/like/likeActionTypes';
 import Firebase from 'Root/api/Firebase';
-import FirebaseDocumentType from 'Root/api/FirebaseDocumentType';
 
-type RequestToComment = AuthGeneralAction<CommentActionTypes, CommentRequest>;
+type LikeUpdateData = AuthGeneralAction<LikeActionTypes, LikeState>;
 
-async function fetchFirebaseRoom(roomNumber: string) {
-  const snapshot = await Firebase.getRoom(roomNumber);
+function* likeRequestWorker({ data }: LikeUpdateData) {
+  try {
+    const { roomNumber, comments } = data;
 
-  return snapshot.data();
+    yield call(Firebase.updateLike, roomNumber, comments);
+    yield put(likeUpdateSuccess(data));
+  } catch ({ code }) {
+    yield put(likeUpdateError({
+      error: String(code),
+    }));
+  }
 }
 
-function* commentRequestWorker({ data }: RequestToComment) {
-  const snapshot: FirebaseDocumentType = yield call(fetchFirebaseRoom, data.roomNumber);
-
-  yield put(commentFetch(snapshot));
-}
-
-function* commentRequestWatcher() {
+function* likeRequestWatcher() {
   yield takeEvery(
-    CommentActionTypes.COMMENT_REQUEST,
-    commentRequestWorker,
+    LikeActionTypes.LIKE_UPDATE,
+    likeRequestWorker,
   );
 }
 
-export default commentRequestWatcher;
+export default likeRequestWatcher;
