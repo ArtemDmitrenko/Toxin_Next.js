@@ -1,7 +1,7 @@
 import { CommentProps } from 'Components/Comment/Comment';
 import LikeActionTypes from './likeActionTypes';
 
-type AuthGeneralAction<T, K> = {
+type LikeGeneralAction<T, K> = {
   type: T,
   data: K;
 };
@@ -26,5 +26,5 @@ const likeUpdateError = ({ error }: { error : string }) => (<const>{
   error,
 });
 
-export type { LikeState, AuthGeneralAction };
+export type { LikeState, LikeGeneralAction };
 export { likeUpdate, likeUpdateSuccess, likeUpdateError };

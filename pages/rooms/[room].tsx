@@ -1,11 +1,11 @@
 import { GetServerSideProps } from 'next';
 import { useEffect } from 'react';
 
-// import commentRequest from 'Root/redux/rooms/commentActions';
 import { DropdownConfig } from 'Root/components/Dropdown/Dropdown';
 import { clearRoom, requestRoom } from 'Root/redux/room/roomActions';
 import { likeUpdate } from 'Root/redux/like/likeActions';
 import { useAppDispatch, useAppSelector } from 'Root/redux/hooks';
+import { usersRequest } from 'Root/redux/users/usersActions';
 import convertDateToString from 'Root/utils/convertDateToString';
 import addDaysToDate from 'Root/utils/addDaysToDate';
 import FirebaseDocumentType from 'Root/api/FirebaseDocumentType';
@@ -61,6 +61,7 @@ const Room = (props: RoomProps) => {
 
   useEffect(() => {
     dispatch(requestRoom({ roomNumber }));
+    dispatch(usersRequest());
 
     return () => {
       dispatch(clearRoom());
@@ -69,7 +70,6 @@ const Room = (props: RoomProps) => {
 
   const handleChangeComment = (comments: Array<CommentProps>) => {
     dispatch(likeUpdate({ roomNumber, comments }));
-    // console.log('pfukeirf', comments);
   };
 
   return data !== null ? (

@@ -11,6 +11,7 @@ import roomsWatcher from './rooms/saga/sagaRooms';
 import likeRequestWatcher from './like/saga/sagaLike';
 import roomWatcher from './room/saga/sagaRoom';
 import userSignUpRequestWatcher from './signUp/saga/sagaSignUp';
+import usersRequestWatcher from './users/saga/sagaUsers';
 
 const environment = process.env.NODE_ENV;
 const isDev = environment === 'development';
@@ -33,6 +34,7 @@ function* rootSaga() {
     roomWatcher(),
     userSignUpRequestWatcher(),
     likeRequestWatcher(),
+    usersRequestWatcher(),
   ]);
 }
 

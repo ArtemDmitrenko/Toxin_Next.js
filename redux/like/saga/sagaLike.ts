@@ -3,13 +3,13 @@ import { takeEvery, call, put } from 'redux-saga/effects';
 import {
   likeUpdateError,
   likeUpdateSuccess,
-  AuthGeneralAction,
+  LikeGeneralAction,
   LikeState,
 } from 'Root/redux/like/likeActions';
 import LikeActionTypes from 'Root/redux/like/likeActionTypes';
 import Firebase from 'Root/api/Firebase';
 
-type LikeUpdateData = AuthGeneralAction<LikeActionTypes, LikeState>;
+type LikeUpdateData = LikeGeneralAction<LikeActionTypes, LikeState>;
 
 function* likeRequestWorker({ data }: LikeUpdateData) {
   try {
