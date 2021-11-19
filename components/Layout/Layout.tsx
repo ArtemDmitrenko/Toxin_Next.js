@@ -1,6 +1,7 @@
 import Head from 'next/head';
 
-import { useAppSelector } from 'Root/redux/hooks';
+import { userLogoutRequest } from 'Root/redux/auth/authActions';
+import { useAppDispatch, useAppSelector } from 'Root/redux/hooks';
 import Header from 'Components/Header/Header';
 import FooterDesktop from 'Components/FooterDesktop/FooterDesktop';
 import footerItems from 'Components/FooterDesktop/footer-items.json';
@@ -26,6 +27,8 @@ const Layout = (props: LayoutProps) => {
   } = props;
 
   const { isAuth, userName } = useAppSelector((state) => state.auth);
+  const dispatch = useAppDispatch();
+  const handleLogoutButtonClick = () => dispatch(userLogoutRequest());
 
   return (
     <div className={styles.wrapper}>
@@ -40,6 +43,7 @@ const Layout = (props: LayoutProps) => {
         menu={navigation}
         isAuth={isAuth}
         userName={userName}
+        handleLogoutButtonClick={handleLogoutButtonClick}
       />
       <main className={styles.main}>
         {children}
