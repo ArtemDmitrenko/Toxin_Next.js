@@ -1,6 +1,7 @@
 import { DocumentData, QueryDocumentSnapshot } from '@firebase/firestore';
 
 import FirebaseDocumentType from 'Root/api/FirebaseDocumentType';
+import areDateRangesOverlap from 'Root/utils/areDateRangesOverlap';
 import { SearchFilterState } from 'Components/SearchFilter/SearchFilter';
 
 const filterDocumentsByConstraints = (
@@ -50,6 +51,7 @@ const filterDocumentsByConstraints = (
     if (filter.facilitiesData.beds > data.facilities.beds) return;
     if (filter.facilitiesData.bathrooms > data.facilities.bathrooms) return;
     if (!checkAreAdditions(data.additions)) return;
+    if (areDateRangesOverlap(filter.dateRange, data.reserved)) return;
 
     filteredDocs.push(doc);
   });
