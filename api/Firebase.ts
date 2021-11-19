@@ -5,8 +5,8 @@ import {
   sendPasswordResetEmail,
   createUserWithEmailAndPassword,
   updateProfile,
+  signOut,
 } from 'firebase/auth';
-
 import {
   Query,
   QueryDocumentSnapshot,
@@ -134,6 +134,8 @@ abstract class Firebase {
       }),
     });
   };
+
+  public static logOut = async () => { signOut(this.auth); };
 }
 
 export default Firebase;
