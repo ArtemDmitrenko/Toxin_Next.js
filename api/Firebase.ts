@@ -16,6 +16,7 @@ import { getAuth, signInWithEmailAndPassword, sendPasswordResetEmail } from 'fir
 
 import { SearchFilterState } from 'Root/components/SearchFilter/SearchFilter';
 
+import filterDocumentsByConstraints from './helpers/filterDocumentsByConstraints';
 import separateToPages from './helpers/separateToPages';
 import firebaseCfg from './firebaseConfig';
 
@@ -63,9 +64,11 @@ abstract class Firebase {
 
     const documents = snapshot.docs;
 
+    const filteredDocuments = filterDocumentsByConstraints(documents, filterConstraints);
+
     return {
-      documents: separateToPages(documents, documentsLimit),
-      length: documents.length,
+      documents: separateToPages(filteredDocuments, documentsLimit),
+      length: filteredDocuments.length,
     };
   };
 }
