@@ -1,3 +1,5 @@
+import { ChangeEventHandler } from 'react';
+
 import styles from './radioButton.module.scss';
 
 type RadioButtonProps = {
@@ -5,6 +7,7 @@ type RadioButtonProps = {
   value: string,
   content: string,
   isDefaultChecked?: boolean,
+  onChange?: ChangeEventHandler<HTMLInputElement>,
 };
 
 const RadioButton = (props: RadioButtonProps) => {
@@ -12,7 +15,8 @@ const RadioButton = (props: RadioButtonProps) => {
     name,
     value,
     content,
-    isDefaultChecked = false,
+    isDefaultChecked,
+    onChange,
   } = props;
 
   return (
@@ -23,6 +27,7 @@ const RadioButton = (props: RadioButtonProps) => {
         name={name}
         value={value}
         defaultChecked={isDefaultChecked}
+        onChange={onChange}
       />
       <div className={styles.content}>{content}</div>
     </label>

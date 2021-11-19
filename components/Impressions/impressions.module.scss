@@ -20,6 +20,7 @@
 
 .diagram {
   display: flex;
+  user-select: none;
 
   @media (max-width: $mediaSizeMobile) {
     flex-direction: column;
@@ -37,9 +38,14 @@
   stroke-width: 4;
 }
 
+.unitActive {
+  stroke-width: 7;
+}
+
 .item {
   @include paragraph();
   color: $textColor75;
+  cursor: pointer;
 }
 
 .amazing::before {
@@ -64,18 +70,19 @@
 
 .total {
   position: absolute;
-  top: 24%;
-  left: 21%;
+  top: 50%;
+  left: 50%;
   width: 70px;
+  margin: 0;
   color: $primaryColor;
   font-size: 24px;
-  line-height: 19px;
+  line-height: 20.6px;
   text-align: center;
-
-  @include h1();
+  transform: translate(-50%, -50%);
 
   & span {
     @include h3();
+    min-width: 64px;
     color: $primaryColor;
   }
 }
@@ -83,7 +90,7 @@
 .legend {
   min-width: 162px;
   margin-top: 29px;
-  margin-left: 30px;
+  margin-left: 25px;
 }
 
 .list {

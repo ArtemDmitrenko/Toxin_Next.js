@@ -5,6 +5,7 @@ import {
   sendPasswordResetEmail,
   createUserWithEmailAndPassword,
   updateProfile,
+  signOut,
 } from 'firebase/auth';
 import {
   Query,
@@ -136,6 +137,8 @@ abstract class Firebase {
       commentaries: comments,
     });
   };
+
+  public static logOut = async () => { signOut(this.auth); };
 }
 
 export default Firebase;

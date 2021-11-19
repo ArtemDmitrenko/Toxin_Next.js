@@ -23,11 +23,17 @@ type HeaderProps = {
   menu: Array<HeaderMenu>,
   isAuth: boolean,
   userName: string | null,
+  handleLogoutButtonClick: () => void,
 };
 
 const Header = (props: HeaderProps) => {
   const mockUserName = 'Неопознанная панда';
-  const { menu, isAuth = false, userName = mockUserName } = props;
+  const {
+    menu,
+    handleLogoutButtonClick,
+    isAuth = false,
+    userName = mockUserName,
+  } = props;
   const [activeMenu, setActiveMenu] = useState<number | null>(null);
   const [isOpenBurgerMenu, setIsOpenBurgerMenu] = useState<boolean>(false);
 
@@ -47,8 +53,8 @@ const Header = (props: HeaderProps) => {
     `${styles.buttons} ${isOpenBurgerMenu ? styles.buttonsVisible : ''}`
   );
 
-  const stylesUserData = () => (
-    `${styles.userData} ${isOpenBurgerMenu ? styles.userDataVisible : ''}`
+  const stylesUserProfile = () => (
+    `${styles.userProfile} ${isOpenBurgerMenu ? styles.userProfileVisible : ''}`
   );
 
   const stylesBurgerMenu = () => (
@@ -110,18 +116,29 @@ const Header = (props: HeaderProps) => {
             })}
           </ul>
         </nav>
-        { isAuth ? (<div className={stylesUserData()}>{userName || mockUserName}</div>)
-          : (
-            <div className={stylesButtons()}>
-              <Reference href="/auth/log-in" text="Войти" type="bordered" size="small" />
-              <Reference
-                href="/auth/sign-up"
-                text="Зарегистрироваться"
-                type="solid"
-                size="small"
-              />
-            </div>
-          )}
+        { isAuth ? (
+          <div className={stylesUserProfile()}>
+            <p className={styles.userName}>{userName || mockUserName}</p>
+            <Reference
+              isButton
+              buttonType="button"
+              text="Выйти"
+              type="bordered"
+              size="small"
+              onClick={handleLogoutButtonClick}
+            />
+          </div>
+        ) : (
+          <div className={stylesButtons()}>
+            <Reference href="/auth/log-in" text="Войти" type="bordered" size="small" />
+            <Reference
+              href="/auth/sign-up"
+              text="Зарегистрироваться"
+              type="solid"
+              size="small"
+            />
+          </div>
+        )}
       </div>
     </header>
   );

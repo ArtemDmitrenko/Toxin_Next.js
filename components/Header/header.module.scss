@@ -287,12 +287,13 @@
   display: flex;
 }
 
-.userData {
+.userProfile {
   @include paragraph;
   display: flex;
   align-items: center;
+  justify-content: space-around;
   margin-left: 20px;
-  padding: 6px 0 6px 20px;
+  line-height: normal;
   border-left: 1px solid $textColor25;
 
   @media (max-width: 1024px) {
@@ -304,6 +305,16 @@
   }
 }
 
-.userDataVisible {
+.userProfileVisible {
   display: flex;
+}
+
+.userName {
+  margin: 0;
+  padding: 10px 20px;
+
+  @media (max-width: 1024px) {
+    padding-top: 0;
+    padding-bottom: 20px;
+  }
 }

@@ -1,0 +1,74 @@
+@import 'Root/style/variables.scss';
+
+.container {
+  max-width: 380px;
+  padding: 40px 30px 30px;
+  background: #fff;
+  border-radius: 4px;
+  box-shadow: $cardShadow;
+
+  @media (max-width: $mediaSizeMobile) {
+    padding: 25px 15px 20px;
+  }
+}
+
+.title {
+  @include h1();
+}
+
+.name {
+  margin-top: 20px;
+}
+
+.surname {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.subtitle {
+  @include h3();
+  margin-bottom: 5px;
+}
+
+.sign {
+  display: block;
+  color: red;
+}
+
+.field {
+  @include input;
+}
+
+.question {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 30px;
+  column-gap: 10px;
+}
+
+.sex {
+  margin-bottom: 10px;
+
+  & > label {
+    margin-right: 20px;
+  }
+}
+
+.dateOfBirth {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.offers {
+  margin-bottom: 20px;
+}
+
+.warningMessage {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.link {
+  @include link();
+}

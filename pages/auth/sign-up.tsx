@@ -1,31 +1,23 @@
 import Layout from 'Components/Layout/Layout';
 import BackgroundAuth from 'Components/BackgroundAuth/BackgroundAuth';
-import RadioButton from 'Components/RadioButton/RadioButton';
+import SignUpCard, { SignUpCardData } from 'Components/SignUpCard/SignUpCard';
+import { useAppDispatch } from 'Root/redux/hooks';
+import { signUpUserRequest } from 'Root/redux/signUp/signUpActions';
 
-import styles from './sign-up.module.scss';
+const SignUp = () => {
+  const dispatch = useAppDispatch();
 
-const SignUp = () => (
-  <Layout title="Sign up">
-    <BackgroundAuth>
-      <div className={styles.radioGroup}>
-        <div className={styles.radioButton}>
-          <RadioButton
-            name="sex"
-            value="male"
-            content="Мужчина"
-            isDefaultChecked
-          />
-        </div>
-        <div className={styles.radioButton}>
-          <RadioButton
-            name="sex"
-            value="female"
-            content="Женщина"
-          />
-        </div>
-      </div>
-    </BackgroundAuth>
-  </Layout>
-);
+  const handleRegistrationSubmit = (userData: SignUpCardData) => {
+    dispatch(signUpUserRequest(userData));
+  };
+
+  return (
+    <Layout title="Sign up">
+      <BackgroundAuth>
+        <SignUpCard onSubmit={handleRegistrationSubmit} />
+      </BackgroundAuth>
+    </Layout>
+  );
+};
 
 export default SignUp;
