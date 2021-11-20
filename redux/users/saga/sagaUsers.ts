@@ -9,20 +9,8 @@ import Firebase from 'Root/api/Firebase';
 
 async function fetchFirebaseUsers() {
   const snapshot = await Firebase.getUsers();
-  const users: UsersData = [];
 
-  snapshot.forEach((doc) => {
-    const { id } = doc;
-    const user = doc.data();
-
-    const result = {
-      id,
-      user,
-    };
-    users.push(result);
-  });
-
-  return users;
+  return snapshot;
 }
 
 function* usersRequestWorker() {

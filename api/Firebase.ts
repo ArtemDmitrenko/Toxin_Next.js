@@ -139,10 +139,10 @@ abstract class Firebase {
   };
 
   public static getUsers = async () => {
-    const q = query(collection(this.firestore, 'users'));
-    const users = await getDocs(q);
+    const usersQuery = query(collection(this.firestore, 'users'));
+    const users = await getDocs(usersQuery);
 
-    return users;
+    return users.docs;
   };
 
   public static logOut = async () => { signOut(this.auth); };

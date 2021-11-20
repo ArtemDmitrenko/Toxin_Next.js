@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import { Timestamp } from 'firebase/firestore';
 
 import { useAppSelector } from 'Root/redux/hooks';
 import convertNumToWordform from 'Root/utils/convertNumToWordform';
@@ -9,7 +10,7 @@ import styles from './comment.module.scss';
 
 type CommentProps = {
   userId: string,
-  date: Date,
+  date: Timestamp,
   text: string,
   likes: string[]
   onChange?: (data: LikeData) => void,
@@ -24,7 +25,7 @@ const Comment = (props: CommentProps) => {
     onChange,
   } = props;
 
-  const dateComment = date.toDate();
+  const dateComment = date.seconds * 1000;
 
   const currentDate = Date.now();
   const amountDays = Math.floor((currentDate - dateComment) / 86400000);
@@ -37,8 +38,11 @@ const Comment = (props: CommentProps) => {
     let userName = null;
 
     keys.forEach((item) => {
-      if (users[item].id === id) {
-        userName = `${users[item].user.name} ${users[item].user.surname}`;
+      const itemId = users[item].id;
+      const user = users[item].data();
+
+      if (itemId === id) {
+        userName = `${user.name} ${user.surname}`;
       }
     });
     if (userName !== null) {
