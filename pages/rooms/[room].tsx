@@ -1,5 +1,5 @@
 import { GetServerSideProps } from 'next';
-import { useAppSelector } from 'Root/redux/hooks';
+import { useAppSelector, useAppDispatch } from 'Root/redux/hooks';
 
 import mockData from 'Root/public/rooms-mock/rooms.json';
 import { DropdownConfig } from 'Root/components/Dropdown/Dropdown';
@@ -13,6 +13,9 @@ import ReservationCard, { Service } from 'Components/ReservationCard/Reservation
 import userComments from 'Components/Comments/comments.json';
 import rulesList from 'Components/RulesList/rulesList.json';
 import roomInformation from 'Components/RoomInformation/roomInformation.json';
+import formattingDate from 'Components/DateRange/helpers/formattingDate';
+import addDaysToDate from 'Root/utils/addDaysToDate';
+import { setRoomSearchData } from 'Root/redux/roomSearch/roomSearchActions';
 
 import styles from './room.module.scss';
 
@@ -35,19 +38,19 @@ const guestDropdown: DropdownConfig = [
     title: 'взрослые',
     group: 'adults',
     wordforms: ['гость', 'гостя', 'гостей'],
-    defaultValue: 2,
+    defaultValue: 0,
   },
   {
     title: 'дети',
     group: 'adults',
     wordforms: ['гость', 'гостя', 'гостей'],
-    defaultValue: 1,
+    defaultValue: 0,
   },
   {
     title: 'младенцы',
     group: 'babies',
     wordforms: ['младенец', 'младенца', 'младенцев'],
-    defaultValue: 1,
+    defaultValue: 0,
   },
 ];
 
@@ -65,12 +68,28 @@ const Room = (props: RoomProps) => {
   const { arrival, departure } = datesOfStay;
   const { numberOfGuestsByTitle }: { [key:string]: number } = roomSearch;
 
-  const usFormatDate = () => {
-    const usFormatDateArrival = arrival.split('.').reverse().join('-');
-    const usFormatDateDeparture = departure.split('.').reverse().join('-');
+  const dispatch = useAppDispatch();
+
+  const setDefDateRange = () => {
+    if (arrival && departure) {
+      const usFormatDateArrival = arrival.split('.').reverse().join('-');
+      const usFormatDateDeparture = departure.split('.').reverse().join('-');
+      return {
+        arrival: usFormatDateArrival,
+        departure: usFormatDateDeparture,
+      };
+    }
+    const roomSearchState = {
+      ...roomSearch,
+      datesOfStay: {
+        arrival: formattingDate(new Date()),
+        departure: formattingDate(addDaysToDate(new Date(), 3)),
+      },
+    };
+    dispatch(setRoomSearchData(roomSearchState));
     return {
-      arrival: usFormatDateArrival,
-      departure: usFormatDateDeparture,
+      arrival: formattingDate(new Date()).split('.').reverse().join('-'),
+      departure: formattingDate(addDaysToDate(new Date(), 3)).split('.').reverse().join('-'),
     };
   };
 
@@ -125,7 +144,7 @@ const Room = (props: RoomProps) => {
               roomNumber={data.room}
               level={data.level}
               cost={data.cost}
-              datesOfStay={usFormatDate()}
+              datesOfStay={setDefDateRange()}
               guests={getGuestDropdown()}
               service={service}
               onSubmit={() => {}}

@@ -24,7 +24,11 @@ const BackgroundWithSlogan = () => {
   const dispatch = useAppDispatch();
 
   const handleSubmit = (data: RoomSearchCardData) => {
-    dispatch(setRoomSearchData(data));
+    const roomSearchState = {
+      datesOfStay: data.datesOfStay,
+      numberOfGuestsByTitle: data.numberOfGuestsByTitle,
+    };
+    dispatch(setRoomSearchData(roomSearchState));
   };
 
   return (

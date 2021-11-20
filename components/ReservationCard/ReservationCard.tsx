@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { useAppSelector } from 'Root/redux/hooks';
 import convertNumToWordform from 'Root/utils/convertNumToWordform';
 import DateRange, { DatesOfStay } from 'Components/DateRange/DateRange';
-import Dropdown, { DropdownConfig } from 'Components/Dropdown/Dropdown';
+import Dropdown, { DropdownConfig, DropdownData } from 'Components/Dropdown/Dropdown';
 import Reference from 'Components/Reference/Reference';
 import Tooltip from 'Components/Tooltip/Tooltip';
 import Message from 'Components/Message/Message';
@@ -100,8 +100,8 @@ const ReservationCard = (props: ReservationCardProps) => {
     return formatCost(totalCost);
   };
 
-  const handleNumberOfGuestChange = (data: { [key: string]: number }) => {
-    setNumberOfGuests(data);
+  const handleNumberOfGuestChange = (data: DropdownData) => {
+    setNumberOfGuests(data.group);
   };
 
   const handleSubmit = () => {
@@ -191,7 +191,7 @@ const ReservationCard = (props: ReservationCardProps) => {
             Для бронирования необходимо
             {' '}
             <b>
-              <Link href="/auth/sign-in">
+              <Link href="/auth/log-in">
                 <a className={styles.link} href="replace">
                   войти в&nbsp;аккаунт
                 </a>
@@ -205,5 +205,5 @@ const ReservationCard = (props: ReservationCardProps) => {
   );
 };
 
-export type { Service };
+export type { Service, ReservationCardData };
 export default ReservationCard;

@@ -11,12 +11,10 @@ const datesOfStay: DatesOfStay = {
   departure: '',
 };
 
-const numberOfGuests: { [key:string]: number } = {};
 const numberOfGuestsByTitle: { [key:string]: number } = {};
 
 const initialState: RoomSearchState = {
   datesOfStay,
-  numberOfGuests,
   numberOfGuestsByTitle,
 };
 

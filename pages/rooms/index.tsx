@@ -5,8 +5,9 @@ import { DropdownConfig } from 'Root/components/Dropdown/Dropdown';
 import Layout from 'Components/Layout/Layout';
 import SearchFilter, { SearchFilterState } from 'Components/SearchFilter/SearchFilter';
 import Pagination from 'Components/Pagination/Pagination';
-// import addDaysToDate from 'Root/utils/addDaysToDate';
-import { DatesOfStay, setRoomSearchData } from 'Root/redux/roomSearch/roomSearchActions';
+import addDaysToDate from 'Root/utils/addDaysToDate';
+import { setRoomSearchData } from 'Root/redux/roomSearch/roomSearchActions';
+import formattingDate from 'Components/DateRange/helpers/formattingDate';
 
 import styles from './index.module.scss';
 
@@ -133,26 +134,45 @@ const Rooms = () => {
   const dispatch = useAppDispatch();
 
   const getGuestDropdown = () => {
-    Object.entries(numberOfGuestsByTitle).forEach(([groupName, value]) => {
-      guestDropdown.map((item) => {
-        if (item.title === groupName) {
-          // eslint-disable-next-line no-param-reassign
-          item.defaultValue = value;
+    if (numberOfGuestsByTitle) {
+      Object.entries(numberOfGuestsByTitle).forEach(([groupName, value]) => {
+        guestDropdown.map((item) => {
+          if (item.title === groupName) {
+            // eslint-disable-next-line no-param-reassign
+            item.defaultValue = value;
+            return item;
+          }
           return item;
-        }
-        return item;
+        });
       });
-    });
+      return guestDropdown;
+    }
     return guestDropdown;
   };
 
   const setDefDateRange = () => {
-    const usFormatDateArrival = arrival.split('.').reverse().join('-');
-    const usFormatDateDeparture = departure.split('.').reverse().join('-');
+    if (arrival && departure) {
+      const usFormatDateArrival = arrival.split('.').reverse().join('-');
+      const usFormatDateDeparture = departure.split('.').reverse().join('-');
+      return {
+        defaultValues: [
+          new Date(usFormatDateArrival),
+          new Date(usFormatDateDeparture),
+        ],
+      };
+    }
+    const roomSearchState = {
+      ...roomSearch,
+      datesOfStay: {
+        arrival: formattingDate(new Date()),
+        departure: formattingDate(addDaysToDate(new Date(), 3)),
+      },
+    };
+    dispatch(setRoomSearchData(roomSearchState));
     return {
       defaultValues: [
-        new Date(usFormatDateArrival),
-        new Date(usFormatDateDeparture),
+        new Date(),
+        addDaysToDate(new Date(), 3),
       ],
     };
   };

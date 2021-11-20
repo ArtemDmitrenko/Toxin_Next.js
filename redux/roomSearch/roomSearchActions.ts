@@ -7,7 +7,6 @@ type DatesOfStay = {
 
 type RoomSearchState = {
   datesOfStay: DatesOfStay,
-  numberOfGuests: { [key:string]: number },
   numberOfGuestsByTitle: { [key:string]: number },
 };
 
