@@ -1,4 +1,5 @@
 import { GetServerSideProps } from 'next';
+import { useAppSelector } from 'Root/redux/hooks';
 
 import mockData from 'Root/public/rooms-mock/rooms.json';
 import { DropdownConfig } from 'Root/components/Dropdown/Dropdown';
@@ -59,6 +60,17 @@ const service: Service = {
 const Room = (props: RoomProps) => {
   const { data } = props;
 
+  const { arrival, departure } = useAppSelector((state) => state.roomSearch.datesOfStay);
+
+  const usFormatDate = () => {
+    const usFormatDateArrival = arrival.split('.').reverse().join('-');
+    const usFormatDateDeparture = departure.split('.').reverse().join('-');
+    return {
+      arrival: usFormatDateArrival,
+      departure: usFormatDateDeparture,
+    };
+  };
+
   return (
     <Layout title={`Room ${data.room}`}>
       <Collage images={data.images.slice(0, 3)} />
@@ -96,7 +108,7 @@ const Room = (props: RoomProps) => {
               roomNumber={data.room}
               level={data.level}
               cost={data.cost}
-              datesOfStay={{ arrival: '2019-08-19', departure: '2019-08-23' }}
+              datesOfStay={usFormatDate()}
               guests={guestDropdown}
               service={service}
               onSubmit={() => {}}

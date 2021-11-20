@@ -4,12 +4,14 @@ import authReducer, { AuthState } from './auth/authReducer';
 import passwordRecoveryReducer, { PasswordRecoveryState } from './auth/passwordRecoveryReducer';
 import roomsReducer, { RoomsState } from './rooms/roomsReducer';
 import signUpReducer, { SignUpState } from './signUp/signUpReducer';
+import roomSearchReducer, { RoomSearchState } from './roomSearch/roomSearchReducer';
 
 type StoreState = {
   auth: AuthState,
   passwordRecovery: PasswordRecoveryState,
   rooms: RoomsState,
-  signUp: SignUpState
+  signUp: SignUpState,
+  roomSearch: RoomSearchState,
 };
 
 const rootReducer = combineReducers<StoreState>({
@@ -17,6 +19,7 @@ const rootReducer = combineReducers<StoreState>({
   passwordRecovery: passwordRecoveryReducer,
   rooms: roomsReducer,
   signUp: signUpReducer,
+  roomSearch: roomSearchReducer,
 });
 
 export default rootReducer;

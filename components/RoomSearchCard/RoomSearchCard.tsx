@@ -3,6 +3,7 @@ import { useState } from 'react';
 import Reference from 'Components/Reference/Reference';
 import Dropdown, { DropdownConfig } from 'Components/Dropdown/Dropdown';
 import DateRange, { DateRangeConfig, DatesOfStay } from 'Components/DateRange/DateRange';
+import formattingDate from 'Components/DateRange/helpers/formattingDate';
 
 import styles from './roomSearchCard.module.scss';
 
@@ -26,7 +27,20 @@ const RoomSearchCard = (props: RoomSearchCardProps) => {
     isDouble,
   } = dateRangeConfig;
 
-  const [datesOfStay, setDatesOfStay] = useState({ arrival: '', departure: '' });
+  const setDefDateOfStay = () => {
+    if (defaultValues) {
+      return {
+        arrival: formattingDate(defaultValues[0]),
+        departure: formattingDate(defaultValues[1]),
+      };
+    }
+    return {
+      arrival: '',
+      departure: '',
+    };
+  };
+
+  const [datesOfStay, setDatesOfStay] = useState(setDefDateOfStay);
   const [numberOfGuests, setNumberOfGuests] = useState({});
 
   const handleDatesOfStayChange = (dates: DatesOfStay) => {
