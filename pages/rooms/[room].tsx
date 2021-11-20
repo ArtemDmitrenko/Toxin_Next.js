@@ -60,7 +60,10 @@ const service: Service = {
 const Room = (props: RoomProps) => {
   const { data } = props;
 
-  const { arrival, departure } = useAppSelector((state) => state.roomSearch.datesOfStay);
+  const roomSearch = useAppSelector((state) => state.roomSearch);
+  const { datesOfStay } = roomSearch;
+  const { arrival, departure } = datesOfStay;
+  const { numberOfGuestsByTitle }: { [key:string]: number } = roomSearch;
 
   const usFormatDate = () => {
     const usFormatDateArrival = arrival.split('.').reverse().join('-');
@@ -69,6 +72,20 @@ const Room = (props: RoomProps) => {
       arrival: usFormatDateArrival,
       departure: usFormatDateDeparture,
     };
+  };
+
+  const getGuestDropdown = () => {
+    Object.entries(numberOfGuestsByTitle).forEach(([groupName, value]) => {
+      guestDropdown.map((item) => {
+        if (item.title === groupName) {
+          // eslint-disable-next-line no-param-reassign
+          item.defaultValue = value;
+          return item;
+        }
+        return item;
+      });
+    });
+    return guestDropdown;
   };
 
   return (
@@ -109,7 +126,7 @@ const Room = (props: RoomProps) => {
               level={data.level}
               cost={data.cost}
               datesOfStay={usFormatDate()}
-              guests={guestDropdown}
+              guests={getGuestDropdown()}
               service={service}
               onSubmit={() => {}}
             />

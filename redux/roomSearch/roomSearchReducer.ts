@@ -12,10 +12,12 @@ const datesOfStay: DatesOfStay = {
 };
 
 const numberOfGuests: { [key:string]: number } = {};
+const numberOfGuestsByTitle: { [key:string]: number } = {};
 
 const initialState: RoomSearchState = {
   datesOfStay,
   numberOfGuests,
+  numberOfGuestsByTitle,
 };
 
 const roomSearchReducer = (state = initialState, action: RoomSearchAction): RoomSearchState => {

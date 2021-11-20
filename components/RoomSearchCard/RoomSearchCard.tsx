@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 import Reference from 'Components/Reference/Reference';
-import Dropdown, { DropdownConfig } from 'Components/Dropdown/Dropdown';
+import Dropdown, { DropdownConfig, DropdownData } from 'Components/Dropdown/Dropdown';
 import DateRange, { DateRangeConfig, DatesOfStay } from 'Components/DateRange/DateRange';
 import formattingDate from 'Components/DateRange/helpers/formattingDate';
 
@@ -10,6 +10,7 @@ import styles from './roomSearchCard.module.scss';
 type RoomSearchCardData = {
   datesOfStay: DatesOfStay,
   numberOfGuests: { [key:string]: number },
+  numberOfGuestsByTitle: { [key:string]: number },
 };
 
 type RoomSearchCardProps = {
@@ -42,6 +43,7 @@ const RoomSearchCard = (props: RoomSearchCardProps) => {
 
   const [datesOfStay, setDatesOfStay] = useState(setDefDateOfStay);
   const [numberOfGuests, setNumberOfGuests] = useState({});
+  const [numberOfGuestsByTitle, setNumberOfGuestsByTitle] = useState({});
 
   const handleDatesOfStayChange = (dates: DatesOfStay) => {
     setDatesOfStay({
@@ -51,17 +53,18 @@ const RoomSearchCard = (props: RoomSearchCardProps) => {
     });
   };
 
-  const handleNumberOfGuestChange = (data: { [key:string]: number }) => {
-    setNumberOfGuests(data);
+  const handleNumberOfGuestChange = (data: DropdownData) => {
+    setNumberOfGuests(data.group);
+    setNumberOfGuestsByTitle(data.title);
   };
 
   const handleButtonClick = () => {
-    onSubmit({ datesOfStay, numberOfGuests });
+    onSubmit({ datesOfStay, numberOfGuests, numberOfGuestsByTitle });
   };
 
   const handleButtonKeyDown = ({ code }: React.KeyboardEvent) => {
     if (code === 'Enter') {
-      onSubmit({ datesOfStay, numberOfGuests });
+      onSubmit({ datesOfStay, numberOfGuests, numberOfGuestsByTitle });
     }
   };
 

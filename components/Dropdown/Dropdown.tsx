@@ -11,7 +11,10 @@ type DropdownConfig = Array<{
   wordforms: [string, string, string],
 }>;
 
-type DropdownData = { [key: string]: number };
+type DropdownData = {
+  group: { [key: string]: number },
+  title: { [key: string]: number }
+};
 
 type DropdownProps = {
   list: DropdownConfig,
@@ -98,18 +101,22 @@ const Dropdown = (props: DropdownProps) => {
   const convertToOutput = (state: DropdownState): DropdownData => {
     const { groups } = state;
 
-    const output: DropdownData = {};
+    const output: DropdownData = {
+      group: {},
+      title: {},
+    };
 
     Object.entries(groups).forEach(([groupName, group]) => {
       let sum = 0;
 
       Object.values(group.items).forEach((item) => {
+        output.title[item.title] = item.value;
+
         sum += item.value;
       });
 
-      output[groupName] = sum;
+      output.group[groupName] = sum;
     });
-
     return output;
   };
 

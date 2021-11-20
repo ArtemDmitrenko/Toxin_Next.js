@@ -6,7 +6,7 @@ import Layout from 'Components/Layout/Layout';
 import SearchFilter, { SearchFilterState } from 'Components/SearchFilter/SearchFilter';
 import Pagination from 'Components/Pagination/Pagination';
 // import addDaysToDate from 'Root/utils/addDaysToDate';
-import { setRoomSearchData } from 'Root/redux/roomSearch/roomSearchActions';
+import { DatesOfStay, setRoomSearchData } from 'Root/redux/roomSearch/roomSearchActions';
 
 import styles from './index.module.scss';
 
@@ -128,8 +128,23 @@ const Rooms = () => {
   const roomSearch = useAppSelector((state) => state.roomSearch);
   const { datesOfStay } = roomSearch;
   const { arrival, departure } = datesOfStay;
+  const { numberOfGuestsByTitle }: { [key:string]: number } = roomSearch;
 
   const dispatch = useAppDispatch();
+
+  const getGuestDropdown = () => {
+    Object.entries(numberOfGuestsByTitle).forEach(([groupName, value]) => {
+      guestDropdown.map((item) => {
+        if (item.title === groupName) {
+          // eslint-disable-next-line no-param-reassign
+          item.defaultValue = value;
+          return item;
+        }
+        return item;
+      });
+    });
+    return guestDropdown;
+  };
 
   const setDefDateRange = () => {
     const usFormatDateArrival = arrival.split('.').reverse().join('-');
@@ -143,17 +158,23 @@ const Rooms = () => {
   };
 
   const handleFilterChange = (data: SearchFilterState) => {
+    let roomSearchState = roomSearch;
     if (data.dateRange) {
       const finalDatesOfStay = {
         arrival: data.dateRange?.arrival,
         departure: data.dateRange?.departure,
       };
-      const roomSearchState = {
+      roomSearchState = {
         datesOfStay: finalDatesOfStay,
-        numberOfGuests: {},
       };
-      dispatch(setRoomSearchData(roomSearchState));
     }
+    if (data.guestsDropdown) {
+      roomSearchState = {
+        numberOfGuests: data.guestsDropdown?.group,
+        numberOfGuestsByTitle: data.guestsDropdown?.title,
+      };
+    }
+    dispatch(setRoomSearchData(roomSearchState));
   };
 
   const [filter, setFilter] = useState(false);
@@ -180,7 +201,7 @@ const Rooms = () => {
             <div className={styles.filterWrapper}>
               <SearchFilter
                 dateRangeConfig={setDefDateRange()}
-                guestsDropdownConfig={guestDropdown}
+                guestsDropdownConfig={getGuestDropdown()}
                 rangeSliderConfig={rangeSlider}
                 checkboxRulesConfig={checkboxRules}
                 checkboxAvailabilitiesConfig={checkboxAvailabilities}
