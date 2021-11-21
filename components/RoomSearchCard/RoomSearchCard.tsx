@@ -9,7 +9,7 @@ import styles from './roomSearchCard.module.scss';
 
 type RoomSearchCardData = {
   datesOfStay: DatesOfStay,
-  numberOfGuests: { [key:string]: number },
+  numberOfGuestsByGroup: { [key:string]: number },
   numberOfGuestsByTitle: { [key:string]: number },
 };
 
@@ -42,29 +42,28 @@ const RoomSearchCard = (props: RoomSearchCardProps) => {
   };
 
   const [datesOfStay, setDatesOfStay] = useState(setDefDateOfStay);
-  const [numberOfGuests, setNumberOfGuests] = useState({});
+  const [numberOfGuestsByGroup, setNumberOfGuestsByGroup] = useState({});
   const [numberOfGuestsByTitle, setNumberOfGuestsByTitle] = useState({});
 
   const handleDatesOfStayChange = (dates: DatesOfStay) => {
     setDatesOfStay({
-      ...datesOfStay,
       arrival: dates.arrival,
       departure: dates.departure,
     });
   };
 
   const handleNumberOfGuestChange = (data: DropdownData) => {
-    setNumberOfGuests(data.group);
+    setNumberOfGuestsByGroup(data.group);
     setNumberOfGuestsByTitle(data.title);
   };
 
   const handleButtonClick = () => {
-    onSubmit({ datesOfStay, numberOfGuests, numberOfGuestsByTitle });
+    onSubmit({ datesOfStay, numberOfGuestsByGroup, numberOfGuestsByTitle });
   };
 
   const handleButtonKeyDown = ({ code }: React.KeyboardEvent) => {
     if (code === 'Enter') {
-      onSubmit({ datesOfStay, numberOfGuests, numberOfGuestsByTitle });
+      onSubmit({ datesOfStay, numberOfGuestsByGroup, numberOfGuestsByTitle });
     }
   };
 

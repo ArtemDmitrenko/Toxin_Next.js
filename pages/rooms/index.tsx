@@ -180,17 +180,17 @@ const Rooms = () => {
   const handleFilterChange = (data: SearchFilterState) => {
     let roomSearchState = roomSearch;
     if (data.dateRange) {
-      const finalDatesOfStay = {
+      const filterDatesOfStay = {
         arrival: data.dateRange?.arrival,
         departure: data.dateRange?.departure,
       };
       roomSearchState = {
-        datesOfStay: finalDatesOfStay,
+        datesOfStay: filterDatesOfStay,
       };
     }
     if (data.guestsDropdown) {
       roomSearchState = {
-        numberOfGuests: data.guestsDropdown?.group,
+        numberOfGuestsByGroup: data.guestsDropdown?.group,
         numberOfGuestsByTitle: data.guestsDropdown?.title,
       };
     }

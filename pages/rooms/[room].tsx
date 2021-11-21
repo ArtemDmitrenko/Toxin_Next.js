@@ -16,6 +16,7 @@ import roomInformation from 'Components/RoomInformation/roomInformation.json';
 import formattingDate from 'Components/DateRange/helpers/formattingDate';
 import addDaysToDate from 'Root/utils/addDaysToDate';
 import { setRoomSearchData } from 'Root/redux/roomSearch/roomSearchActions';
+import { DatesOfStay } from 'Components/DateRange/DateRange';
 
 import styles from './room.module.scss';
 
@@ -70,7 +71,7 @@ const Room = (props: RoomProps) => {
 
   const dispatch = useAppDispatch();
 
-  const setDefDateRange = () => {
+  const setDefDateRange = (): DatesOfStay => {
     if (arrival && departure) {
       const usFormatDateArrival = arrival.split('.').reverse().join('-');
       const usFormatDateDeparture = departure.split('.').reverse().join('-');
@@ -93,7 +94,7 @@ const Room = (props: RoomProps) => {
     };
   };
 
-  const getGuestDropdown = () => {
+  const getGuestDropdown = (): DropdownConfig => {
     Object.entries(numberOfGuestsByTitle).forEach(([groupName, value]) => {
       guestDropdown.map((item) => {
         if (item.title === groupName) {
