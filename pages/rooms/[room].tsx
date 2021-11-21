@@ -1,7 +1,12 @@
 import { GetServerSideProps } from 'next';
+import { useEffect } from 'react';
 
-import mockData from 'Root/public/rooms-mock/rooms.json';
 import { DropdownConfig } from 'Root/components/Dropdown/Dropdown';
+import { clearRoom, requestRoom } from 'Root/redux/room/roomActions';
+import { useAppDispatch, useAppSelector } from 'Root/redux/hooks';
+import convertDateToString from 'Root/utils/convertDateToString';
+import addDaysToDate from 'Root/utils/addDaysToDate';
+import FirebaseDocumentType from 'Root/api/FirebaseDocumentType';
 import Layout from 'Components/Layout/Layout';
 import Collage from 'Components/Collage/Collage';
 import Comments from 'Components/Comments/Comments';
@@ -11,22 +16,12 @@ import RoomInformation from 'Components/RoomInformation/RoomInformation';
 import ReservationCard, { Service } from 'Components/ReservationCard/ReservationCard';
 import userComments from 'Components/Comments/comments.json';
 import rulesList from 'Components/RulesList/rulesList.json';
-import roomInformation from 'Components/RoomInformation/roomInformation.json';
+import LoadingSpinner from 'Components/LoadingSpinner/LoadingSpinner';
 
 import styles from './room.module.scss';
 
 type RoomProps = {
-  data: {
-    room: number,
-    level: string,
-    cost: number,
-    rating: number,
-    reviews: number,
-    images: Array<{
-      alt: string,
-      src: string
-    }>
-  },
+  roomNumber: string,
 };
 
 const guestDropdown: DropdownConfig = [
@@ -57,23 +52,39 @@ const service: Service = {
 };
 
 const Room = (props: RoomProps) => {
-  const { data } = props;
+  const { roomNumber } = props;
 
-  return (
+  const dispatch = useAppDispatch();
+  const data: FirebaseDocumentType = useAppSelector((store) => store.room);
+
+  useEffect(() => {
+    dispatch(requestRoom({ roomNumber }));
+
+    return () => {
+      dispatch(clearRoom());
+    };
+  }, []);
+
+  return data !== null ? (
     <Layout title={`Room ${data.room}`}>
       <Collage images={data.images.slice(0, 3)} />
       <div className={styles.container}>
         <div className={styles.content}>
           <div className={styles.information}>
-            <RoomInformation heading="Сведения о номере" info={roomInformation} />
+            <RoomInformation heading="Сведения о номере" info={data.details} />
           </div>
           <div className={styles.chart}>
-            <Impressions amazing={130} good={65} satisfactorily={65} />
+            <Impressions
+              amazing={data.reviews.amazing}
+              good={data.reviews.good}
+              satisfactorily={data.reviews.satisfactory}
+              bad={data.reviews.bad}
+            />
           </div>
           <div className={styles.feedback}>
             <Comments
               comments={userComments}
-              onChange={() => {}}
+              onChange={() => { }}
             />
           </div>
           <div className={styles.rules}>
@@ -96,26 +107,37 @@ const Room = (props: RoomProps) => {
               roomNumber={data.room}
               level={data.level}
               cost={data.cost}
-              datesOfStay={{ arrival: '2019-08-19', departure: '2019-08-23' }}
+              datesOfStay={{
+                arrival: convertDateToString(new Date()),
+                departure: convertDateToString(addDaysToDate(new Date(), 3)),
+              }}
               guests={guestDropdown}
               service={service}
-              onSubmit={() => {}}
+              onSubmit={() => { }}
             />
           </div>
         </div>
+      </div>
+    </Layout>
+  ) : (
+    <Layout title="Loading">
+      <div className={styles.wrapper}>
+        <LoadingSpinner />
       </div>
     </Layout>
   );
 };
 
 const getServerSideProps: GetServerSideProps = async (context) => {
-  const { room } = context.query;
+  const roomNumber = context.params?.room;
 
-  const data = mockData.find((roomNumber) => (
-    roomNumber.room === Number(room)
-  ));
+  if (typeof roomNumber !== 'string') {
+    return {
+      notFound: true,
+    };
+  }
 
-  return { props: { data } };
+  return { props: { roomNumber } };
 };
 
 export { getServerSideProps };
