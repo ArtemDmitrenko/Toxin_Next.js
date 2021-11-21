@@ -13,10 +13,12 @@ import Comments from 'Components/Comments/Comments';
 import RulesList from 'Components/RulesList/RulesList';
 import Impressions from 'Components/Impressions/Impressions';
 import RoomInformation from 'Components/RoomInformation/RoomInformation';
-import ReservationCard, { Service } from 'Components/ReservationCard/ReservationCard';
+import ReservationCard, { Service, ReservationCardData } from 'Components/ReservationCard/ReservationCard';
 import userComments from 'Components/Comments/comments.json';
 import rulesList from 'Components/RulesList/rulesList.json';
 import LoadingSpinner from 'Components/LoadingSpinner/LoadingSpinner';
+import areDateRangesOverlap from 'Root/utils/areDateRangesOverlap';
+import { makeReservation, failedReservation } from 'Root/redux/reservation/reservationActions';
 
 import styles from './room.module.scss';
 
@@ -64,6 +66,24 @@ const Room = (props: RoomProps) => {
       dispatch(clearRoom());
     };
   }, []);
+
+  const handleSubmit = async (bookingData: ReservationCardData) => {
+    const { datesOfStay } = bookingData;
+    const reservationData = data.reserved;
+    const isDateRangeOverlaped = areDateRangesOverlap(datesOfStay, reservationData);
+    if (isDateRangeOverlaped) {
+      dispatch(failedReservation());
+    } else {
+      const primaryDates = {
+        roomNumber,
+        datesOfStay: {
+          from: new Date(datesOfStay.arrival),
+          to: new Date(datesOfStay.departure),
+        },
+      };
+      dispatch(makeReservation(primaryDates));
+    }
+  };
 
   return data !== null ? (
     <Layout title={`Room ${data.room}`}>
@@ -113,7 +133,7 @@ const Room = (props: RoomProps) => {
               }}
               guests={guestDropdown}
               service={service}
-              onSubmit={() => { }}
+              onSubmit={handleSubmit}
             />
           </div>
         </div>

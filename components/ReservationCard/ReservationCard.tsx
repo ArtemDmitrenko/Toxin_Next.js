@@ -51,6 +51,7 @@ const ReservationCard = (props: ReservationCardProps) => {
   } = props;
 
   const { isAuth } = useAppSelector((store) => store.auth);
+  const { isSuccessReservation } = useAppSelector((store) => store.reservation);
 
   const [dateRange, setDateRange] = useState({
     arrival: datesOfStay.arrival,
@@ -89,8 +90,8 @@ const ReservationCard = (props: ReservationCardProps) => {
 
   const handleDatesOfStayChange = (dates: DatesOfStay) => {
     setDateRange({
-      arrival: dates.arrival,
-      departure: dates.departure,
+      arrival: dates.arrival.split('.').reverse().join('-'),
+      departure: dates.departure.split('.').reverse().join('-'),
     });
   };
 
@@ -104,7 +105,8 @@ const ReservationCard = (props: ReservationCardProps) => {
     setNumberOfGuests(data);
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = (e: React.SyntheticEvent) => {
+    e.preventDefault();
     const reservationCardData: ReservationCardData = {
       datesOfStay: dateRange,
       numberOfGuests,
@@ -117,7 +119,7 @@ const ReservationCard = (props: ReservationCardProps) => {
   };
 
   return (
-    <form className={styles.reservationCard}>
+    <form className={styles.reservationCard} onSubmit={handleSubmit}>
       <div className={styles.dataRoom}>
         <div>
           <span className={styles.signNumber}>№</span>
@@ -182,7 +184,6 @@ const ReservationCard = (props: ReservationCardProps) => {
         type="directed"
         size="big"
         text="забронировать"
-        onClick={handleSubmit}
         disabled={!isAuth}
       />
       {!isAuth && (
@@ -201,9 +202,22 @@ const ReservationCard = (props: ReservationCardProps) => {
           </Message>
         </div>
       )}
+      {isSuccessReservation ? (
+        <div className={styles.warningMessage}>
+          <Message type="warning">
+            К сожалению, в выбранные даты номер уже забронирован. Попробуйте выбрать другие даты
+          </Message>
+        </div>
+      ) : (
+        <div className={styles.warningMessage}>
+          <Message type="success">
+            Ваше бронирование успешно завершено
+          </Message>
+        </div>
+      )}
     </form>
   );
 };
 
-export type { Service };
+export type { Service, ReservationCardData };
 export default ReservationCard;

@@ -23,6 +23,8 @@ import {
   orderBy,
   startAfter,
   limit,
+  updateDoc,
+  arrayUnion,
 } from 'firebase/firestore';
 
 import { SignUpCardData } from 'Root/components/SignUpCard/SignUpCard';
@@ -127,6 +129,22 @@ abstract class Firebase {
   };
 
   public static logOut = async () => { signOut(this.auth); };
+
+  public static addReservationData = async (props: {
+    roomNumber: string,
+    datesOfStay: { from: Date, to: Date },
+  }) => {
+    const { roomNumber, datesOfStay } = props;
+    const userId = this.auth.currentUser?.uid;
+
+    const dataForReservedField: { [key: string]: Date | string } = datesOfStay;
+    if (userId) dataForReservedField.userId = userId;
+
+    const roomRef = doc(this.firestore, 'rooms', roomNumber);
+    await updateDoc(roomRef, {
+      reserved: arrayUnion(dataForReservedField),
+    });
+  };
 }
 
 export default Firebase;
