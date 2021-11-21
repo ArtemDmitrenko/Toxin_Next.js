@@ -4,15 +4,15 @@ import { Timestamp } from 'firebase/firestore';
 import { useAppSelector } from 'Root/redux/hooks';
 import convertNumToWordform from 'Root/utils/convertNumToWordform';
 import Like, { LikeData } from 'Components/Like/Like';
-import userIcon from './user.svg';
 
 import styles from './comment.module.scss';
+import userIcon from './user.svg';
 
 type CommentProps = {
   userId: string,
   date: Timestamp,
   text: string,
-  likes: string[]
+  likes: Array<string>,
   onChange?: (data: LikeData) => void,
 };
 
@@ -33,9 +33,10 @@ const Comment = (props: CommentProps) => {
   const users = useAppSelector((store) => store.users);
 
   const getUserName = (id: string) => {
+    let userName = 'Неопознанный пользователь';
+    if (users === null) return userName;
+
     const keys = Object.keys(users);
-    const mockName = 'Неопознанная панда';
-    let userName = null;
 
     keys.forEach((item) => {
       const itemId = users[item].id;
@@ -45,10 +46,7 @@ const Comment = (props: CommentProps) => {
         userName = `${user.name} ${user.surname}`;
       }
     });
-    if (userName !== null) {
-      return userName;
-    }
-    return mockName;
+    return userName;
   };
 
   const handleLikeChange = (data: LikeData) => {

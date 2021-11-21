@@ -5,11 +5,11 @@ import { useAppSelector } from 'Root/redux/hooks';
 import styles from './like.module.scss';
 
 type LikeData = {
-  likeArray: string[],
+  likeArray: Array<string>,
 };
 
 type LikeProps = {
-  likeArray: string[],
+  likeArray: Array<string>,
   onChange?: (data: LikeData) => void,
 };
 
@@ -17,18 +17,14 @@ const Like = ({
   likeArray,
   onChange,
 }: LikeProps) => {
-  const { userId, isAuth }: { userId: string | null, isAuth: boolean } = useAppSelector(
+  const { userId }: { userId: string | null } = useAppSelector(
     (state) => state.auth,
   );
 
   const initLike = () => {
-    if (isAuth) {
-      const isActive = likeArray.filter((like: string) => like === userId);
-      if (isActive[0] === userId) {
-        return true;
-      }
-    }
-    return false;
+    const isActive = likeArray.filter((like: string) => like === userId);
+
+    return Boolean(isActive.length);
   };
 
   const [likes, setLike] = useState(likeArray);
@@ -36,17 +32,16 @@ const Like = ({
   const [active, setActive] = useState(initLike());
 
   const handleClickButton = () => {
+    if (userId === null) return;
     let currentValue: number = amount;
-    let newLikesArray: string[] = likes;
+    let newLikesArray: Array<string> = likes;
 
-    if (userId !== null) {
-      if (active) {
-        currentValue -= 1;
-        newLikesArray = likes.filter((like: string) => like !== userId);
-      } else {
-        currentValue += 1;
-        newLikesArray = [...likes, userId];
-      }
+    if (active) {
+      currentValue -= 1;
+      newLikesArray = likes.filter((like: string) => like !== userId);
+    } else {
+      currentValue += 1;
+      newLikesArray = [...likes, userId];
     }
 
     if (onChange) {

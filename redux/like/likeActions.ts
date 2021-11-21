@@ -21,10 +21,5 @@ const likeUpdateSuccess = (data: LikeState) => (<const>{
   data,
 });
 
-const likeUpdateError = ({ error }: { error : string }) => (<const>{
-  type: LikeActionTypes.LIKE_UPDATE_ERROR,
-  error,
-});
-
 export type { LikeState, LikeGeneralAction };
-export { likeUpdate, likeUpdateSuccess, likeUpdateError };
+export { likeUpdate, likeUpdateSuccess };

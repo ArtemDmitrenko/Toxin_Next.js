@@ -1,7 +1,6 @@
 import { takeEvery, call, put } from 'redux-saga/effects';
 
 import {
-  likeUpdateError,
   likeUpdateSuccess,
   LikeGeneralAction,
   LikeState,
@@ -12,16 +11,10 @@ import Firebase from 'Root/api/Firebase';
 type LikeUpdateData = LikeGeneralAction<LikeActionTypes, LikeState>;
 
 function* likeRequestWorker({ data }: LikeUpdateData) {
-  try {
-    const { roomNumber, comments } = data;
+  const { roomNumber, comments } = data;
 
-    yield call(Firebase.updateLike, roomNumber, comments);
-    yield put(likeUpdateSuccess(data));
-  } catch ({ code }) {
-    yield put(likeUpdateError({
-      error: String(code),
-    }));
-  }
+  yield call(Firebase.updateLike, roomNumber, comments);
+  yield put(likeUpdateSuccess(data));
 }
 
 function* likeRequestWatcher() {

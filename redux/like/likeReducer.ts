@@ -20,8 +20,6 @@ const likeReducer = (state: LikeState = initialState, action: LikeAction) => {
   switch (action.type) {
     case LikeActionTypes.LIKE_UPDATE__SUCCESS:
       return { ...action.data };
-    case LikeActionTypes.LIKE_UPDATE_ERROR:
-      return { ...state };
 
     default:
       return state;
