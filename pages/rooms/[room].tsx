@@ -1,6 +1,7 @@
 import { GetServerSideProps } from 'next';
 import { useEffect } from 'react';
 
+import { addNewCommentRequest } from 'Root/redux/comment/commentActions';
 import { DropdownConfig } from 'Root/components/Dropdown/Dropdown';
 import { clearRoom, requestRoom } from 'Root/redux/room/roomActions';
 import { likeUpdate } from 'Root/redux/like/likeActions';
@@ -9,6 +10,8 @@ import { usersRequest } from 'Root/redux/users/usersActions';
 import convertDateToString from 'Root/utils/convertDateToString';
 import addDaysToDate from 'Root/utils/addDaysToDate';
 import FirebaseDocumentType from 'Root/api/FirebaseDocumentType';
+
+import { ReviewCardData } from 'Components/ReviewCard/ReviewCard';
 import Layout from 'Components/Layout/Layout';
 import Collage from 'Components/Collage/Collage';
 import Comments from 'Components/Comments/Comments';
@@ -57,6 +60,7 @@ const Room = (props: RoomProps) => {
   const { roomNumber } = props;
 
   const dispatch = useAppDispatch();
+
   const data: FirebaseDocumentType = useAppSelector((store) => store.room);
 
   useEffect(() => {
@@ -70,6 +74,12 @@ const Room = (props: RoomProps) => {
 
   const handleChangeComment = (comments: Array<CommentProps>) => {
     dispatch(likeUpdate({ roomNumber, comments }));
+  };
+
+  const handleCommentsSubmit = (commentData: ReviewCardData) => {
+    const { userId, text } = commentData;
+
+    dispatch(addNewCommentRequest({ userId, text, roomNumber }));
   };
 
   return data !== null ? (
@@ -92,6 +102,7 @@ const Room = (props: RoomProps) => {
             <Comments
               comments={data.commentaries}
               onChange={handleChangeComment}
+              onSubmit={handleCommentsSubmit}
             />
           </div>
           <div className={styles.rules}>

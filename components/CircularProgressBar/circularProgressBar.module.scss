@@ -1,0 +1,38 @@
+@import 'Root/style/variables.scss';
+
+.background,
+.progress {
+  fill: none;
+}
+
+.background {
+  stroke: $textColor10;
+}
+
+.progress {
+  stroke: $errorColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.progressLessThenHalf {
+  stroke: $primaryColor;
+}
+
+.progressMoreThenHalf {
+  stroke: $secondaryColor;
+}
+
+.text {
+  font-weight: 400;
+  font-size: 12px;
+  fill: $errorColor;
+}
+
+.textLessThenHalf {
+  fill: $primaryColor;
+}
+
+.textMoreThenHalf {
+  fill: $secondaryColor;
+}
