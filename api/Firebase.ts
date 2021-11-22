@@ -13,12 +13,10 @@ import {
   Query,
   QueryDocumentSnapshot,
   DocumentData,
-  updateDoc,
-  arrayUnion,
-} from '@firebase/firestore';
-import {
   getFirestore,
   collection,
+  updateDoc,
+  arrayUnion,
   getDocs,
   getDoc,
   setDoc,
@@ -30,6 +28,7 @@ import {
 } from 'firebase/firestore';
 
 import { SignUpCardData } from 'Root/components/SignUpCard/SignUpCard';
+import { CommentProps } from 'Components/Comment/Comment';
 
 import firebaseCfg from './firebaseConfig';
 
@@ -91,6 +90,12 @@ abstract class Firebase {
     await sendPasswordResetEmail(this.auth, email);
   };
 
+  public static getRoom = async (roomNumber: string) => {
+    const room = await getDoc(doc(this.firestore, 'rooms', roomNumber));
+
+    return room;
+  };
+
   public static getFullSize = async () => {
     const request = query(collection(this.firestore, 'rooms'));
     const snapshot = await getDocs(request);
@@ -126,6 +131,16 @@ abstract class Firebase {
     return snapshot.docs;
   };
 
+  public static updateLike = async (
+    roomNumber: string,
+    comments: Array<CommentProps>,
+  ) => {
+    const docRef = doc(this.firestore, `rooms/${roomNumber}`);
+    await updateDoc(docRef, {
+      commentaries: comments,
+    });
+  };
+
   public static addComment = async (
     userId: string,
     text: string,
@@ -142,10 +157,11 @@ abstract class Firebase {
     });
   };
 
-  public static getRoom = async (roomNumber: string) => {
-    const room = await getDoc(doc(this.firestore, 'rooms', roomNumber));
+  public static getUsers = async () => {
+    const usersQuery = query(collection(this.firestore, 'users'));
+    const users = await getDocs(usersQuery);
 
-    return room;
+    return users.docs;
   };
 
   public static logOut = async () => { signOut(this.auth); };

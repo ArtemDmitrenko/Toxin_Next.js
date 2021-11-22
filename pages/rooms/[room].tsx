@@ -4,7 +4,9 @@ import { useEffect } from 'react';
 import { addNewCommentRequest } from 'Root/redux/comment/commentActions';
 import { DropdownConfig } from 'Root/components/Dropdown/Dropdown';
 import { clearRoom, requestRoom } from 'Root/redux/room/roomActions';
+import { likeUpdate } from 'Root/redux/like/likeActions';
 import { useAppDispatch, useAppSelector } from 'Root/redux/hooks';
+import { usersRequest } from 'Root/redux/users/usersActions';
 import convertDateToString from 'Root/utils/convertDateToString';
 import addDaysToDate from 'Root/utils/addDaysToDate';
 import FirebaseDocumentType from 'Root/api/FirebaseDocumentType';
@@ -13,11 +15,11 @@ import { ReviewCardData } from 'Components/ReviewCard/ReviewCard';
 import Layout from 'Components/Layout/Layout';
 import Collage from 'Components/Collage/Collage';
 import Comments from 'Components/Comments/Comments';
+import { CommentProps } from 'Components/Comment/Comment';
 import RulesList from 'Components/RulesList/RulesList';
 import Impressions from 'Components/Impressions/Impressions';
 import RoomInformation from 'Components/RoomInformation/RoomInformation';
 import ReservationCard, { Service } from 'Components/ReservationCard/ReservationCard';
-import userComments from 'Components/Comments/comments.json';
 import rulesList from 'Components/RulesList/rulesList.json';
 import LoadingSpinner from 'Components/LoadingSpinner/LoadingSpinner';
 
@@ -63,11 +65,16 @@ const Room = (props: RoomProps) => {
 
   useEffect(() => {
     dispatch(requestRoom({ roomNumber }));
+    dispatch(usersRequest());
 
     return () => {
       dispatch(clearRoom());
     };
   }, []);
+
+  const handleChangeComment = (comments: Array<CommentProps>) => {
+    dispatch(likeUpdate({ roomNumber, comments }));
+  };
 
   const handleCommentsSubmit = (commentData: ReviewCardData) => {
     const { userId, text } = commentData;
@@ -93,8 +100,8 @@ const Room = (props: RoomProps) => {
           </div>
           <div className={styles.feedback}>
             <Comments
-              comments={userComments}
-              onChange={() => {}}
+              comments={data.commentaries}
+              onChange={handleChangeComment}
               onSubmit={handleCommentsSubmit}
             />
           </div>
