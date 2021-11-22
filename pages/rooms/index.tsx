@@ -130,8 +130,8 @@ const checkboxDropdown = {
 const Rooms = () => {
   const roomSearch = useAppSelector((state) => state.roomSearch);
   const { datesOfStay } = roomSearch;
-  const { numberOfGuests } = roomSearch;
   const { arrival, departure } = datesOfStay;
+  const { numberOfGuests } = roomSearch;
 
   const dispatch = useAppDispatch();
 
@@ -149,12 +149,10 @@ const Rooms = () => {
 
   const setDefDateRange = () => {
     if (arrival && departure) {
-      const usFormatDateArrival = arrival.split('.').reverse().join('-');
-      const usFormatDateDeparture = departure.split('.').reverse().join('-');
       return {
         defaultValues: [
-          new Date(usFormatDateArrival),
-          new Date(usFormatDateDeparture),
+          new Date(arrival),
+          new Date(departure),
         ],
       };
     }
