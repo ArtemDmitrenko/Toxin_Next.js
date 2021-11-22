@@ -10,6 +10,8 @@ import { usersRequest } from 'Root/redux/users/usersActions';
 import convertDateToString from 'Root/utils/convertDateToString';
 import addDaysToDate from 'Root/utils/addDaysToDate';
 import FirebaseDocumentType from 'Root/api/FirebaseDocumentType';
+import areDateRangesOverlap from 'Root/utils/areDateRangesOverlap';
+import { makeReservation, failedReservation } from 'Root/redux/reservation/reservationActions';
 
 import { ReviewCardData } from 'Components/ReviewCard/ReviewCard';
 import Layout from 'Components/Layout/Layout';
@@ -20,11 +22,8 @@ import RulesList from 'Components/RulesList/RulesList';
 import Impressions from 'Components/Impressions/Impressions';
 import RoomInformation from 'Components/RoomInformation/RoomInformation';
 import ReservationCard, { Service, ReservationCardData } from 'Components/ReservationCard/ReservationCard';
-import userComments from 'Components/Comments/comments.json';
 import rulesList from 'Components/RulesList/rulesList.json';
 import LoadingSpinner from 'Components/LoadingSpinner/LoadingSpinner';
-import areDateRangesOverlap from 'Root/utils/areDateRangesOverlap';
-import { makeReservation, failedReservation } from 'Root/redux/reservation/reservationActions';
 
 import styles from './room.module.scss';
 
@@ -37,19 +36,19 @@ const guestDropdown: DropdownConfig = [
     title: 'взрослые',
     group: 'adults',
     wordforms: ['гость', 'гостя', 'гостей'],
-    defaultValue: 2,
+    defaultValue: 0,
   },
   {
     title: 'дети',
     group: 'adults',
     wordforms: ['гость', 'гостя', 'гостей'],
-    defaultValue: 1,
+    defaultValue: 0,
   },
   {
     title: 'младенцы',
     group: 'babies',
     wordforms: ['младенец', 'младенца', 'младенцев'],
-    defaultValue: 1,
+    defaultValue: 0,
   },
 ];
 
