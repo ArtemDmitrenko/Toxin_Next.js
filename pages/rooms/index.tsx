@@ -151,8 +151,8 @@ const Rooms = () => {
     if (arrival && departure) {
       return {
         defaultValues: [
-          new Date(arrival),
-          new Date(departure),
+          new Date(arrival.split('.').reverse().join('-')),
+          new Date(departure.split('.').reverse().join('-')),
         ],
       };
     }
