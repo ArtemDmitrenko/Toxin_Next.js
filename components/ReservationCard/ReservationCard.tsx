@@ -78,8 +78,8 @@ const ReservationCard = (props: ReservationCardProps) => {
 
   const handleDatesOfStayChange = (dates: DatesOfStay) => {
     setDateRange({
-      arrival: dates.arrival.split('.').reverse().join('-'),
-      departure: dates.departure.split('.').reverse().join('-'),
+      arrival: dates.arrival,
+      departure: dates.departure,
     });
   };
 
@@ -120,7 +120,7 @@ const ReservationCard = (props: ReservationCardProps) => {
         return (
           <div className={styles.warningMessage}>
             <Message type="warning">
-              К сожалению, в выбранные даты номер уже забронирован. Попробуйте выбрать другие даты
+              К сожалению, в выбранные даты номер уже забронирован. Попробуйте выбрать другие дни
             </Message>
           </div>
         );

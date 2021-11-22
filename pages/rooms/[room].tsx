@@ -91,6 +91,7 @@ const Room = (props: RoomProps) => {
       };
       dispatch(makeReservation(primaryDates));
     }
+    dispatch(requestRoom({ roomNumber }));
   };
 
   const handleChangeComment = (comments: Array<CommentProps>) => {
