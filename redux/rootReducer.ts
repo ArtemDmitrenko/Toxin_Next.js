@@ -4,6 +4,7 @@ import authReducer, { AuthState } from './auth/authReducer';
 import passwordRecoveryReducer, { PasswordRecoveryState } from './auth/passwordRecoveryReducer';
 import commentReducer, { CommentState } from './comment/commentReducer';
 import roomsReducer, { RoomsState } from './rooms/roomsReducer';
+import roomReducer, { RoomState } from './room/roomReducer';
 import signUpReducer, { SignUpState } from './signUp/signUpReducer';
 
 type StoreState = {
@@ -11,6 +12,7 @@ type StoreState = {
   passwordRecovery: PasswordRecoveryState,
   rooms: RoomsState,
   comment: CommentState,
+  room: RoomState,
   signUp: SignUpState
 };
 
@@ -19,6 +21,7 @@ const rootReducer = combineReducers<StoreState>({
   passwordRecovery: passwordRecoveryReducer,
   rooms: roomsReducer,
   comment: commentReducer,
+  room: roomReducer,
   signUp: signUpReducer,
 });
 

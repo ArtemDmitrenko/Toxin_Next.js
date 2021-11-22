@@ -13,15 +13,18 @@ import {
   DocumentData,
   updateDoc,
   arrayUnion,
+} from '@firebase/firestore';
+import {
   getFirestore,
   collection,
   getDocs,
+  getDoc,
+  setDoc,
+  doc,
   query,
   orderBy,
   startAfter,
   limit,
-  setDoc,
-  doc,
 } from 'firebase/firestore';
 
 import { SignUpCardData } from 'Root/components/SignUpCard/SignUpCard';
@@ -133,6 +136,12 @@ abstract class Firebase {
         likes: [],
       }),
     });
+  };
+
+  public static getRoom = async (roomNumber: string) => {
+    const room = await getDoc(doc(this.firestore, 'rooms', roomNumber));
+
+    return room;
   };
 
   public static logOut = async () => { signOut(this.auth); };
