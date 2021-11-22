@@ -3,23 +3,27 @@ import { useState } from 'react';
 import convertNumToWordform from 'Root/utils/convertNumToWordform';
 import Comment, { CommentProps } from 'Components/Comment/Comment';
 import { LikeData } from 'Components/Like/Like';
+import ReviewCard, { ReviewCardData } from 'Components/ReviewCard/ReviewCard';
+import { useAppSelector } from 'Root/redux/hooks';
 
 import styles from './comments.module.scss';
 
 type CommentsProps = {
-  comments: Array<CommentProps>
-  onChange?: (commentList: Array<CommentProps>) => void
+  comments: Array<CommentProps>,
+  onChange?: (comments: Array<CommentProps>) => void
+  onSubmit: (data: ReviewCardData) => void
 };
 
 const Comments = (props: CommentsProps) => {
-  const { comments, onChange } = props;
+  const { comments, onChange, onSubmit } = props;
 
   const [commentsList, setCommentList] = useState(comments);
+  const { isAuth } = useAppSelector((state) => state.auth);
 
   const handleCommentChange = (index: number, data: LikeData) => {
     const newCommentList = [...commentsList];
 
-    newCommentList[index].like = data;
+    newCommentList[index].likes = data.likeArray;
 
     if (onChange) {
       onChange(newCommentList);
@@ -39,25 +43,19 @@ const Comments = (props: CommentsProps) => {
         </span>
       </div>
       <div className={styles.content}>
-        {commentsList.map((comment, index) => {
-          const like = {
-            ...comment.like,
-            name: `comment-${index + 1}`,
-          };
-          return (
-            <div className={styles.comment} key={comment.srcIcon}>
-              <Comment
-                srcIcon={comment.srcIcon}
-                userName={comment.userName}
-                date={comment.date}
-                text={comment.text}
-                like={like}
-                onChange={(data: LikeData) => handleCommentChange(index, data)}
-              />
-            </div>
-          );
-        })}
+        {commentsList.map((comment, index) => (
+          <div className={styles.comment} key={Number(comment.date)}>
+            <Comment
+              userId={comment.userId}
+              date={comment.date}
+              text={comment.text}
+              likes={comment.likes}
+              onChange={(data: LikeData) => handleCommentChange(index, data)}
+            />
+          </div>
+        ))}
       </div>
+      {isAuth && <ReviewCard maxLength={500} onSubmit={onSubmit} />}
     </div>
   );
 };

@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 import { DropdownConfig } from 'Root/components/Dropdown/Dropdown';
 import Layout from 'Components/Layout/Layout';
-import SearchFilter from 'Components/SearchFilter/SearchFilter';
+import SearchFilter, { SearchFilterState } from 'Components/SearchFilter/SearchFilter';
 import Pagination from 'Components/Pagination/Pagination';
 import addDaysToDate from 'Root/utils/addDaysToDate';
 
@@ -37,6 +37,8 @@ const guestDropdown: DropdownConfig = [
 ];
 
 const rangeSlider = {
+  min: 0,
+  max: 15000,
   valueFrom: 5000,
   valueTo: 10000,
 };
@@ -44,16 +46,16 @@ const rangeSlider = {
 const checkboxRules = [
   {
     title: 'Можно курить',
-    name: 'isSmoke',
+    name: 'allowSmoke',
   },
   {
     title: 'Можно с питомцами',
-    name: 'isPets',
+    name: 'allowPets',
     isChecked: true,
   },
   {
     title: 'Можно пригласить гостей (до 10 человек)',
-    name: 'isGuests',
+    name: 'allowGuests',
     isChecked: true,
   },
 ];
@@ -131,6 +133,7 @@ const checkboxDropdown = {
 
 const Rooms = () => {
   const [filter, setFilter] = useState(false);
+  const [filterConstraints, setFilterConstraints] = useState<SearchFilterState>();
 
   const handleFilterToggle = () => { setFilter((prevState) => !prevState); };
 
@@ -146,6 +149,10 @@ const Rooms = () => {
     `${styles.filterButton} ${filter ? styles.filterButtonActive : ''}`
   );
 
+  const handleFilterChange = (data: SearchFilterState) => {
+    setFilterConstraints(data);
+  };
+
   return (
     <Layout title="Rooms">
       <div className={styles.grid}>
@@ -160,6 +167,7 @@ const Rooms = () => {
                 checkboxAvailabilitiesConfig={checkboxAvailabilities}
                 facilitiesDropdownConfig={facilitiesDropdown}
                 checkboxDropdownConfig={checkboxDropdown}
+                onChange={handleFilterChange}
               />
             </div>
           </div>
@@ -167,7 +175,7 @@ const Rooms = () => {
         </div>
         <div className={styles.rooms}>
           <h1 className={styles.title}>Номера, которые мы для вас подобрали</h1>
-          <Pagination limit={12} />
+          <Pagination limit={12} filterConstraints={filterConstraints} />
         </div>
       </div>
     </Layout>

@@ -11,15 +11,6 @@ type DropdownConfig = Array<{
   wordforms: [string, string, string],
 }>;
 
-type DropdownData = { [key: string]: number };
-
-type DropdownProps = {
-  list: DropdownConfig,
-  isButtons?: boolean,
-  placeholder?: string,
-  onChange?: (data: DropdownData) => void,
-};
-
 type Groups = {
   [key: string]: {
     wordforms: [string, string, string],
@@ -30,6 +21,15 @@ type Groups = {
       },
     },
   },
+};
+
+type DropdownData = Groups;
+
+type DropdownProps = {
+  list: DropdownConfig,
+  isButtons?: boolean,
+  placeholder?: string,
+  onChange?: (data: DropdownData) => void,
 };
 
 type DropdownState = {
@@ -95,24 +95,6 @@ const Dropdown = (props: DropdownProps) => {
     return Object.values(items).reduce((prev, current) => (prev + current.value), 0);
   };
 
-  const convertToOutput = (state: DropdownState): DropdownData => {
-    const { groups } = state;
-
-    const output: DropdownData = {};
-
-    Object.entries(groups).forEach(([groupName, group]) => {
-      let sum = 0;
-
-      Object.values(group.items).forEach((item) => {
-        sum += item.value;
-      });
-
-      output[groupName] = sum;
-    });
-
-    return output;
-  };
-
   const outputGenerate = () => {
     const outputStr: Array<string> = [];
 
@@ -130,7 +112,11 @@ const Dropdown = (props: DropdownProps) => {
     setDropdown((prevState) => ({ ...prevState, output: outputStr.join(', ') }));
   };
 
-  useEffect(outputGenerate, [dropdown.groups]);
+  useEffect(() => {
+    outputGenerate();
+
+    if (onChange) onChange(dropdown.groups);
+  }, [dropdown.groups]);
 
   const stylesClearButton = () => (
     `${styles.button} ${styles.buttonClear} ${dropdown.output ? '' : styles.buttonClearHidden}`
@@ -189,10 +175,6 @@ const Dropdown = (props: DropdownProps) => {
     };
 
     setDropdown(newState);
-
-    if (onChange) {
-      onChange(convertToOutput(newState));
-    }
   };
 
   const handlePlusClick = (groupName: string, itemName: string) => {
@@ -216,28 +198,26 @@ const Dropdown = (props: DropdownProps) => {
     };
 
     setDropdown(newState);
-
-    if (onChange) {
-      onChange(convertToOutput(newState));
-    }
   };
 
   const handleClearClick = () => {
-    const newState = { ...dropdown };
+    const newGroups = { ...dropdown.groups };
 
-    Object.values(newState.groups).forEach((group) => {
+    Object.values(newGroups).forEach((group) => {
       Object.values(group.items).forEach((item) => {
         Object.defineProperty(item, 'value', { value: 0 });
       });
     });
 
-    newState.output = '';
+    const newState = {
+      ...dropdown,
+      groups: {
+        ...newGroups,
+      },
+      output: '',
+    };
 
     setDropdown(newState);
-
-    if (onChange) {
-      onChange(convertToOutput(newState));
-    }
   };
 
   return (

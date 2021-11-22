@@ -1,4 +1,4 @@
-import { Timestamp } from "@firebase/firestore";
+import { Timestamp } from 'firebase/firestore';
 
 type FirebaseDocumentType = {
   room: number,
@@ -24,7 +24,7 @@ type FirebaseDocumentType = {
     [key: string]: boolean,
   },
   accessibility: {
-    [key: string]: boolean
+    [key: string]: boolean,
   },
   facilities: {
     bedrooms: number,
@@ -41,7 +41,8 @@ type FirebaseDocumentType = {
   }>,
   commentaries: Array<{
     userId: string,
-    date: Date,
+    date: Timestamp,
+    text: string,
     likes: Array<string>,
   }>,
 };

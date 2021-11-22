@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { useAppSelector } from 'Root/redux/hooks';
 import convertNumToWordform from 'Root/utils/convertNumToWordform';
 import DateRange, { DatesOfStay } from 'Components/DateRange/DateRange';
-import Dropdown, { DropdownConfig } from 'Components/Dropdown/Dropdown';
+import Dropdown, { DropdownConfig, DropdownData } from 'Components/Dropdown/Dropdown';
 import Reference from 'Components/Reference/Reference';
 import Tooltip from 'Components/Tooltip/Tooltip';
 import Message from 'Components/Message/Message';
@@ -24,7 +24,7 @@ type ReservationCardData = {
   roomNumber: number,
   level?: string,
   cost: number,
-  numberOfGuests: { [key: string]: number },
+  numberOfGuests: DropdownData,
   datesOfStay: DatesOfStay,
   service: Service,
 };
@@ -58,19 +58,7 @@ const ReservationCard = (props: ReservationCardProps) => {
     departure: datesOfStay.departure,
   });
 
-  const numberOfGuestsState = (): { [key: string]: number } => {
-    const defState: { [key: string]: number } = {};
-    guests.forEach(({ group, defaultValue }) => {
-      if (group in defState) {
-        defState[group] += defaultValue ?? 0;
-      } else {
-        defState[group] = defaultValue ?? 0;
-      }
-    });
-    return defState;
-  };
-
-  const [numberOfGuests, setNumberOfGuests] = useState(numberOfGuestsState);
+  const [numberOfGuests, setNumberOfGuests] = useState<DropdownData>({});
 
   const calcCostForDays = (): number => {
     const daysInHotel = calcDays(dateRange);
@@ -101,7 +89,7 @@ const ReservationCard = (props: ReservationCardProps) => {
     return formatCost(totalCost);
   };
 
-  const handleNumberOfGuestChange = (data: { [key: string]: number }) => {
+  const handleNumberOfGuestChange = (data: DropdownData) => {
     setNumberOfGuests(data);
   };
 

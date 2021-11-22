@@ -1,32 +1,53 @@
 import Image from 'next/image';
+import { Timestamp } from 'firebase/firestore';
 
+import { useAppSelector } from 'Root/redux/hooks';
 import convertNumToWordform from 'Root/utils/convertNumToWordform';
 import Like, { LikeData } from 'Components/Like/Like';
 
 import styles from './comment.module.scss';
+import userIcon from './user.svg';
 
 type CommentProps = {
-  srcIcon: string,
-  userName: string,
-  date: string,
+  userId: string,
+  date: Timestamp,
   text: string,
-  like: { amountLike: number; isLiked: boolean }
+  likes: Array<string>,
   onChange?: (data: LikeData) => void,
 };
 
 const Comment = (props: CommentProps) => {
   const {
-    srcIcon,
-    userName,
+    userId,
     date,
     text,
-    like,
+    likes,
     onChange,
   } = props;
 
-  const dateComment = new Date(date).getTime();
+  const dateComment = date.seconds * 1000;
+
   const currentDate = Date.now();
   const amountDays = Math.floor((currentDate - dateComment) / 86400000);
+
+  const users = useAppSelector((store) => store.users);
+
+  const getUserName = (id: string) => {
+    let userName = 'Неопознанный пользователь';
+    if (users === null) return userName;
+
+    const keys = Object.keys(users);
+
+    keys.forEach((item) => {
+      const itemId = users[item].id;
+      const user = users[item].data();
+
+      if (itemId === id) {
+        userName = `${user.name} ${user.surname}`;
+      }
+    });
+    return userName;
+  };
 
   const handleLikeChange = (data: LikeData) => {
     if (onChange) {
@@ -50,17 +71,16 @@ const Comment = (props: CommentProps) => {
   return (
     <div className={styles.comment}>
       <div className={styles.info}>
-        <Image src={srcIcon} alt={userName} width={45} height={45} />
+        <Image src={userIcon} alt={getUserName(userId)} width={45} height={45} />
         <div className={styles.user}>
-          <span className={styles.userName}>{userName}</span>
+          <span className={styles.userName}>{getUserName(userId)}</span>
           <span>{makeDateString()}</span>
         </div>
       </div>
       <div className={styles.content}>
         <div className={styles.like}>
           <Like
-            amountLike={like.amountLike}
-            isLiked={like.isLiked}
+            likeArray={likes}
             onChange={handleLikeChange}
           />
         </div>

@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
+import convertDateToString from 'Root/utils/convertDateToString';
 import DateRange, { DatesOfStay } from 'Components/DateRange/DateRange';
 import Dropdown, { DropdownConfig, DropdownData } from 'Components/Dropdown/Dropdown';
 import RangeSlider, { RangeSliderData } from 'Components/RangeSlider/RangeSlider';
@@ -9,17 +10,21 @@ import CheckboxDropdown, { CheckboxDropdownData } from 'Components/CheckboxDropd
 import styles from './searchFilter.module.scss';
 
 type SearchFilterState = {
-  dateRange?: DatesOfStay,
-  guestsDropdown?: DropdownData,
-  rangeSlider?: RangeSliderData,
-  checkboxRules?: {
+  dateRange: DatesOfStay,
+  guestsDropdown: DropdownData,
+  rangeSlider: RangeSliderData,
+  checkboxRules: {
     [key: string]: boolean,
   },
-  checkboxAvailability?: {
+  checkboxAvailability: {
     [key: string]: boolean,
   },
-  facilitiesData?: DropdownData,
-  checkboxDropdown?: CheckboxDropdownData,
+  facilitiesData: {
+    bedrooms: number,
+    beds: number,
+    bathrooms: number,
+  },
+  checkboxDropdown: CheckboxDropdownData,
 };
 
 type SearchFilterProps = {
@@ -38,11 +43,28 @@ type SearchFilterProps = {
     defaultValues?: Array<Date>
   },
   rangeSliderConfig?: {
-    min?: number,
-    max?: number,
+    min: number,
+    max: number,
     valueFrom?: number,
     valueTo?: number,
   },
+};
+
+const initState: SearchFilterState = {
+  dateRange: {
+    arrival: convertDateToString(new Date()),
+    departure: convertDateToString(new Date()),
+  },
+  guestsDropdown: {},
+  rangeSlider: [],
+  checkboxRules: {},
+  checkboxAvailability: {},
+  facilitiesData: {
+    bedrooms: 0,
+    beds: 0,
+    bathrooms: 0,
+  },
+  checkboxDropdown: {},
 };
 
 const SearchFilter = (props: SearchFilterProps) => {
@@ -54,10 +76,19 @@ const SearchFilter = (props: SearchFilterProps) => {
     facilitiesDropdownConfig,
     checkboxDropdownConfig,
     dateRangeConfig = {},
-    rangeSliderConfig = {},
+    rangeSliderConfig = {
+      min: 0,
+      max: 15000,
+    },
   } = props;
 
-  const [filter, setFilter] = useState<SearchFilterState>({});
+  const [filter, setFilter] = useState(initState);
+
+  useEffect(() => {
+    const isFilterMount = filter === initState;
+
+    if (onChange && !isFilterMount) onChange(filter);
+  }, [filter]);
 
   const stylesCheckboxRule = () => (
     `${styles.checkbox} ${styles.checkboxRule}`
@@ -68,39 +99,30 @@ const SearchFilter = (props: SearchFilterProps) => {
   );
 
   const handleElementChange = <T extends {}>(propName: string, data: T) => {
-    const newState = { ...filter, [propName]: data };
-
-    setFilter(newState);
-
-    if (onChange) onChange(newState);
+    setFilter((prevState) => ({
+      ...prevState,
+      [propName]: data,
+    }));
   };
 
   const handleCheckboxRulesChange = (data: CheckboxData) => {
-    const newState = {
-      ...filter,
+    setFilter((prevState) => ({
+      ...prevState,
       checkboxRules: {
-        ...filter.checkboxRules,
+        ...prevState.checkboxRules,
         [data.name]: data.isChecked,
       },
-    };
-
-    setFilter(newState);
-
-    if (onChange) onChange(newState);
+    }));
   };
 
   const handleCheckboxAvailabilityChange = (data: CheckboxData) => {
-    const newState = {
-      ...filter,
+    setFilter((prevState) => ({
+      ...prevState,
       checkboxAvailability: {
-        ...filter.checkboxAvailability,
+        ...prevState.checkboxAvailability,
         [data.name]: data.isChecked,
       },
-    };
-
-    setFilter(newState);
-
-    if (onChange) onChange(newState);
+    }));
   };
 
   return (
@@ -124,10 +146,10 @@ const SearchFilter = (props: SearchFilterProps) => {
       </div>
       <div className={styles.wrapperLarge}>
         <RangeSlider
-          min={rangeSliderConfig.min ?? 0}
-          max={rangeSliderConfig.max ?? 15000}
-          valueFrom={rangeSliderConfig.valueFrom ?? 0}
-          valueTo={rangeSliderConfig.valueTo ?? 15000}
+          min={rangeSliderConfig.min}
+          max={rangeSliderConfig.max}
+          valueFrom={rangeSliderConfig.valueFrom ?? rangeSliderConfig.min}
+          valueTo={rangeSliderConfig.valueTo ?? rangeSliderConfig.max}
           title="Диапазон цены"
           postfix="₽"
           onChange={(data: RangeSliderData) => {
@@ -187,7 +209,7 @@ const SearchFilter = (props: SearchFilterProps) => {
           placeholder="Выберите удобства"
           isButtons={false}
           onChange={(data: DropdownData) => {
-            handleElementChange<DropdownData>('facilitiesDropdown', data);
+            handleElementChange<DropdownData>('facilitiesData', data);
           }}
         />
       </div>

@@ -1,15 +1,21 @@
 import { GetServerSideProps } from 'next';
 import { useEffect } from 'react';
 
+import { addNewCommentRequest } from 'Root/redux/comment/commentActions';
 import { DropdownConfig } from 'Root/components/Dropdown/Dropdown';
 import { clearRoom, requestRoom } from 'Root/redux/room/roomActions';
+import { likeUpdate } from 'Root/redux/like/likeActions';
 import { useAppDispatch, useAppSelector } from 'Root/redux/hooks';
+import { usersRequest } from 'Root/redux/users/usersActions';
 import convertDateToString from 'Root/utils/convertDateToString';
 import addDaysToDate from 'Root/utils/addDaysToDate';
 import FirebaseDocumentType from 'Root/api/FirebaseDocumentType';
+
+import { ReviewCardData } from 'Components/ReviewCard/ReviewCard';
 import Layout from 'Components/Layout/Layout';
 import Collage from 'Components/Collage/Collage';
 import Comments from 'Components/Comments/Comments';
+import { CommentProps } from 'Components/Comment/Comment';
 import RulesList from 'Components/RulesList/RulesList';
 import Impressions from 'Components/Impressions/Impressions';
 import RoomInformation from 'Components/RoomInformation/RoomInformation';
@@ -57,10 +63,12 @@ const Room = (props: RoomProps) => {
   const { roomNumber } = props;
 
   const dispatch = useAppDispatch();
+
   const data: FirebaseDocumentType = useAppSelector((store) => store.room);
 
   useEffect(() => {
     dispatch(requestRoom({ roomNumber }));
+    dispatch(usersRequest());
 
     return () => {
       dispatch(clearRoom());
@@ -85,6 +93,16 @@ const Room = (props: RoomProps) => {
     }
   };
 
+  const handleChangeComment = (comments: Array<CommentProps>) => {
+    dispatch(likeUpdate({ roomNumber, comments }));
+  };
+
+  const handleCommentsSubmit = (commentData: ReviewCardData) => {
+    const { userId, text } = commentData;
+
+    dispatch(addNewCommentRequest({ userId, text, roomNumber }));
+  };
+
   return data !== null ? (
     <Layout title={`Room ${data.room}`}>
       <Collage images={data.images.slice(0, 3)} />
@@ -103,8 +121,9 @@ const Room = (props: RoomProps) => {
           </div>
           <div className={styles.feedback}>
             <Comments
-              comments={userComments}
-              onChange={() => { }}
+              comments={data.commentaries}
+              onChange={handleChangeComment}
+              onSubmit={handleCommentsSubmit}
             />
           </div>
           <div className={styles.rules}>
