@@ -32,6 +32,10 @@ const userLoginRequest = (data: LoginUserRequest) => (<const>{
   data,
 });
 
+const getUserStatus = () => (<const>{
+  type: AuthActionsTypes.GET_USER_STATUS,
+});
+
 const userLogoutRequest = () => (<const>{
   type: AuthActionsTypes.USER_LOGOUT_REQUEST,
 });
@@ -46,6 +50,7 @@ export {
   setAuthUserData,
   userLoginRequest,
   userAuthFailed,
+  getUserStatus,
   userLogoutRequest,
   userLogoutSuccess,
 };

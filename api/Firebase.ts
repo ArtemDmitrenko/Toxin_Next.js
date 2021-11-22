@@ -1,10 +1,12 @@
 import { initializeApp } from 'firebase/app';
 import {
+  User,
+  createUserWithEmailAndPassword,
+  updateProfile,
   getAuth,
   signInWithEmailAndPassword,
   sendPasswordResetEmail,
-  createUserWithEmailAndPassword,
-  updateProfile,
+  onAuthStateChanged,
   signOut,
 } from 'firebase/auth';
 import {
@@ -83,6 +85,8 @@ abstract class Firebase {
     password: string,
   ) => signInWithEmailAndPassword(this.auth, email, password);
 
+  public static onAuthStateChanged = onAuthStateChanged.bind(this, this.auth);
+
   public static sendPasswordRecovery = async (email: string) => {
     await sendPasswordResetEmail(this.auth, email);
   };
@@ -147,4 +151,5 @@ abstract class Firebase {
   public static logOut = async () => { signOut(this.auth); };
 }
 
+export type { User };
 export default Firebase;
