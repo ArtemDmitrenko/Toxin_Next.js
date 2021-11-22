@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { DocumentData, QueryDocumentSnapshot } from '@firebase/firestore';
 
 import convertNumToWordform from 'Root/utils/convertNumToWordform';
+import scrollToTop from 'Root/utils/scrollToTop';
 import { requestRooms, setCurrentPage } from 'Root/redux/rooms/roomsActions';
 import { useAppDispatch, useAppSelector } from 'Root/redux/hooks';
 
@@ -86,6 +87,8 @@ const Pagination = (props: PaginationProps) => {
     if (!newPageIsValid) return;
 
     dispatch(setCurrentPage({ newCurrentPage: newPage }));
+
+    if (window && document) scrollToTop();
 
     if (onChange) onChange(roomsStore.currentPage);
   };
