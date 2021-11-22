@@ -12,11 +12,7 @@ type ReviewCardData = {
   text: string,
 };
 
-type NewCommentData = {
-  userId: string,
-  text: string,
-  roomNumber: string,
-};
+type NewCommentData = ReviewCardData & { roomNumber: string };
 
 type ReviewCardProps = {
   maxLength: number,
