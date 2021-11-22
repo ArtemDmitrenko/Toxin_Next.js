@@ -118,6 +118,29 @@ const ReservationCard = (props: ReservationCardProps) => {
     onSubmit(reservationCardData);
   };
 
+  const showReservationMessage = () => {
+    switch (isSuccessReservation) {
+      case true:
+        return (
+          <div className={styles.warningMessage}>
+            <Message type="success">
+              Ваше бронирование успешно завершено
+            </Message>
+          </div>
+        );
+      case false:
+        return (
+          <div className={styles.warningMessage}>
+            <Message type="warning">
+              К сожалению, в выбранные даты номер уже забронирован. Попробуйте выбрать другие даты
+            </Message>
+          </div>
+        );
+      default:
+        return false;
+    }
+  };
+
   return (
     <form className={styles.reservationCard} onSubmit={handleSubmit}>
       <div className={styles.dataRoom}>
@@ -202,19 +225,7 @@ const ReservationCard = (props: ReservationCardProps) => {
           </Message>
         </div>
       )}
-      {isSuccessReservation ? (
-        <div className={styles.warningMessage}>
-          <Message type="warning">
-            К сожалению, в выбранные даты номер уже забронирован. Попробуйте выбрать другие даты
-          </Message>
-        </div>
-      ) : (
-        <div className={styles.warningMessage}>
-          <Message type="success">
-            Ваше бронирование успешно завершено
-          </Message>
-        </div>
-      )}
+      {showReservationMessage()}
     </form>
   );
 };
