@@ -11,15 +11,6 @@ type DropdownConfig = Array<{
   wordforms: [string, string, string],
 }>;
 
-type DropdownData = { [key: string]: number };
-
-type DropdownProps = {
-  list: DropdownConfig,
-  isButtons?: boolean,
-  placeholder?: string,
-  onChange?: (data: DropdownData) => void,
-};
-
 type Groups = {
   [key: string]: {
     wordforms: [string, string, string],
@@ -30,6 +21,15 @@ type Groups = {
       },
     },
   },
+};
+
+type DropdownData = Groups;
+
+type DropdownProps = {
+  list: DropdownConfig,
+  isButtons?: boolean,
+  placeholder?: string,
+  onChange?: (data: DropdownData) => void,
 };
 
 type DropdownState = {
@@ -95,24 +95,6 @@ const Dropdown = (props: DropdownProps) => {
     return Object.values(items).reduce((prev, current) => (prev + current.value), 0);
   };
 
-  const convertToOutput = (state: DropdownState): DropdownData => {
-    const { groups } = state;
-
-    const output: DropdownData = {};
-
-    Object.entries(groups).forEach(([groupName, group]) => {
-      let sum = 0;
-
-      Object.values(group.items).forEach((item) => {
-        sum += item.value;
-      });
-
-      output[groupName] = sum;
-    });
-
-    return output;
-  };
-
   const outputGenerate = () => {
     const outputStr: Array<string> = [];
 
@@ -133,7 +115,7 @@ const Dropdown = (props: DropdownProps) => {
   useEffect(() => {
     outputGenerate();
 
-    if (onChange) onChange(convertToOutput(dropdown));
+    if (onChange) onChange(dropdown.groups);
   }, [dropdown.groups]);
 
   const stylesClearButton = () => (
