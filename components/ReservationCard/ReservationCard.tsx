@@ -24,7 +24,7 @@ type ReservationCardData = {
   roomNumber: number,
   level?: string,
   cost: number,
-  numberOfGuests: { [key: string]: number },
+  numberOfGuests: DropdownData,
   datesOfStay: DatesOfStay,
   service: Service,
 };
@@ -57,19 +57,7 @@ const ReservationCard = (props: ReservationCardProps) => {
     departure: datesOfStay.departure,
   });
 
-  const numberOfGuestsState = (): { [key: string]: number } => {
-    const defState: { [key: string]: number } = {};
-    guests.forEach(({ group, defaultValue }) => {
-      if (group in defState) {
-        defState[group] += defaultValue ?? 0;
-      } else {
-        defState[group] = defaultValue ?? 0;
-      }
-    });
-    return defState;
-  };
-
-  const [numberOfGuests, setNumberOfGuests] = useState(numberOfGuestsState);
+  const [numberOfGuests, setNumberOfGuests] = useState<DropdownData>({});
 
   const calcCostForDays = (): number => {
     const daysInHotel = calcDays(dateRange);
@@ -101,7 +89,7 @@ const ReservationCard = (props: ReservationCardProps) => {
   };
 
   const handleNumberOfGuestChange = (data: DropdownData) => {
-    setNumberOfGuests(data.group);
+    setNumberOfGuests(data);
   };
 
   const handleSubmit = () => {

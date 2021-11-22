@@ -1,18 +1,20 @@
 import { initializeApp } from 'firebase/app';
 import {
+  User,
+  createUserWithEmailAndPassword,
+  updateProfile,
   getAuth,
   signInWithEmailAndPassword,
   sendPasswordResetEmail,
-  createUserWithEmailAndPassword,
-  updateProfile,
+  onAuthStateChanged,
   signOut,
 } from 'firebase/auth';
 import {
-  Query,
   QueryDocumentSnapshot,
   DocumentData,
-} from '@firebase/firestore';
-import {
+  QueryConstraint,
+  updateDoc,
+  arrayUnion,
   getFirestore,
   collection,
   getDocs,
@@ -22,11 +24,15 @@ import {
   query,
   orderBy,
   startAfter,
-  limit,
 } from 'firebase/firestore';
 
 import { SignUpCardData } from 'Root/components/SignUpCard/SignUpCard';
+import { CommentProps } from 'Components/Comment/Comment';
 
+import { SearchFilterState } from 'Root/components/SearchFilter/SearchFilter';
+
+import filterDocumentsByConstraints from './helpers/filterDocumentsByConstraints';
+import separateToPages from './helpers/separateToPages';
 import firebaseCfg from './firebaseConfig';
 
 abstract class Firebase {
@@ -81,43 +87,10 @@ abstract class Firebase {
     password: string,
   ) => signInWithEmailAndPassword(this.auth, email, password);
 
+  public static onAuthStateChanged = onAuthStateChanged.bind(this, this.auth);
+
   public static sendPasswordRecovery = async (email: string) => {
     await sendPasswordResetEmail(this.auth, email);
-  };
-
-  public static getFullSize = async () => {
-    const request = query(collection(this.firestore, 'rooms'));
-    const snapshot = await getDocs(request);
-
-    return snapshot.size;
-  };
-
-  public static getRooms = async (props: {
-    documentsLimit: number,
-    documentPoint?: QueryDocumentSnapshot<DocumentData>
-  }) => {
-    const { documentsLimit, documentPoint } = props;
-
-    let request: Query<DocumentData>;
-
-    if (documentPoint) {
-      request = query(
-        collection(this.firestore, 'rooms'),
-        orderBy('cost', 'desc'),
-        limit(documentsLimit),
-        startAfter(documentPoint),
-      );
-    } else {
-      request = query(
-        collection(this.firestore, 'rooms'),
-        orderBy('cost', 'desc'),
-        limit(documentsLimit),
-      );
-    }
-
-    const snapshot = await getDocs(request);
-
-    return snapshot.docs;
   };
 
   public static getRoom = async (roomNumber: string) => {
@@ -126,7 +99,68 @@ abstract class Firebase {
     return room;
   };
 
+  public static getRooms = async (props: {
+    documentsLimit: number,
+    documentPoint?: QueryDocumentSnapshot<DocumentData>,
+    filterConstraints?: SearchFilterState,
+  }) => {
+    const { documentsLimit, documentPoint, filterConstraints } = props;
+
+    const queryParams: Array<QueryConstraint> = [
+      orderBy('cost', 'desc'),
+    ];
+
+    if (documentPoint) {
+      queryParams.push(startAfter(documentPoint));
+    }
+
+    const snapshot = await getDocs(query(collection(this.firestore, 'rooms'), ...queryParams));
+
+    const documents = snapshot.docs;
+
+    const filteredDocuments = filterDocumentsByConstraints(documents, filterConstraints);
+
+    return {
+      documents: separateToPages(filteredDocuments, documentsLimit),
+      length: filteredDocuments.length,
+    };
+  };
+
+  public static updateLike = async (
+    roomNumber: string,
+    comments: Array<CommentProps>,
+  ) => {
+    const docRef = doc(this.firestore, `rooms/${roomNumber}`);
+    await updateDoc(docRef, {
+      commentaries: comments,
+    });
+  };
+
+  public static addComment = async (
+    userId: string,
+    text: string,
+    roomNumber: string,
+  ) => {
+    const docRef = doc(this.firestore, `rooms/${roomNumber}`);
+    await updateDoc(docRef, {
+      commentaries: arrayUnion({
+        userId,
+        date: new Date(),
+        text,
+        likes: [],
+      }),
+    });
+  };
+
+  public static getUsers = async () => {
+    const usersQuery = query(collection(this.firestore, 'users'));
+    const users = await getDocs(usersQuery);
+
+    return users.docs;
+  };
+
   public static logOut = async () => { signOut(this.auth); };
 }
 
+export type { User };
 export default Firebase;

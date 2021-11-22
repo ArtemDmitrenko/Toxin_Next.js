@@ -3,14 +3,12 @@ import { useState } from 'react';
 import Reference from 'Components/Reference/Reference';
 import Dropdown, { DropdownConfig, DropdownData } from 'Components/Dropdown/Dropdown';
 import DateRange, { DateRangeConfig, DatesOfStay } from 'Components/DateRange/DateRange';
-import formattingDate from 'Components/DateRange/helpers/formattingDate';
 
 import styles from './roomSearchCard.module.scss';
 
 type RoomSearchCardData = {
   datesOfStay: DatesOfStay,
-  numberOfGuestsByGroup: { [key:string]: number },
-  numberOfGuestsByTitle: { [key:string]: number },
+  numberOfGuests: DropdownData,
 };
 
 type RoomSearchCardProps = {
@@ -31,8 +29,8 @@ const RoomSearchCard = (props: RoomSearchCardProps) => {
   const setDefDateOfStay = () => {
     if (defaultValues) {
       return {
-        arrival: formattingDate(defaultValues[0]),
-        departure: formattingDate(defaultValues[1]),
+        arrival: defaultValues[0].toLocaleDateString(),
+        departure: defaultValues[1].toLocaleDateString(),
       };
     }
     return {
@@ -42,8 +40,8 @@ const RoomSearchCard = (props: RoomSearchCardProps) => {
   };
 
   const [datesOfStay, setDatesOfStay] = useState(setDefDateOfStay);
-  const [numberOfGuestsByGroup, setNumberOfGuestsByGroup] = useState({});
-  const [numberOfGuestsByTitle, setNumberOfGuestsByTitle] = useState({});
+
+  const [numberOfGuests, setNumberOfGuests] = useState<DropdownData>({});
 
   const handleDatesOfStayChange = (dates: DatesOfStay) => {
     setDatesOfStay({
@@ -53,17 +51,16 @@ const RoomSearchCard = (props: RoomSearchCardProps) => {
   };
 
   const handleNumberOfGuestChange = (data: DropdownData) => {
-    setNumberOfGuestsByGroup(data.group);
-    setNumberOfGuestsByTitle(data.title);
+    setNumberOfGuests(data);
   };
 
   const handleButtonClick = () => {
-    onSubmit({ datesOfStay, numberOfGuestsByGroup, numberOfGuestsByTitle });
+    onSubmit({ datesOfStay, numberOfGuests });
   };
 
   const handleButtonKeyDown = ({ code }: React.KeyboardEvent) => {
     if (code === 'Enter') {
-      onSubmit({ datesOfStay, numberOfGuestsByGroup, numberOfGuestsByTitle });
+      onSubmit({ datesOfStay, numberOfGuests });
     }
   };
 

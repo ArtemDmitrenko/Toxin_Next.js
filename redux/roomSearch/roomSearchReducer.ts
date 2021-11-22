@@ -1,6 +1,6 @@
 import InferValueTypes from 'Root/redux/utils';
 
-import { RoomSearchState, DatesOfStay } from './roomSearchActions';
+import { Groups, RoomSearchState, DatesOfStay } from './roomSearchActions';
 import RoomSearchActionTypes from './roomSearchActionTypes';
 import * as actions from './roomSearchActions';
 
@@ -11,11 +11,11 @@ const datesOfStay: DatesOfStay = {
   departure: '',
 };
 
-const numberOfGuestsByTitle: { [key:string]: number } = {};
+const numberOfGuests: Groups = {};
 
 const initialState: RoomSearchState = {
   datesOfStay,
-  numberOfGuestsByTitle,
+  numberOfGuests,
 };
 
 const roomSearchReducer = (state = initialState, action: RoomSearchAction): RoomSearchState => {

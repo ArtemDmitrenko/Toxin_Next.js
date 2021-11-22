@@ -1,8 +1,9 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Calendar from 'react-calendar';
 
+import convertDateToString from 'Root/utils/convertDateToString';
+
 import formattingLabel from './helpers/formattingLabel';
-import formattingDate from './helpers/formattingDate';
 import createShortDateDisplay from './helpers/createShortDateDisplay';
 
 import styles from './dateRange.module.scss';
@@ -40,8 +41,8 @@ const DateRange = (props: DateRangeProps) => {
   const formattedDefaultValues = () => {
     if (defaultValues) {
       return {
-        arrival: formattingDate(defaultValues[0]),
-        departure: formattingDate(defaultValues[1]),
+        arrival: convertDateToString(defaultValues[0]),
+        departure: convertDateToString(defaultValues[1]),
       };
     }
     return {
@@ -57,6 +58,10 @@ const DateRange = (props: DateRangeProps) => {
   const [formattedDates, setDates] = useState(formattedDefaultValues);
   const [calendarValues, setCalendarValues] = useState(defaultValues);
 
+  useEffect(() => {
+    if (onChange) onChange(formattedDates);
+  }, [formattedDates]);
+
   const { isOpen, calView } = calendarState;
 
   const wrapperClass = `${isDouble ? styles.doubleInputWrapper : styles.oneInputWrapper}`;
@@ -68,13 +73,12 @@ const DateRange = (props: DateRangeProps) => {
   const handleCalendarDatesChange = (values: Array<Date>) => {
     const [arrivalDate, departureDate] = values;
     const userSelectedDates = {
-      arrival: formattingDate(arrivalDate),
-      departure: formattingDate(departureDate),
+      arrival: convertDateToString(arrivalDate),
+      departure: convertDateToString(departureDate),
     };
 
     setCalendarValues(values);
     setDates(userSelectedDates);
-    if (onChange) onChange(userSelectedDates);
   };
 
   const handleClearButtonClick = () => {
@@ -82,7 +86,6 @@ const DateRange = (props: DateRangeProps) => {
 
     setCalendarValues(null);
     setDates(resetDatesOfStay);
-    if (onChange) onChange(resetDatesOfStay);
   };
 
   const handleCalendarFocus = () => {
@@ -120,7 +123,11 @@ const DateRange = (props: DateRangeProps) => {
                   type="text"
                   placeholder={placeholder}
                   readOnly
-                  value={formattedDates.arrival}
+                  value={
+                    formattedDates.arrival
+                      ? (new Date(formattedDates.arrival)).toLocaleDateString()
+                      : formattedDates.arrival
+                  }
                   tabIndex={-1}
                 />
                 <div className={arrowClasses} />
@@ -134,7 +141,11 @@ const DateRange = (props: DateRangeProps) => {
                   type="text"
                   placeholder={placeholder}
                   readOnly
-                  value={formattedDates.departure}
+                  value={
+                    formattedDates.departure
+                      ? (new Date(formattedDates.departure)).toLocaleDateString()
+                      : formattedDates.departure
+                  }
                   tabIndex={-1}
                 />
                 <div className={arrowClasses} />

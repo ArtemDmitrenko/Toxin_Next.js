@@ -1,10 +1,9 @@
 import { useAppDispatch } from 'Root/redux/hooks';
-
-import RoomSearchCard, { RoomSearchCardData } from 'Components/RoomSearchCard/RoomSearchCard';
 import addDaysToDate from 'Root/utils/addDaysToDate';
+import { setRoomSearchData } from 'Root/redux/roomSearch/roomSearchActions';
 import { DropdownConfig } from 'Components/Dropdown/Dropdown';
 import { DateRangeConfig } from 'Components/DateRange/DateRange';
-import { setRoomSearchData } from 'Root/redux/roomSearch/roomSearchActions';
+import RoomSearchCard, { RoomSearchCardData } from 'Components/RoomSearchCard/RoomSearchCard';
 
 import styles from './backgroundWithSlogan.module.scss';
 
@@ -26,7 +25,7 @@ const BackgroundWithSlogan = () => {
   const handleSubmit = (data: RoomSearchCardData) => {
     const roomSearchState = {
       datesOfStay: data.datesOfStay,
-      numberOfGuestsByTitle: data.numberOfGuestsByTitle,
+      numberOfGuests: data.numberOfGuests,
     };
     dispatch(setRoomSearchData(roomSearchState));
   };

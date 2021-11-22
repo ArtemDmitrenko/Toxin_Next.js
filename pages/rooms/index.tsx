@@ -1,12 +1,12 @@
 import { useState } from 'react';
-import { useAppSelector, useAppDispatch } from 'Root/redux/hooks';
 
+import { useAppSelector, useAppDispatch } from 'Root/redux/hooks';
 import { DropdownConfig } from 'Root/components/Dropdown/Dropdown';
+import addDaysToDate from 'Root/utils/addDaysToDate';
+import { setRoomSearchData } from 'Root/redux/roomSearch/roomSearchActions';
 import Layout from 'Components/Layout/Layout';
 import SearchFilter, { SearchFilterState } from 'Components/SearchFilter/SearchFilter';
 import Pagination from 'Components/Pagination/Pagination';
-import addDaysToDate from 'Root/utils/addDaysToDate';
-import { setRoomSearchData } from 'Root/redux/roomSearch/roomSearchActions';
 import formattingDate from 'Components/DateRange/helpers/formattingDate';
 
 import styles from './index.module.scss';
@@ -33,6 +33,8 @@ const guestDropdown: DropdownConfig = [
 ];
 
 const rangeSlider = {
+  min: 0,
+  max: 15000,
   valueFrom: 5000,
   valueTo: 10000,
 };
@@ -40,16 +42,16 @@ const rangeSlider = {
 const checkboxRules = [
   {
     title: 'Можно курить',
-    name: 'isSmoke',
+    name: 'allowSmoke',
   },
   {
     title: 'Можно с питомцами',
-    name: 'isPets',
+    name: 'allowPets',
     isChecked: true,
   },
   {
     title: 'Можно пригласить гостей (до 10 человек)',
-    name: 'isGuests',
+    name: 'allowGuests',
     isChecked: true,
   },
 ];
@@ -128,24 +130,19 @@ const checkboxDropdown = {
 const Rooms = () => {
   const roomSearch = useAppSelector((state) => state.roomSearch);
   const { datesOfStay } = roomSearch;
+  const { numberOfGuests } = roomSearch;
   const { arrival, departure } = datesOfStay;
-  const { numberOfGuestsByTitle }: { [key:string]: number } = roomSearch;
 
   const dispatch = useAppDispatch();
 
+  const [filter, setFilter] = useState(false);
+  const [filterConstraints, setFilterConstraints] = useState<SearchFilterState>();
+
   const getGuestDropdown = () => {
-    if (numberOfGuestsByTitle) {
-      Object.entries(numberOfGuestsByTitle).forEach(([groupName, value]) => {
-        guestDropdown.map((item) => {
-          if (item.title === groupName) {
-            // eslint-disable-next-line no-param-reassign
-            item.defaultValue = value;
-            return item;
-          }
-          return item;
-        });
-      });
-      return guestDropdown;
+    if (numberOfGuests.adults) {
+      guestDropdown[0].defaultValue = numberOfGuests.adults.items.item0.value;
+      guestDropdown[1].defaultValue = numberOfGuests.adults.items.item1.value;
+      guestDropdown[2].defaultValue = numberOfGuests.babies.items.item0.value;
     }
     return guestDropdown;
   };
@@ -187,17 +184,17 @@ const Rooms = () => {
       roomSearchState = {
         datesOfStay: filterDatesOfStay,
       };
+      dispatch(setRoomSearchData(roomSearchState));
     }
     if (data.guestsDropdown) {
       roomSearchState = {
-        numberOfGuestsByGroup: data.guestsDropdown?.group,
-        numberOfGuestsByTitle: data.guestsDropdown?.title,
+        numberOfGuests: data.guestsDropdown,
       };
+      dispatch(setRoomSearchData(roomSearchState));
     }
-    dispatch(setRoomSearchData(roomSearchState));
-  };
 
-  const [filter, setFilter] = useState(false);
+    setFilterConstraints(data);
+  };
 
   const handleFilterToggle = () => { setFilter((prevState) => !prevState); };
 
@@ -235,7 +232,7 @@ const Rooms = () => {
         </div>
         <div className={styles.rooms}>
           <h1 className={styles.title}>Номера, которые мы для вас подобрали</h1>
-          <Pagination limit={12} />
+          <Pagination limit={12} filterConstraints={filterConstraints} />
         </div>
       </div>
     </Layout>

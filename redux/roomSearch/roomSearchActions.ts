@@ -1,5 +1,17 @@
 import RoomSearchActionTypes from './roomSearchActionTypes';
 
+type Groups = {
+  [key: string]: {
+    wordforms: [string, string, string],
+    items: {
+      [key: string]: {
+        title: string,
+        value: number,
+      },
+    },
+  },
+};
+
 type DatesOfStay = {
   arrival: string,
   departure: string,
@@ -7,7 +19,7 @@ type DatesOfStay = {
 
 type RoomSearchState = {
   datesOfStay: DatesOfStay,
-  numberOfGuestsByTitle: { [key:string]: number },
+  numberOfGuests: Groups,
 };
 
 const setRoomSearchData = (payload: RoomSearchState) => (<const>{
@@ -15,5 +27,5 @@ const setRoomSearchData = (payload: RoomSearchState) => (<const>{
   payload,
 });
 
-export type { RoomSearchState, DatesOfStay };
+export type { RoomSearchState, DatesOfStay, Groups };
 export { setRoomSearchData };

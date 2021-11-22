@@ -2,12 +2,13 @@ import { useEffect } from 'react';
 import { DocumentData, QueryDocumentSnapshot } from '@firebase/firestore';
 
 import convertNumToWordform from 'Root/utils/convertNumToWordform';
-import { requestRooms } from 'Root/redux/rooms/roomsActions';
+import scrollToTop from 'Root/utils/scrollToTop';
+import { requestRooms, setCurrentPage } from 'Root/redux/rooms/roomsActions';
 import { useAppDispatch, useAppSelector } from 'Root/redux/hooks';
 
+import { SearchFilterState } from 'Components/SearchFilter/SearchFilter';
 import RoomCard from 'Components/RoomCard/RoomCard';
 import LoadingSpinner from 'Components/LoadingSpinner/LoadingSpinner';
-import Reference from 'Components/Reference/Reference';
 
 import calcAmountReviews from './helpers/calcAmountReviews';
 import calcAmountStars from './helpers/calcAmountStars';
@@ -16,11 +17,12 @@ import styles from './pagination.module.scss';
 
 type PaginationProps = {
   limit: number,
+  filterConstraints?: SearchFilterState,
   onChange?: (pageNumber: number) => void
 };
 
 const Pagination = (props: PaginationProps) => {
-  const { limit, onChange } = props;
+  const { limit, onChange, filterConstraints } = props;
 
   const dispatch = useAppDispatch();
   const roomsStore = useAppSelector((store) => store.rooms);
@@ -50,23 +52,67 @@ const Pagination = (props: PaginationProps) => {
   };
 
   useEffect(() => {
-    dispatch(requestRooms({ limit }));
-  }, []);
+    if (!filterConstraints) return;
 
-  const handlePageClick = () => {
-    if (roomsStore.currentPages > roomsStore.totalPages) return;
+    dispatch(requestRooms({ limit, filterConstraints }));
+  }, [filterConstraints]);
 
-    dispatch(requestRooms({
-      limit,
-      endDataPoint: roomsStore.rooms[roomsStore.rooms.length - 1],
-    }));
+  const stylesButton = (isActive: boolean) => {
+    const style: Array<string> = [styles.button];
 
-    if (onChange) onChange(roomsStore.currentPages);
+    if (isActive) style.push(styles.buttonActive);
+
+    return style.join(' ');
   };
 
-  const stylesPagination = () => (
-    `${styles.pagination} ${roomsStore.currentPages === roomsStore.totalPages ? styles.paginationHidden : ''}`
-  );
+  const stylesNextButton = () => {
+    const style = [styles.button, styles.buttonToggle, styles.buttonNext];
+
+    if (roomsStore.currentPage >= roomsStore.totalPages) style.push(styles.hide);
+
+    return style.join(' ');
+  };
+
+  const stylesPrevButton = () => {
+    const style = [styles.button, styles.buttonToggle, styles.buttonPrev];
+
+    if (roomsStore.currentPage <= 1) style.push(styles.hide);
+
+    return style.join(' ');
+  };
+
+  const handlePageClick = (newPage: number) => {
+    const newPageIsValid = newPage <= roomsStore.totalPages && newPage >= 1;
+
+    if (!newPageIsValid) return;
+
+    dispatch(setCurrentPage({ newCurrentPage: newPage }));
+
+    if (window && document) scrollToTop();
+
+    if (onChange) onChange(roomsStore.currentPage);
+  };
+
+  const generatePagesRefs = () => {
+    const elements: Array<JSX.Element> = [];
+
+    if (roomsStore.totalPages > 1) {
+      for (let i = 0; i < roomsStore.totalPages; i += 1) {
+        elements.push(
+          <button
+            type="button"
+            onClick={() => { handlePageClick(i + 1); }}
+            className={stylesButton(i + 1 === roomsStore.currentPage)}
+            key={i}
+          >
+            {i + 1}
+          </button>,
+        );
+      }
+    }
+
+    return elements;
+  };
 
   return (
     roomsStore.loadingInit ? (
@@ -74,30 +120,35 @@ const Pagination = (props: PaginationProps) => {
     ) : (
       <>
         <ul className={styles.list}>
-          {roomsStore.rooms && convertSnapshotToJSX(roomsStore.rooms)}
+          {roomsStore.rooms.length > 0
+            && convertSnapshotToJSX(roomsStore.rooms[roomsStore.currentPage - 1])}
         </ul>
-        <div className={stylesPagination()}>
-          {
-            roomsStore.loadingAdditional ? (
-              <LoadingSpinner />
-            ) : (
-              <Reference
-                isButton
-                buttonType="button"
-                text={`Показать еще
-                (${roomsStore.currentPages}
-                  ${convertNumToWordform(roomsStore.currentPages, [
-                  'страница',
-                  'страницы',
-                  'страниц',
-                ])} из 
-                ${roomsStore.totalPages})`}
-                type="bordered"
-                size="big"
-                onClick={handlePageClick}
-              />
-            )
-          }
+        {!roomsStore.totalPages && (
+          <p> По вашему запросу ничего не найдено </p>
+        )}
+        <div className={styles.wrapper}>
+          <div className={styles.pagesNavigation}>
+            <button
+              type="button"
+              className={stylesPrevButton()}
+              onClick={() => { handlePageClick(roomsStore.currentPage - 1); }}
+            />
+            {generatePagesRefs()}
+            <button
+              type="button"
+              className={stylesNextButton()}
+              onClick={() => { handlePageClick(roomsStore.currentPage + 1); }}
+            />
+          </div>
+          <p className={styles.paragraph}>
+            {roomsStore.rooms[roomsStore.currentPage - 1] && (
+              `${limit * (roomsStore.currentPage - 1) + 1}
+              – ${limit * (roomsStore.currentPage - 1)
+              + roomsStore.rooms[roomsStore.currentPage - 1].length}
+              из ${roomsStore.size} 
+              ${convertNumToWordform(roomsStore.size, ['вариант', 'варианта', 'вариантов'])} аренды`
+            )}
+          </p>
         </div>
       </>
     )
