@@ -19,8 +19,7 @@ import Firebase, { User } from 'Root/api/Firebase';
 type RequestToAuth = AuthGeneralAction<AuthActionsTypes, LoginUserRequest>;
 
 const getAuthChannel = async () => eventChannel((emit) => {
-  const onAuthStateChanged = Firebase.getOnAuthStateChanged();
-  const unsubscribe = onAuthStateChanged(Firebase.auth, (user) => emit({ user }));
+  const unsubscribe = Firebase.onAuthStateChanged((user) => emit({ user }));
   return unsubscribe;
 });
 

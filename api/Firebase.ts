@@ -83,7 +83,7 @@ abstract class Firebase {
     password: string,
   ) => signInWithEmailAndPassword(this.auth, email, password);
 
-  public static getOnAuthStateChanged = () => onAuthStateChanged;
+  public static onAuthStateChanged = onAuthStateChanged.bind(this, this.auth);
 
   public static sendPasswordRecovery = async (email: string) => {
     await sendPasswordResetEmail(this.auth, email);
