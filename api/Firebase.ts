@@ -11,6 +11,8 @@ import {
   Query,
   QueryDocumentSnapshot,
   DocumentData,
+  updateDoc,
+  arrayUnion,
 } from '@firebase/firestore';
 import {
   getFirestore,
@@ -118,6 +120,22 @@ abstract class Firebase {
     const snapshot = await getDocs(request);
 
     return snapshot.docs;
+  };
+
+  public static addComment = async (
+    userId: string,
+    text: string,
+    roomNumber: string,
+  ) => {
+    const docRef = doc(this.firestore, `rooms/${roomNumber}`);
+    await updateDoc(docRef, {
+      commentaries: arrayUnion({
+        userId,
+        date: new Date(),
+        text,
+        likes: [],
+      }),
+    });
   };
 
   public static getRoom = async (roomNumber: string) => {
