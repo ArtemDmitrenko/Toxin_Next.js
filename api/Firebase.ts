@@ -13,11 +13,14 @@ import {
   Query,
   QueryDocumentSnapshot,
   DocumentData,
-  doc,
-  setDoc,
+} from '@firebase/firestore';
+import {
   getFirestore,
   collection,
   getDocs,
+  getDoc,
+  setDoc,
+  doc,
   query,
   orderBy,
   startAfter,
@@ -119,6 +122,12 @@ abstract class Firebase {
     const snapshot = await getDocs(request);
 
     return snapshot.docs;
+  };
+
+  public static getRoom = async (roomNumber: string) => {
+    const room = await getDoc(doc(this.firestore, 'rooms', roomNumber));
+
+    return room;
   };
 
   public static logOut = async () => { signOut(this.auth); };

@@ -4,6 +4,8 @@ import convertNumToWordform from 'Root/utils/convertNumToWordform';
 
 import styles from './impressions.module.scss';
 
+const CIRCLE_LENGTH = 364.424672;
+
 type Union = 'amazing' | 'good' | 'satisfactorily' | 'bad';
 
 type ImpressionsProps = {
@@ -21,15 +23,12 @@ const Impressions = (props: ImpressionsProps) => {
     bad = 0,
   } = props;
 
-  const lengthOfCircle: number = 364.424672;
-  const sum: number = Object.values(props).reduce(
-    (previousValue, currentValue) => previousValue + currentValue,
-  );
+  const sum: number = amazing + good + satisfactorily + bad;
 
   const [currentReviewsValue, setCurrentReviewsValue] = useState<number>(sum);
   const [activeImpression, setActiveImpression] = useState<string | null>(null);
 
-  const calcLengthOfOneReview = (number: number): number => (lengthOfCircle * number) / sum;
+  const calcLengthOfOneReview = (number: number): number => (CIRCLE_LENGTH * number) / sum;
   const goodInPixels = calcLengthOfOneReview(good);
   const amazingInPixels = calcLengthOfOneReview(amazing);
   const satisfactorilyInPixels = calcLengthOfOneReview(satisfactorily);
@@ -82,7 +81,7 @@ const Impressions = (props: ImpressionsProps) => {
               cx="50%"
               cy="50%"
               stroke="url(#linear-gradient-green)"
-              strokeDasharray={`${goodInPixels - 2} ${lengthOfCircle}`}
+              strokeDasharray={`${goodInPixels - 2} ${CIRCLE_LENGTH}`}
               strokeDashoffset="-1"
             />
             <circle
@@ -91,7 +90,7 @@ const Impressions = (props: ImpressionsProps) => {
               cx="50%"
               cy="50%"
               stroke="url(#linear-gradient-yellow)"
-              strokeDasharray={`${amazingInPixels - 2} ${lengthOfCircle}`}
+              strokeDasharray={`${amazingInPixels - 2} ${CIRCLE_LENGTH}`}
               strokeDashoffset={`${-(goodInPixels + 1)}`}
             />
             <circle
@@ -100,7 +99,7 @@ const Impressions = (props: ImpressionsProps) => {
               cx="50%"
               cy="50%"
               stroke="url(#linear-gradient-purple)"
-              strokeDasharray={`${satisfactorilyInPixels - 2} ${lengthOfCircle}`}
+              strokeDasharray={`${satisfactorilyInPixels - 2} ${CIRCLE_LENGTH}`}
               strokeDashoffset={`${-(goodInPixels + amazingInPixels + 1)}`}
             />
             <circle
@@ -109,7 +108,7 @@ const Impressions = (props: ImpressionsProps) => {
               cx="50%"
               cy="50%"
               stroke="url(#linear-gradient-black)"
-              strokeDasharray={`${badInPixels - 2} ${lengthOfCircle}`}
+              strokeDasharray={`${badInPixels - 2} ${CIRCLE_LENGTH}`}
               strokeDashoffset={`${-(goodInPixels + amazingInPixels + satisfactorilyInPixels + 1)}`}
             />
           </svg>
