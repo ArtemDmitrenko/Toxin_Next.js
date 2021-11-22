@@ -27,6 +27,7 @@ import {
 } from 'firebase/firestore';
 
 import { SignUpCardData } from 'Root/components/SignUpCard/SignUpCard';
+import { CommentProps } from 'Components/Comment/Comment';
 
 import { SearchFilterState } from 'Root/components/SearchFilter/SearchFilter';
 
@@ -92,6 +93,12 @@ abstract class Firebase {
     await sendPasswordResetEmail(this.auth, email);
   };
 
+  public static getRoom = async (roomNumber: string) => {
+    const room = await getDoc(doc(this.firestore, 'rooms', roomNumber));
+
+    return room;
+  };
+
   public static getRooms = async (props: {
     documentsLimit: number,
     documentPoint?: QueryDocumentSnapshot<DocumentData>,
@@ -119,6 +126,16 @@ abstract class Firebase {
     };
   };
 
+  public static updateLike = async (
+    roomNumber: string,
+    comments: Array<CommentProps>,
+  ) => {
+    const docRef = doc(this.firestore, `rooms/${roomNumber}`);
+    await updateDoc(docRef, {
+      commentaries: comments,
+    });
+  };
+
   public static addComment = async (
     userId: string,
     text: string,
@@ -135,10 +152,11 @@ abstract class Firebase {
     });
   };
 
-  public static getRoom = async (roomNumber: string) => {
-    const room = await getDoc(doc(this.firestore, 'rooms', roomNumber));
+  public static getUsers = async () => {
+    const usersQuery = query(collection(this.firestore, 'users'));
+    const users = await getDocs(usersQuery);
 
-    return room;
+    return users.docs;
   };
 
   public static logOut = async () => { signOut(this.auth); };
