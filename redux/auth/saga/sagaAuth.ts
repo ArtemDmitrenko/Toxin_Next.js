@@ -60,7 +60,7 @@ function* checkAuthWorker() {
 
     yield authSuccess(user);
   } catch ({ code }) {
-    yield authFailed(String(code));
+    if (code !== undefined) yield authFailed(String(code));
   }
 }
 
