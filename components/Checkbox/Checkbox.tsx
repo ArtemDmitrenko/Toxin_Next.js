@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 import styles from './checkbox.module.scss';
 
@@ -28,12 +28,12 @@ const Checkbox = (props: CheckboxProps) => {
 
   const [checked, setChecked] = useState(isChecked);
 
+  useEffect(() => {
+    if (onChange) onChange({ name, isChecked: checked });
+  }, [checked]);
+
   const handleCheckboxChange = () => {
     setChecked(!checked);
-
-    if (onChange) {
-      onChange({ name, isChecked: !checked });
-    }
   };
 
   const stylesTitle = () => (

@@ -1,14 +1,14 @@
 import { useState } from 'react';
 
 import Reference from 'Components/Reference/Reference';
-import Dropdown, { DropdownConfig } from 'Components/Dropdown/Dropdown';
+import Dropdown, { DropdownConfig, DropdownData } from 'Components/Dropdown/Dropdown';
 import DateRange, { DateRangeConfig, DatesOfStay } from 'Components/DateRange/DateRange';
 
 import styles from './roomSearchCard.module.scss';
 
 type RoomSearchCardData = {
   datesOfStay: DatesOfStay,
-  numberOfGuests: { [key:string]: number },
+  numberOfGuests: DropdownData,
 };
 
 type RoomSearchCardProps = {
@@ -27,7 +27,7 @@ const RoomSearchCard = (props: RoomSearchCardProps) => {
   } = dateRangeConfig;
 
   const [datesOfStay, setDatesOfStay] = useState({ arrival: '', departure: '' });
-  const [numberOfGuests, setNumberOfGuests] = useState({});
+  const [numberOfGuests, setNumberOfGuests] = useState<DropdownData>({});
 
   const handleDatesOfStayChange = (dates: DatesOfStay) => {
     setDatesOfStay({
@@ -37,7 +37,7 @@ const RoomSearchCard = (props: RoomSearchCardProps) => {
     });
   };
 
-  const handleNumberOfGuestChange = (data: { [key:string]: number }) => {
+  const handleNumberOfGuestChange = (data: DropdownData) => {
     setNumberOfGuests(data);
   };
 

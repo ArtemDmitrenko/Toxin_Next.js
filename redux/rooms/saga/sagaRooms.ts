@@ -7,59 +7,42 @@ import {
   fetchRooms,
   showLoadingInit,
   hideLoadingInit,
-  showLoadingAdditional,
-  hideLoadingAdditional,
 } from 'Root/redux/rooms/roomsActions';
 import RoomsActionTypes from 'Root/redux/rooms/roomsActionTypes';
 import Firebase from 'Root/api/Firebase';
+import { SearchFilterState } from 'Components/SearchFilter/SearchFilter';
 
 type RequestInit = RoomsGeneralAction<RoomsActionTypes.REQUEST_ROOMS, RequestRoomsType>;
 
 async function fetchFirebaseRooms(props: {
   documentsLimit: number,
-  documentPoint?: QueryDocumentSnapshot<DocumentData>,
+  filterConstraints?: SearchFilterState,
 }) {
-  const snapshot = await Firebase.getRooms(props);
+  const { documents, length } = await Firebase.getRooms(props);
 
-  const totalItems = await Firebase.getFullSize();
-
-  return [snapshot, totalItems];
+  return [documents, length];
 }
 
 function* roomsWorker({ payload }: RequestInit) {
-  if (payload.endDataPoint) {
-    yield put(showLoadingAdditional());
+  yield put(showLoadingInit());
 
-    const [snapshot, size]: [Array<QueryDocumentSnapshot<DocumentData>>, number] = yield call(
-      fetchFirebaseRooms,
-      {
-        documentsLimit: payload.limit,
-        documentPoint: payload.endDataPoint,
-      },
-    );
+  const [snapshot, size]: [
+    Array<Array<QueryDocumentSnapshot<DocumentData>>>,
+    number,
+  ] = yield call(
+    fetchFirebaseRooms,
+    {
+      documentsLimit: payload.limit,
+      filterConstraints: payload.filterConstraints,
+    },
+  );
 
-    yield put(fetchRooms({
-      snapshot,
-      size,
-      limit: payload.limit,
-      isAddition: true,
-    }));
-    yield put(hideLoadingAdditional());
-  } else {
-    yield put(showLoadingInit());
-
-    const [snapshot, size]: [Array<QueryDocumentSnapshot<DocumentData>>, number] = yield call(
-      fetchFirebaseRooms, { documentsLimit: payload.limit },
-    );
-
-    yield put(fetchRooms({
-      snapshot,
-      limit: payload.limit,
-      size,
-      isAddition: false,
-    }));
-    yield put(hideLoadingInit());
-  }
+  yield put(fetchRooms({
+    snapshot,
+    limit: payload.limit,
+    size,
+  }));
+  yield put(hideLoadingInit());
 }
 
 function* roomsWatcher() {

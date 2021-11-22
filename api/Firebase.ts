@@ -10,13 +10,13 @@ import {
   signOut,
 } from 'firebase/auth';
 import {
-  Query,
   QueryDocumentSnapshot,
   DocumentData,
-  getFirestore,
-  collection,
+  QueryConstraint,
   updateDoc,
   arrayUnion,
+  getFirestore,
+  collection,
   getDocs,
   getDoc,
   setDoc,
@@ -24,12 +24,15 @@ import {
   query,
   orderBy,
   startAfter,
-  limit,
 } from 'firebase/firestore';
 
 import { SignUpCardData } from 'Root/components/SignUpCard/SignUpCard';
 import { CommentProps } from 'Components/Comment/Comment';
 
+import { SearchFilterState } from 'Root/components/SearchFilter/SearchFilter';
+
+import filterDocumentsByConstraints from './helpers/filterDocumentsByConstraints';
+import separateToPages from './helpers/separateToPages';
 import firebaseCfg from './firebaseConfig';
 
 abstract class Firebase {
@@ -96,39 +99,31 @@ abstract class Firebase {
     return room;
   };
 
-  public static getFullSize = async () => {
-    const request = query(collection(this.firestore, 'rooms'));
-    const snapshot = await getDocs(request);
-
-    return snapshot.size;
-  };
-
   public static getRooms = async (props: {
     documentsLimit: number,
-    documentPoint?: QueryDocumentSnapshot<DocumentData>
+    documentPoint?: QueryDocumentSnapshot<DocumentData>,
+    filterConstraints?: SearchFilterState,
   }) => {
-    const { documentsLimit, documentPoint } = props;
+    const { documentsLimit, documentPoint, filterConstraints } = props;
 
-    let request: Query<DocumentData>;
+    const queryParams: Array<QueryConstraint> = [
+      orderBy('cost', 'desc'),
+    ];
 
     if (documentPoint) {
-      request = query(
-        collection(this.firestore, 'rooms'),
-        orderBy('cost', 'desc'),
-        limit(documentsLimit),
-        startAfter(documentPoint),
-      );
-    } else {
-      request = query(
-        collection(this.firestore, 'rooms'),
-        orderBy('cost', 'desc'),
-        limit(documentsLimit),
-      );
+      queryParams.push(startAfter(documentPoint));
     }
 
-    const snapshot = await getDocs(request);
+    const snapshot = await getDocs(query(collection(this.firestore, 'rooms'), ...queryParams));
 
-    return snapshot.docs;
+    const documents = snapshot.docs;
+
+    const filteredDocuments = filterDocumentsByConstraints(documents, filterConstraints);
+
+    return {
+      documents: separateToPages(filteredDocuments, documentsLimit),
+      length: filteredDocuments.length,
+    };
   };
 
   public static updateLike = async (
