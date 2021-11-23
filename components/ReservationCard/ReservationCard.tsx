@@ -203,7 +203,7 @@ const ReservationCard = (props: ReservationCardProps) => {
             Для бронирования необходимо
             {' '}
             <b>
-              <Link href="/auth/sign-in">
+              <Link href="/auth/log-in">
                 <a className={styles.link} href="replace">
                   войти в&nbsp;аккаунт
                 </a>

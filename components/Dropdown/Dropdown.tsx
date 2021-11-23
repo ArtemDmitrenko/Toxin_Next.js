@@ -309,5 +309,5 @@ const Dropdown = (props: DropdownProps) => {
   );
 };
 
-export type { DropdownConfig, DropdownData };
+export type { DropdownConfig, DropdownData, Groups };
 export default Dropdown;

@@ -8,12 +8,14 @@ import likeReducer, { LikeState } from './like/likeReducer';
 import roomReducer, { RoomState } from './room/roomReducer';
 import signUpReducer, { SignUpState } from './signUp/signUpReducer';
 import reservationReducer, { ReservationState } from './reservation/reservationReducer';
+import roomSearchReducer, { RoomSearchState } from './roomSearch/roomSearchReducer';
 import usersReducer, { UsersState } from './users/usersReducer';
 
 type StoreState = {
   auth: AuthState,
   passwordRecovery: PasswordRecoveryState,
   rooms: RoomsState,
+  roomSearch: RoomSearchState,
   comment: CommentState,
   room: RoomState,
   signUp: SignUpState,
@@ -31,6 +33,7 @@ const rootReducer = combineReducers<StoreState>({
   room: roomReducer,
   signUp: signUpReducer,
   reservation: reservationReducer,
+  roomSearch: roomSearchReducer,
   users: usersReducer,
 });
 
