@@ -1,21 +1,7 @@
+import { Groups } from 'Components/Dropdown/Dropdown';
+import { DatesOfStay } from 'Components/DateRange/DateRange';
+
 import RoomSearchActionTypes from './roomSearchActionTypes';
-
-type Groups = {
-  [key: string]: {
-    wordforms: [string, string, string],
-    items: {
-      [key: string]: {
-        title: string,
-        value: number,
-      },
-    },
-  },
-};
-
-type DatesOfStay = {
-  arrival: string,
-  departure: string,
-};
 
 type RoomSearchState = {
   datesOfStay: DatesOfStay,
