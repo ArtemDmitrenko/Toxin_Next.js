@@ -7,7 +7,6 @@ import { clearRoom, requestRoom } from 'Root/redux/room/roomActions';
 import { likeUpdate } from 'Root/redux/like/likeActions';
 import { useAppDispatch, useAppSelector } from 'Root/redux/hooks';
 import { usersRequest } from 'Root/redux/users/usersActions';
-import convertDateToString from 'Root/utils/convertDateToString';
 import addDaysToDate from 'Root/utils/addDaysToDate';
 import FirebaseDocumentType from 'Root/api/FirebaseDocumentType';
 
@@ -21,6 +20,9 @@ import Impressions from 'Components/Impressions/Impressions';
 import RoomInformation from 'Components/RoomInformation/RoomInformation';
 import ReservationCard, { Service } from 'Components/ReservationCard/ReservationCard';
 import rulesList from 'Components/RulesList/rulesList.json';
+import formattingDate from 'Components/DateRange/helpers/formattingDate';
+import { setRoomSearchData } from 'Root/redux/roomSearch/roomSearchActions';
+import { DatesOfStay } from 'Components/DateRange/DateRange';
 import LoadingSpinner from 'Components/LoadingSpinner/LoadingSpinner';
 
 import styles from './room.module.scss';
@@ -34,19 +36,19 @@ const guestDropdown: DropdownConfig = [
     title: 'взрослые',
     group: 'adults',
     wordforms: ['гость', 'гостя', 'гостей'],
-    defaultValue: 2,
+    defaultValue: 0,
   },
   {
     title: 'дети',
     group: 'adults',
     wordforms: ['гость', 'гостя', 'гостей'],
-    defaultValue: 1,
+    defaultValue: 0,
   },
   {
     title: 'младенцы',
     group: 'babies',
     wordforms: ['младенец', 'младенца', 'младенцев'],
-    defaultValue: 1,
+    defaultValue: 0,
   },
 ];
 
@@ -63,6 +65,11 @@ const Room = (props: RoomProps) => {
 
   const data: FirebaseDocumentType = useAppSelector((store) => store.room);
 
+  const roomSearch = useAppSelector((state) => state.roomSearch);
+  const { datesOfStay } = roomSearch;
+  const { arrival, departure } = datesOfStay;
+  const { numberOfGuests } = roomSearch;
+
   useEffect(() => {
     dispatch(requestRoom({ roomNumber }));
     dispatch(usersRequest());
@@ -71,6 +78,38 @@ const Room = (props: RoomProps) => {
       dispatch(clearRoom());
     };
   }, []);
+
+  const setDefDateRange = (): DatesOfStay => {
+    if (arrival && departure) {
+      const usFormatDateArrival = arrival.split('.').reverse().join('-');
+      const usFormatDateDeparture = departure.split('.').reverse().join('-');
+      return {
+        arrival: usFormatDateArrival,
+        departure: usFormatDateDeparture,
+      };
+    }
+    const roomSearchState = {
+      ...roomSearch,
+      datesOfStay: {
+        arrival: formattingDate(new Date()),
+        departure: formattingDate(addDaysToDate(new Date(), 3)),
+      },
+    };
+    dispatch(setRoomSearchData(roomSearchState));
+    return {
+      arrival: formattingDate(new Date()).split('.').reverse().join('-'),
+      departure: formattingDate(addDaysToDate(new Date(), 3)).split('.').reverse().join('-'),
+    };
+  };
+
+  const getGuestDropdown = (): DropdownConfig => {
+    if (numberOfGuests.adults) {
+      guestDropdown[0].defaultValue = roomSearch.numberOfGuests.adults.items.item0.value;
+      guestDropdown[1].defaultValue = roomSearch.numberOfGuests.adults.items.item1.value;
+      guestDropdown[2].defaultValue = roomSearch.numberOfGuests.babies.items.item0.value;
+    }
+    return guestDropdown;
+  };
 
   const handleChangeComment = (comments: Array<CommentProps>) => {
     dispatch(likeUpdate({ roomNumber, comments }));
@@ -125,11 +164,8 @@ const Room = (props: RoomProps) => {
               roomNumber={data.room}
               level={data.level}
               cost={data.cost}
-              datesOfStay={{
-                arrival: convertDateToString(new Date()),
-                departure: convertDateToString(addDaysToDate(new Date(), 3)),
-              }}
-              guests={guestDropdown}
+              datesOfStay={setDefDateRange()}
+              guests={getGuestDropdown()}
               service={service}
               onSubmit={() => { }}
             />

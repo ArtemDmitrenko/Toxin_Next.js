@@ -1,38 +1,34 @@
 import { useState } from 'react';
 
+import { useAppSelector, useAppDispatch } from 'Root/redux/hooks';
 import { DropdownConfig } from 'Root/components/Dropdown/Dropdown';
+import addDaysToDate from 'Root/utils/addDaysToDate';
+import { setRoomSearchData } from 'Root/redux/roomSearch/roomSearchActions';
 import Layout from 'Components/Layout/Layout';
 import SearchFilter, { SearchFilterState } from 'Components/SearchFilter/SearchFilter';
 import Pagination from 'Components/Pagination/Pagination';
-import addDaysToDate from 'Root/utils/addDaysToDate';
+import formattingDate from 'Components/DateRange/helpers/formattingDate';
 
 import styles from './index.module.scss';
-
-const dateRange = {
-  defaultValues: [
-    new Date(),
-    addDaysToDate(new Date(), 3),
-  ],
-};
 
 const guestDropdown: DropdownConfig = [
   {
     title: 'взрослые',
     group: 'adults',
     wordforms: ['гость', 'гостя', 'гостей'],
-    defaultValue: 2,
+    defaultValue: 0,
   },
   {
     title: 'дети',
     group: 'adults',
     wordforms: ['гость', 'гостя', 'гостей'],
-    defaultValue: 1,
+    defaultValue: 0,
   },
   {
     title: 'младенцы',
     group: 'babies',
     wordforms: ['младенец', 'младенца', 'младенцев'],
-    defaultValue: 1,
+    defaultValue: 0,
   },
 ];
 
@@ -132,8 +128,71 @@ const checkboxDropdown = {
 };
 
 const Rooms = () => {
+  const roomSearch = useAppSelector((state) => state.roomSearch);
+  const { datesOfStay } = roomSearch;
+  const { arrival, departure } = datesOfStay;
+  const { numberOfGuests } = roomSearch;
+
+  const dispatch = useAppDispatch();
+
   const [filter, setFilter] = useState(false);
   const [filterConstraints, setFilterConstraints] = useState<SearchFilterState>();
+
+  const getGuestDropdown = () => {
+    if (numberOfGuests.adults) {
+      guestDropdown[0].defaultValue = numberOfGuests.adults.items.item0.value;
+      guestDropdown[1].defaultValue = numberOfGuests.adults.items.item1.value;
+      guestDropdown[2].defaultValue = numberOfGuests.babies.items.item0.value;
+    }
+    return guestDropdown;
+  };
+
+  const setDefDateRange = () => {
+    if (arrival && departure) {
+      return {
+        defaultValues: [
+          new Date(arrival.split('.').reverse().join('-')),
+          new Date(departure.split('.').reverse().join('-')),
+        ],
+      };
+    }
+    const roomSearchState = {
+      ...roomSearch,
+      datesOfStay: {
+        arrival: formattingDate(new Date()),
+        departure: formattingDate(addDaysToDate(new Date(), 3)),
+      },
+    };
+    dispatch(setRoomSearchData(roomSearchState));
+    return {
+      defaultValues: [
+        new Date(),
+        addDaysToDate(new Date(), 3),
+      ],
+    };
+  };
+
+  const handleFilterChange = (data: SearchFilterState) => {
+    let roomSearchState = roomSearch;
+    if (data.dateRange) {
+      const filterDatesOfStay = {
+        arrival: data.dateRange?.arrival,
+        departure: data.dateRange?.departure,
+      };
+      roomSearchState = {
+        datesOfStay: filterDatesOfStay,
+      };
+      dispatch(setRoomSearchData(roomSearchState));
+    }
+    if (data.guestsDropdown) {
+      roomSearchState = {
+        numberOfGuests: data.guestsDropdown,
+      };
+      dispatch(setRoomSearchData(roomSearchState));
+    }
+
+    setFilterConstraints(data);
+  };
 
   const handleFilterToggle = () => { setFilter((prevState) => !prevState); };
 
@@ -149,10 +208,6 @@ const Rooms = () => {
     `${styles.filterButton} ${filter ? styles.filterButtonActive : ''}`
   );
 
-  const handleFilterChange = (data: SearchFilterState) => {
-    setFilterConstraints(data);
-  };
-
   return (
     <Layout title="Rooms">
       <div className={styles.grid}>
@@ -160,8 +215,8 @@ const Rooms = () => {
           <div className={stylesFilter()}>
             <div className={styles.filterWrapper}>
               <SearchFilter
-                dateRangeConfig={dateRange}
-                guestsDropdownConfig={guestDropdown}
+                dateRangeConfig={setDefDateRange()}
+                guestsDropdownConfig={getGuestDropdown()}
                 rangeSliderConfig={rangeSlider}
                 checkboxRulesConfig={checkboxRules}
                 checkboxAvailabilitiesConfig={checkboxAvailabilities}

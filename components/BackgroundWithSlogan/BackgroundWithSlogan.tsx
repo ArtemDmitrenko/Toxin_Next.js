@@ -1,8 +1,9 @@
-import RoomSearchCard from 'Components/RoomSearchCard/RoomSearchCard';
-
+import { useAppDispatch } from 'Root/redux/hooks';
 import addDaysToDate from 'Root/utils/addDaysToDate';
+import { setRoomSearchData } from 'Root/redux/roomSearch/roomSearchActions';
 import { DropdownConfig } from 'Components/Dropdown/Dropdown';
 import { DateRangeConfig } from 'Components/DateRange/DateRange';
+import RoomSearchCard, { RoomSearchCardData } from 'Components/RoomSearchCard/RoomSearchCard';
 
 import styles from './backgroundWithSlogan.module.scss';
 
@@ -18,21 +19,33 @@ const dateRangeConfig: DateRangeConfig = {
   isDouble: true,
 };
 
-const BackgroundWithSlogan = () => (
-  <div className={styles.main}>
-    <div className={styles.wrapper}>
-      <div>
-        <RoomSearchCard
-          guestsDropdownConfig={guestDropdownConfig}
-          dateRangeConfig={dateRangeConfig}
-          onSubmit={() => {}}
-        />
-      </div>
-      <div className={styles.slogan}>
-        <p className={styles.text}>Лучшие номера для вашей работы, отдыха и просто вдохновения</p>
+const BackgroundWithSlogan = () => {
+  const dispatch = useAppDispatch();
+
+  const handleSubmit = (data: RoomSearchCardData) => {
+    const roomSearchState = {
+      datesOfStay: data.datesOfStay,
+      numberOfGuests: data.numberOfGuests,
+    };
+    dispatch(setRoomSearchData(roomSearchState));
+  };
+
+  return (
+    <div className={styles.main}>
+      <div className={styles.wrapper}>
+        <div>
+          <RoomSearchCard
+            guestsDropdownConfig={guestDropdownConfig}
+            dateRangeConfig={dateRangeConfig}
+            onSubmit={handleSubmit}
+          />
+        </div>
+        <div className={styles.slogan}>
+          <p className={styles.text}>Лучшие номера для вашей работы, отдыха и просто вдохновения</p>
+        </div>
       </div>
     </div>
-  </div>
-);
+  );
+};
 
 export default BackgroundWithSlogan;

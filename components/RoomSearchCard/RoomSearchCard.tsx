@@ -26,12 +26,25 @@ const RoomSearchCard = (props: RoomSearchCardProps) => {
     isDouble,
   } = dateRangeConfig;
 
-  const [datesOfStay, setDatesOfStay] = useState({ arrival: '', departure: '' });
+  const setDefDateOfStay = () => {
+    if (defaultValues) {
+      return {
+        arrival: defaultValues[0].toLocaleDateString(),
+        departure: defaultValues[1].toLocaleDateString(),
+      };
+    }
+    return {
+      arrival: '',
+      departure: '',
+    };
+  };
+
+  const [datesOfStay, setDatesOfStay] = useState(setDefDateOfStay);
+
   const [numberOfGuests, setNumberOfGuests] = useState<DropdownData>({});
 
   const handleDatesOfStayChange = (dates: DatesOfStay) => {
     setDatesOfStay({
-      ...datesOfStay,
       arrival: dates.arrival,
       departure: dates.departure,
     });

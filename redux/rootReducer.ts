@@ -7,12 +7,14 @@ import roomsReducer, { RoomsState } from './rooms/roomsReducer';
 import likeReducer, { LikeState } from './like/likeReducer';
 import roomReducer, { RoomState } from './room/roomReducer';
 import signUpReducer, { SignUpState } from './signUp/signUpReducer';
+import roomSearchReducer, { RoomSearchState } from './roomSearch/roomSearchReducer';
 import usersReducer, { UsersState } from './users/usersReducer';
 
 type StoreState = {
   auth: AuthState,
   passwordRecovery: PasswordRecoveryState,
   rooms: RoomsState,
+  roomSearch: RoomSearchState,
   comment: CommentState,
   room: RoomState,
   like: LikeState,
@@ -28,6 +30,7 @@ const rootReducer = combineReducers<StoreState>({
   comment: commentReducer,
   room: roomReducer,
   signUp: signUpReducer,
+  roomSearch: roomSearchReducer,
   users: usersReducer,
 });
 
