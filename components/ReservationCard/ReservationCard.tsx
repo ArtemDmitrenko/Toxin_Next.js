@@ -51,6 +51,7 @@ const ReservationCard = (props: ReservationCardProps) => {
   } = props;
 
   const { isAuth } = useAppSelector((store) => store.auth);
+  const { isSuccessReservation } = useAppSelector((store) => store.reservation);
 
   const [dateRange, setDateRange] = useState({
     arrival: datesOfStay.arrival,
@@ -92,7 +93,8 @@ const ReservationCard = (props: ReservationCardProps) => {
     setNumberOfGuests(data);
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = (e: React.SyntheticEvent) => {
+    e.preventDefault();
     const reservationCardData: ReservationCardData = {
       datesOfStay: dateRange,
       numberOfGuests,
@@ -104,8 +106,31 @@ const ReservationCard = (props: ReservationCardProps) => {
     onSubmit(reservationCardData);
   };
 
+  const showReservationMessage = () => {
+    switch (isSuccessReservation) {
+      case true:
+        return (
+          <div className={styles.warningMessage}>
+            <Message type="success">
+              Ваше бронирование успешно завершено
+            </Message>
+          </div>
+        );
+      case false:
+        return (
+          <div className={styles.warningMessage}>
+            <Message type="warning">
+              К сожалению, в выбранные даты номер уже забронирован. Попробуйте выбрать другие дни
+            </Message>
+          </div>
+        );
+      default:
+        return false;
+    }
+  };
+
   return (
-    <form className={styles.reservationCard}>
+    <form className={styles.reservationCard} onSubmit={handleSubmit}>
       <div className={styles.dataRoom}>
         <div>
           <span className={styles.signNumber}>№</span>
@@ -170,7 +195,6 @@ const ReservationCard = (props: ReservationCardProps) => {
         type="directed"
         size="big"
         text="забронировать"
-        onClick={handleSubmit}
         disabled={!isAuth}
       />
       {!isAuth && (
@@ -189,6 +213,7 @@ const ReservationCard = (props: ReservationCardProps) => {
           </Message>
         </div>
       )}
+      {showReservationMessage()}
     </form>
   );
 };

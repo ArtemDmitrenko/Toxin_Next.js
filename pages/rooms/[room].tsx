@@ -9,6 +9,8 @@ import { useAppDispatch, useAppSelector } from 'Root/redux/hooks';
 import { usersRequest } from 'Root/redux/users/usersActions';
 import addDaysToDate from 'Root/utils/addDaysToDate';
 import FirebaseDocumentType from 'Root/api/FirebaseDocumentType';
+import areDateRangesOverlap from 'Root/utils/areDateRangesOverlap';
+import { makeReservation, failedReservation } from 'Root/redux/reservation/reservationActions';
 
 import { ReviewCardData } from 'Components/ReviewCard/ReviewCard';
 import Layout from 'Components/Layout/Layout';
@@ -18,7 +20,7 @@ import { CommentProps } from 'Components/Comment/Comment';
 import RulesList from 'Components/RulesList/RulesList';
 import Impressions from 'Components/Impressions/Impressions';
 import RoomInformation from 'Components/RoomInformation/RoomInformation';
-import ReservationCard, { Service } from 'Components/ReservationCard/ReservationCard';
+import ReservationCard, { Service, ReservationCardData } from 'Components/ReservationCard/ReservationCard';
 import rulesList from 'Components/RulesList/rulesList.json';
 import formattingDate from 'Components/DateRange/helpers/formattingDate';
 import { setRoomSearchData } from 'Root/redux/roomSearch/roomSearchActions';
@@ -78,6 +80,25 @@ const Room = (props: RoomProps) => {
       dispatch(clearRoom());
     };
   }, []);
+
+  const handleSubmit = async (bookingData: ReservationCardData) => {
+    const { datesOfStay: dates } = bookingData;
+    const reservationData = data.reserved;
+    const isDateRangeOverlaped = areDateRangesOverlap(dates, reservationData);
+    if (isDateRangeOverlaped) {
+      dispatch(failedReservation());
+    } else {
+      const primaryDates = {
+        roomNumber,
+        datesOfStay: {
+          from: new Date(dates.arrival),
+          to: new Date(dates.departure),
+        },
+      };
+      dispatch(makeReservation(primaryDates));
+    }
+    dispatch(requestRoom({ roomNumber }));
+  };
 
   const setDefDateRange = (): DatesOfStay => {
     if (arrival && departure) {
@@ -167,7 +188,7 @@ const Room = (props: RoomProps) => {
               datesOfStay={setDefDateRange()}
               guests={getGuestDropdown()}
               service={service}
-              onSubmit={() => { }}
+              onSubmit={handleSubmit}
             />
           </div>
         </div>

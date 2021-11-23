@@ -10,6 +10,7 @@ import roomsWatcher from './rooms/saga/sagaRooms';
 import likeRequestWatcher from './like/saga/sagaLike';
 import roomWatcher from './room/saga/sagaRoom';
 import userSignUpRequestWatcher from './signUp/saga/sagaSignUp';
+import reservationWatcher from './reservation/saga/sagaReservation';
 import usersRequestWatcher from './users/saga/sagaUsers';
 import addCommentRequestWatcher from './comment/saga/sagaComment';
 import rootReducer from './rootReducer';
@@ -35,6 +36,7 @@ function* rootSaga() {
     addCommentRequestWatcher(),
     roomWatcher(),
     userSignUpRequestWatcher(),
+    reservationWatcher(),
     likeRequestWatcher(),
     usersRequestWatcher(),
   ]);
